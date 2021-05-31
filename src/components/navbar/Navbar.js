@@ -1,5 +1,6 @@
 import {AppBar, Button, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
 import {colors} from "../../utils/colors";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,10 +24,16 @@ export const Navbar = (props) => {
                 <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
 
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    e-Stella
-                </Typography>
-                <Button color="inherit">Login</Button>
+                <Router>
+                    <Link to="/">
+                        <Typography variant="h6" className={classes.title}>
+                            e-Stella
+                        </Typography>
+                    </Link>
+                    <Link to="/login">
+                        <Button color="inherit">Login</Button>
+                    </Link>
+                </Router>
             </Toolbar>
         </AppBar>
     )
