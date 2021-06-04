@@ -2,7 +2,6 @@ import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
 import {useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
-import {Grid} from "@material-ui/core";
 
 export const JitsiWrapper = (props) => {
 
