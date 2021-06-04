@@ -31,7 +31,7 @@ export const Navbar = (props) => {
                         </Typography>
                     </Link>
                     <Link to="/login">
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit" id="loginButton">Login</Button>
                     </Link>
                 </Router>
             </Toolbar>
