@@ -32,7 +32,7 @@ export const JitsiWrapper = (props) => {
             <div style={{height: jitsiHeight, width: jitsiWidth, float: "left"}}>
                 <JitsiComponent admin={props.admin} roomName={props.roomName} displayName={props.displayName} />
             </div>
-            { whiteboardIsSeen ? <div style={{float: "left", width: 'calc(80%)', height: 'calc(100vh-60px)'}}><Whiteboard client_id={'ab072386034be36d086179b113d9fb57'} code={getWhiteboardCode()} /></div>: null }
+            { whiteboardIsSeen ? <div style={{float: "left", width: 'calc(80%)', height: 'calc(100vh-60px)'}}><Whiteboard client_id={process.env.REACT_APP_WHITEBOARD_KEY} code={getWhiteboardCode()} /></div>: null }
         </div>
     )
 }
