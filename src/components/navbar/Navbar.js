@@ -19,7 +19,7 @@ export const Navbar = (props) => {
     const classes = useStyles()
 
     return(
-        <AppBar position="static" className={classes.root} style={{ background: colors.navbar, height: "60px" }}>
+        <AppBar position="static" className={classes.root} style={{ background: colors.main, height: "60px" }}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
 

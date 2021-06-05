@@ -1,4 +1,7 @@
 export const colors = {
-    'navbar': '#2E3B55',
-    'text-gray': '#606060'
+    'main': '#2E3B55',
+    'text-gray': '#606060',
+    'main-dark': '#04152c',
+    'main-light': '#596582',
+    'main-text-color': '#eaecf1'
 }
