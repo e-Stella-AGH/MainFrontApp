@@ -16,7 +16,7 @@ export const OfferDetails = (props) => {
     }, [id])
 
     return (
-        <Card variant="outlined" style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
+        <Card variant="outlined" style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px"}}>
             <CardContent>
                 <Box mb={1}>
                     <Typography variant="h4" component="h2">
@@ -24,15 +24,28 @@ export const OfferDetails = (props) => {
                     </Typography>
                 </Box>
                 <Divider/>
-                <Box mt={1}>
-                    <Typography variant="h6" color="textSecondary">
-                        {offer.position}
-                    </Typography>
+                <Box style={{width: "100%"}}>
+                    <Box mt={1}>
+                        <div style={{float: "left"}}>
+                            <Typography variant="h5" color="textSecondary">
+                                {offer.position}
+                            </Typography>
+                        </div>
+                    </Box>
+                    <Box>
+                        <div style={{float: "right", marginRight: "20px"}}>
+                            <Typography variant="h6">
+                                {offer.minSalary} - {offer.maxSalary}
+                            </Typography>
+                        </div>
+                    </Box>
                 </Box>
-                <Grid container>
-                    {offer.skills.map((skill, idx) =>
-                        <Grid key={idx} item xs={12} sm={6} md={4} lg={3}><OfferSkill key={idx} name={skill.name} skillLevel={skill.level}/></Grid>)}
-                </Grid>
+                <Box mt={8}>
+                    <Grid container>
+                        {offer.skills.map((skill, idx) =>
+                            <Grid key={idx} item xs={12} sm={6} md={4} lg={3}><OfferSkill key={idx} name={skill.name} skillLevel={skill.level}/></Grid>)}
+                    </Grid>
+                </Box>
             </CardContent>
         </Card>
     )

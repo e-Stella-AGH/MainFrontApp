@@ -12,7 +12,7 @@ export const offersAPI = {
                 skills: [
                     {
                         name: "Skill name",
-                        level: "Expert"
+                        level: "JUNIOR"
                     }
                 ]
             })
