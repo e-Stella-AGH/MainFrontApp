@@ -3,6 +3,7 @@ export const offersAPI = {
         return new Promise((resolve, reject) => {
             resolve({
                 name: "Offer name",
+                company: "Company name",
                 description: "Offer Description",
                 position: "Offer position",
                 minSalary: 2500,
@@ -16,6 +17,14 @@ export const offersAPI = {
                     }
                 ]
             })
+        })
+    },
+
+    apply: function (offerId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("Success")
+            }, 1000)
         })
     }
 }

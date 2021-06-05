@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {offersAPI} from "../../../utils/OfferApi";
-import {Box, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
+import {Box, Button, Card, CardContent, Divider, Grid, GridList, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
+import Swal from 'sweetalert2';
 
 export const OfferDetails = (props) => {
 
@@ -15,13 +16,55 @@ export const OfferDetails = (props) => {
             .then(data => setOffer(data))
     }, [id])
 
+    const apply = () => {
+        let swal = new Swal({
+            title: "Applying..."
+        })
+        Swal.showLoading()
+        offersAPI.apply(id)
+            .then(() => {
+                swal.close()
+                Swal.fire({
+                   title: "Success",
+                   text: "You've successfully applied to this offer!",
+                   icon: "success"
+                })
+            })
+            .catch((err) => {
+                swal.close()
+                Swal.fire({
+                    title: err,
+                    text: "We couldn't apply you on this offer",
+                    icon: "error",
+                    confirmButtonText: "ok"
+                })
+            })
+
+    }
+
     return (
         <Card variant="outlined" style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px"}}>
             <CardContent>
-                <Box mb={1}>
-                    <Typography variant="h4" component="h2">
-                        {offer.name}
-                    </Typography>
+                <Box mb={12} >
+                    <div style={{float: "left"}}>
+                        <Box>
+                            <Typography variant="h4" component="h2">
+                                {offer.name}
+                            </Typography>
+                        </Box>
+                        <Box m={1}>
+                            <Typography variant="h6" color="textSecondary">
+                                {offer.company}
+                            </Typography>
+                        </Box>
+                    </div>
+                    <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
+                        <Button variant="outlined" onClick={apply}>
+                            <Typography variant="h6">
+                                Apply
+                            </Typography>
+                        </Button>
+                    </div>
                 </Box>
                 <Divider/>
                 <Box style={{width: "100%"}}>
