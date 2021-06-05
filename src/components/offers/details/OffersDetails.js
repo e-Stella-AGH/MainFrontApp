@@ -34,17 +34,28 @@ export const OfferDetails = (props) => {
                     </Box>
                     <Box>
                         <div style={{float: "right", marginRight: "20px"}}>
-                            <Typography variant="h6">
-                                {offer.minSalary} - {offer.maxSalary}
-                            </Typography>
+                            <div>
+                                <Typography variant="h6">
+                                    {offer.minSalary} - {offer.maxSalary}
+                                </Typography>
+                            </div>
+                            <div style={{float: 'right'}}>
+                                <Typography variant="h6" color="textSecondary">
+                                    {offer.localization}
+                                </Typography>
+                            </div>
                         </div>
                     </Box>
                 </Box>
-                <Box mt={8}>
+                <Box mt={8} mb={4}>
                     <Grid container>
                         {offer.skills.map((skill, idx) =>
                             <Grid key={idx} item xs={12} sm={6} md={4} lg={3}><OfferSkill key={idx} name={skill.name} skillLevel={skill.level}/></Grid>)}
                     </Grid>
+                </Box>
+                <Divider />
+                <Box m={2} p={2}>
+                    {offer.description}
                 </Box>
             </CardContent>
         </Card>
