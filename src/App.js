@@ -3,6 +3,7 @@ import {LandingPage} from "./components/LandingPage/LandingPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
+import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 
 
 function App() {
@@ -26,6 +27,12 @@ function App() {
                   <Route path="/interview/:interviewId">
                       <div>
                         <Meeting />
+                      </div>
+                  </Route>
+
+                  <Route path="/offers/apply/:id">
+                      <div style={{marginTop: "2em"}}>
+                        <ApplyForm />
                       </div>
                   </Route>
 
