@@ -22,6 +22,17 @@ export const offersAPI = {
                 file_base64: await convertFileToBase64(file)
             }
         }))
+        const index = convertedFiles[0].file_base64.indexOf("base64")
+        console.log(index)
+        convertedFiles = convertedFiles.map(file => {
+            return {
+                ...file,
+                file_base64: convertedFiles[0].file_base64.substring(
+                    convertedFiles[0].file_base64.indexOf("base64") + 7
+                )
+            }
+        })
+        console.log(convertedFiles)
         return fetch(recruitmentServiceBasicAPILink + `/applications/apply/${offerId}/no-user`, {
             method: "POST",
             headers: {
