@@ -25,12 +25,12 @@ export const Navbar = (props) => {
 
                 </IconButton>
                 <Router>
-                    <Link to="/">
+                    <Link to="/" style={{color: "white", textDecoration: "none"}}>
                         <Typography variant="h6" className={classes.title}>
                             e-Stella
                         </Typography>
                     </Link>
-                    <Link to="/login">
+                    <Link to="/login" style={{color: "white", textDecoration: "none", float: "right"}}>
                         <Button color="inherit" id="loginButton">Login</Button>
                     </Link>
                 </Router>
