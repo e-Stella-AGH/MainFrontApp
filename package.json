@@ -15,6 +15,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-tiny-fab": "^4.0.3",
+    "sweetalert2": "^11.0.16",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
