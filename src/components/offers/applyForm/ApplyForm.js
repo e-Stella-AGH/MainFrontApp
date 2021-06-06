@@ -10,8 +10,7 @@ export const ApplyForm = () => {
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [email, setEmail] = useState("")
-    const [file, setFile] = useState("")
-    // uncomment after master merge
+    const [file, setFile] = useState(null)
 
     const apply = () => {
         if (validate()) {
@@ -25,11 +24,13 @@ export const ApplyForm = () => {
                     denyButtonText: "No, let me insert my CV"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        validatedApply()
+                        validatedApply([])
                     } else if (result.isDenied) {
                         Swal.close()
                     }
                 })
+            } else{
+                validatedApply([file])
             }
         } else {
             Swal.fire({
@@ -41,12 +42,12 @@ export const ApplyForm = () => {
         }
     }
 
-    const validatedApply = () => {
+    const validatedApply = (files) => {
         let swal = new Swal({
             title: "Applying..."
         })
         Swal.showLoading()
-        offersAPI.applyWithNoUser(id, name, surname, email, [])
+        offersAPI.applyWithNoUser(id, name, surname, email, files)
             .then(() => {
                 swal.close()
                 Swal.fire({
@@ -101,9 +102,8 @@ export const ApplyForm = () => {
                 />
             </Box>
             <Box m={4} style={{float: "right"}}>
-                <Input
-                    value={file}
-                    onChange={({target}) => setFile(target.value)}
+                <input
+                    onChange={({target}) => setFile(target.files[0])}
                     type="file"
                 />
             </Box>

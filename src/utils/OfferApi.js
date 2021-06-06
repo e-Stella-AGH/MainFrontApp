@@ -1,35 +1,37 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 
+const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = err => reject(err)
+    })
+}
+
 export const offersAPI = {
     getOfferById: function(offerId){
-        return new Promise((resolve, reject) => {
-            resolve({
-                name: "Offer name",
-                company: "Company name",
-                description: "Offer Description",
-                position: "Offer position",
-                minSalary: 2500,
-                maxSalary: 2500,
-                localization: "Nowhere",
-                creatorId: 1,
-                skills: [
-                    {
-                        name: "Skill name",
-                        level: "JUNIOR"
-                    }
-                ]
-            })
-        })
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
+            .then(response => response.json())
     },
 
-    applyWithNoUser: function (offerId, name, surname, email, files=[]) {
+    applyWithNoUser: async function (offerId, name, surname, email, files=[]) {
+        let convertedFiles = await Promise.all(files.map(async file => {
+            return {
+                fileName: file.name,
+                file_base64: await convertFileToBase64(file)
+            }
+        }))
         return fetch(recruitmentServiceBasicAPILink + `/applications/apply/${offerId}/no-user`, {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 firstName: name,
                 lastName: surname,
                 mail: email,
-                files: files
+                files: convertedFiles
             })
         })
     },
