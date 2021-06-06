@@ -6,7 +6,7 @@ import Image3 from '../../assets/landing_page_image3.png';
 export const LandingPage = (props) => {
 
     return(
-        <div style={{marginLeft: "auto", marginRight:"auto", width: "80%"}}>
+        <div style={{marginLeft: "5%", marginRight:"auto", width: "70%"}}>
             <Typography variant="h4">
                 e-Stella - Everything you'll ever need for recruitment.
             </Typography>

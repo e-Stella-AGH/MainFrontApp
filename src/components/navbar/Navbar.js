@@ -13,26 +13,26 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 }));
-
 export const Navbar = (props) => {
 
     const classes = useStyles()
 
     return(
-        <AppBar position="static" className={classes.root} style={{ background: colors.main, height: "60px" }}>
+        <AppBar position="static" style={{ background: colors.main, height: "60px" }}>
             <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
-
-                </IconButton>
                 <Router>
-                    <Link to="/">
-                        <Typography variant="h6" className={classes.title}>
-                            e-Stella
-                        </Typography>
-                    </Link>
-                    <Link to="/login">
-                        <Button color="inherit" id="loginButton">Login</Button>
-                    </Link>
+                    <div className={classes.title}>
+                        <Link to="/" style={{color: "white", textDecoration: "none"}}>
+                            <Typography variant="h6">
+                                e-Stella
+                            </Typography>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                            <Button color="inherit" id="loginButton">Login</Button>
+                        </Link>
+                    </div>
                 </Router>
             </Toolbar>
         </AppBar>

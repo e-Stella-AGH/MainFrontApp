@@ -36,7 +36,7 @@ function App() {
                   </Route>
 
                   <Route path="*">
-                      404 - TODO
+                      Page
                   </Route>
               </Switch>
           </Router>
