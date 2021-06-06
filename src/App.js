@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {OfferDetails} from "./components/offers/details/OffersDetails";
+import { OfferForm } from "./components/OfferForm/OfferForm";
 
 
 function App() {
