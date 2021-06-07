@@ -3,7 +3,7 @@ import { Grid, Button, makeStyles } from "@material-ui/core"
 import { OfferFormField } from "./OfferFormField"
 import { useEffect } from "react"
 import { OfferFormSkillList } from "./OfferFormSkillList"
-import { offersAPI } from "../../utils/OfferApi"
+import { offersAPI } from "../../../utils/OfferApi"
 import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({

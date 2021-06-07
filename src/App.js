@@ -5,7 +5,7 @@ import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OfferDetails} from "./components/offers/details/OffersDetails";
-import { OfferForm } from "./components/OfferForm/OfferForm";
+import { OfferForm } from "./components/offers/createForm/OfferForm";
 
 
 function App() {

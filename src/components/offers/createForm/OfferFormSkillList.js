@@ -1,7 +1,7 @@
 import { makeStyles, TextField, Select, MenuItem, Grid, Button, InputLabel, FormControl, Box, IconButton } from "@material-ui/core"
 import ClearIcon from '@material-ui/icons/Clear';
 import { Controller, useForm } from "react-hook-form"
-import { OfferSkill } from "../offers/details/OfferSkill"
+import { OfferSkill } from "../details/OfferSkill"
 
 const useStyles = makeStyles((theme) => ({
     button: {
