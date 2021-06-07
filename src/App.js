@@ -3,6 +3,7 @@ import {LandingPage} from "./components/LandingPage/LandingPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
+import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OfferDetails} from "./components/offers/details/OffersDetails";
 
 
@@ -32,6 +33,12 @@ function App() {
                   <Route path="/offers/details/:id">
                       <div style={{marginTop: "2em"}}>
                         <OfferDetails />
+                      </div>
+                  </Route>
+
+                  <Route path="/offers/apply/:id">
+                      <div style={{marginTop: "2em"}}>
+                        <ApplyForm />
                       </div>
                   </Route>
 
