@@ -15,6 +15,11 @@ export const offersAPI = {
             .then(response => response.json())
     },
 
+    getAllOffers: function(){
+        return fetch(recruitmentServiceBasicAPILink + "/api/offers")
+            .then(response => response.json())
+    },
+
     applyWithNoUser: async function (offerId, name, surname, email, files=[]) {
         let convertedFiles = await Promise.all(files.map(async file => {
             return {

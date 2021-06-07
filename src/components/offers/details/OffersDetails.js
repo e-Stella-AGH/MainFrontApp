@@ -1,114 +1,88 @@
 import {useEffect, useState} from "react";
-import {useHistory, useParams} from "react-router-dom";
-import {offersAPI} from "../../../utils/OfferApi";
+import {useHistory} from "react-router-dom";
 import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import Swal from "sweetalert2";
-import {Page404} from "../../Page404";
 
 export const OfferDetails = (props) => {
 
-    //TODO - change to component without its own page
-    // const id = props.id should do the deal with change in App.js
-    const {id} = useParams()
     const history = useHistory()
 
     const [offer, setOffer] = useState({skills: []})
-    const [fetched, setFetched] = useState(0)
-    console.log(offer)
 
     useEffect(() => {
-        offersAPI.getOfferById(id)
-            .then(data => {
-                setFetched(1)
-                setOffer(data)
-            })
-            .catch(err => {
-                setFetched(2)
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get this offer!",
-                    icon: "error"
-                })
-            })
-    }, [id])
+        setOffer(props.offer)
+    }, [props.offer])
 
     const apply = () => {
-        history.push(`/offers/apply/${id}`)
+        history.push(`/offers/apply/${offer.id}`)
     }
 
     return (
         <div>
-            {
-                fetched === 1 ?
-                    <div style={{marginTop: "2em"}}>
-                        <Card variant="outlined" style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px"}}>
-                            <CardContent>
-                                <Box mb={12}>
-                                    <div style={{float: "left"}}>
-                                        <Box>
-                                            <Typography variant="h4" component="h2">
-                                                {offer.name}
-                                            </Typography>
-                                        </Box>
-                                        <Box m={1}>
-                                            <Typography variant="h6" color="textSecondary">
-                                                {offer.company}
-                                            </Typography>
-                                        </Box>
+            <div>
+                <Card variant="outlined"
+                      style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px"}}>
+                    <CardContent>
+                        <Box mb={12}>
+                            <div style={{float: "left"}}>
+                                <Box>
+                                    <Typography variant="h4" component="h2">
+                                        {offer.name}
+                                    </Typography>
+                                </Box>
+                                <Box m={1}>
+                                    <Typography variant="h6" color="textSecondary">
+                                        {offer.company}
+                                    </Typography>
+                                </Box>
+                            </div>
+                            <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
+                                <Button variant="outlined" onClick={apply}>
+                                    <Typography variant="h6">
+                                        Apply
+                                    </Typography>
+                                </Button>
+                            </div>
+                        </Box>
+                        <Divider/>
+                        <Box style={{width: "100%"}}>
+                            <Box mt={1}>
+                                <div style={{float: "left"}}>
+                                    <Typography variant="h5" color="textSecondary">
+                                        {offer.position}
+                                    </Typography>
+                                </div>
+                            </Box>
+                            <Box>
+                                <div style={{float: "right", marginRight: "20px"}}>
+                                    <div>
+                                        <Typography variant="h6">
+                                            {offer.minSalary} - {offer.maxSalary}
+                                        </Typography>
                                     </div>
-                                    <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
-                                        <Button variant="outlined" onClick={apply}>
-                                            <Typography variant="h6">
-                                                Apply
-                                            </Typography>
-                                        </Button>
+                                    <div style={{float: 'right'}}>
+                                        <Typography variant="h6" color="textSecondary">
+                                            {offer.localization}
+                                        </Typography>
                                     </div>
-                                </Box>
-                                <Divider/>
-                                <Box style={{width: "100%"}}>
-                                    <Box mt={1}>
-                                        <div style={{float: "left"}}>
-                                            <Typography variant="h5" color="textSecondary">
-                                                {offer.position}
-                                            </Typography>
-                                        </div>
-                                    </Box>
-                                    <Box>
-                                        <div style={{float: "right", marginRight: "20px"}}>
-                                            <div>
-                                                <Typography variant="h6">
-                                                    {offer.minSalary} - {offer.maxSalary}
-                                                </Typography>
-                                            </div>
-                                            <div style={{float: 'right'}}>
-                                                <Typography variant="h6" color="textSecondary">
-                                                    {offer.localization}
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </Box>
-                                </Box>
-                                <Box mt={8} mb={4}>
-                                    <Grid container>
-                                        {offer.skills.map((skill, idx) =>
-                                            <Grid key={idx} item xs={12} sm={6} md={4} lg={3}><OfferSkill key={idx}
-                                                                                                          name={skill.name}
-                                                                                                          skillLevel={skill.level}/></Grid>)}
-                                    </Grid>
-                                </Box>
-                                <Divider/>
-                                <Box m={2} p={2}>
-                                    {offer.description}
-                                </Box>
-                            </CardContent>
-                        </Card>
-                    </div>
-
-                    :
-                        fetched === 2 ?
-                        <Page404 /> : <div />
-            }
+                                </div>
+                            </Box>
+                        </Box>
+                        <Box mt={8} mb={4}>
+                            <Grid container>
+                                {offer.skills.map((skill, idx) =>
+                                    <Grid key={idx} item ><OfferSkill key={idx}
+                                          name={skill.name}
+                                          skillLevel={skill.level}/></Grid>)}
+                            </Grid>
+                        </Box>
+                        <Divider/>
+                        <Box m={2} p={2}>
+                            {offer.description}
+                        </Box>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     )
 }

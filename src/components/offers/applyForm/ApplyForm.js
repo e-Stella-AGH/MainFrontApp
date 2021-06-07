@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import {useParams} from "react-router-dom";
-import {Box, Button, Input, TextField, Typography} from "@material-ui/core";
+import {Box, Button, TextField, Typography} from "@material-ui/core";
 import {useState} from "react";
 import {offersAPI} from "../../../utils/OfferApi";
 
