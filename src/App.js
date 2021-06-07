@@ -5,6 +5,7 @@ import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OfferDetails} from "./components/offers/details/OffersDetails";
+import { OfferForm } from "./components/offers/createForm/OfferForm";
 
 
 function App() {
@@ -33,6 +34,11 @@ function App() {
                   <Route path="/offers/details/:id">
                       <div style={{marginTop: "2em"}}>
                         <OfferDetails />
+                      </div>
+                  </Route>
+                  <Route path="/offers/add">
+                      <div style={{marginTop: "2em"}}>
+                        <OfferForm />
                       </div>
                   </Route>
 

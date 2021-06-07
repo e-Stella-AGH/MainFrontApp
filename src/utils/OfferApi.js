@@ -1,4 +1,4 @@
-import {recruitmentServiceBasicAPILink} from "./APILinks";
+import {recruitmentServiceBasicAPILink} from "./APILinks"
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -41,6 +41,24 @@ export const offersAPI = {
                 mail: email,
                 files: convertedFiles
             })
+        })
+    },
+
+    apply: function (offerId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("Success")
+            }, 1000)
+        })
+    },
+
+    create: function (offerData) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/addoffer`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(offerData)
         })
     },
 
