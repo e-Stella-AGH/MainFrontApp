@@ -1,3 +1,5 @@
+import {recruitmentServiceBasicAPILink} from "./APILinks"
+
 export const offersAPI = {
     getOfferById: function(offerId){
         return new Promise((resolve, reject) => {
@@ -25,6 +27,16 @@ export const offersAPI = {
             setTimeout(() => {
                 resolve("Success")
             }, 1000)
+        })
+    },
+
+    create: function (offerData) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/addoffer`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(offerData)
         })
     }
 }

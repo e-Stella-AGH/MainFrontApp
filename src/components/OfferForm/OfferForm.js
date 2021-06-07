@@ -3,6 +3,8 @@ import { Grid, Button, makeStyles } from "@material-ui/core"
 import { OfferFormField } from "./OfferFormField"
 import { useEffect } from "react"
 import { OfferFormSkillList } from "./OfferFormSkillList"
+import { offersAPI } from "../../utils/OfferApi"
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -18,6 +20,7 @@ export const OfferForm = (props) => {
         minSalary:"",
         maxSalary:"",
         description:"",
+        creatorId:"",
         skills:[]
     }
     const {handleSubmit, watch, trigger, control, reset} = useForm({mode: "onChange", defaultValues:defaultFormState})
@@ -33,17 +36,55 @@ export const OfferForm = (props) => {
     const onSubmit = (data) => {
         const formResult = Object.assign(data, {
             minSalary: parseInt(data.minSalary),
-            maxSalary: parseInt(data.maxSalary)
+            maxSalary: parseInt(data.maxSalary),
+            creatorId: parseInt(data.creatorId)
         })
-        reset()
+        let swal = new Swal({
+            title: "Creating offer..."
+        })
+        Swal.showLoading()
+        offersAPI.create(formResult)
+            .then(() => {
+                swal.close()
+                Swal.fire({
+                    title: "Success",
+                    text: "You've successfully created offer!",
+                    icon: "success"
+                })
+                reset()
+            })
+            .catch((err) => {
+                swal.close()
+                Swal.fire({
+                    title: err,
+                    text: "We couldn't create this offer for you",
+                    icon: "error",
+                    confirmButtonText: "ok"
+                })
+            })
         if(props.onSubmit){
             props.onSubmit(data)
         }
     }
 
-    return <>
+    return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
         <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)}></form>
         <Grid container spacing={2}>
+            {/* TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
+            <OfferFormField
+                control={control}
+                name="creatorId"
+                rules={{
+                    required: {value: true, message: "Required field"},
+                    pattern: {value: /^\d+$/, message: "Must be an integer"}
+                }} 
+                defaultValue=""
+                additionalTextFieldProps={{
+                    label:"Creator Id",
+                    autoComplete: "off",
+                    form:"offer-form"
+                }} />
+            {/* / TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
             <OfferFormField
                 control={control}
                 name="name"
@@ -140,5 +181,5 @@ export const OfferForm = (props) => {
             <Grid item xs={12} sm={4}>
                 <Button className={classes.button} type="submit" variant="contained" size="large" form="offer-form" fullWidth>Create offer</Button>
             </Grid>
-        </Grid></>
+        </Grid></div>
 }

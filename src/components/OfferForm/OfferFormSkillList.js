@@ -1,28 +1,13 @@
-import { Paper, makeStyles, TextField, Select, MenuItem, Grid, Button, InputLabel, FormControl } from "@material-ui/core"
+import { makeStyles, TextField, Select, MenuItem, Grid, Button, InputLabel, FormControl, Box, IconButton } from "@material-ui/core"
+import ClearIcon from '@material-ui/icons/Clear';
 import { Controller, useForm } from "react-hook-form"
-import { OfferFormSkill } from "./OfferFormSkill"
+import { OfferSkill } from "../offers/details/OfferSkill"
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      listStyle: 'none',
-      padding: theme.spacing(0.5),
-      margin: 0,
-    }, 
     button: {
         height: '97%'
     }
 }))
-
-const skillLevels = {
-    'NICE_TO_HAVE': 1,
-    'JUNIOR': 2,
-    'REGULAR': 3,
-    'ADVANCED': 4,
-    'MASTER': 5
-}
 
 export const OfferFormSkillList = (props) => {
     const classes = useStyles()
@@ -88,18 +73,26 @@ export const OfferFormSkillList = (props) => {
                 form="skill-form"
                 fullWidth>Add skill</Button>
         </Grid>
-        {skills.length !== 0 && <Grid item xs={12}>
-            <Paper component="ul" className={classes.root}>
-                {skills.map((skill, index) => 
-                    <li key={index}>
-                        <OfferFormSkill 
-                            skill={skill.name} 
-                            level={skillLevels[skill.level]} 
-                            chipProps={{onDelete: () => onSkillDelete(index)}} 
-                        />
-                    </li>
-                )}
-            </Paper>
-        </Grid>}
+        <Grid item xs={12}>
+            <Box mt={0} mb={0}>
+                <Grid container>
+                    {skills.map((skill, idx) =>
+                        <Grid key={idx} item xs={12} sm={6} md={4} lg={3}>
+                            <Grid container>
+                                <Grid item xs={11}>
+                                    <OfferSkill key={idx} name={skill.name} skillLevel={skill.level}/>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Box mt={3}>
+                                        <IconButton aria-label="delete" style={{padding:"0px"}} onClick={() => onSkillDelete(idx)}>
+                                            <ClearIcon fontSize="medium" />
+                                        </IconButton>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Grid>)}
+                </Grid>
+            </Box>
+        </Grid>
         </>
 }

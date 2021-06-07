@@ -35,6 +35,11 @@ function App() {
                         <OfferDetails />
                       </div>
                   </Route>
+                  <Route path="/offers/add">
+                      <div style={{marginTop: "2em"}}>
+                        <OfferForm />
+                      </div>
+                  </Route>
 
                   <Route path="*">
                       Page
