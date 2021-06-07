@@ -8,8 +8,6 @@ export const Meeting = () => {
     let { interviewId, companyId } = useParams()
     const [name, setName] = useState(null)
 
-    console.log(name)
-
     useEffect(() => {
         if(companyId === undefined) {
             interviewAPI.getJobSeekerNameByInterviewId(interviewId)

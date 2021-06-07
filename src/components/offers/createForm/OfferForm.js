@@ -43,6 +43,7 @@ export const OfferForm = (props) => {
             title: "Creating offer..."
         })
         Swal.showLoading()
+        console.log(formResult)
         offersAPI.create(formResult)
             .then(() => {
                 swal.close()

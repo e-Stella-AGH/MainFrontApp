@@ -14,7 +14,7 @@ export const ApplyForm = () => {
 
     const apply = () => {
         if (validate()) {
-            if (file === "") {
+            if (file === null) {
                 Swal.fire({
                     title: "Warning",
                     text: "You're not including any CV file, are you sure about it?",
