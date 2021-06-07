@@ -49,14 +49,6 @@ export const offersAPI = {
         })
     },
 
-    apply: function (offerId) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("Success")
-            }, 1000)
-        })
-    },
-
     create: function (offerData) {
         return fetch(recruitmentServiceBasicAPILink + `/api/offers/addoffer`, {
             method: "POST",
