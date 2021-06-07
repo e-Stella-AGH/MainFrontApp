@@ -3,6 +3,7 @@ import {LandingPage} from "./components/LandingPage/LandingPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
+import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OfferDetails} from "./components/offers/details/OffersDetails";
 import { OfferForm } from "./components/OfferForm/OfferForm";
 
@@ -38,6 +39,12 @@ function App() {
                   <Route path="/offers/add">
                       <div style={{marginTop: "2em"}}>
                         <OfferForm />
+                      </div>
+                  </Route>
+
+                  <Route path="/offers/apply/:id">
+                      <div style={{marginTop: "2em"}}>
+                        <ApplyForm />
                       </div>
                   </Route>
 

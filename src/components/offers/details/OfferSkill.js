@@ -17,7 +17,7 @@ export const OfferSkill = ({ name, skillLevel }) => {
         const skills = []
         const enumerated = enumerateSkillLevel()
         for(let i=0; i<5; i++){
-            skills.push(<div style={{float: "left"}}><SkillIndicator key={i} isFilled={ i < enumerated} /></div>)
+            skills.push(<div style={{float: "left"}} key={i}><SkillIndicator isFilled={ i < enumerated} /></div>)
         }
         return skills
     }
