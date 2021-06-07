@@ -1,11 +1,11 @@
 import {Navbar} from "./components/navbar/Navbar";
 import {LandingPage} from "./components/LandingPage/LandingPage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
-import {OfferDetails} from "./components/offers/details/OffersDetails";
 import {AllOffersView} from "./components/offers/list/AllOffersView";
+import {OfferForm} from "./components/offers/createForm/OfferForm";
 
 
 function App() {
@@ -23,22 +23,28 @@ function App() {
                       </div>
                   </Route>
 
-                  <Route path="/interview/:companyId/:interviewId">
+                  <Route exact path="/interview/:interviewId/:companyId">
                     <Meeting />
                   </Route>
-                  <Route path="/interview/:interviewId">
+                  <Route exact path="/interview/:interviewId">
                       <div>
                         <Meeting />
                       </div>
                   </Route>
 
-                  <Route path="/offers/apply/:id">
+                  <Route exact path="/offers/add">
+                      <div style={{marginTop: "2em"}}>
+                        <OfferForm />
+                      </div>
+                  </Route>
+
+                  <Route exact path="/offers/apply/:id">
                       <div style={{marginTop: "2em"}}>
                         <ApplyForm />
                       </div>
                   </Route>
 
-                  <Route path="/offers">
+                  <Route exact path="/offers">
                       <div style={{margin: "2em"}}>
                           <AllOffersView />
                       </div>

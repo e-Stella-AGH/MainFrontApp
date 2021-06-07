@@ -21,9 +21,5 @@ export const MeetingDisplayName = (props) => {
         })
     }
 
-    if (props.dispalyName) {
-        return <JitsiWrapper admin={false} roomName={props.roomName} displayName={props.dispalyName}/>
-    } else {
-        return getAdminDisplayer()
-    }
+    return getAdminDisplayer()
 }
