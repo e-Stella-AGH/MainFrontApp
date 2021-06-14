@@ -1,13 +1,31 @@
 import PropTypes from 'prop-types';
 import {ShortOfferDetails} from "./ShortOfferDetails";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {offersAPI} from "../../../utils/OfferApi";
+import Swal from "sweetalert2";
+import {constants} from "../../../utils/constants";
 
 export const OffersList = (props) => {
 
     const [selectedIdx, setSelectedIdx] = useState(-1)
+    const [offers, setOffers] = useState([])
+
+    useEffect(() => {
+        offersAPI.getAllOffers()
+            .then(data => setOffers(data))
+            .catch(err => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers!",
+                    icon: "error"
+                })
+            })
+    }, [])
 
     const getShortOffers = () => {
-        return props.offers.map(
+        return offers
+            .filter((item, idx) => props.limit ? idx < props.limit : true)
+            .map(
             (offer, idx) => {
                 return selectedIdx === idx ?
                     <ShortOfferDetails selected offer={offer} key={idx}
@@ -24,7 +42,7 @@ export const OffersList = (props) => {
     }
 
     return(
-        <div>
+        <div style={{marginBottom: "1em"}}>
             {getShortOffers()}
         </div>
     )
@@ -32,7 +50,6 @@ export const OffersList = (props) => {
 
 OffersList.propTypes = {
     limit: PropTypes.number,
-    offers: PropTypes.array.isRequired,
     onSelectedOffer: PropTypes.func.isRequired
 }
 

@@ -1,37 +1,22 @@
-import {Grid} from "@material-ui/core";
 import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
-import {offersAPI} from "../../../utils/OfferApi";
-import Swal from "sweetalert2";
+import {Grid} from "@material-ui/core";
 
 export const AllOffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState([])
     //const [filter, setFilter] = useState([])
-
-    useEffect(() => {
-        offersAPI.getAllOffers()
-            .then(data => setOffers(data))
-            .catch(err => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
-    }, [])
 
     return(
         <div>
             <Grid container>
-                <Grid item xs={12} sm={8} md={9}>
+                <Grid item xs={12} sm={6} lg={8}>
                     { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
                 </Grid>
-                <Grid item xs={12} sm={4}  md={3}>
-                    <OffersList offers={offers} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
+                <Grid item xs={12} sm={6} lg={4}>
+                    <OffersList limit={false} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
                 </Grid>
             </Grid>
         </div>
