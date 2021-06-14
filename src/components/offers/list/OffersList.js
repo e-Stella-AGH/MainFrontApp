@@ -3,6 +3,7 @@ import {ShortOfferDetails} from "./ShortOfferDetails";
 import {useEffect, useState} from "react";
 import {offersAPI} from "../../../utils/OfferApi";
 import Swal from "sweetalert2";
+import {constants} from "../../../utils/constants";
 
 export const OffersList = (props) => {
 
@@ -41,7 +42,7 @@ export const OffersList = (props) => {
     }
 
     return(
-        <div>
+        <div style={{marginBottom: "1em"}}>
             {getShortOffers()}
         </div>
     )

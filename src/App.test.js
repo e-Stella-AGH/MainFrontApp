@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import {Navbar} from "./components/navbar/Navbar";
+import App from "./App";
 
 let container;
 
@@ -17,7 +17,7 @@ afterEach(() => {
 
 it('renders login button with "Login" text', () => {
     act(() => {
-        ReactDOM.render(<Navbar />, container)
+        ReactDOM.render(<App />, container)
     })
     const loginButton = container.querySelector('#loginButton')
     expect(loginButton.textContent).toBe("Login")

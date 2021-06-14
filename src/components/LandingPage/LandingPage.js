@@ -20,9 +20,9 @@ export const LandingPage = (props) => {
                         <img src={Image1} alt="Man working in office" style={{width: "100%"}}/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Grid container direction="column" spacing={2}>
+                        <Grid container direction="column" spacing={1}>
                             <Grid item>
-                                <img src={Image2} alt="Couple working in office" style={{width: "47%", marginLeft: "1%"}}/>
+                                <img src={Image2} alt="Couple working in office" style={{width: "48%"}}/>
                             </Grid>
                             <Grid item>
                                 <img src={Image3} alt="Woman working in office" style={{width: "48%"}}/>
@@ -32,6 +32,7 @@ export const LandingPage = (props) => {
                 </Grid>
             </div>
             <div style={{width: "25%", float: "left", marginRight: "10%"}}>
+                <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>Latest Offers</Typography>
                 <OffersList onSelectedOffer={(selected) => history.push(`/offers/apply/${selected.id}`)} limit={3}/>
                 <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button>
             </div>

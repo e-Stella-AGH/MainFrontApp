@@ -1,8 +1,8 @@
-import {Grid} from "@material-ui/core";
 import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
 import {useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
+import {Grid} from "@material-ui/core";
 
 export const AllOffersView = (props) => {
 
@@ -12,10 +12,10 @@ export const AllOffersView = (props) => {
     return(
         <div>
             <Grid container>
-                <Grid item xs={12} sm={8} md={9}>
+                <Grid item xs={12} sm={6} lg={8}>
                     { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
                 </Grid>
-                <Grid item xs={12} sm={4}  md={3}>
+                <Grid item xs={12} sm={6} lg={4}>
                     <OffersList limit={false} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
                 </Grid>
             </Grid>
