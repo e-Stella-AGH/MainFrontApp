@@ -12,6 +12,12 @@ export const ApplyForm = () => {
     const [email, setEmail] = useState("")
     const [file, setFile] = useState(null)
 
+    const [shouldValidateField, setShouldValidateField] = useState({
+        name: false,
+        surname: false,
+        email: false
+    })
+
     const apply = () => {
         if (validate()) {
             if (file === null) {
@@ -48,7 +54,8 @@ export const ApplyForm = () => {
         })
         Swal.showLoading()
         offersAPI.applyWithNoUser(id, name, surname, email, files)
-            .then(() => {
+            .then((result) => {
+                if(!result.ok) throw Error("Something went wrong!")
                 swal.close()
                 Swal.fire({
                     title: "Success",
@@ -68,8 +75,18 @@ export const ApplyForm = () => {
     }
 
     const validate = () => {
+            return validateEmail(email) && validateName(name) && validateSurname(surname)
+    }
+
+    const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase()) && name !== "" && surname !== ""
+        return re.test(String(email).toLowerCase())
+    }
+    const validateName = (name) => {
+        return name !== ""
+    }
+    const validateSurname = (surname) => {
+        return surname !== ""
     }
 
     return (
@@ -80,7 +97,12 @@ export const ApplyForm = () => {
                     fullWidth
                     variant="outlined"
                     value={name}
-                    onChange={({target}) => setName(target.value)}
+                    onChange={({target}) => {
+                        setName(target.value)
+                        setShouldValidateField({...shouldValidateField, name: true})
+                    }}
+                    error={!validateName(name) && shouldValidateField.name}
+                    helperText={!validateName(name) && shouldValidateField.name ? "Name cannot be empty" : " "}
                 />
             </Box>
             <Box m={4}>
@@ -89,7 +111,12 @@ export const ApplyForm = () => {
                     fullWidth
                     variant="outlined"
                     value={surname}
-                    onChange={({target}) => setSurname(target.value)}
+                    onChange={({target}) => {
+                        setSurname(target.value)
+                        setShouldValidateField({...shouldValidateField, surname: true})
+                    }}
+                    error={!validateSurname(surname) && shouldValidateField.surname}
+                    helperText={!validateSurname(surname) && shouldValidateField.surname ? "Surname cannot be empty" : " "}
                 />
             </Box>
             <Box m={4}>
@@ -98,7 +125,12 @@ export const ApplyForm = () => {
                     fullWidth
                     variant="outlined"
                     value={email}
-                    onChange={({target}) => setEmail(target.value)}
+                    onChange={({target}) => {
+                        setEmail(target.value)
+                        setShouldValidateField({...shouldValidateField, email: true})
+                    }}
+                    error={!validateEmail(email) && shouldValidateField.email}
+                    helperText={!validateEmail(email) && shouldValidateField.email ? "Email isn't valid" : " "}
                 />
             </Box>
             <Box m={4} style={{float: "right"}}>

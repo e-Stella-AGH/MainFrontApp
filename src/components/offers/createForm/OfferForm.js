@@ -45,7 +45,8 @@ export const OfferForm = (props) => {
         Swal.showLoading()
         console.log(formResult)
         offersAPI.create(formResult)
-            .then(() => {
+            .then((result) => {
+                if(!result.ok) throw Error("Something went wrong!")
                 swal.close()
                 Swal.fire({
                     title: "Success",
