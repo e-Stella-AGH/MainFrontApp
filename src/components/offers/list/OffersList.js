@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {offersAPI} from "../../../utils/OfferApi";
 import Swal from "sweetalert2";
 import {constants} from "../../../utils/constants";
+import { scrollToTop } from '../../../utils/functions';
 
 export const OffersList = (props) => {
 
@@ -39,6 +40,7 @@ export const OffersList = (props) => {
     const handleShortOfferSelect = (offer, idx) => {
         props.onSelectedOffer(offer)
         setSelectedIdx(idx)
+        scrollToTop()
     }
 
     return(
