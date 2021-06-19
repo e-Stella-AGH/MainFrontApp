@@ -1,4 +1,5 @@
 import {Box, Card, CardContent, Divider, Typography} from "@material-ui/core";
+import { colors } from "../../../utils/colors";
 import {SkillIndicator} from "./SkillIndicator";
 
 export const OfferSkill = ({ name, skillLevel }) => {
@@ -24,7 +25,7 @@ export const OfferSkill = ({ name, skillLevel }) => {
 
     return (
         <Box m={2}>
-            <Card>
+            <Card style={{backgroundColor: colors.palette[8]}}>
                 <CardContent>
                     <Box m={1} id="indicators" style={{display: "flex"}}>
                         {getDotsOnSkillLevel()}
