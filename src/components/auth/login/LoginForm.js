@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import Swal from "sweetalert2";
 import {loginAPI} from "../../../utils/apis/LoginAPI";
 import {FormField} from "../../formsCommons/FormField";
 import {Button, Card, Grid, Typography} from "@material-ui/core";

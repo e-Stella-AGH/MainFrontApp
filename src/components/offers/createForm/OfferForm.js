@@ -1,10 +1,9 @@
-import { useForm, Controller } from "react-hook-form"
-import { Grid, Button, makeStyles } from "@material-ui/core"
-import { FormField } from "../../formsCommons/FormField"
-import { useEffect } from "react"
-import { OfferFormSkillList } from "./OfferFormSkillList"
-import { offersAPI } from "../../../utils/apis/OfferApi"
-import Swal from "sweetalert2";
+import {Controller, useForm} from "react-hook-form"
+import {Button, Grid, makeStyles} from "@material-ui/core"
+import {FormField} from "../../formsCommons/FormField"
+import {useEffect} from "react"
+import {OfferFormSkillList} from "./OfferFormSkillList"
+import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../formsCommons/WithSwal";
 
 const useStyles = makeStyles((theme) => ({
