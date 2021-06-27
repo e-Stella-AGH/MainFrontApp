@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { OfferFormSkillList } from "./OfferFormSkillList"
 import { offersAPI } from "../../../utils/apis/OfferApi"
 import Swal from "sweetalert2";
+import {withSwal} from "../../formsCommons/WithSwal";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -39,31 +40,14 @@ export const OfferForm = (props) => {
             maxSalary: parseInt(data.maxSalary),
             creatorId: parseInt(data.creatorId)
         })
-        let swal = new Swal({
-            title: "Creating offer..."
+        withSwal({
+            loadingTitle: "Creating offer...",
+            promise: () => offersAPI.create(formResult),
+            successSwalTitle: "Success",
+            successSwalText: "You've successfully created offer!",
+            successFunction: () => reset(),
+            errorSwalTitle: "We couldn't create this offer for you"
         })
-        Swal.showLoading()
-        console.log(formResult)
-        offersAPI.create(formResult)
-            .then((result) => {
-                if(!result.ok) throw Error("Something went wrong!")
-                swal.close()
-                Swal.fire({
-                    title: "Success",
-                    text: "You've successfully created offer!",
-                    icon: "success"
-                })
-                reset()
-            })
-            .catch((err) => {
-                swal.close()
-                Swal.fire({
-                    title: err,
-                    text: "We couldn't create this offer for you",
-                    icon: "error",
-                    confirmButtonText: "ok"
-                })
-            })
         if(props.onSubmit){
             props.onSubmit(data)
         }

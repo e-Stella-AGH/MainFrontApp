@@ -17,7 +17,7 @@ export const withSwal = ({
     Swal.showLoading()
     promise()
         .then(result => {
-            if (!result.ok) throw Error(resultWasntOkErrorText)
+            if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
             swal.close()
             Swal.fire({
                 title: successSwalTitle,

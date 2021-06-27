@@ -17,7 +17,6 @@ export const LoginForm = (props) => {
         withSwal({
             loadingTitle: "Loging in...",
             promise: () => loginAPI.login(data.login, data.password),
-            resultWasntOkErrorText: "Something went wrong!",
             successSwalTitle: "Successfully logged in!",
             successFunction: (token) => {
                 reset()
