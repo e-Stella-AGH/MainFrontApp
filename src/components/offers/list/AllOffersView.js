@@ -16,7 +16,7 @@ export const AllOffersView = (props) => {
                     { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
                 </Grid>
                 <Grid item xs={12} sm={6} lg={4}>
-                    <OffersList limit={false} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
+                    <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
                 </Grid>
             </Grid>
         </div>
