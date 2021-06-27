@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {ShortOfferDetails} from "./ShortOfferDetails";
 import {useEffect, useState} from "react";
-import {offersAPI} from "../../../utils/OfferApi";
+import {offersAPI} from "../../../utils/apis/OfferApi";
 import Swal from "sweetalert2";
 import {constants} from "../../../utils/constants";
 

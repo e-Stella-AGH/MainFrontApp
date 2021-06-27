@@ -8,6 +8,7 @@ import {OfferForm} from "./components/offers/createForm/OfferForm";
 import {colors} from "./utils/colors";
 import {constants} from "./utils/constants";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
+import {LoginForm} from "./components/auth/login/LoginForm";
 
 
 function App() {
@@ -71,6 +72,12 @@ function App() {
               <Route exact path="/offers">
                   <div style={{margin: "2em"}}>
                       <AllOffersView />
+                  </div>
+              </Route>
+
+              <Route exact path="/login">
+                  <div style={{margin: "2em"}}>
+                      <LoginForm />
                   </div>
               </Route>
 
