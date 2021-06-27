@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import {loginAPI} from "../../../utils/apis/LoginAPI";
 import {FormField} from "../../formsCommons/FormField";
 import {Button, Card, Grid, Typography} from "@material-ui/core";
+import {withSwal} from "../../formsCommons/WithSwal";
 
 export const LoginForm = (props) => {
     const defaultFormState = {
@@ -13,30 +14,17 @@ export const LoginForm = (props) => {
     const {handleSubmit, control, reset} = useForm({mode: 'onChange', defaultValues: defaultFormState})
 
     const onSubmit = (data) => {
-        let swal = new Swal({
-            title: "Loging in..."
-        })
-        Swal.showLoading()
-        console.log(data)
-        loginAPI.login(data.login, data.password)
-            .then(result => {
-                if(!result.ok) throw Error("Something went wrong!")
-                swal.close()
-                Swal.fire({
-                    title: "Successfully logged in!",
-                    icon: "success"
-                })
+        withSwal({
+            loadingTitle: "Loging in...",
+            promise: () => loginAPI.login(data.login, data.password),
+            resultWasntOkErrorText: "Something went wrong!",
+            successSwalTitle: "Successfully logged in!",
+            successFunction: (token) => {
                 reset()
-            })
-            .catch(err => {
-                swal.close()
-                Swal.fire({
-                    title: "We couldn't log you in",
-                    text: err,
-                    icon: "error",
-                    confirmButtonText: "ok"
-                })
-            })
+                alert(token)
+            },
+            errorSwalTitle: "We couldn't log you in!"
+        })
         if(props.onSubmit) {
             props.onSubmit(data)
         }
