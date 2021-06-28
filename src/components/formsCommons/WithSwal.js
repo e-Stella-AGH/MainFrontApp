@@ -18,18 +18,18 @@ export const withSwal = ({
     Swal.showLoading()
     promise()
         .then(result => {
-            if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
+            //if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
             swal.close()
             Swal.fire({
                 title: successSwalTitle,
                 text: successSwalText || "",
                 icon: "success",
                 confirmButtonText: confirmButtonText || "OK"
+            }).then(swalResult => {
+                if(swalResult.isConfirmed) {
+                    successFunction(result)
+                }
             })
-            return result
-        })
-        .then(result => {
-            successFunction(result)
         })
         .catch(err => {
             swal.close()

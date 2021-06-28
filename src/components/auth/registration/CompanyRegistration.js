@@ -22,11 +22,11 @@ export const CompanyRegistration = (props) => {
             loadingTitle: "Registering...",
             promise: () => loginAPI.registerUser(data.login, data.password, data.firstName, data.lastName),
             successSwalTitle: "Successfully registered!",
-            successSwalText: "You can log in now!",
-            confirmButtonText: "Go to login page",
+            successSwalText: "Your company was successfully registered and now it's waiting for our verification. Please, be patient and wait for email from us!",
+            confirmButtonText: "Back to main page",
             successFunction: () => {
                 reset()
-                history.push('/login')
+                history.push("/")
             },
             errorSwalTitle: "We couldn't register you!"
         })
