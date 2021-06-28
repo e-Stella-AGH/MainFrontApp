@@ -10,12 +10,19 @@ export const loginAPI = {
     },
 
     registerUser: function(login, password, firstName, lastName) {
-        console.log(login, password, firstName, lastName)
         return new Promise(((resolve, reject) => {
             setTimeout(() => {
                 resolve("xd")
             }, 2000)
         }))
+    },
+
+    registerCompany: function(name, password, email) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("xd2")
+            }, 2000)
+        })
     }
 
 }

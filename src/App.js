@@ -9,7 +9,6 @@ import {colors} from "./utils/colors";
 import {constants} from "./utils/constants";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
-import {UserRegistration} from "./components/auth/registration/UserRegistration";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 
 
