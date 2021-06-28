@@ -9,6 +9,8 @@ import {colors} from "./utils/colors";
 import {constants} from "./utils/constants";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
+import {UserRegistration} from "./components/auth/registration/UserRegistration";
+import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 
 
 function App() {
@@ -18,21 +20,26 @@ function App() {
           { /* NAVBAR */}
           <AppBar position="sticky" style={{ background: colors.main, height: `${constants.navbar_height}` }}>
               <Toolbar>
-                  <div style={{float: "left", marginLeft: "2%", marginRight: "1%"}}>
+                  <div style={{marginLeft: "2%", marginRight: "1%"}}>
                       <Link to="/" style={{color: "white", textDecoration: "none"}}>
                           <Typography variant="h6">
                               e-Stella
                           </Typography>
                       </Link>
                   </div>
-                  <div style={{float: "left", marginLeft: "1%"}}>
+                  <div style={{marginLeft: "1%", marginRight: "auto"}}>
                       <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
                           <Button color="inherit">Offers</Button>
                       </Link>
                   </div>
-                  <div style={{float: "right", marginLeft: "auto"}}>
+                  <div style={{marginLeft: "auto"}}>
                       <Link to="/login" style={{color: "white", textDecoration: "none"}}>
                           <Button color="inherit" id="loginButton">Login</Button>
+                      </Link>
+                  </div>
+                  <div style={{marginLeft: "auto"}}>
+                      <Link to="/register" style={{color: "white", textDecoration: "none"}}>
+                          <Button color="inherit" id="registerButton">Register</Button>
                       </Link>
                   </div>
               </Toolbar>
@@ -78,6 +85,12 @@ function App() {
               <Route exact path="/login">
                   <div style={{margin: "2em"}}>
                       <LoginForm />
+                  </div>
+              </Route>
+
+              <Route exact path="/register">
+                  <div style={{margin: "2em"}}>
+                      <RegistrationRouting />
                   </div>
               </Route>
 

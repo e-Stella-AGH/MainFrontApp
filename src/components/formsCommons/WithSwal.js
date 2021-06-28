@@ -6,6 +6,7 @@ export const withSwal = ({
                              resultWasntOkErrorText,
                              successSwalTitle,
                              successSwalText,
+                             confirmButtonText,
                              successFunction,
                              errorSwalTitle,
                              errorSwalText,
@@ -17,12 +18,13 @@ export const withSwal = ({
     Swal.showLoading()
     promise()
         .then(result => {
-            if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
+            //if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
             swal.close()
             Swal.fire({
                 title: successSwalTitle,
                 text: successSwalText || "",
-                icon: "success"
+                icon: "success",
+                confirmButtonText: confirmButtonText || "OK"
             })
             successFunction(result)
         })

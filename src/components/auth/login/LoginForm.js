@@ -38,7 +38,8 @@ export const LoginForm = (props) => {
                         control={control}
                         name="login"
                         rules={{
-                            required: {value: true, message: "Required field"}
+                            required: {value: true, message: "Required field"},
+                            pattern: {value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: "Login is your email, so it must be a valid email"}
                         }}
                         defaultValue=""
                         additionalTextFieldProps={{
