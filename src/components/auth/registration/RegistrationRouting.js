@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import {UserRegistration} from "./UserRegistration";
 import {CompanyRegistration} from "./CompanyRegistration";
 import {RegistrationRadioButtons} from "./RegistrationRadioButtons";

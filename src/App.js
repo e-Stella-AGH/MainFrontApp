@@ -1,4 +1,5 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
+import React from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
@@ -34,9 +35,9 @@ const routes = [
 function App() {
 
     const getRoutes = () => {
-        return routes.map(route => {
+        return routes.map((route, idx) => {
             return (
-                <Route exact path={route.path}>
+                <Route exact path={route.path} key={`${idx}`}>
                     <div style={route.style}>
                         {route.component}
                     </div>
@@ -46,42 +47,41 @@ function App() {
     }
 
   return (
-      <Router>
+          <Router>
+              { /* NAVBAR */}
+              <AppBar position="sticky" style={{ background: colors.main, height: `${constants.navbar_height}` }}>
+                  <Toolbar>
+                      <div style={{marginLeft: "2%", marginRight: "1%"}}>
+                          <Link to="/" style={{color: "white", textDecoration: "none"}}>
+                              <Typography variant="h6">
+                                  e-Stella
+                              </Typography>
+                          </Link>
+                      </div>
+                      <div style={{marginLeft: "1%", marginRight: "auto"}}>
+                          <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
+                              <Button color="inherit">Offers</Button>
+                          </Link>
+                      </div>
+                      <div style={{marginLeft: "auto"}}>
+                          <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                              <Button color="inherit" id="loginButton">Login</Button>
+                          </Link>
+                      </div>
+                      <div style={{marginLeft: "auto"}}>
+                          <Link to="/register" style={{color: "white", textDecoration: "none"}}>
+                              <Button color="inherit" id="registerButton">Register</Button>
+                          </Link>
+                      </div>
+                  </Toolbar>
+              </AppBar>
 
-          { /* NAVBAR */}
-          <AppBar position="sticky" style={{ background: colors.main, height: `${constants.navbar_height}` }}>
-              <Toolbar>
-                  <div style={{marginLeft: "2%", marginRight: "1%"}}>
-                      <Link to="/" style={{color: "white", textDecoration: "none"}}>
-                          <Typography variant="h6">
-                              e-Stella
-                          </Typography>
-                      </Link>
-                  </div>
-                  <div style={{marginLeft: "1%", marginRight: "auto"}}>
-                      <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
-                          <Button color="inherit">Offers</Button>
-                      </Link>
-                  </div>
-                  <div style={{marginLeft: "auto"}}>
-                      <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                          <Button color="inherit" id="loginButton">Login</Button>
-                      </Link>
-                  </div>
-                  <div style={{marginLeft: "auto"}}>
-                      <Link to="/register" style={{color: "white", textDecoration: "none"}}>
-                          <Button color="inherit" id="registerButton">Register</Button>
-                      </Link>
-                  </div>
-              </Toolbar>
-          </AppBar>
+              {/* CONTENT */}
 
-          {/* CONTENT */}
-
-          <Switch>
-              {getRoutes()}
-          </Switch>
-      </Router>
+              <Switch>
+                    {getRoutes()}
+              </Switch>
+          </Router>
   );
 }
 
