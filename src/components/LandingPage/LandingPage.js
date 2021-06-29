@@ -33,7 +33,9 @@ export const LandingPage = (props) => {
             </div>
             <div style={{width: "25%", float: "left", marginRight: "10%"}}>
                 <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>Latest Offers</Typography>
-                <OffersList onSelectedOffer={(selected) => history.push(`/offers/apply/${selected.id}`)} limit={3}/>
+                <div style={{height: "50vh", overflowY: "hidden"}}>
+                    <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3}/>
+                </div>
                 <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button>
             </div>
         </div>

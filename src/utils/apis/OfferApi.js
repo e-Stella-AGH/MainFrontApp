@@ -1,4 +1,5 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
+import Swal from "sweetalert2";
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -13,11 +14,25 @@ export const offersAPI = {
     getOfferById: function(offerId){
         return fetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
             .then(response => response.json())
+            .catch(err => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get this offer!",
+                    icon: "error"
+                })
+            })
     },
 
     getAllOffers: function(){
         return fetch(recruitmentServiceBasicAPILink + "/api/offers")
             .then(response => response.json())
+            .catch(err => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers!",
+                    icon: "error"
+                })
+            })
     },
 
     applyWithNoUser: async function (offerId, name, surname, email, files=[]) {

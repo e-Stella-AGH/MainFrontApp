@@ -4,14 +4,14 @@ import {colors} from "../../../utils/colors";
 export const SkillIndicator = (props) => {
 
     const fullCircleStyle = {
-        backgroundColor: colors["main-light"],
+        backgroundColor: colors.palette[3],
     }
 
     const emptyCircleStyle = {
         borderRadius: "50%",
         width: "15px",
         height: "15px",
-        border: `1px solid ${colors["main-light"]}`,
+        border: `1px solid ${colors.palette[3]}`,
     }
 
     return(

@@ -27,6 +27,7 @@ const routes = [
     createRoute("/offers/add", <OfferForm />),
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <AllOffersView />),
+    createRoute("/offers/:id", <AllOffersView />),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
@@ -49,7 +50,7 @@ function App() {
   return (
           <Router>
               { /* NAVBAR */}
-              <AppBar position="sticky" style={{ background: colors.main, height: `${constants.navbar_height}` }}>
+              <AppBar position="sticky" style={{ background: colors.navbar, height: `${constants.navbar_height}` }}>
                   <Toolbar>
                       <div style={{marginLeft: "2%", marginRight: "1%"}}>
                           <Link to="/" style={{color: "white", textDecoration: "none"}}>
@@ -82,7 +83,7 @@ function App() {
                     {getRoutes()}
               </Switch>
           </Router>
-  );
+  )
 }
 
 export default App;
