@@ -14,13 +14,6 @@ export const OffersList = (props) => {
     useEffect(() => {
         offersAPI.getAllOffers()
             .then(data => setOffers(data))
-            .catch(err => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     }, [])
 
     const getShortOffers = () => {
