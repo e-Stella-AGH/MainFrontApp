@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {offersAPI} from "../../../utils/OfferApi";
 import Swal from "sweetalert2";
 import {constants} from "../../../utils/constants";
+import { scrollToTop } from '../../../utils/functions';
 
 export const OffersList = (props) => {
 
@@ -13,36 +14,30 @@ export const OffersList = (props) => {
     useEffect(() => {
         offersAPI.getAllOffers()
             .then(data => setOffers(data))
-            .catch(err => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     }, [])
 
     const getShortOffers = () => {
         return offers
             .filter((item, idx) => props.limit ? idx < props.limit : true)
             .map(
-            (offer, idx) => {
-                return selectedIdx === idx ?
-                    <ShortOfferDetails selected offer={offer} key={idx}
-                                       onClick={(offer, idx) => handleShortOfferSelect(offer, idx)} idx={idx}/>
+                (offer, idx) => {
+                    return selectedIdx === idx ?
+                        <ShortOfferDetails selected offer={offer} key={idx}
+                                           onClick={(offer, idx) => handleShortOfferSelect(offer, idx)} idx={idx}/>
                         : <ShortOfferDetails offer={offer} key={idx}
                                              onClick={(offer, idx) => handleShortOfferSelect(offer, idx)} idx={idx}/>
-            }
-        )
+                }
+            )
     }
 
     const handleShortOfferSelect = (offer, idx) => {
         props.onSelectedOffer(offer)
         setSelectedIdx(idx)
+        scrollToTop()
     }
 
     return(
-        <div style={{marginBottom: "1em"}}>
+        <div style={{overflowY: 'scroll', height: `calc(100vh - 5em - ${constants["navbar_height"]})`}}>
             {getShortOffers()}
         </div>
     )

@@ -3,7 +3,7 @@ import {colors} from "../../../utils/colors";
 
 export const ShortOfferDetails = ({ offer, selected, onClick, idx }) => {
 
-    const selectedStyle = selected ? {backgroundColor: colors["light-gray"]} : {}
+    const selectedStyle = selected ? {backgroundColor: colors.palette[6]} : {backgroundColor: colors.palette[9]}
 
     return(
         <div style={{ width: "100%", marginBottom: "1em" }} onClick={() => onClick(offer, idx)}>
