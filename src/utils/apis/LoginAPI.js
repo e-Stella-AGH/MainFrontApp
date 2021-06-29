@@ -3,7 +3,7 @@ export const loginAPI = {
     login: function(login, password) {
         return new Promise(((resolve, reject) => {
             setTimeout(() => {
-                resolve("Token")
+                resolve({text: "ok", ok: true})
             }, 2000)
         }))
     },
@@ -11,7 +11,7 @@ export const loginAPI = {
     registerUser: function(login, password, firstName, lastName) {
         return new Promise(((resolve, reject) => {
             setTimeout(() => {
-                resolve("xd")
+                resolve({text: "ok", ok: true})
             }, 2000)
         }))
     },
@@ -19,7 +19,7 @@ export const loginAPI = {
     registerCompany: function(name, password, email) {
         return new Promise(resolve => {
             setTimeout(() => {
-                resolve("xd2")
+                resolve({text: "ok", ok: true})
             }, 2000)
         })
     }
