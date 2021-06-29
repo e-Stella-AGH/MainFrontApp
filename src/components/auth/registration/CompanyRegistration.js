@@ -20,7 +20,7 @@ export const CompanyRegistration = (props) => {
     const onSubmit = (data) => {
         withSwal({
             loadingTitle: "Registering...",
-            promise: () => loginAPI.registerUser(data.login, data.password, data.firstName, data.lastName),
+            promise: () => loginAPI.registerCompany(data.login, data.password, data.name),
             successSwalTitle: "Successfully registered!",
             successSwalText: "Your company was successfully registered and now it's waiting for our verification. Please, be patient and wait for email from us!",
             confirmButtonText: "Back to main page",
@@ -41,7 +41,7 @@ export const CompanyRegistration = (props) => {
                 <Grid container spacing={2}>
                     <FormField
                         control={control}
-                        name="email"
+                        name="login"
                         rules={{
                             required: {value: true, message: "Required field"},
                             pattern: {value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: "Login is your email, so it must be a valid email"}
