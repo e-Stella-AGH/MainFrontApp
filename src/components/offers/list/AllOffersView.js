@@ -1,13 +1,23 @@
 import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {Grid} from "@material-ui/core";
+import {useParams} from "react-router-dom";
+import {offersAPI} from "../../../utils/OfferApi";
 
 export const AllOffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
+    const { id } = useParams()
     //const [filter, setFilter] = useState([])
+
+    useEffect(() => {
+        if(id !== undefined){
+            offersAPI.getOfferById(id)
+                .then(data => setSelectedOffer(data))
+        }
+    }, [id])
 
     return(
         <div>

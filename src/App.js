@@ -74,6 +74,11 @@ function App() {
                         <AllOffersView />
                     </div>
                 </Route>
+                <Route exact path="/offers/:id">
+                    <div style={{margin: "2em"}}>
+                        <AllOffersView />
+                    </div>
+                </Route>
 
                 <Route path="*">
                     Page
