@@ -11,8 +11,40 @@ import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 
+const createRoute = (path, component, style={marginTop: "2em"}) => {
+    return {
+        path,
+        style,
+        component
+    }
+}
+
+const routes = [
+    createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
+    createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
+    createRoute("/interview/:interviewId/", <Meeting />, {}),
+    createRoute("/offers/add", <OfferForm />),
+    createRoute("/offers/apply/:id", <ApplyForm />),
+    createRoute("/offers", <AllOffersView />),
+    createRoute("/login", <LoginForm />),
+    createRoute("/register", <RegistrationRouting />),
+    createRoute("*", <div>Page</div>)
+]
 
 function App() {
+
+    const getRoutes = () => {
+        return routes.map(route => {
+            return (
+                <Route exact path={route.path}>
+                    <div style={route.style}>
+                        {route.component}
+                    </div>
+                </Route>
+            )
+        })
+    }
+
   return (
       <Router>
 
@@ -47,55 +79,7 @@ function App() {
           {/* CONTENT */}
 
           <Switch>
-              <Route exact path="/">
-                  <div style={{marginTop: "2em"}}>
-                      <LandingPage />
-                      <a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a>
-                  </div>
-              </Route>
-
-              <Route exact path="/interview/:interviewId/:companyId">
-                <Meeting />
-              </Route>
-              <Route exact path="/interview/:interviewId">
-                  <div>
-                    <Meeting />
-                  </div>
-              </Route>
-
-              <Route exact path="/offers/add">
-                  <div style={{marginTop: "2em"}}>
-                    <OfferForm />
-                  </div>
-              </Route>
-
-              <Route exact path="/offers/apply/:id">
-                  <div style={{marginTop: "2em"}}>
-                    <ApplyForm />
-                  </div>
-              </Route>
-
-              <Route exact path="/offers">
-                  <div style={{margin: "2em"}}>
-                      <AllOffersView />
-                  </div>
-              </Route>
-
-              <Route exact path="/login">
-                  <div style={{margin: "2em"}}>
-                      <LoginForm />
-                  </div>
-              </Route>
-
-              <Route exact path="/register">
-                  <div style={{margin: "2em"}}>
-                      <RegistrationRouting />
-                  </div>
-              </Route>
-
-              <Route path="*">
-                  Page
-              </Route>
+              {getRoutes()}
           </Switch>
       </Router>
   );
