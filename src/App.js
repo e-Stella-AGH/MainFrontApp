@@ -70,12 +70,12 @@ function App() {
                 </Route>
 
                 <Route exact path="/offers">
-                    <div style={{margin: "2em"}}>
+                    <div style={{margin: "2em", marginTop: "1em"}}>
                         <AllOffersView />
                     </div>
                 </Route>
                 <Route exact path="/offers/:id">
-                    <div style={{margin: "2em"}}>
+                    <div style={{margin: "2em", marginTop: "1em"}}>
                         <AllOffersView />
                     </div>
                 </Route>

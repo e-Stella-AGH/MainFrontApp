@@ -37,7 +37,7 @@ export const OffersList = (props) => {
     }
 
     return(
-        <div style={{overflowY: 'scroll', height: `calc(100vh - 5em - ${constants["navbar_height"]})`}}>
+        <div style={{overflowY: 'scroll', height: `calc(100vh - 7em - ${constants["navbar_height"]})`}}>
             {getShortOffers()}
         </div>
     )

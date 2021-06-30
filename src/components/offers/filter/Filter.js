@@ -1,0 +1,24 @@
+import FilterListIcon from '@material-ui/icons/FilterList';
+import {Button, Drawer} from "@material-ui/core";
+import {useState} from "react";
+import {InDrawerFilter} from "./InDrawerFilter";
+
+export const Filter = (props) => {
+
+    const [open, setOpen] = useState(false)
+
+    const toggleDrawer = () => {
+        setOpen(!open)
+    }
+
+    return (
+        <div>
+            <Button onClick={() => toggleDrawer()}><FilterListIcon fontSize="large"/></Button>
+
+            <Drawer anchor="left" open={open} ModalProps={{ onBackdropClick: () => toggleDrawer() }} transitionDuration={700}>
+                <InDrawerFilter toggleDrawer={toggleDrawer} />
+            </Drawer>
+
+        </div>
+    )
+}

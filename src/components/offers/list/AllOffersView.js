@@ -2,9 +2,10 @@ import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
 import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
-import {Grid} from "@material-ui/core";
+import {Divider, Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import {offersAPI} from "../../../utils/OfferApi";
+import {Filter} from "../filter/Filter";
 
 export const AllOffersView = (props) => {
 
@@ -21,14 +22,20 @@ export const AllOffersView = (props) => {
 
     return(
         <div>
-            <Grid container>
-                <Grid item xs={12} sm={6} lg={8}>
-                    { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
+            <div style={{marginBottom: "10px"}}>
+                <Filter />
+            </div>
+            <Divider />
+            <div style={{marginTop: "15px"}}>
+                <Grid container>
+                    <Grid item xs={12} sm={6} lg={8}>
+                        { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
+                    </Grid>
+                    <Grid item xs={12} sm={6} lg={4}>
+                        <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} lg={4}>
-                    <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
-                </Grid>
-            </Grid>
+            </div>
         </div>
     )
 }
