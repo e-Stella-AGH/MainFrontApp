@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import {useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@material-ui/core";
 import {useState} from "react";
-import {offersAPI} from "../../../utils/OfferApi";
+import {offersAPI} from "../../../utils/apis/OfferApi";
 
 export const ApplyForm = () => {
 

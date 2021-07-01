@@ -1,10 +1,10 @@
-import { useForm, Controller } from "react-hook-form"
-import { Grid, Button, makeStyles } from "@material-ui/core"
-import { OfferFormField } from "./OfferFormField"
-import { useEffect } from "react"
-import { OfferFormSkillList } from "./OfferFormSkillList"
-import { offersAPI } from "../../../utils/OfferApi"
-import Swal from "sweetalert2";
+import {Controller, useForm} from "react-hook-form"
+import {Button, Grid, makeStyles} from "@material-ui/core"
+import {FormField} from "../../formsCommons/FormField"
+import {useEffect} from "react"
+import {OfferFormSkillList} from "./OfferFormSkillList"
+import {offersAPI} from "../../../utils/apis/OfferApi"
+import {withSwal} from "../../formsCommons/WithSwal";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -39,31 +39,14 @@ export const OfferForm = (props) => {
             maxSalary: parseInt(data.maxSalary),
             creatorId: parseInt(data.creatorId)
         })
-        let swal = new Swal({
-            title: "Creating offer..."
+        withSwal({
+            loadingTitle: "Creating offer...",
+            promise: () => offersAPI.create(formResult),
+            successSwalTitle: "Success",
+            successSwalText: "You've successfully created offer!",
+            successFunction: () => reset(),
+            errorSwalTitle: "We couldn't create this offer for you"
         })
-        Swal.showLoading()
-        console.log(formResult)
-        offersAPI.create(formResult)
-            .then((result) => {
-                if(!result.ok) throw Error("Something went wrong!")
-                swal.close()
-                Swal.fire({
-                    title: "Success",
-                    text: "You've successfully created offer!",
-                    icon: "success"
-                })
-                reset()
-            })
-            .catch((err) => {
-                swal.close()
-                Swal.fire({
-                    title: err,
-                    text: "We couldn't create this offer for you",
-                    icon: "error",
-                    confirmButtonText: "ok"
-                })
-            })
         if(props.onSubmit){
             props.onSubmit(data)
         }
@@ -73,7 +56,7 @@ export const OfferForm = (props) => {
         <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)}></form>
         <Grid container spacing={2}>
             {/* TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
-            <OfferFormField
+            <FormField
                 control={control}
                 name="creatorId"
                 rules={{
@@ -87,7 +70,7 @@ export const OfferForm = (props) => {
                     form:"offer-form"
                 }} />
             {/* / TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
-            <OfferFormField
+            <FormField
                 control={control}
                 name="name"
                 rules={{
@@ -99,7 +82,7 @@ export const OfferForm = (props) => {
                     autoComplete: "off",
                     form:"offer-form"
                 }} />
-            <OfferFormField
+            <FormField
                 control={control}
                 name="position"
                 rules={{
@@ -111,7 +94,7 @@ export const OfferForm = (props) => {
                     autoComplete: "off",
                     form:"offer-form"
                 }} />
-            <OfferFormField
+            <FormField
                 control={control}
                 name="localization"
                 rules={{
@@ -122,13 +105,13 @@ export const OfferForm = (props) => {
                     autoComplete: "off",
                     form:"offer-form"
                 }} />
-            <OfferFormField
+            <FormField
                 control={control}
                 name="minSalary"
                 rules={{
                     required: {value: true, message: "Required field"},
                     pattern: {value: /^[1-9]\d*$/, message: "Must be a positive number"},
-                    max: {value: maxSalary, message: "Maximum salary cannot be lower than minimum"}
+                    max: {value: maxSalary, message: "Minimum salary cannot be higher than maximum"}
                 }} 
                 defaultValue=""
                 additionalTextFieldProps={{
@@ -140,7 +123,7 @@ export const OfferForm = (props) => {
                     xs:12,
                     sm:6
                 }} />
-            <OfferFormField
+            <FormField
                 control={control}
                 name="maxSalary"
                 rules={{
@@ -158,7 +141,7 @@ export const OfferForm = (props) => {
                     xs:12,
                     sm:6
                 }} />
-            <OfferFormField
+            <FormField
                 name="description"
                 control={control}
                 rules={{required: {value: true, message: "Required field"}}}

@@ -1,1 +1,0 @@
-export const recruitmentServiceBasicAPILink = "https://recruitment-service-estella.herokuapp.com"

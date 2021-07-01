@@ -1,7 +1,7 @@
 import { TextField, Grid } from "@material-ui/core"
 import { Controller } from "react-hook-form"
 
-export const OfferFormField = (props) => <Grid item xs={12} {...props.additionalGridProps}>
+export const FormField = (props) => <Grid item xs={12} {...props.additionalGridProps}>
     <Controller
         {...props}
         render={({field, fieldState}) => 

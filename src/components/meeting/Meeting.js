@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {interviewAPI} from "../../utils/InterviewAPI";
+import {interviewAPI} from "../../utils/apis/InterviewAPI";
 import {MeetingDisplayName} from "./MeetingDisplayName";
 import {JitsiWrapper} from "./JitsiComponentWrapper";
 

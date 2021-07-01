@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
-import {offersAPI} from "../../../utils/OfferApi";
+import {offersAPI} from "../../../utils/apis/OfferApi";
 
 export const AllOffersView = (props) => {
 
