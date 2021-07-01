@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 
+const isStatus2xx = (status) => (Math.floor(status / 100) === 2)
+
 export const withSwal = ({
                              loadingTitle,
                              promise,
@@ -18,8 +20,8 @@ export const withSwal = ({
     promise()
         .then(response => response.json().then(data => ({status: response.status, result: data})))
         .then(({status, result}) => {
-            if (!(Math.floor(status / 100) === 2)) {
-                throw Error(result.errorMessage || "Something went wrong!")
+            if (!isStatus2xx(status)) {
+                throw Error(result.message || "Something went wrong!")
             }
             swal.close()
             Swal.fire({
