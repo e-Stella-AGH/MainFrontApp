@@ -19,7 +19,7 @@ export const LoginForm = (props) => {
             successSwalTitle: "Successfully logged in!",
             successFunction: (token) => {
                 reset()
-                alert([...token])
+                console.log(token)
             },
             errorSwalTitle: "We couldn't log you in!"
         })

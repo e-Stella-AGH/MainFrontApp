@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 export const withSwal = ({
                              loadingTitle,
                              promise,
-                             resultWasntOkErrorText,
                              successSwalTitle,
                              successSwalText,
                              confirmButtonText,
@@ -17,8 +16,11 @@ export const withSwal = ({
     })
     Swal.showLoading()
     promise()
-        .then(result => {
-            if (!result.ok) throw Error(resultWasntOkErrorText || "Something went wrong!")
+        .then(response => response.json().then(data => ({status: response.status, result: data})))
+        .then(({status, result}) => {
+            if (!(Math.floor(status / 100) === 2)) {
+                throw Error(result.errorMessage || "Something went wrong!")
+            }
             swal.close()
             Swal.fire({
                 title: successSwalTitle,
@@ -26,7 +28,7 @@ export const withSwal = ({
                 icon: "success",
                 confirmButtonText: confirmButtonText || "OK"
             }).then(swalResult => {
-                if(swalResult.isConfirmed) {
+                if (swalResult.isConfirmed) {
                     successFunction(result)
                 }
             })

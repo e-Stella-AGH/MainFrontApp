@@ -3,10 +3,6 @@ import {recruitmentServiceBasicAPILink} from "./APILinks";
 export const loginAPI = {
 
     login: function(login, password) {
-        console.log(JSON.stringify({
-            mail: login,
-            password: password
-        }))
         return fetch(recruitmentServiceBasicAPILink + "/api/users/login", {
             method: "POST",
             headers: {
@@ -17,10 +13,6 @@ export const loginAPI = {
                 password: password
             })
         })
-            .then(response => response.text())
-            .then(text => {
-                return {text: text, ok: true}
-            })
     },
 
     registerUser: function(login, password, firstName, lastName) {
@@ -36,10 +28,6 @@ export const loginAPI = {
                 password: password
             })
         })
-            .then(response => response.text())
-            .then(text => {
-                return {text: text, ok: true}
-            })
     },
 
     registerCompany: function(login, password, name) {

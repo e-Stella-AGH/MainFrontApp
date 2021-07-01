@@ -24,7 +24,7 @@ export const UserRegistration = (props) => {
             successSwalTitle: "Successfully registered!",
             successSwalText: "You can log in now!",
             confirmButtonText: "Go to login page",
-            successFunction: () => {
+            successFunction: (response) => {
                 reset()
                 history.push('/login')
             },
