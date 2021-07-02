@@ -12,7 +12,7 @@ export const OffersList = (props) => {
 
     useEffect(() => {
         offersAPI.getAllOffers()
-            .then(data => setOffers(data))
+            .then(data => setOffers(data || []))
     }, [])
 
     const getShortOffers = () => {
