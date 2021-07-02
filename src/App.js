@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
-import {AllOffersView} from "./components/offers/list/AllOffersView";
+import {OffersView} from "./components/offers/list/OffersView";
 import {OfferForm} from "./components/offers/createForm/OfferForm";
 import {colors} from "./utils/colors";
 import {constants} from "./utils/constants";
@@ -12,6 +12,7 @@ import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 import {offersAPI} from "./utils/apis/OfferApi";
+import {withSwal} from "./components/formsCommons/WithSwal";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -21,14 +22,44 @@ const createRoute = (path, component, style={marginTop: "2em"}) => {
     }
 }
 
+const hrOfferButtons = [
+    {
+        text: "Edit",
+        action: (offer, history) => {
+            history.push(`/hr/offers/edit/${offer.id}`)
+        }
+    },
+    {
+        text: "Delete",
+        action: (offer, history) => {
+            withSwal({
+                loadingTitle: "Deleting offer",
+                promise: () => offersAPI.deleteOffer(offer.id),
+                successSwalTitle: "Successfully deleted",
+                successSwalText: "Offer has been deleted",
+                confirmButtonText: "Ok",
+                successFunction: () => history.go(0),
+                errorSwalTitle: "Offer not deleted",
+                errorSwalText: "We couldn't delete your offer",
+                errorConfirmButtonText: "Ok"
+            })
+        },
+        style: {
+            color: "secondary"
+        }
+    }
+
+]
+
 const routes = [
     createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
     createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
     createRoute("/interview/:interviewId/", <Meeting />, {}),
     createRoute("/offers/add", <OfferForm />),
     createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <AllOffersView  getOffers={() => offersAPI.getAllOffers()}/>),
-    createRoute("/offers/:id", <AllOffersView getOffers={() => offersAPI.getAllOffers()}/>),
+    createRoute("/offers", <OffersView getOffers={() => offersAPI.getAllOffers()}/>),
+    createRoute("/offers/:id", <OffersView getOffers={() => offersAPI.getAllOffers()}/>),
+    createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)

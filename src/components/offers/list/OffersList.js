@@ -14,7 +14,7 @@ export const OffersList = (props) => {
     useEffect(() => {
         getOffers()
             .then(data => setOffers(data || []))
-    }, [])
+    }, [getOffers])
 
     const getShortOffers = () => {
         return offers

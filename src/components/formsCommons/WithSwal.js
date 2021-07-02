@@ -30,7 +30,7 @@ export const withSwal = ({
                 icon: "success",
                 confirmButtonText: confirmButtonText || "OK"
             }).then(swalResult => {
-                if (swalResult.isConfirmed) {
+                if (swalResult.isConfirmed && successFunction) {
                     successFunction(result)
                 }
             })

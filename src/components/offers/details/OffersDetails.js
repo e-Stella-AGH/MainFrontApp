@@ -1,8 +1,7 @@
-import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import { colors } from "../../../utils/colors";
+import {colors} from "../../../utils/colors";
 import {constants} from "../../../utils/constants";
 import PropTypes from "prop-types";
 
@@ -11,7 +10,7 @@ export const OfferDetails = (props) => {
 
     const history = useHistory()
 
-    const [offer, setOffer] = useState(props.offer)
+    const offer = props.offer
 
     return (
         <div>
@@ -33,13 +32,15 @@ export const OfferDetails = (props) => {
                                     </Typography>
                                 </Box>
                             </div>
-                            <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
+                            <div style={{float: "right", marginRight: "20px", display: "flex"}}>
                                 {props.buttons.map(button => {
-                                    return <Button key={button.text} variant="outlined" onClick={() => button.action(offer, history)}>
-                                        <Typography variant="h6">
-                                            {button.text}
-                                        </Typography>
-                                    </Button>
+                                    return <Box key={button.text} mr={1} ml={1}>
+                                        <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
+                                            <Typography variant="h6">
+                                                {button.text}
+                                            </Typography>
+                                        </Button>
+                                    </Box>
                                 })}
 
                             </div>

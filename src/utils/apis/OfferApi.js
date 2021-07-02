@@ -76,5 +76,17 @@ export const offersAPI = {
 
     applyWithUser: function(offerID){
 
+    },
+    getOffersFromHr() {
+        return this.getAllOffers(); //TODO change after full users functionality implementation
+    },
+
+    deleteOffer(id) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 }
