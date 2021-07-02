@@ -4,14 +4,20 @@ import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@materi
 import {OfferSkill} from "./OfferSkill";
 import { colors } from "../../../utils/colors";
 import {constants} from "../../../utils/constants";
-import PropTypes from "prop-types";
 
-
-export const OfferDetails = (props) => {
+export const CreatorDetails = (props) => { //so far it'll look the same as for the user
 
     const history = useHistory()
 
-    const [offer, setOffer] = useState(props.offer)
+    const [offer, setOffer] = useState({skills: []})
+
+    useEffect(() => {
+        setOffer(props.offer)
+    }, [props.offer])
+
+    const apply = () => {
+        history.push(`/offers/apply/${offer.id}`)
+    }
 
     return (
         <div>
@@ -34,14 +40,11 @@ export const OfferDetails = (props) => {
                                 </Box>
                             </div>
                             <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
-                                {props.buttons.map(button => {
-                                    return <Button key={button.text} variant="outlined" onClick={() => button.action(offer, history)}>
-                                        <Typography variant="h6">
-                                            {button.text}
-                                        </Typography>
-                                    </Button>
-                                })}
-
+                                <Button variant="outlined" onClick={apply}>
+                                    <Typography variant="h6">
+                                        Apply
+                                    </Typography>
+                                </Button>
                             </div>
                         </Box>
                         <Divider/>
@@ -72,8 +75,8 @@ export const OfferDetails = (props) => {
                             <Grid container>
                                 {offer.skills.map((skill, idx) =>
                                     <Grid key={idx} item ><OfferSkill key={idx}
-                                          name={skill.name}
-                                          skillLevel={skill.level}/></Grid>)}
+                                                                      name={skill.name}
+                                                                      skillLevel={skill.level}/></Grid>)}
                             </Grid>
                         </Box>
                         <Divider/>
@@ -85,16 +88,4 @@ export const OfferDetails = (props) => {
             </div>
         </div>
     )
-}
-
-OfferDetails.propTypes = {
-    offer: PropTypes.object.isRequired,
-    buttons: PropTypes.array
-}
-
-OfferDetails.defaultProps = {
-    buttons: [{
-        text: "Apply",
-        action: (offer, history) => history.push(`/offers/apply/${offer.id}`)
-    }]
 }

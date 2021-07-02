@@ -11,6 +11,7 @@ import {constants} from "./utils/constants";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
+import {offersAPI} from "./utils/apis/OfferApi";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -26,8 +27,8 @@ const routes = [
     createRoute("/interview/:interviewId/", <Meeting />, {}),
     createRoute("/offers/add", <OfferForm />),
     createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <AllOffersView />),
-    createRoute("/offers/:id", <AllOffersView />),
+    createRoute("/offers", <AllOffersView  getOffers={() => offersAPI.getAllOffers()}/>),
+    createRoute("/offers/:id", <AllOffersView getOffers={() => offersAPI.getAllOffers()}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
