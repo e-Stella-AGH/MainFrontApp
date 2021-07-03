@@ -26,8 +26,8 @@ const routes = [
     createRoute("/interview/:interviewId/", <Meeting />, {}),
     createRoute("/offers/add", <OfferForm />),
     createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <AllOffersView />),
-    createRoute("/offers/:id", <AllOffersView />),
+    createRoute("/offers", <AllOffersView />, {margin: "1em", marginTop: "2em"}),
+    createRoute("/offers/:id", <AllOffersView />, {margin: "1em", marginTop: "2em"}),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
