@@ -11,9 +11,9 @@ export const getFilterValueByType = (filters, filterType) =>
 export const createFilterFunction = (filter) => {
     switch (filter.type) {
         case filterTypes.MIN_SALARY:
-            return (arg) => arg.minSalary > filter.value
+            return (arg) => arg.minSalary >= filter.value
         case filterTypes.MAX_SALARY:
-            return (arg) => arg.maxSalary < filter.value
+            return (arg) => arg.maxSalary <= filter.value
         default:
             return () => true
     }

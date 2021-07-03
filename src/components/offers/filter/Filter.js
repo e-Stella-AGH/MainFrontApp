@@ -25,7 +25,7 @@ export const Filter = (props) => {
             <Drawer anchor="left" open={open} ModalProps={{onBackdropClick: () => toggleDrawer()}}
                     transitionDuration={700}>
                 <InDrawerFilter toggleDrawer={toggleDrawer} offers={props.offers}
-                                onFilterSubmitted={handleFilterSubmitted} filters={filters}/>
+                                onFilterSubmitted={handleFilterSubmitted} filters={filters} fixedOffers={props.fixedOffers}/>
             </Drawer>
 
         </div>
@@ -34,5 +34,6 @@ export const Filter = (props) => {
 
 Filter.propTypes = {
     offers: PropTypes.array.isRequired,
-    onFilterSubmitted: PropTypes.func.isRequired
+    onFilterSubmitted: PropTypes.func.isRequired,
+    fixedOffers: PropTypes.array.isRequired
 }

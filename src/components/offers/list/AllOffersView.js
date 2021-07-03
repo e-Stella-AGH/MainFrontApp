@@ -13,10 +13,10 @@ export const AllOffersView = (props) => {
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [offers, setOffers] = useState([])
     const {id} = useParams()
-    //const [filter, setFilter] = useState([])
+    const [fixedOffers, setFixedOffers] = useState([])
 
     const handleFilterSubmitted = (filters) => {
-        let tmpOffers = offers
+        let tmpOffers = fixedOffers
         filters.forEach(filter => {
             tmpOffers = tmpOffers.filter(offer => (createFilterFunction(filter))(offer))
         })
@@ -32,13 +32,16 @@ export const AllOffersView = (props) => {
 
     useEffect(() => {
         offersAPI.getAllOffers()
-            .then(data => setOffers(data || []))
+            .then(data => {
+                setOffers(data || [])
+                setFixedOffers(data || [])
+            })
     }, [])
 
     return (
         <div>
             <div style={{marginBottom: "10px"}}>
-                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted}/>
+                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}/>
             </div>
             <Divider/>
             <div style={{marginTop: "15px"}}>

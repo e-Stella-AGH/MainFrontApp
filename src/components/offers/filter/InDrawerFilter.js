@@ -33,10 +33,8 @@ export const InDrawerFilter = (props) => {
         }
     }
 
-    const offers = props.offers
-
-    const getMinOffersSalary = () => Math.min(...offers.map(offer => offer.minSalary))
-    const getMaxOffersSalary = () => Math.max(...offers.map(offer => offer.maxSalary))
+    const getMinOffersSalary = () => Math.min(...props.fixedOffers.map(offer => offer.minSalary))
+    const getMaxOffersSalary = () => Math.max(...props.fixedOffers.map(offer => offer.maxSalary))
 
     const handleFilterSubmit = () => {
         props.toggleDrawer()
@@ -78,5 +76,6 @@ InDrawerFilter.propTypes = {
     toggleDrawer: PropTypes.func.isRequired,
     offers: PropTypes.array.isRequired,
     onFilterSubmitted: PropTypes.func.isRequired,
-    filters: PropTypes.array // - state of previous drawer
+    filters: PropTypes.array, // - state of previous drawer,
+    fixedOffers: PropTypes.array.isRequired
 }
