@@ -4,8 +4,8 @@ import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {Divider, Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
-import {offersAPI} from "../../../utils/OfferApi";
 import {Filter} from "../filter/Filter";
+import {offersAPI} from "../../../utils/apis/OfferApi";
 
 export const AllOffersView = (props) => {
 

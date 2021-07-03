@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import {ShortOfferDetails} from "./ShortOfferDetails";
 import {useEffect, useState} from "react";
-import {offersAPI} from "../../../utils/OfferApi";
-import Swal from "sweetalert2";
 import {constants} from "../../../utils/constants";
-import { scrollToTop } from '../../../utils/functions';
+import {scrollToTop} from '../../../utils/functions';
+import {offersAPI} from "../../../utils/apis/OfferApi";
 
 export const OffersList = (props) => {
 
@@ -13,7 +12,7 @@ export const OffersList = (props) => {
 
     useEffect(() => {
         offersAPI.getAllOffers()
-            .then(data => setOffers(data))
+            .then(data => setOffers(data || []))
     }, [])
 
     const getShortOffers = () => {
