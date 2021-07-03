@@ -6,7 +6,7 @@ import {Divider, Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
-import {createFilterFunction} from "../../../utils/functions";
+import {filterOffers} from "../../../utils/functions";
 
 export const AllOffersView = (props) => {
 
@@ -16,11 +16,7 @@ export const AllOffersView = (props) => {
     const [fixedOffers, setFixedOffers] = useState([])
 
     const handleFilterSubmitted = (filters) => {
-        let tmpOffers = fixedOffers
-        filters.forEach(filter => {
-            tmpOffers = tmpOffers.filter(offer => (createFilterFunction(filter))(offer))
-        })
-        setOffers(tmpOffers)
+        setOffers(filterOffers(fixedOffers, filters))
     }
 
     useEffect(() => {
