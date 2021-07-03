@@ -1,7 +1,7 @@
 import {Button, Grid} from "@material-ui/core";
-import CancelIcon from '@material-ui/icons/Cancel';
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
+import {EStellaSlider} from "./EStellaSlider";
 
 export const InDrawerFilter = (props) => {
 
@@ -14,7 +14,10 @@ export const InDrawerFilter = (props) => {
         }
     }
 
-    console.log(calculateWidth())
+    const offers = props.offers
+
+    const getMinOffersSalary = () => Math.min(...offers.map(offer => offer.minSalary))
+    const getMaxOffersSalary = () => Math.max(...offers.map(offer => offer.maxSalary))
 
     return(
         <div style={{width: `${calculateWidth()}px`, padding: "2em"}}>
@@ -25,11 +28,15 @@ export const InDrawerFilter = (props) => {
                         <Grid item xs={2}><Button onClick={props.toggleDrawer}><CloseIcon fontSize="large"/></Button></Grid>
                     </Grid>
                 </Grid>
+                <Grid item>
+                    <EStellaSlider label="Salary" max={getMaxOffersSalary()} min={getMinOffersSalary()} step={100} />
+                </Grid>
             </Grid>
         </div>
     )
 }
 
 InDrawerFilter.propTypes = {
-    toggleDrawer: PropTypes.func.isRequired
+    toggleDrawer: PropTypes.func.isRequired,
+    offers: PropTypes.array.isRequired
 }

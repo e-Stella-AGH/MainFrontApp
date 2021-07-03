@@ -10,6 +10,7 @@ import {offersAPI} from "../../../utils/apis/OfferApi";
 export const AllOffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
+    const [offers, setOffers] = useState([])
     const { id } = useParams()
     //const [filter, setFilter] = useState([])
 
@@ -20,10 +21,15 @@ export const AllOffersView = (props) => {
         }
     }, [id])
 
+    useEffect(() => {
+        offersAPI.getAllOffers()
+            .then(data => setOffers(data || []))
+    }, [])
+
     return(
         <div>
             <div style={{marginBottom: "10px"}}>
-                <Filter />
+                <Filter  offers={offers}/>
             </div>
             <Divider />
             <div style={{marginTop: "15px"}}>
@@ -32,7 +38,7 @@ export const AllOffersView = (props) => {
                         { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
                     </Grid>
                     <Grid item xs={12} sm={6} lg={4}>
-                        <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
+                        <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}  offers={offers}/>
                     </Grid>
                 </Grid>
             </div>
