@@ -1,15 +1,14 @@
 import {Grid, Slider, TextField, Typography} from "@material-ui/core";
-import {useState} from "react";
 import PropTypes from 'prop-types';
 
 export const EStellaSlider = (props) => {
-
-    const [value, setValue] = useState([props.min, props.max])
 
     const getValue = (event, value) => {
         return event.target.value === '' ? value : Number(event.target.value)
     }
 
+    const value = props.value
+    const setValue = props.onValueChanged
     const getMaxValue = (event) => getValue(event, props.max)
     const getMinValue = (event) => getValue(event, props.min)
 
@@ -64,7 +63,9 @@ EStellaSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
-    step: PropTypes.number
+    step: PropTypes.number,
+    value: PropTypes.array.isRequired,
+    onValueChanged: PropTypes.func.isRequired
 }
 
 EStellaSlider.defaultProps = {

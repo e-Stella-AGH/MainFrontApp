@@ -7,6 +7,12 @@ import PropTypes from "prop-types";
 export const Filter = (props) => {
 
     const [open, setOpen] = useState(false)
+    const [filters, setFilters] = useState([])
+
+    const handleFilterSubmitted = (filters) => {
+        setFilters(filters)
+        props.onFilterSubmitted(filters)
+    }
 
     const toggleDrawer = () => {
         setOpen(!open)
@@ -16,8 +22,10 @@ export const Filter = (props) => {
         <div>
             <Button onClick={() => toggleDrawer()}><FilterListIcon fontSize="large"/></Button>
 
-            <Drawer anchor="left" open={open} ModalProps={{ onBackdropClick: () => toggleDrawer() }} transitionDuration={700}>
-                <InDrawerFilter toggleDrawer={toggleDrawer}  offers={props.offers}/>
+            <Drawer anchor="left" open={open} ModalProps={{onBackdropClick: () => toggleDrawer()}}
+                    transitionDuration={700}>
+                <InDrawerFilter toggleDrawer={toggleDrawer} offers={props.offers}
+                                onFilterSubmitted={handleFilterSubmitted} filters={filters}/>
             </Drawer>
 
         </div>
@@ -25,5 +33,6 @@ export const Filter = (props) => {
 }
 
 Filter.propTypes = {
-    offers: PropTypes.array.isRequired
+    offers: PropTypes.array.isRequired,
+    onFilterSubmitted: PropTypes.func.isRequired
 }
