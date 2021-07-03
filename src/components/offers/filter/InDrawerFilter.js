@@ -1,14 +1,16 @@
-import {Button, Grid} from "@material-ui/core";
+import {Box, Button, Grid} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import {EStellaSlider} from "./EStellaSlider";
 import {useEffect, useState} from "react";
 import {filterTypes} from "../../../utils/Enums";
 import {getFilterValueByType} from "../../../utils/functions";
+import {AutocompleteFilter} from "./AutocompleteFilter";
 
 export const InDrawerFilter = (props) => {
 
     const [sliderValue, setSliderValue] = useState([0, 100])
+    const [companyValue, setCompanyValue] = useState("")
 
     useEffect(() => {
         setSliderValue([
@@ -20,7 +22,8 @@ export const InDrawerFilter = (props) => {
     const createFilters = () => {
         return [
             {type: filterTypes.MIN_SALARY, value: sliderValue[0]},
-            {type: filterTypes.MAX_SALARY, value: sliderValue[1]}
+            {type: filterTypes.MAX_SALARY, value: sliderValue[1]},
+            {type: filterTypes.COMPANY_NAME, value: companyValue}
         ]
     }
 
@@ -41,6 +44,8 @@ export const InDrawerFilter = (props) => {
         props.onFilterSubmitted(createFilters())
     }
 
+    const companyOptions = [...new Set(props.fixedOffers.map(offer => offer.organization.name))]
+
     return (
         <div style={{width: `${calculateWidth()}px`, padding: "2em"}}>
             <Grid container spacing={2} direction="column">
@@ -56,6 +61,13 @@ export const InDrawerFilter = (props) => {
                                    value={sliderValue} onValueChanged={(value) => setSliderValue(value)}/>
                 </Grid>
 
+                <Grid item>
+                    <Box m={1}>
+                        <AutocompleteFilter options={companyOptions}  label="Company Name" value={companyValue}
+                            onChange={(value) => setCompanyValue(value)}
+                        />
+                    </Box>
+                </Grid>
 
                 <Grid item xs={12}>
                     <Grid container direction="row">

@@ -14,6 +14,12 @@ export const createFilterFunction = (filter) => {
             return (arg) => arg.minSalary >= filter.value
         case filterTypes.MAX_SALARY:
             return (arg) => arg.maxSalary <= filter.value
+        case filterTypes.COMPANY_NAME:
+            if(filter.value){
+                return (arg) => arg.organization.name === filter.value
+            } else {
+                return () => true
+            }
         default:
             return () => true
     }

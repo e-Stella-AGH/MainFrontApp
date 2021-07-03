@@ -19,6 +19,8 @@ export const OfferDetails = (props) => {
         history.push(`/offers/apply/${offer.id}`)
     }
 
+    console.log(offer)
+
     return (
         <div>
             <div>
@@ -35,7 +37,7 @@ export const OfferDetails = (props) => {
                                 </Box>
                                 <Box m={1}>
                                     <Typography variant="h6" color="textSecondary">
-                                        {offer.company}
+                                        {offer.organization?.name}
                                     </Typography>
                                 </Box>
                             </div>
