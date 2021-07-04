@@ -1,4 +1,7 @@
 import {filterTypes} from "./Enums";
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import BusinessIcon from '@material-ui/icons/Business';
+import PersonIcon from '@material-ui/icons/Person';
 
 export const scrollToTop = () => {
     document.body.scrollTop = 0;
@@ -37,4 +40,19 @@ export const filterOffers = (offers, filters) => {
         tmpOffers = tmpOffers.filter(offer => (createFilterFunction(filter))(offer))
     })
     return tmpOffers
+}
+
+export const getIconFromFilterType = (filter) => {
+    switch (filter.type) {
+        case filterTypes.MIN_SALARY:
+            return <MonetizationOnIcon />
+        case filterTypes.MAX_SALARY:
+            return <MonetizationOnIcon />
+        case filterTypes.COMPANY_NAME:
+            return <BusinessIcon />
+        case filterTypes.POSITION_NAME:
+            return <PersonIcon />
+        default:
+            return null
+    }
 }

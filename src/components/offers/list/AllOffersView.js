@@ -16,6 +16,7 @@ export const AllOffersView = (props) => {
     const [fixedOffers, setFixedOffers] = useState([])
 
     const handleFilterSubmitted = (filters) => {
+        console.log(filters)
         setOffers(filterOffers(fixedOffers, filters))
     }
 
@@ -37,7 +38,7 @@ export const AllOffersView = (props) => {
     return (
         <div>
             <div style={{marginBottom: "10px"}}>
-                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}/>
+                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
             </div>
             <Divider/>
             <div style={{marginTop: "15px"}}>
