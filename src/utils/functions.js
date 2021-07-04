@@ -15,8 +15,14 @@ const createFilterFunction = (filter) => {
         case filterTypes.MAX_SALARY:
             return (arg) => arg.maxSalary <= filter.value
         case filterTypes.COMPANY_NAME:
-            if(filter.value){
-                return (arg) => arg.organization.name.toLowerCase() === filter.value.toLowerCase()
+            if (filter.value) {
+                return (arg) => arg.organization.name.toLowerCase().includes(filter.value.toLowerCase())
+            } else {
+                return () => true
+            }
+        case filterTypes.POSITION_NAME:
+            if (filter.value) {
+                return (arg) => arg.position.toLowerCase().includes(filter.value.toLowerCase())
             } else {
                 return () => true
             }

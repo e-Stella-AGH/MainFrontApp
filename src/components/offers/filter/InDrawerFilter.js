@@ -11,6 +11,7 @@ export const InDrawerFilter = (props) => {
 
     const [sliderValue, setSliderValue] = useState([0, 100])
     const [companyValue, setCompanyValue] = useState("")
+    const [positionValue, setPositionValue] = useState("")
 
     useEffect(() => {
         setSliderValue([
@@ -23,7 +24,8 @@ export const InDrawerFilter = (props) => {
         return [
             {type: filterTypes.MIN_SALARY, value: sliderValue[0]},
             {type: filterTypes.MAX_SALARY, value: sliderValue[1]},
-            {type: filterTypes.COMPANY_NAME, value: companyValue}
+            {type: filterTypes.COMPANY_NAME, value: companyValue},
+            {type: filterTypes.POSITION_NAME, value: positionValue}
         ]
     }
 
@@ -45,6 +47,7 @@ export const InDrawerFilter = (props) => {
     }
 
     const companyOptions = [...new Set(props.fixedOffers.map(offer => offer.organization.name))]
+    const positionOptions = [...new Set(props.fixedOffers.map(offer => offer.position))]
 
     return (
         <div style={{width: `${calculateWidth()}px`, padding: "2em"}}>
@@ -62,14 +65,22 @@ export const InDrawerFilter = (props) => {
                 </Grid>
 
                 <Grid item>
-                    <Box m={1}>
+                    <Box m={1} p={1}>
                         <AutocompleteFilter options={companyOptions}  label="Company Name" value={companyValue}
                             onChange={(value) => setCompanyValue(value)}
                         />
                     </Box>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item>
+                    <Box m={1} p={1}>
+                        <AutocompleteFilter options={positionOptions}  label="Position" value={positionValue}
+                                            onChange={(value) => setPositionValue(value)}
+                        />
+                    </Box>
+                </Grid>
+
+                <Grid item xs={12} style={{position: "absolute", bottom: "5%", right: "20%"}}>
                     <Grid container direction="row">
                         <Grid item xs={false} md={8} />
                         <Grid item xs={12} md={4}>
