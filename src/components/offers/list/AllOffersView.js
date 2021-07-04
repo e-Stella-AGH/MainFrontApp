@@ -16,7 +16,6 @@ export const AllOffersView = (props) => {
     const [fixedOffers, setFixedOffers] = useState([])
 
     const handleFilterSubmitted = (filters) => {
-        console.log(filters)
         setOffers(filterOffers(fixedOffers, filters))
     }
 

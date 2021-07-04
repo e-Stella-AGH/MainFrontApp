@@ -19,8 +19,6 @@ export const OfferDetails = (props) => {
         history.push(`/offers/apply/${offer.id}`)
     }
 
-    console.log(offer)
-
     return (
         <div>
             <div>

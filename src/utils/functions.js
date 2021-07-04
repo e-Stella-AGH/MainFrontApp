@@ -45,13 +45,13 @@ export const filterOffers = (offers, filters) => {
 export const getIconFromFilterType = (filter) => {
     switch (filter.type) {
         case filterTypes.MIN_SALARY:
-            return <MonetizationOnIcon />
+            return <MonetizationOnIcon id={`min-filter-icon`} />
         case filterTypes.MAX_SALARY:
-            return <MonetizationOnIcon />
+            return <MonetizationOnIcon id={`max-filter-icon`} />
         case filterTypes.COMPANY_NAME:
-            return <BusinessIcon />
+            return <BusinessIcon id={`company-filter-icon`} />
         case filterTypes.POSITION_NAME:
-            return <PersonIcon />
+            return <PersonIcon id={`position-filter-icon`} />
         default:
             return null
     }
