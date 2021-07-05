@@ -55,11 +55,12 @@ const routes = [
     createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
     createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
     createRoute("/interview/:interviewId/", <Meeting />, {}),
-    createRoute("/offers/add", <OfferForm />),
+    createRoute("/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={() => offersAPI.getAllOffers()}/>),
     createRoute("/offers/:id", <OffersView getOffers={() => offersAPI.getAllOffers()}/>),
     createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
+    createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
