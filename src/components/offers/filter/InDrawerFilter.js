@@ -85,7 +85,7 @@ export const InDrawerFilter = (props) => {
                         <Grid item xs={false} md={8} />
                         <Grid item xs={12} md={4}>
                             <Button variant="outlined" onClick={handleFilterSubmit}>
-                                Filter!
+                                Filter
                             </Button>
                         </Grid>
                     </Grid>
