@@ -5,6 +5,7 @@ import {useEffect} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../formsCommons/WithSwal";
+import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -13,20 +14,44 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const OfferForm = (props) => {
+    const { id } = useParams()
+
+
     const defaultFormState = {
-        name:"",
-        position:"",
-        localization:"",
-        minSalary:"",
-        maxSalary:"",
-        description:"",
-        creatorId:"",
-        skills:[]
+        name: "",
+        position: "",
+        localization: "",
+        minSalary: "",
+        maxSalary: "",
+        description: "",
+        creatorId: "",
+        skills: []
     }
+
+
+
     const {handleSubmit, watch, trigger, control, reset} = useForm({mode: "onChange", defaultValues:defaultFormState})
 
     const minSalary = watch("minSalary", null)
     const maxSalary = watch("maxSalary", null)
+
+    function updateOffer(data) {
+        defaultFormState.name = data.name
+        defaultFormState.position = data.position
+        defaultFormState.localization = data.localization
+        defaultFormState.minSalary = data.minSalary
+        defaultFormState.maxSalary = data.maxSalary
+        defaultFormState.description = data.description
+        defaultFormState.skills = data.skills
+        reset(defaultFormState)
+    }
+
+    useEffect(() => {
+        if(id !== undefined){
+            offersAPI.getOfferById(id)
+                .then(data => updateOffer(data))
+        }
+    }, [id])
 
     const classes = useStyles()
 
@@ -37,15 +62,16 @@ export const OfferForm = (props) => {
         const formResult = Object.assign(data, {
             minSalary: parseInt(data.minSalary),
             maxSalary: parseInt(data.maxSalary),
-            creatorId: parseInt(data.creatorId)
+            creatorId: parseInt(data.creatorId),
+            offerId: id
         })
         withSwal({
-            loadingTitle: "Creating offer...",
-            promise: () => offersAPI.create(formResult),
+            loadingTitle: "Saving offer",
+            promise: () => props.onSubmit(formResult),
             successSwalTitle: "Success",
-            successSwalText: "You've successfully created offer!",
+            successSwalText: "You've successfully saved offer!",
             successFunction: () => reset(),
-            errorSwalTitle: "We couldn't create this offer for you"
+            errorSwalTitle: "We couldn't save this offer for you"
         })
         if(props.onSubmit){
             props.onSubmit(data)
@@ -164,7 +190,7 @@ export const OfferForm = (props) => {
             />
             <Grid item xs={false} sm={8} />
             <Grid item xs={12} sm={4}>
-                <Button className={classes.button} type="submit" variant="contained" size="large" form="offer-form" fullWidth>Create offer</Button>
+                <Button className={classes.button} type="submit" variant="contained" size="large" form="offer-form" fullWidth>Save offer</Button>
             </Grid>
         </Grid></div>
 }

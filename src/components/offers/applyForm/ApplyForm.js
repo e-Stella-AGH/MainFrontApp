@@ -50,7 +50,7 @@ export const ApplyForm = () => {
 
     const validatedApply = (files) => {
         let swal = new Swal({
-            title: "Applying..."
+            title: "Applying"
         })
         Swal.showLoading()
         offersAPI.applyWithNoUser(id, name, surname, email, files)

@@ -74,6 +74,16 @@ export const offersAPI = {
         })
     },
 
+    update: function (offerData) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/update/${offerData.offerId}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(offerData)
+        })
+    },
+
     applyWithUser: function(offerID){
 
     },
