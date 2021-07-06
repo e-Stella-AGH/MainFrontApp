@@ -18,18 +18,15 @@ export const OfferForm = (props) => {
 
 
     const defaultFormState = {
-        name: "",
-        position: "",
-        localization: "",
-        minSalary: "",
-        maxSalary: "",
-        description: "",
-        creatorId: "",
-        skills: []
+        name:"",
+        position:"",
+        localization:"",
+        minSalary:"",
+        maxSalary:"",
+        description:"",
+        creatorId:"",
+        skills:[]
     }
-
-
-
     const {handleSubmit, watch, trigger, control, reset} = useForm({mode: "onChange", defaultValues:defaultFormState})
 
     const minSalary = watch("minSalary", null)
