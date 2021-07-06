@@ -5,8 +5,9 @@ import {PickUpOffer} from "./PickUpOffer";
 import {Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import {offersAPI} from "../../../utils/apis/OfferApi";
+import PropTypes from "prop-types";
 
-export const AllOffersView = (props) => {
+export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
     const { id } = useParams()
@@ -23,12 +24,16 @@ export const AllOffersView = (props) => {
         <div>
             <Grid container>
                 <Grid item xs={12} sm={6} lg={8}>
-                    { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} />}
+                    { selectedOffer === null ? <PickUpOffer /> : <OfferDetails offer={selectedOffer} buttons={props.buttons} />}
                 </Grid>
                 <Grid item xs={12} sm={6} lg={4}>
-                    <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} />
+                    <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} getOffers={() => props.getOffers()} />
                 </Grid>
             </Grid>
         </div>
     )
+}
+
+OffersView.propTypes = {
+    getOffers: PropTypes.func.isRequired,
 }

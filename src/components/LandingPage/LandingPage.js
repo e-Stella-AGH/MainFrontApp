@@ -4,6 +4,7 @@ import Image2 from '../../assets/landing_page_image2.png';
 import Image3 from '../../assets/landing_page_image3.png';
 import {OffersList} from "../offers/list/OffersList";
 import {useHistory} from "react-router-dom";
+import {offersAPI} from "../../utils/apis/OfferApi";
 
 export const LandingPage = (props) => {
 
@@ -34,7 +35,7 @@ export const LandingPage = (props) => {
             <div style={{width: "25%", float: "left", marginRight: "10%"}}>
                 <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>Latest Offers</Typography>
                 <div style={{height: "60vh", overflowY: "hidden"}}>
-                    <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3}/>
+                    <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3} getOffers={offersAPI.getAllOffers}/>
                 </div>
                 <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button>
             </div>
