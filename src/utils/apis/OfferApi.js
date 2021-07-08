@@ -74,7 +74,29 @@ export const offersAPI = {
         })
     },
 
+    update: function (offerData) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/update/${offerData.offerId}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(offerData)
+        })
+    },
+
     applyWithUser: function(offerID){
 
+    },
+    getOffersFromHr() {
+        return this.getAllOffers(); //TODO change after full users functionality implementation
+    },
+
+    deleteOffer(id) {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 }

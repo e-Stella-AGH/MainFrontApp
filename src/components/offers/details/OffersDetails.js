@@ -1,23 +1,16 @@
-import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import { colors } from "../../../utils/colors";
+import {colors} from "../../../utils/colors";
 import {constants} from "../../../utils/constants";
+import PropTypes from "prop-types";
+
 
 export const OfferDetails = (props) => {
 
     const history = useHistory()
 
-    const [offer, setOffer] = useState({skills: []})
-
-    useEffect(() => {
-        setOffer(props.offer)
-    }, [props.offer])
-
-    const apply = () => {
-        history.push(`/offers/apply/${offer.id}`)
-    }
+    const offer = props.offer
 
     return (
         <div>
@@ -39,12 +32,17 @@ export const OfferDetails = (props) => {
                                     </Typography>
                                 </Box>
                             </div>
-                            <div style={{float: "right", marginRight: "20px", marginTop: "-8px"}}>
-                                <Button variant="outlined" onClick={apply}>
-                                    <Typography variant="h6">
-                                        Apply
-                                    </Typography>
-                                </Button>
+                            <div style={{float: "right", marginRight: "20px", display: "flex"}}>
+                                {props.buttons.map(button => {
+                                    return <Box key={button.text} mr={1} ml={1}>
+                                        <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
+                                            <Typography variant="h6">
+                                                {button.text}
+                                            </Typography>
+                                        </Button>
+                                    </Box>
+                                })}
+
                             </div>
                         </Box>
                         <Divider/>
@@ -88,4 +86,16 @@ export const OfferDetails = (props) => {
             </div>
         </div>
     )
+}
+
+OfferDetails.propTypes = {
+    offer: PropTypes.object.isRequired,
+    buttons: PropTypes.array
+}
+
+OfferDetails.defaultProps = {
+    buttons: [{
+        text: "Apply",
+        action: (offer, history) => history.push(`/offers/apply/${offer.id}`)
+    }]
 }

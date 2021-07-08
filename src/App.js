@@ -4,13 +4,15 @@ import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
-import {AllOffersView} from "./components/offers/list/AllOffersView";
+import {OffersView} from "./components/offers/list/OffersView";
 import {OfferForm} from "./components/offers/createForm/OfferForm";
 import {colors} from "./utils/colors";
 import {constants} from "./utils/constants";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
+import {offersAPI} from "./utils/apis/OfferApi";
+import {hrOfferButtons} from "./components/offers/HrOfferButtons";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -24,10 +26,12 @@ const routes = [
     createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
     createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
     createRoute("/interview/:interviewId/", <Meeting />, {}),
-    createRoute("/offers/add", <OfferForm />),
     createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <AllOffersView />, {margin: "1em", marginTop: "2em"}),
-    createRoute("/offers/:id", <AllOffersView />, {margin: "1em", marginTop: "2em"}),
+    createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
+    createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
+    createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
+    createRoute("/hr/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
+    createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)

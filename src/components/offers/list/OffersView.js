@@ -7,8 +7,9 @@ import {useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
+import PropTypes from "prop-types";
 
-export const AllOffersView = (props) => {
+export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [offers, setOffers] = useState([])
@@ -27,7 +28,7 @@ export const AllOffersView = (props) => {
     }, [id])
 
     useEffect(() => {
-        offersAPI.getAllOffers()
+        props.getOffers()
             .then(data => {
                 setOffers(data || [])
                 setFixedOffers(data || [])
@@ -53,4 +54,8 @@ export const AllOffersView = (props) => {
             </div>
         </div>
     )
+}
+
+OffersView.propTypes = {
+    getOffers: PropTypes.func.isRequired,
 }
