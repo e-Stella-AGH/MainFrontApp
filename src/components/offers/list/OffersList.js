@@ -1,20 +1,14 @@
 import PropTypes from 'prop-types';
 import {ShortOfferDetails} from "./ShortOfferDetails";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {constants} from "../../../utils/constants";
 import {scrollToTop} from '../../../utils/functions';
 
 export const OffersList = (props) => {
 
     const [selectedIdx, setSelectedIdx] = useState(-1)
-    const [offers, setOffers] = useState([])
 
-    const getOffers = props.getOffers
-
-    useEffect(() => {
-        getOffers()
-            .then(data => setOffers(data || []))
-    }, [getOffers])
+    const offers = props.offers
 
     const getShortOffers = () => {
         return offers
@@ -37,7 +31,7 @@ export const OffersList = (props) => {
     }
 
     return(
-        <div style={{overflowY: 'scroll', height: `calc(100vh - 5em - ${constants["navbar_height"]})`}}>
+        <div style={{overflowY: 'scroll', height: `calc(100vh - 7em - ${constants["navbar_height"]})`}}>
             {getShortOffers()}
         </div>
     )
@@ -46,7 +40,7 @@ export const OffersList = (props) => {
 OffersList.propTypes = {
     limit: PropTypes.number,
     onSelectedOffer: PropTypes.func.isRequired,
-    getOffers: PropTypes.func.isRequired
+    offers: PropTypes.array.isRequired
 }
 
 OffersList.defaultProps = {
