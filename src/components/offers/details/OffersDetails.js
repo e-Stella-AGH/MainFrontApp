@@ -28,7 +28,7 @@ export const OfferDetails = (props) => {
                                 </Box>
                                 <Box m={1}>
                                     <Typography variant="h6" color="textSecondary">
-                                        {offer.company}
+                                        {offer.organization?.name}
                                     </Typography>
                                 </Box>
                             </div>

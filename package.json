@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -15,14 +16,16 @@
     "react-hook-form": "^7.8.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-test-renderer": "^17.0.2",
     "react-tiny-fab": "^4.0.3",
     "sweetalert2": "^11.0.16",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "prepare": "husky install",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test a --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,5 +45,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^7.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   }
 }
