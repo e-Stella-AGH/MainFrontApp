@@ -1,14 +1,16 @@
+import {validateSchema} from "../schemas/validateSchema";
+import {tokenPayloadSchema} from "../schemas/tokenPayloadSchema";
+
 export const jwtUtils = {
     tokenSplitter: (token) => {
         if(typeof token === "string") {
-            console.log(token)
             const parts = token.split('.')
-            console.log(parts)
             if(parts.length === 3){
-                console.log(parts)
                 return parts
             } else return null
-        } else return null
+        } else {
+            return null
+        }
     },
 
     getHeader: (token) =>
@@ -25,16 +27,42 @@ export const jwtUtils = {
         base64Url?.replace('-', '+').replace('_', '/'),
 
     decodeBase64Url: (base64Url) =>
-        atob(this.base64UrlToBase64(base64Url)),
+        atob(jwtUtils.base64UrlToBase64(base64Url)),
 
     safeJsonRetrieve: (base64Url) => {
-        if(base64Url instanceof String){
+        if(typeof base64Url === "string"){
             try {
-                const decoded = this.decodeBase64Url(base64Url)
+                const decoded = jwtUtils.decodeBase64Url(base64Url)
                 return JSON.parse(decoded)
             } catch {
                 return null
             }
         } else return null
+    },
+
+    payloadToOptUser: (payload) => {
+        if(validateSchema(payload, tokenPayloadSchema))
+            return {
+                userId: Number(payload.iss),
+                firstName: payload.firstName,
+                lastName: payload.lastName,
+                mail: payload.mail
+            }
+        else
+            return null
+    },
+
+    isTokenActive: (token) => {
+        const payload = jwtUtils.getPayload(token)
+        const issuedAt = payload?.iat
+        const expiresAt = payload?.exp
+        if(issuedAt && expiresAt){
+            const currentDate = Date.now()
+            if(issuedAt <= currentDate && currentDate <= expiresAt)
+                return true
+            else
+                return false
+        }
+        return null
     }
 }

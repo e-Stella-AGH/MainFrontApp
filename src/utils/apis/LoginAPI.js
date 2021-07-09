@@ -5,6 +5,9 @@ export const loginAPI = {
     authTokenKey: "x-auth-token",
     refreshTokenKey: "x-refresh-token",
 
+    authTokenStorageKey: "RS_AUTH_TOKEN",
+    refreshTokenStorageKey: "RS_REFRESH_TOKEN",
+
     login: function(login, password) {
         return fetch(recruitmentServiceBasicAPILink + "/api/users/login", {
             method: "POST",
@@ -15,10 +18,7 @@ export const loginAPI = {
                 mail: login,
                 password: password
             })
-        }).then(response => {
-            localStorage.setItem("RS_AUTH_TOKEN", response.headers.get(this.authTokenKey))
-            localStorage.setItem("RS_REFRESH_TOKEN", response.headers.get(this.refreshTokenKey))
-        })
+        }).then(loginAPI.saveTokenFromResponse)
     },
 
     registerUser: function(login, password, firstName, lastName) {
@@ -42,6 +42,18 @@ export const loginAPI = {
                 resolve({text: "ok", ok: true})
             }, 2000)
         })
-    }
+    },
 
+    saveTokenFromResponse: function(response) {
+        localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey))
+        localStorage.setItem(loginAPI.refreshTokenStorageKey, response.headers.get(loginAPI.refreshTokenKey))
+    },
+
+    deleteAuthToken: function() {
+        localStorage.removeItem(loginAPI.authTokenStorageKey)
+    },
+
+    deleteRefreshToken: function() {
+        localStorage.removeItem(loginAPI.refreshTokenStorageKey)
+    }
 }
