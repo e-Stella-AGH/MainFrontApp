@@ -50,7 +50,7 @@ export const offersAPI = {
                 )
             }
         })
-        return fetch(recruitmentServiceBasicAPILink + `/applications/apply/${offerId}/no-user`, {
+        return fetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerId}/no-user`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
