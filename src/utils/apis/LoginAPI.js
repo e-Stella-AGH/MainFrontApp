@@ -1,4 +1,5 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
+import {jwtUtils} from "../jwt/jwtUtils";
 
 export const loginAPI = {
 
@@ -18,7 +19,11 @@ export const loginAPI = {
                 mail: login,
                 password: password
             })
-        }).then(loginAPI.saveTokenFromResponse)
+        }).then(response => {
+            jwtUtils.saveTokenFromResponse(response)
+            setInterval(jwtUtils.refreshToken, 2000)
+            return response
+        })
     },
 
     registerUser: function(login, password, firstName, lastName) {
@@ -42,18 +47,5 @@ export const loginAPI = {
                 resolve({text: "ok", ok: true})
             }, 2000)
         })
-    },
-
-    saveTokenFromResponse: function(response) {
-        localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey))
-        localStorage.setItem(loginAPI.refreshTokenStorageKey, response.headers.get(loginAPI.refreshTokenKey))
-    },
-
-    deleteAuthToken: function() {
-        localStorage.removeItem(loginAPI.authTokenStorageKey)
-    },
-
-    deleteRefreshToken: function() {
-        localStorage.removeItem(loginAPI.refreshTokenStorageKey)
     }
 }

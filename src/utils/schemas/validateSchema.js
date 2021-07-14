@@ -1,6 +1,7 @@
-export const validateSchema = (obj, schema) =>
+export const validateSchema = (obj, schema) => obj &&
     Object
         .keys(schema)
         .every(
-            key => schema[key](obj[key])
+                key => schema[key](obj[key])
         )
+

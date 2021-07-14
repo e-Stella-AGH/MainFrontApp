@@ -1,7 +1,43 @@
 import {validateSchema} from "../schemas/validateSchema";
 import {tokenPayloadSchema} from "../schemas/tokenPayloadSchema";
+import {loginAPI} from "../apis/LoginAPI";
+import {jwtAPI} from "../apis/JwtAPI";
 
 export const jwtUtils = {
+    jwtHeaderKey: "x-jwt",
+
+    getUser: () => {
+        const token = jwtUtils.getAuthToken()
+        const possiblyUser = jwtUtils.getPayload(token)
+
+        return jwtUtils.payloadToOptUser(possiblyUser)
+    },
+
+    getAuthToken: () => localStorage.getItem(loginAPI.authTokenStorageKey),
+    getRefreshToken: () => localStorage.getItem(loginAPI.refreshTokenStorageKey),
+
+    saveTokenFromResponse: (response) => {
+        localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey))
+        localStorage.setItem(loginAPI.refreshTokenStorageKey, response.headers.get(loginAPI.refreshTokenKey))
+    },
+
+    deleteAuthToken: () => localStorage.removeItem(loginAPI.authTokenStorageKey),
+    deleteRefreshToken: () => localStorage.removeItem(loginAPI.refreshTokenStorageKey),
+
+    refreshApiPath: (userId) => {
+        if (userId !== undefined)
+            return `/api/users/${userId}/refreshToken`
+        else
+            return undefined
+    },
+
+    refreshToken: () => {
+        const userId = jwtUtils.getUser()?.userId
+        const refreshToken = jwtUtils.getRefreshToken()
+        if(userId && refreshToken)
+            jwtAPI.refreshToken(userId, refreshToken).then()
+    },
+
     tokenSplitter: (token) => {
         if(typeof token === "string") {
             const parts = token.split('.')
@@ -58,10 +94,7 @@ export const jwtUtils = {
         const expiresAt = payload?.exp
         if(issuedAt && expiresAt){
             const currentDate = Date.now()
-            if(issuedAt <= currentDate && currentDate <= expiresAt)
-                return true
-            else
-                return false
+            return issuedAt <= currentDate && currentDate <= expiresAt
         }
         return null
     }
