@@ -4,15 +4,23 @@ import {withSwal} from "../formsCommons/WithSwal";
 import React, {useEffect} from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import {OrganizationPartner} from "./OrganizationPartner";
+import {usersAPI} from "../../utils/apis/UserApi";
 
 export const OrganizationsPartnerList = (props) => {
 
-    const id = props.organizationId
+    const id = 1 //TODO change after jwt
+    function updateUsers(data) {
+        data.map((el => {
+            users.push({firstName: el.user.firstName, lastName: el.user.lastName, mail: el.user.mail})
+        }))
+
+    }
+
     useEffect(() => {
 
         if(id !== undefined){
             usersAPI.getHrPartnersByOrganization(id)
-                .then(data => updateOffer(data))
+                .then(data => updateUsers(data))
         }
     }, [id])
 
@@ -21,21 +29,6 @@ export const OrganizationsPartnerList = (props) => {
         lastName: "",
         mail: ""
     }
-
-    const onSubmit = (data) => {
-        withSwal({
-            loadingTitle: "Adding HR user",
-            promise: () => props.onSubmit(data),
-            successSwalTitle: "Success",
-            successSwalText: "You've successfully added HR user!",
-            successFunction: () => reset(),
-            errorSwalTitle: "We couldn't save this user for you"
-        })
-        if(props.onSubmit){
-            props.onSubmit(data)
-        }
-    }
-
 
 
     const users = props.users || []
@@ -74,19 +67,6 @@ export const OrganizationsPartnerList = (props) => {
             props.onDelete(data)
         }
     }
-
-
-    // return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
-    //     <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)}/>
-    // <Controller
-    //     name="partners"
-    //     control={control}
-    //     defaultValue={[]}
-    //     render={({field: {onChange, value}}) =>
-    //         <OfferFormSkillList onChange={onChange} value={value} />
-    //     }
-    // />
-    //     </div>
 
     return <>
         <form id="user-form" name="user-form" onSubmit={handleSubmit(onUserAdd)}></form>
@@ -142,7 +122,7 @@ export const OrganizationsPartnerList = (props) => {
 
         <Grid item xs={12} sm={3}>
             <Button
-                className={classes.button}
+                // className={classes.button}
                 type="submit"
                 variant="contained"
                 form="user-form"
