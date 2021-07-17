@@ -1,5 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
+import { headers } from "./headers";
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -39,22 +40,20 @@ export const offersAPI = {
         let convertedFiles = await Promise.all(files.map(async file => {
             return {
                 fileName: file.name,
-                file_base64: await convertFileToBase64(file)
+                fileBase64: await convertFileToBase64(file)
             }
         }))
         convertedFiles = convertedFiles.map(file => {
             return {
                 ...file,
-                file_base64: convertedFiles[0].file_base64.substring(
-                    convertedFiles[0].file_base64.indexOf("base64") + 7
+                fileBase64: convertedFiles[0].fileBase64.substring(
+                    convertedFiles[0].fileBase64.indexOf("base64") + 7
                 )
             }
         })
         return fetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerId}/no-user`, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify({
                 firstName: name,
                 lastName: surname,
@@ -65,11 +64,9 @@ export const offersAPI = {
     },
 
     create: function (offerData) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/offers/addoffer`, {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers`, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify(offerData)
         })
     },
@@ -77,9 +74,7 @@ export const offersAPI = {
     update: function (offerData) {
         return fetch(recruitmentServiceBasicAPILink + `/api/offers/update/${offerData.offerId}`, {
             method: "PUT",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify(offerData)
         })
     },
@@ -94,9 +89,7 @@ export const offersAPI = {
     deleteOffer(id) {
         return fetch(recruitmentServiceBasicAPILink + `/api/offers/${id}`, {
             method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         })
     }
 }
