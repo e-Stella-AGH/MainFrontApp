@@ -35,7 +35,7 @@ export const jwtUtils = {
         const userId = jwtUtils.getUser()?.userId
         const refreshToken = jwtUtils.getRefreshToken()
         if(userId && refreshToken)
-            jwtAPI.refreshToken(userId, refreshToken).then()
+            return jwtAPI.refreshToken(userId, refreshToken)
     },
 
     tokenSplitter: (token) => {

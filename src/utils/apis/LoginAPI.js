@@ -2,7 +2,7 @@ import {recruitmentServiceBasicAPILink} from "./APILinks";
 import {jwtUtils} from "../jwt/jwtUtils";
 
 export const loginAPI = {
-
+    jwtTokenKey: "x-jwt",
     authTokenKey: "x-auth-token",
     refreshTokenKey: "x-refresh-token",
 
@@ -21,7 +21,6 @@ export const loginAPI = {
             })
         }).then(response => {
             jwtUtils.saveTokenFromResponse(response)
-            setInterval(jwtUtils.refreshToken, 2000)
             return response
         })
     },
