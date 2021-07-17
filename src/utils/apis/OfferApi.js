@@ -40,14 +40,14 @@ export const offersAPI = {
         let convertedFiles = await Promise.all(files.map(async file => {
             return {
                 fileName: file.name,
-                file_base64: await convertFileToBase64(file)
+                fileBase64: await convertFileToBase64(file)
             }
         }))
         convertedFiles = convertedFiles.map(file => {
             return {
                 ...file,
-                file_base64: convertedFiles[0].file_base64.substring(
-                    convertedFiles[0].file_base64.indexOf("base64") + 7
+                fileBase64: convertedFiles[0].fileBase64.substring(
+                    convertedFiles[0].fileBase64.indexOf("base64") + 7
                 )
             }
         })
