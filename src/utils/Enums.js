@@ -4,3 +4,9 @@ export const filterTypes = {
     COMPANY_NAME: "Company Name",
     POSITION_NAME: "Position Name",
 }
+
+export const userTypes = {
+    JOB_SEEKER: "job_seeker",
+    HR: "hr",
+    ORGANIZATION: "organization"
+}
