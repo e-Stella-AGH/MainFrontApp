@@ -82,6 +82,7 @@ export const jwtUtils = {
                 userId: Number(payload.iss),
                 firstName: payload.firstName,
                 lastName: payload.lastName,
+                userType: payload.userType,
                 mail: payload.mail
             }
         else
