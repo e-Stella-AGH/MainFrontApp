@@ -20,10 +20,10 @@ export const Filter = (props) => {
     }
 
     const getFiltersAsActiveFilters = () => {
-        return filters.map(filter => filter.value ? <Grid item><ActiveFilter key={filter.type}
-                                                                             handleDelete={() => handleFilterDelete(filter.type)}
-                                                                             label={`${filter.type}: ${filter.value}`}
-                                                                             filter={filter}/></Grid> : null)
+        return filters.map(filter => filter.value ? <Grid item key={filter.type}><ActiveFilter
+            handleDelete={() => handleFilterDelete(filter.type)}
+            label={`${filter.type}: ${filter.value}`}
+            filter={filter}/></Grid> : null)
     }
 
     const handleFilterDelete = (filterType) => {

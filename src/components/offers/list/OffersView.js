@@ -16,9 +16,10 @@ export const OffersView = (props) => {
     const [offers, setOffers] = useState([])
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
+    const [sort, setSort] = useState({apply: () => {}})
 
     const handleFilterSubmitted = (filters) => {
-        setOffers(filterOffers(fixedOffers, filters))
+        setOffers(sort.apply(filterOffers(fixedOffers, filters)))
     }
 
     useEffect(() => {
@@ -37,6 +38,10 @@ export const OffersView = (props) => {
     }, [])
 
     const handleSort = (elem) => {
+        /* Probably race problem, don't know how to fix, but works now, if sorting offers doesn't work in future,
+        * probably the case
+        * Possible solution to race problem - state with sort and offers merged, but I don't like this idea */
+        setSort(elem[1])
         setOffers(offers => ([...elem[1].apply(offers)]))
     }
 
