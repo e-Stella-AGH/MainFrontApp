@@ -34,7 +34,7 @@ const routes = [
     createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
     createRoute("/hr/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
     createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
-    createRoute("/organization/users", <OrganizationsPartnerList onSubmit={(form) => usersAPI.addHrPartner(form)} onDelete={(form) => usersAPI.deleteHrPartner(form)}/>),
+    createRoute("/organization/users", <OrganizationsPartnerList users={usersAPI.getHrPartnersByOrganization()}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)

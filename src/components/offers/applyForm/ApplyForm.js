@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@material-ui/core";
 import {useState} from "react";
 import {offersAPI} from "../../../utils/apis/OfferApi";
+import {validateEmail} from "../../../utils/functions";
 
 export const ApplyForm = () => {
 
@@ -78,10 +79,7 @@ export const ApplyForm = () => {
             return validateEmail(email) && validateName(name) && validateSurname(surname)
     }
 
-    const validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase())
-    }
+
     const validateName = (name) => {
         return name !== ""
     }
