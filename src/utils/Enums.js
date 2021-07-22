@@ -17,10 +17,16 @@ export const offerSort = {
     },
     LOW_SALARY: {
         name: "Lowest Salary",
-        apply: offers => offers.sort((a,b) => -compare(a, b, "maxSalary"))
+        apply: offers => offers.sort((a, b) => -compare(a, b, "maxSalary"))
     },
     NAME: {
         name: "Name",
-        apply: offers => offers.sort((a,b) => -compare(a, b, "name"))
+        apply: offers => offers.sort((a, b) => -compare(a, b, "name"))
     }
+}
+
+export const userTypes = {
+    JOB_SEEKER: "job_seeker",
+    HR: "hr",
+    ORGANIZATION: "organization"
 }
