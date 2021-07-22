@@ -17,7 +17,7 @@ export const OfferDetails = (props) => {
             <div>
                 <Card variant="outlined"
                       style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", backgroundColor: colors.palette[9],
-                          marginBottom: "1em", overflowY: 'scroll', height: `calc(100vh - 5em - ${constants["navbar_height"]})`}}>
+                          marginBottom: "1em", overflowY: 'scroll', maxHeight: `calc(100vh - 10em - ${constants["navbar_height"]})`}}>
                     <CardContent>
                         <Box mb={12}>
                             <div style={{float: "left"}}>

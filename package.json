@@ -6,9 +6,6 @@
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "e-stella-jitsi": "^1.0.1",
     "e-stella-whiteboard": "^1.0.1",
     "react": "^17.0.2",
@@ -47,6 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.0.4",
     "husky": "^7.0.0"
   },
   "husky": {

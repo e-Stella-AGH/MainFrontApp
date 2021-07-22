@@ -31,7 +31,7 @@ export const InDrawerFilter = (props) => {
 
     const calculateWidth = () => {
         const width = window.screen.width
-        if (width < 500) {
+        if (width < 700) {
             return 0.6 * width
         } else {
             return 0.3 * width

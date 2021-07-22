@@ -8,6 +8,7 @@ import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
+import {SorterWrapper} from "../sorter/SorterWrapper";
 
 export const OffersView = (props) => {
 
@@ -35,10 +36,19 @@ export const OffersView = (props) => {
             })
     }, [])
 
+    const handleSort = (elem) => {
+        setOffers(offers => ([...elem[1].apply(offers)]))
+    }
+
     return (
         <div>
-            <div style={{marginBottom: "10px"}}>
-                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
+            <div style={{marginBottom: "10px", display: "flex"}}>
+                <div style={{alignItems: "flex-start"}}>
+                    <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
+                </div>
+                <div style={{alignItems: "flex-end", marginLeft: "auto", marginRight: "10px"}}>
+                    <SorterWrapper onSort={handleSort} />
+                </div>
             </div>
             <Divider/>
             <div style={{marginTop: "15px"}}>
