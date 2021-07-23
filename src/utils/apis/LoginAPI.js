@@ -1,7 +1,14 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
+import { jwtUtils } from "../jwt/jwtUtils";
 import { headers } from "./headers";
 
 export const loginAPI = {
+    jwtTokenKey: "x-jwt",
+    authTokenKey: "x-auth-token",
+    refreshTokenKey: "x-refresh-token",
+
+    authTokenStorageKey: "RS_AUTH_TOKEN",
+    refreshTokenStorageKey: "RS_REFRESH_TOKEN",
 
     login: function(login, password) {
         return fetch(recruitmentServiceBasicAPILink + "/api/users/login", {
@@ -11,6 +18,9 @@ export const loginAPI = {
                 mail: login,
                 password: password
             })
+        }).then(response => {
+            jwtUtils.saveTokenFromResponse(response)
+            return response
         })
     },
 
@@ -34,5 +44,4 @@ export const loginAPI = {
             }, 2000)
         })
     }
-
 }

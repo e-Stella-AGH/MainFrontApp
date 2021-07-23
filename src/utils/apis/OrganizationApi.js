@@ -1,13 +1,15 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from "sweetalert2";
+import {jwtUtils} from "../jwt/jwtUtils";
 
 
-export const usersAPI = {
-    getHrPartnersByOrganization: function(organizationId) {
+export const organizationsAPI = {
+    getHrPartnersByOrganization: function() {
         return fetch(recruitmentServiceBasicAPILink + `/api/organizations/hrpartners`, {
             method: "GET",
             headers: {
-                "Content-Type": 'application/json' //TODO add jwt props
+                "Content-Type": 'application/json',
+                "x-jwt": jwtUtils.getAuthToken()
             }
         }).then(response => response.json())
             .catch(err => {
@@ -17,24 +19,30 @@ export const usersAPI = {
                     icon: "error"
                 })
             })
+
     },
 
     addHrPartner(form) {
+        console.log(form)
         return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json' //TODO add jwt props
+                'Content-Type': 'application/json',
+                "x-jwt": jwtUtils.getAuthToken()
             },
             body: JSON.stringify(form)
         })
     },
 
     deleteHrPartner(form) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners`, {
+        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners/mail`, {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json' //TODO add jwt props
+                'Content-Type': 'application/json',
+                "x-jwt": jwtUtils.getAuthToken(),
+                "x-hr-mail": form.mail
             }
         })
-    }
+    },
+
 }

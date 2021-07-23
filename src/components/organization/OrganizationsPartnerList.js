@@ -4,38 +4,39 @@ import {withSwal} from "../formsCommons/WithSwal";
 import React, {useEffect, useState} from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import {OrganizationPartner} from "./OrganizationPartner";
-import {usersAPI} from "../../utils/apis/UserApi";
+import {organizationsAPI} from "../../utils/apis/OrganizationApi";
 import {validateEmail} from "../../utils/functions";
 import {PartnerForm} from "./PartnerForm";
+import {jwtUtils} from "../../utils/jwt/jwtUtils";
 
 export const OrganizationsPartnerList = (props) => {
 
-    const id = 1 //TODO change after jwt
-
     const [users, setUsers] = useState([props.users])
-    const partnerForm = PartnerForm({
-        users: users,
-        userAdded: (user) => setUsers(user)
-    })
+    // const partnerForm = PartnerForm({
+    //     users: users,
+    //     userAdded: (user) => setUsers(user)
+    // })
 
     function updateUsers(data) {
         setUsers(data.map(el => el.user))
-        partnerForm.setUsers(users)
+        console.log(jwtUtils.getAuthToken())
+        // partnerForm.setUsers(users)
     }
 
     useEffect(() => {
+            organizationsAPI.getHrPartnersByOrganization()
+                .then(data => {
+                    console.log(data)
+                    updateUsers(data)
+                })
 
-        if(id !== undefined){
-            usersAPI.getHrPartnersByOrganization(id)
-                .then(data => updateUsers(data))
-        }
-    }, [id])
+    }, [])
 
 
     const onUserDelete = (idx, data) => {
         withSwal({
             loadingTitle: "Deleting HR user",
-            promise: () => usersAPI.deleteHrPartner(data),
+            promise: () => organizationsAPI.deleteHrPartner(data),
             successSwalTitle: "Success",
             successSwalText: "You've successfully deleted HR user!",
             successFunction: () => {
@@ -48,8 +49,10 @@ export const OrganizationsPartnerList = (props) => {
         }
     }
 
-    return <>
-        <PartnerForm users={users} userAdded={(user) => setUsers(users.concat(user))}></PartnerForm>
+    return <div style={{width: "60%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
+        <Grid container spacing={2}>
+        <PartnerForm users={users} userAdded={(user) => setUsers(users.concat(user))}/>
+        </Grid>
         <Grid item xs={12}>
             <Box mt={0} mb={0}>
                 <Grid container>
@@ -71,5 +74,5 @@ export const OrganizationsPartnerList = (props) => {
                 </Grid>
             </Box>
         </Grid>
-    </>
+    </div>
 }

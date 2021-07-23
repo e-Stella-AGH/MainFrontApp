@@ -14,7 +14,7 @@ import {RegistrationRouting} from "./components/auth/registration/RegistrationRo
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
 import {OrganizationsPartnerList} from "./components/organization/OrganizationsPartnerList";
-import {usersAPI} from "./utils/apis/UserApi";
+import {organizationsAPI} from "./utils/apis/OrganizationApi";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -31,10 +31,11 @@ const routes = [
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
-    createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
+    createRoute("/hr/offers", <OffersView getOffers={offersAPI.getOffersFromHr} buttons={hrOfferButtons}/>),
     createRoute("/hr/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
     createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
-    createRoute("/organization/users", <OrganizationsPartnerList users={usersAPI.getHrPartnersByOrganization()}/>),
+    createRoute("/organization/users", <OrganizationsPartnerList users={organizationsAPI.getHrPartnersByOrganization()}/>),
+    createRoute("/organization/offers", <OffersView getOffers={offersAPI.getOffersFromOrganization} buttons={hrOfferButtons}/>),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
