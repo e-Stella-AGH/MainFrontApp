@@ -72,7 +72,7 @@ export const offersAPI = {
     },
 
     update: function (offerData) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/offers/update/${offerData.offerId}`, {
+        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${offerData.offerId}`, {
             method: "PUT",
             headers: headers,
             body: JSON.stringify(offerData)
