@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
 import {Card, Typography} from "@material-ui/core";
-import {TwoColumnDnD} from "estella-two-collumn-dnd";
+import {TwoColumnDnD} from "estella-two-column-dnd";
 
 export const ManageProcess = ({}) => {
 
