@@ -16,7 +16,7 @@ export const OffersView = (props) => {
     const [offers, setOffers] = useState([])
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
-    const [sort, setSort] = useState({apply: () => {}})
+    const [sort, setSort] = useState({apply: (offers) => offers})
 
     const handleFilterSubmitted = (filters) => {
         setOffers(sort.apply(filterOffers(fixedOffers, filters)))
