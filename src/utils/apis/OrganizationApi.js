@@ -23,7 +23,6 @@ export const organizationsAPI = {
     },
 
     addHrPartner(form) {
-        console.log(form)
         return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners`, {
             method: 'POST',
             headers: {
@@ -40,8 +39,10 @@ export const organizationsAPI = {
             headers: {
                 'Content-Type': 'application/json',
                 "x-jwt": jwtUtils.getAuthToken(),
-                "x-hr-mail": form.mail
-            }
+            },
+            body: JSON.stringify({
+                mail: form.mail
+            })
         })
     },
 

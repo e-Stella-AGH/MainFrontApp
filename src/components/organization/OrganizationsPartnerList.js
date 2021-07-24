@@ -1,32 +1,22 @@
-import {Controller, useForm} from "react-hook-form";
-import {Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import {Box, Grid, IconButton} from "@material-ui/core";
 import {withSwal} from "../formsCommons/WithSwal";
 import React, {useEffect, useState} from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import {OrganizationPartner} from "./OrganizationPartner";
 import {organizationsAPI} from "../../utils/apis/OrganizationApi";
-import {validateEmail} from "../../utils/functions";
 import {PartnerForm} from "./PartnerForm";
-import {jwtUtils} from "../../utils/jwt/jwtUtils";
 
 export const OrganizationsPartnerList = (props) => {
 
     const [users, setUsers] = useState([props.users])
-    // const partnerForm = PartnerForm({
-    //     users: users,
-    //     userAdded: (user) => setUsers(user)
-    // })
 
     function updateUsers(data) {
         setUsers(data.map(el => el.user))
-        console.log(jwtUtils.getAuthToken())
-        // partnerForm.setUsers(users)
     }
 
     useEffect(() => {
             organizationsAPI.getHrPartnersByOrganization()
                 .then(data => {
-                    console.log(data)
                     updateUsers(data)
                 })
 

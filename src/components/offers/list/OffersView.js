@@ -8,7 +8,6 @@ import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
-import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 
 export const OffersView = (props) => {
 
