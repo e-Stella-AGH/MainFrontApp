@@ -1,5 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from "sweetalert2";
+import {authFetch} from "../authFetch";
 
 export const processAPI = {
 
@@ -27,6 +28,18 @@ export const processAPI = {
                     icon: "error"
                 })
             })
+    },
+
+    updateProcessStages: function(id, items) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/process/stages/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                stages: items
+            })
+        })
     }
 
 }

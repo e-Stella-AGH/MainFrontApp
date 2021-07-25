@@ -33,7 +33,7 @@ export const OffersView = (props) => {
                 setOffers(data || [])
                 setFixedOffers(data || [])
             })
-    }, [])
+    }, [props])
 
     return (
         <div>
