@@ -10,20 +10,20 @@ const compare = (a, b, name) => {
     if(a[name] > b[name]) return -1
     return 0
 }
-export const offerSort = {
-    HIGH_SALARY: {
+export const offerSort = [
+    {
         name: "Highest Salary",
         apply: offers => offers.sort((a, b) => compare(a, b, "minSalary"))
     },
-    LOW_SALARY: {
+    {
         name: "Lowest Salary",
         apply: offers => offers.sort((a, b) => -compare(a, b, "maxSalary"))
     },
-    NAME: {
+    {
         name: "Name",
         apply: offers => offers.sort((a, b) => -compare(a, b, "name"))
     }
-}
+]
 
 export const userTypes = {
     JOB_SEEKER: "job_seeker",

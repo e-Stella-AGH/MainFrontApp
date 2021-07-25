@@ -6,7 +6,7 @@ export const SorterWrapper = ({ onSort }) => {
     const [label, setLabel] = useState("Sort Offers")
 
     const handleOnSort = (elem) => {
-        setLabel(elem[1].name)
+        setLabel(elem.name)
         onSort(elem)
     }
 

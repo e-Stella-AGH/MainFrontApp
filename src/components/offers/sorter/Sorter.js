@@ -13,14 +13,14 @@ export const Sorter = ({label, onSort}) => {
 
     const open = Boolean(element)
 
-    const handleItemClick = (elem) => {
-        onSort(elem)
+    const handleItemClick = (sort) => {
+        onSort(sort)
         handleClose()
     }
 
     const getListItems = () => {
-        return Object.entries(offerSort)
-            .map(elem => <ListItem button onClick={() => handleItemClick(elem)} key={elem[1].name}>{elem[1].name}</ListItem>)
+        return offerSort
+            .map(sort => <ListItem button onClick={() => handleItemClick(sort)} key={sort.name}>{sort.name}</ListItem>)
     }
 
     return (

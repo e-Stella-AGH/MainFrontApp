@@ -37,12 +37,12 @@ export const OffersView = (props) => {
             })
     }, [])
 
-    const handleSort = (elem) => {
+    const handleSort = (sort) => {
         /* Probably race problem, don't know how to fix, but works now, if sorting offers doesn't work in future,
         * probably the case
         * Possible solution to race problem - state with sort and offers merged, but I don't like this idea */
-        setSort(elem[1])
-        setOffers(offers => ([...elem[1].apply(offers)]))
+        setSort(sort)
+        setOffers(offers => ([...sort.apply(offers)]))
     }
 
     return (
