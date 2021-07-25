@@ -26,6 +26,13 @@ export const hrOfferButtons = [
         style: {
             color: "secondary"
         }
+    },
+    {
+        text: "Edit process",
+        action: (offer, history) => history.push(`/hr/process/manage/${offer.id}`),
+        style: {
+            color: "primary"
+        }
     }
 
 ]
