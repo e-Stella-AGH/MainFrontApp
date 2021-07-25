@@ -1,34 +1,24 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {processAPI} from "../../../utils/apis/ProcessAPI";
-import {Card, Typography} from "@material-ui/core";
-import {TwoColumnDnD} from "estella-two-column-dnd";
+import {ManageStages} from "./ManageStages";
+import {Divider, Grid, Typography} from "@material-ui/core";
 
-export const ManageProcess = ({}) => {
-
-    const {id} = useParams()
-    const [stages, setStages] = useState([])
-    const [possibleStages, setPossibleStages] = useState([])
-
-    useEffect(() => {
-        processAPI.getProcessById(id)
-            .then(data => setStages(data.stages))
-        processAPI.getAllPossibleStages()
-            .then(data => setPossibleStages(data))
-    }, [id])
-
-    const getPossibleStages = () => possibleStages.map(elem => {
-        return {'id': 0, 'type': elem}
-    })
+export const ManageProcess = () => {
 
     return (
-        <div>
-            <TwoColumnDnD
-                firstListItems={stages}
-                secondListItems={getPossibleStages()}
-                forbiddenIndexes={[-1, 15]}
-                itemRender={(item) => (<Card style={{margin: '1em'}}><Typography variant="h6">{item.type}</Typography></Card>)}
-            />
+        <div style={{marginLeft: "1em", marginRight: "1em"}}>
+            <Grid container>
+                <Grid item xs={12} sm={6} />
+                <Grid item xs={12} sm={6}>
+                    <Grid container direction="column" spacing={2}>
+                        <Grid item style={{marginLeft: "auto", marginRight: "2em"}}>
+                            <Typography variant="h6">Stages</Typography>
+                        </Grid>
+                        <Grid item> <Divider /> </Grid>
+                        <Grid item>
+                            <ManageStages />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </div>
     )
 }
