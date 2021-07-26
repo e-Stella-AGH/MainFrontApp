@@ -1,6 +1,7 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
 import { headers } from "./headers";
+import {authFetch} from "../authFetch";
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -64,7 +65,7 @@ export const offersAPI = {
     },
 
     create: function (offerData) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/offers`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/offers`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify(offerData)

@@ -6,7 +6,7 @@ export const authFetch = (url, data) => {
     const dataHeaders = data?.headers
     const authHeaders = authToken ? {[loginAPI.jwtTokenKey]: authToken} : {}
     const newHeaders = dataHeaders ? Object.assign(dataHeaders, authHeaders) : authHeaders
-    const authData = Object.assign(data | {}, {headers: newHeaders})
+    const authData = Object.assign(data || {}, {headers: newHeaders})
     return fetch(url, authData).then(response => {
         if(response.status >= 200 && response.status < 300)
             return response
