@@ -8,7 +8,7 @@ export const withUserAuth = (WrappedComponent, permittedTypes, wrappedProps) => 
     return (
         <>
             {
-                permittedTypes.includes(user.userType) ? <WrappedComponent {...wrappedProps} /> : <UnauthenticatedPage />
+                permittedTypes.includes(user?.userType) ? <WrappedComponent {...wrappedProps} /> : <UnauthenticatedPage />
             }
         </>
     )
