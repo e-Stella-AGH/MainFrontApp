@@ -76,8 +76,6 @@ function App() {
                           <Link to="/login" style={{color: "white", textDecoration: "none"}}>
                               <Button color="inherit" id="loginButton">Login</Button>
                           </Link>
-                      </div>
-                      <div style={{marginLeft: "auto"}}>
                           <Link to="/register" style={{color: "white", textDecoration: "none"}}>
                               <Button color="inherit" id="registerButton">Register</Button>
                           </Link>
