@@ -3,7 +3,7 @@ import {processAPI} from "../../../utils/apis/ProcessAPI";
 import {Box, Card, CardContent, Typography} from "@material-ui/core";
 import {TwoColumnDnD} from "estella-two-column-dnd";
 import {colors} from "../../../utils/colors";
-import {withSwal} from "../../formsCommons/WithSwal";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 import Swal from "sweetalert2";
 
 export const ManageStages = ({processId}) => {

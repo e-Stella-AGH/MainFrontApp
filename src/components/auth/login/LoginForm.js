@@ -1,8 +1,8 @@
 import {useForm} from "react-hook-form";
 import {loginAPI} from "../../../utils/apis/LoginAPI";
-import {FormField} from "../../formsCommons/FormField";
+import {FormField} from "../../commons/formsCommons/FormField";
 import {Button, Card, Grid, Typography} from "@material-ui/core";
-import {withSwal} from "../../formsCommons/WithSwal";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 
 export const LoginForm = (props) => {
     const defaultFormState = {

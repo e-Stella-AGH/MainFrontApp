@@ -1,4 +1,4 @@
-import {withSwal} from "../formsCommons/WithSwal";
+import {withSwal} from "../commons/formsCommons/WithSwal";
 import {offersAPI} from "../../utils/apis/OfferApi";
 
 export const hrOfferButtons = [
