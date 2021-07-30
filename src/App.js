@@ -14,6 +14,7 @@ import {RegistrationRouting} from "./components/auth/registration/RegistrationRo
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
 import {withUserAuth} from "./components/auth/withUserAuth";
+import {ManageProcess} from "./components/process/manage/ManageProcess";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -33,6 +34,7 @@ const routes = [
     createRoute("/hr/offers", withUserAuth(OffersView, ["hr"], {getOffers: offersAPI.getOffersFromHr, buttons: hrOfferButtons})),
     createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
     createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
+    createRoute("/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
