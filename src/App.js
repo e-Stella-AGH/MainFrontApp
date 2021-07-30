@@ -13,6 +13,7 @@ import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
+import {ManageProcess} from "./components/process/manage/ManageProcess";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -32,6 +33,7 @@ const routes = [
     createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
     createRoute("/hr/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
     createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
+    createRoute("/hr/process/manage/:id", <ManageProcess />),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
