@@ -8,6 +8,7 @@ import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
+import {SorterWrapper} from "../sorter/SorterWrapper";
 
 export const OffersView = (props) => {
 
@@ -15,9 +16,10 @@ export const OffersView = (props) => {
     const [offers, setOffers] = useState([])
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
+    const [sort, setSort] = useState({apply: (offers) => offers})
 
     const handleFilterSubmitted = (filters) => {
-        setOffers(filterOffers(fixedOffers, filters))
+        setOffers(sort.apply(filterOffers(fixedOffers, filters)))
     }
 
     useEffect(() => {
@@ -35,10 +37,23 @@ export const OffersView = (props) => {
             })
     }, [props])
 
+    const handleSort = (sort) => {
+        /* Probably race problem, don't know how to fix, but works now, if sorting offers doesn't work in future,
+        * probably the case
+        * Possible solution to race problem - state with sort and offers merged, but I don't like this idea */
+        setSort(sort)
+        setOffers(offers => ([...sort.apply(offers)]))
+    }
+
     return (
         <div>
-            <div style={{marginBottom: "10px"}}>
-                <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
+            <div style={{marginBottom: "10px", display: "flex"}}>
+                <div style={{alignItems: "flex-start"}}>
+                    <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
+                </div>
+                <div style={{alignItems: "flex-end", marginLeft: "auto", marginRight: "10px"}}>
+                    <SorterWrapper onSort={handleSort} />
+                </div>
             </div>
             <Divider/>
             <div style={{marginTop: "15px"}}>

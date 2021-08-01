@@ -70,9 +70,6 @@ export const OfferForm = (props) => {
             successFunction: () => reset(),
             errorSwalTitle: "We couldn't save this offer for you"
         })
-        if(props.onSubmit){
-            props.onSubmit(data)
-        }
     }
 
     return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>

@@ -13,6 +13,7 @@ import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
+import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
@@ -30,10 +31,10 @@ const routes = [
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
-    createRoute("/hr/offers", <OffersView getOffers={() => offersAPI.getOffersFromHr()} buttons={hrOfferButtons}/>),
-    createRoute("/hr/offers/add", <OfferForm onSubmit={(form) => offersAPI.create(form)}/>),
-    createRoute("/hr/offers/edit/:id", <OfferForm onSubmit={(form) => offersAPI.update(form)}/>),
-    createRoute("/hr/process/manage/:id", <ManageProcess />),
+    createRoute("/hr/offers", withUserAuth(OffersView, ["hr"], {getOffers: offersAPI.getOffersFromHr, buttons: hrOfferButtons})),
+    createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
+    createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
+    createRoute("/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("*", <div>Page</div>)
@@ -74,8 +75,6 @@ function App() {
                           <Link to="/login" style={{color: "white", textDecoration: "none"}}>
                               <Button color="inherit" id="loginButton">Login</Button>
                           </Link>
-                      </div>
-                      <div style={{marginLeft: "auto"}}>
                           <Link to="/register" style={{color: "white", textDecoration: "none"}}>
                               <Button color="inherit" id="registerButton">Register</Button>
                           </Link>
