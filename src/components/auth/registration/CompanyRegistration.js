@@ -1,8 +1,8 @@
 import {useForm} from "react-hook-form";
-import {withSwal} from "../../formsCommons/WithSwal";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 import {loginAPI} from "../../../utils/apis/LoginAPI";
 import {Button, Card, Grid, Typography} from "@material-ui/core";
-import {FormField} from "../../formsCommons/FormField";
+import {FormField} from "../../commons/formsCommons/FormField";
 import {useHistory} from "react-router-dom";
 
 export const CompanyRegistration = (props) => {

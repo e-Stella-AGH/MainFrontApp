@@ -1,10 +1,10 @@
 import {Controller, useForm} from "react-hook-form"
 import {Button, Grid, makeStyles} from "@material-ui/core"
-import {FormField} from "../../formsCommons/FormField"
+import {FormField} from "../../commons/formsCommons/FormField"
 import {useEffect} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
-import {withSwal} from "../../formsCommons/WithSwal";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
