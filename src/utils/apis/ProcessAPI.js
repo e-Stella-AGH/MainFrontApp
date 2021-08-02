@@ -40,6 +40,19 @@ export const processAPI = {
                 stages: items
             })
         })
+    },
+
+    changeEndDate: function(id, date) {
+        const preparedDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear()
+        return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}/end_date`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: preparedDate
+            })
+        })
     }
 
 }

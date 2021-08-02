@@ -4,13 +4,23 @@ import {useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
 import {ManageEndDate} from "./ManageEndDate";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {processAPI} from "../../../utils/apis/ProcessAPI";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 
 export const ManageProcess = () => {
 
     const {id} = useParams()
+    const [process, setProcess] = useState(null)
+    const [selectedEndDate, setSelectedEndDate] = useState(null)
 
-    const [selectedEndDate, setSelectedEndDate] = useState(new Date())
+    useEffect(() => {
+        processAPI.getProcessById(id)
+            .then(data => {
+                setProcess(data)
+                setSelectedEndDate(data?.endDate || new Date())
+            })
+    }, [id])
 
     const showHelp = () => {
         Swal.fire({
@@ -24,12 +34,11 @@ export const ManageProcess = () => {
         })
     }
 
-    //TODO - change it, when ES-180 will be ready or ouch XD
     const handleSubmit = () => {
-        Swal.fire({
-            title: "Ouch",
-            text: "Looks like I wasn't implemented yet. Check if backend can handle me!",
-            icon: "info"
+        withSwal({
+            loadingTitle: "Updating end date",
+            promise: () => processAPI.changeEndDate(id, selectedEndDate),
+            successSwalTitle: "Date updated"
         })
     }
 
@@ -41,13 +50,15 @@ export const ManageProcess = () => {
                         <Grid item style={{marginLeft: "1em", marginRight: "auto"}}>
                             <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
                         </Grid>
-                        <Grid item> <Divider /> </Grid>
+                        <Grid item> <Divider/> </Grid>
                         <Grid container style={{display: "flex", flexGrow: 1}}>
                             {/*<Grid item>*/}
                             {/*    Tu w przyszłości początek procesu rekrutacyjnego*/}
                             {/*</Grid>*/}
                             <Grid item>
-                                <ManageEndDate selectedDate={selectedEndDate} onChange={(date) => setSelectedEndDate(date)} />
+                                <ManageEndDate selectedDate={selectedEndDate || new Date()}
+                                               onChange={(date) => setSelectedEndDate(date)}
+                                               processStartDate={process?.startDate}/>
                             </Grid>
                         </Grid>
                         {/*<Grid item>*/}
@@ -55,7 +66,7 @@ export const ManageProcess = () => {
                         {/*</Grid>*/}
                         <Grid item>
                             <Grid container direction="row">
-                                <Grid item xs={false} sm={6} lg={8} />
+                                <Grid item xs={false} sm={6} lg={8}/>
                                 <Grid item xs={12} sm={6} lg={4}>
                                     <Button onClick={handleSubmit} variant="outlined">Submit</Button>
                                 </Grid>
@@ -71,9 +82,9 @@ export const ManageProcess = () => {
                                 <Grid item><HelpIcon onClick={showHelp} color="primary"/></Grid>
                             </Grid>
                         </Grid>
-                        <Grid item> <Divider /> </Grid>
+                        <Grid item> <Divider/> </Grid>
                         <Grid item>
-                            <ManageStages processId={id} />
+                            <ManageStages processId={id}/>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { headers } from "./headers";
 import {jwtUtils} from "../jwt/jwtUtils";
 import {authFetch} from "../authFetch";
+import {checkStatusFetch} from "../catchFetch";
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -84,8 +85,9 @@ export const offersAPI = {
     applyWithUser: function(offerID){
 
     },
+
     getOffersFromHr() {
-        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
+        return checkStatusFetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
             method: "GET",
             headers: Object.assign(headers, {
                 "x-jwt": jwtUtils.getAuthToken()

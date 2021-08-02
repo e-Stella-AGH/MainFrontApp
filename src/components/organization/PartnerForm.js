@@ -2,8 +2,8 @@ import {Button, Grid, makeStyles, TextField} from "@material-ui/core";
 import {Controller, useForm} from "react-hook-form";
 import {validateEmail} from "../../utils/functions";
 import React, {useState} from "react";
-import {withSwal} from "../formsCommons/WithSwal";
 import {organizationsAPI} from "../../utils/apis/OrganizationApi";
+import {withSwal} from "../commons/formsCommons/WithSwal";
 
 const useStyles = makeStyles((theme) => ({
     button: {
