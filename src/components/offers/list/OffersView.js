@@ -59,7 +59,7 @@ export const OffersView = (props) => {
             <div style={{marginTop: "15px"}}>
                 <Grid container>
                     <Grid item xs={12} sm={6} lg={8}>
-                        {selectedOffer === null ? <PickUpOffer/> : <OfferDetails offer={selectedOffer} buttons={props.buttons}/>}
+                        {selectedOffer === null ? <PickUpOffer/> : <OfferDetails offer={selectedOffer}  buttons={props.buttons}/>}
                     </Grid>
                     <Grid item xs={12} sm={6} lg={4}>
                         <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}
