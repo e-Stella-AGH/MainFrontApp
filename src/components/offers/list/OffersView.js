@@ -35,7 +35,7 @@ export const OffersView = (props) => {
                 setOffers(data || [])
                 setFixedOffers(data || [])
             })
-    }, [])
+    }, [props])
 
     const handleSort = (sort) => {
         /* Probably race problem, don't know how to fix, but works now, if sorting offers doesn't work in future,
