@@ -1,6 +1,7 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
 import { headers } from "./headers";
+import {jwtUtils} from "../jwt/jwtUtils";
 import {authFetch} from "../authFetch";
 
 const convertFileToBase64 = (file) => {
@@ -84,7 +85,35 @@ export const offersAPI = {
 
     },
     getOffersFromHr() {
-        return this.getAllOffers(); //TODO change after full users functionality implementation
+        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
+            method: "GET",
+            headers: Object.assign(headers, {
+                "x-jwt": jwtUtils.getAuthToken()
+            })
+        }).then(response => response.json())
+            .catch(err => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers!",
+                    icon: "error"
+                })
+            })
+    },
+
+    getOffersFromOrganization() {
+        return fetch(recruitmentServiceBasicAPILink + `/api/organizations/offers`, {
+            method: "GET",
+            headers: Object.assign(headers, {
+                "x-jwt": jwtUtils.getAuthToken()
+            })
+        }).then(response => response.json())
+            .catch(err => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers!",
+                    icon: "error"
+                })
+            })
     },
 
     deleteOffer(id) {
