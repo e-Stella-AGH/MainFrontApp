@@ -1,10 +1,10 @@
 import {Box, Grid, IconButton} from "@material-ui/core";
-import {withSwal} from "../formsCommons/WithSwal";
 import React, {useEffect, useState} from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import {OrganizationPartner} from "./OrganizationPartner";
 import {organizationsAPI} from "../../utils/apis/OrganizationApi";
 import {PartnerForm} from "./PartnerForm";
+import {withSwal} from "../commons/formsCommons/WithSwal";
 
 export const OrganizationsPartnerList = (props) => {
 

@@ -36,7 +36,7 @@ export const OfferDetails = (props) => {
                                 {props.buttons.map(button => {
                                     return <Box key={button.text} mr={1} ml={1}>
                                         <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
-                                            <Typography variant="h6">
+                                            <Typography>
                                                 {button.text}
                                             </Typography>
                                         </Button>
