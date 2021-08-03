@@ -9,6 +9,8 @@ import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
 import {SorterWrapper} from "../sorter/SorterWrapper";
+import {ColumnAndDetailsLayout} from "../../commons/ColumnAndDetailsLayout";
+import {StandardViewAndFilterLayout} from "../../commons/StandardViewAndFilterLayout";
 
 export const OffersView = (props) => {
 
@@ -46,28 +48,17 @@ export const OffersView = (props) => {
     }
 
     return (
-        <div>
-            <div style={{marginBottom: "10px", display: "flex"}}>
-                <div style={{alignItems: "flex-start"}}>
-                    <Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers} reloadOffers={handleFilterSubmitted}/>
-                </div>
-                <div style={{alignItems: "flex-end", marginLeft: "auto", marginRight: "10px"}}>
-                    <SorterWrapper onSort={handleSort} />
-                </div>
-            </div>
-            <Divider/>
-            <div style={{marginTop: "15px"}}>
-                <Grid container>
-                    <Grid item xs={12} sm={6} lg={8}>
-                        {selectedOffer === null ? <PickUpOffer/> : <OfferDetails offer={selectedOffer}  buttons={props.buttons}/>}
-                    </Grid>
-                    <Grid item xs={12} sm={6} lg={4}>
-                        <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}
-                                    offers={offers}/>
-                    </Grid>
-                </Grid>
-            </div>
-        </div>
+        <StandardViewAndFilterLayout
+            filter={<Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}
+                            reloadOffers={handleFilterSubmitted}/>}
+            sorter={<SorterWrapper onSort={handleSort}/>}
+            view={<ColumnAndDetailsLayout
+                details={selectedOffer === null ? <PickUpOffer/> :
+                    <OfferDetails offer={selectedOffer} buttons={props.buttons}/>}
+                list={<OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}
+                                  offers={offers}/>}
+            />}
+        />
     )
 }
 

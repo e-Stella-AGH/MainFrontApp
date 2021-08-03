@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import {ShortOfferDetails} from "./ShortOfferDetails";
 import {useState} from "react";
 import {constants} from "../../../utils/constants";
 import {scrollToTop} from '../../../utils/functions';
+import {ListElement} from "../../commons/ListElement";
 
 export const OffersList = (props) => {
 
@@ -10,16 +10,25 @@ export const OffersList = (props) => {
 
     const offers = props.offers
 
+    const getData = (offer) => {
+        return {
+            first: offer.name,
+            second: `${offer.minSalary} - ${offer.maxSalary}`,
+            third: offer.position,
+            offer: offer
+        }
+    }
+
     const getShortOffers = () => {
         return offers
             .filter((item, idx) => props.limit ? idx < props.limit : true)
             .map(
                 (offer, idx) => {
                     return selectedIdx === idx ?
-                        <ShortOfferDetails selected offer={offer} key={idx}
-                                           onClick={(offer, idx) => handleShortOfferSelect(offer, idx)} idx={idx}/>
-                        : <ShortOfferDetails offer={offer} key={idx}
-                                             onClick={(offer, idx) => handleShortOfferSelect(offer, idx)} idx={idx}/>
+                        <ListElement key={idx} idx={idx} onClick={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
+                                     selected data={getData(offer)}/>
+                        : <ListElement idx={idx} onClick={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
+                                       key={idx} data={getData(offer)} selected={false}/>
                 }
             )
     }
@@ -30,7 +39,7 @@ export const OffersList = (props) => {
         scrollToTop()
     }
 
-    return(
+    return (
         <div style={{overflowY: 'scroll', height: `calc(100vh - 7em - ${constants["navbar_height"]})`}}>
             {getShortOffers()}
         </div>
