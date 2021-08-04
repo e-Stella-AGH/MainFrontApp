@@ -1,6 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
-import { headers } from "./headers";
+import {headers} from "./headers";
 import {jwtUtils} from "../jwt/jwtUtils";
 import {authFetch} from "../authFetch";
 
@@ -84,6 +84,7 @@ export const offersAPI = {
     applyWithUser: function(offerID){
 
     },
+
     getOffersFromHr() {
         return authFetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
             method: "GET",

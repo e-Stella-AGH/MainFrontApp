@@ -2,7 +2,6 @@ import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
 import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
-import {Divider, Grid} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";

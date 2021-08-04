@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
 import {useState} from "react";
-import {constants} from "../../../utils/constants";
 import {scrollToTop} from '../../../utils/functions';
-import {ListElement} from "../../commons/ListElement";
+import {ListWithSelection} from "../../commons/ListWithSelection";
 
 export const OffersList = (props) => {
-
-    const [selectedIdx, setSelectedIdx] = useState(-1)
 
     const offers = props.offers
 
@@ -19,30 +16,18 @@ export const OffersList = (props) => {
         }
     }
 
-    const getShortOffers = () => {
-        return offers
-            .filter((item, idx) => props.limit ? idx < props.limit : true)
-            .map(
-                (offer, idx) => {
-                    return selectedIdx === idx ?
-                        <ListElement key={idx} idx={idx} onClick={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
-                                     selected data={getData(offer)}/>
-                        : <ListElement idx={idx} onClick={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
-                                       key={idx} data={getData(offer)} selected={false}/>
-                }
-            )
-    }
-
     const handleShortOfferSelect = (offer, idx) => {
         props.onSelectedOffer(offer)
-        setSelectedIdx(idx)
         scrollToTop()
     }
 
     return (
-        <div style={{overflowY: 'scroll', height: `calc(100vh - 7em - ${constants["navbar_height"]})`}}>
-            {getShortOffers()}
-        </div>
+        <ListWithSelection
+            listItems={offers}
+            extractData={getData}
+            limit={props.limit}
+            propsHandleSelect={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
+        />
     )
 }
 

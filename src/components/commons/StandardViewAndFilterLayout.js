@@ -20,7 +20,7 @@ export const StandardViewAndFilterLayout = ({filter, sorter, view}) => {
 }
 
 StandardViewAndFilterLayout.propTypes = {
-    filter: PropTypes.any.isRequired,   //component representing filter with its view and logic
-    sorter: PropTypes.any.isRequired,   //component representing sorter with its view and logic
+    filter: PropTypes.any,   //component representing filter with its view and logic
+    sorter: PropTypes.any,   //component representing sorter with its view and logic
     view: PropTypes.any.isRequired      //component representing view that should be displayed
 }
