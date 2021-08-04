@@ -1,12 +1,22 @@
 import {ListElementDetails} from "../commons/ListElementDetails";
-import {CardContent} from "@material-ui/core";
+import {CardContent, Grid} from "@material-ui/core";
+import {ApplicationTimeline} from "./ApplicationTimeline";
 
-export const ApplicationDetails = ({application}) => {
+export const ApplicationDetails = ({application, process}) => {
 
-    console.log(application)
+    console.log(application, process)
 
     const getCardContent = () => {
-        return <CardContent>XD</CardContent>
+        return (<CardContent>
+            <Grid container direction="row">
+                <Grid item xs={12} md={6}>
+
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <ApplicationTimeline stages={process.stages.map(item => item.type)} />
+                </Grid>
+            </Grid>
+        </CardContent>)
     }
 
     return (
