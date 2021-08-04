@@ -87,7 +87,7 @@ export const offersAPI = {
     },
 
     getOffersFromHr() {
-        return checkStatusFetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/hrpartners/offers`, {
             method: "GET",
             headers: Object.assign(headers, {
                 "x-jwt": jwtUtils.getAuthToken()
