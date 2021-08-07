@@ -43,7 +43,7 @@ export const processAPI = {
     },
 
     changeEndDate: function(id, date) {
-        const preparedDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear()
+        const preparedDate = this._prepareDate(date)
         return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}/end_date`, {
             method: "PUT",
             headers: {
@@ -53,6 +53,10 @@ export const processAPI = {
                 date: preparedDate
             })
         })
+    },
+
+    _prepareDate: function(date) {
+        return ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear()
     }
 
 }

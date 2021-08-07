@@ -6,6 +6,7 @@ export const ManageEndDate = ({selectedDate, onChange, processStartDate}) => {
 
     const handleDateChange = (date) => {
         if (date > new Date(processStartDate)) {
+            console.log(processStartDate)
             onChange(date)
         } else {
             Swal.fire({

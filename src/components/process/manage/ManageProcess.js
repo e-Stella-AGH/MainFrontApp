@@ -53,7 +53,7 @@ export const ManageProcess = () => {
                         <Grid item> <Divider/> </Grid>
                         <Grid container style={{display: "flex", flexGrow: 1}}>
                             {/*<Grid item>*/}
-                            {/*    Tu w przyszłości początek procesu rekrutacyjnego*/}
+                            {/*  Beginning of recruitment process in future maybe  */}
                             {/*</Grid>*/}
                             <Grid item>
                                 <ManageEndDate selectedDate={selectedEndDate || new Date()}
@@ -62,7 +62,7 @@ export const ManageProcess = () => {
                             </Grid>
                         </Grid>
                         {/*<Grid item>*/}
-                        {/*    W przyszłości pewnie taski + quizy?*/}
+                        {/*    In future tasks and quizzes? */}
                         {/*</Grid>*/}
                         <Grid item>
                             <Grid container direction="row">
