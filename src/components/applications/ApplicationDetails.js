@@ -3,7 +3,7 @@ import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/
 import {ApplicationTimeline} from "./ApplicationTimeline";
 import {FileViewerWrapper} from "./FileViewerWrapper";
 
-export const ApplicationDetails = ({application, process, isHR}) => {
+export const ApplicationDetails = ({application, isHR}) => {
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -25,7 +25,7 @@ export const ApplicationDetails = ({application, process, isHR}) => {
                                     variant="h6">{application.jobSeeker.user.firstName} {application.jobSeeker.user.lastName}</Typography>
                             </div>
                             <div>
-                                <Typography variant="h6" color="textSecondary">{process.offer.name}</Typography>
+                                <Typography variant="h6" color="textSecondary">{application.offerName}</Typography>
                             </div>
                         </Grid>
                         <Grid item xs={12}
@@ -68,7 +68,7 @@ export const ApplicationDetails = ({application, process, isHR}) => {
                             </Grid> : null
                         }
                         <Grid item xs={12}>
-                            <ApplicationTimeline stages={process.stages} currentStageId={application.stage.id}
+                            <ApplicationTimeline stages={application.stages} currentStageId={application.stage.id}
                                                  status={application.status}/>
                         </Grid>
                     </Grid>
