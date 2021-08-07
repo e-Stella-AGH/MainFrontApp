@@ -3,8 +3,8 @@ import {StandardViewAndFilterLayout} from "../commons/StandardViewAndFilterLayou
 import {ColumnAndDetailsLayout} from "../commons/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
-import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import {ApplicationDetails} from "./ApplicationDetails";
+import {EmptyApplicationsView} from "./EmptyApplicationsView";
 
 export const ApplicationsView = ({getApplications, isHR}) => {
 
@@ -22,21 +22,24 @@ export const ApplicationsView = ({getApplications, isHR}) => {
 
     return (
         <>
-            <StandardViewAndFilterLayout
-                filter={null}
-                sorter={null}
-                view={
-                    <ColumnAndDetailsLayout
-                        details={selectedApplication ?
-                            <ApplicationDetails application={selectedApplication} isHR={isHR}/> :
-                            <div>Select application</div>}
-                        list={<ApplicationsList
-                            applications={applications}
-                            onSelectedApplication={selected => setSelectedApplication(selected)}
-                        />}
-                    />
-                }
-            />
+            {
+                applications?.length !== 0 && applications !== undefined?
+                <StandardViewAndFilterLayout
+                    filter={null}
+                    sorter={null}
+                    view={
+                        <ColumnAndDetailsLayout
+                            details={selectedApplication ?
+                                <ApplicationDetails application={selectedApplication} isHR={isHR}/> :
+                                <div>Select application</div>}
+                            list={<ApplicationsList
+                                applications={applications}
+                                onSelectedApplication={selected => setSelectedApplication(selected)}
+                            />}
+                        />
+                    }
+                /> : <EmptyApplicationsView isHR={isHR} />
+            }
         </>
     )
 }

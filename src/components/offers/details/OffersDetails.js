@@ -26,7 +26,7 @@ export const OfferDetails = (props) => {
                         </Typography>
                     </Box>
                 </div>
-                <div style={{float: "right", marginRight: "20px", display: "flex"}}>
+                <div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
                     {props.buttons.map(button => {
                         return <Box key={button.text} mr={1} ml={1}>
                             <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
@@ -66,7 +66,7 @@ export const OfferDetails = (props) => {
             <Box mt={8} mb={4}>
                 <Grid container>
                     {offer.skills.map((skill, idx) =>
-                        <Grid key={idx} item ><OfferSkill key={idx}
+                        <Grid key={idx} item><OfferSkill key={idx}
                                                           name={skill.name}
                                                           skillLevel={skill.level}/></Grid>)}
                 </Grid>
