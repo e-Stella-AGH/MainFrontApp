@@ -2,8 +2,13 @@ import {ListElementDetails} from "../commons/ListElementDetails";
 import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {ApplicationTimeline} from "./ApplicationTimeline";
 import {FileViewerWrapper} from "./FileViewerWrapper";
+import {withSwal} from "../commons/formsCommons/WithSwal";
+import {applicationsAPI} from "../../utils/apis/applicationsAPI";
+import Swal from "sweetalert2";
 
 export const ApplicationDetails = ({application, isHR}) => {
+
+    console.log(application)
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -11,6 +16,44 @@ export const ApplicationDetails = ({application, isHR}) => {
                 <Grid item key={`${idx}`} xs={12} md={6}>
                     <FileViewerWrapper undecodedFile={file}/>
                 </Grid>))
+    }
+
+    const rejectApplication = () => {
+        Swal.fire({
+            title: "Do you really want to reject this application?",
+            text: "This operation cannot be undone",
+            showCancelButton: true,
+            confirmButtonText: "Reject Application",
+            cancelButtonText: "Abort!",
+            icon: "question"
+        }).then(result => {
+            if(result.isConfirmed) {
+                withSwal({
+                    loadingTitle: "Rejecting Application",
+                    promise: () => applicationsAPI.rejectApplication(application.id),
+                    successSwalText: "Application rejected successfully"
+                })
+            } else {
+                Swal.fire({
+                    title: "You've cancelled this operation",
+                    text: "Application isn't rejected",
+                    icon: "success"
+                })
+            }
+        })
+    }
+
+    const nextStage = () => {
+        withSwal({
+            loadingTitle: "Setting next stage of Application",
+            promise: () => applicationsAPI.nextStage(application.id),
+            successFunction: () => window.location.reload(),
+            successSwalTitle: "Next stage set successfully"
+        })
+    }
+
+    const getDisabled = () => {
+        return application.status === "REJECTED" || application.status === "ACCEPTED"
     }
 
     const getCardContent = () => {
@@ -58,11 +101,11 @@ export const ApplicationDetails = ({application, isHR}) => {
                         {
                             isHR ?
                             <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
-                                <Button color="secondary" variant="outlined">
+                                <Button color="secondary" variant="outlined" onClick={rejectApplication} disabled={getDisabled()}>
                                     Reject Application
                                 </Button>
                                 <Box m={1}/>
-                                <Button color="primary" variant="contained">
+                                <Button color="primary" variant="contained" onClick={nextStage} disabled={getDisabled()}>
                                     Next Stage
                                 </Button>
                             </Grid> : null

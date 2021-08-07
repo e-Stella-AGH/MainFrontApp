@@ -23,6 +23,8 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
 
     const classes = useStyles()
 
+    let isBeforeCurrent = true
+
     const getTimelineContent = (stage) => (
         <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
@@ -33,13 +35,16 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
     )
 
     const getDotColor = stageId => {
-        if (stageId < currentStageId) return colors['success']
-        if (stageId === currentStageId) return colors['main']
+        if (stageId === currentStageId) {
+            isBeforeCurrent = false
+            return colors['main']
+        }
+        if (isBeforeCurrent) return colors['success']
         else {
             if (status === "REJECTED") {
                 return colors.error
             } else if (status === "ACCEPTED") {
-                return colors.success
+                return colors["main-light"]
             } else return "grey"
         }
     }

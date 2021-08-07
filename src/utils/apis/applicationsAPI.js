@@ -16,5 +16,13 @@ export const applicationsAPI = {
             {method: "GET"}
         ).then(response => response.json())
             .then(data => console.log(data))
+    },
+
+    rejectApplication: function(applicationId) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/applications/${applicationId}/reject`, {method: "PUT"})
+    },
+
+    nextStage: function(applicationId) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/applications/${applicationId}/next`, {method: "PUT"})
     }
 }

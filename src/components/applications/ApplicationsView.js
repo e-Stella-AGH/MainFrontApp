@@ -5,6 +5,7 @@ import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
+import {CircularProgress} from "@material-ui/core";
 
 export const ApplicationsView = ({getApplications, isHR}) => {
 
@@ -12,25 +13,30 @@ export const ApplicationsView = ({getApplications, isHR}) => {
 
     const [selectedApplication, setSelectedApplication] = useState(null)
     const [applications, setApplications] = useState([])
+    const [fetching, setFetching] = useState(false)
 
     useEffect(() => {
+        setFetching(true)
         getApplications(id)
             .then(data => {
                 setApplications(data)
-            })
+                setFetching(false)
+            }).catch(err => setFetching(false))
     }, [getApplications, id])
 
     return (
         <>
             {
-                applications?.length !== 0 && applications !== undefined?
+                fetching ? <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CircularProgress size={100} /></div>
+                    :
+                applications?.length !== 0 && applications !== undefined ?
                 <StandardViewAndFilterLayout
                     filter={null}
                     sorter={null}
                     view={
                         <ColumnAndDetailsLayout
                             details={selectedApplication ?
-                                <ApplicationDetails application={selectedApplication} isHR={isHR}/> :
+                                <ApplicationDetails application={selectedApplication} isHR={isHR} /> :
                                 <div>Select application</div>}
                             list={<ApplicationsList
                                 applications={applications}
