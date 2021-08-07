@@ -1,18 +1,25 @@
-import React from 'react'
-import {Button, Grid, Typography} from "@material-ui/core";
+import {Modal} from "@material-ui/core";
+import PropTypes from "prop-types";
 
-export const FileViewer = ({undecodedFile}) => {
+export const FileViewer = ({file, open, handleClose}) => {
 
-    console.log(undecodedFile)
+    const getData = () => {
+        return `data:application/pdf;base64,${file?.fileBase64}`
+    }
 
     return (
-        <Grid container direction="row" spacing={1} align = "center" justify = "center" alignItems = "center">
-            <Grid item><Typography>FileName</Typography></Grid>
-            <Grid item>
-                <Button color="primary" variant="outlined">
-                    View File
-                </Button>
-            </Grid>
-        </Grid>
+        <Modal open={open}
+               onClose={handleClose}
+        >
+            <div style={{marginLeft: "auto", marginRight: "auto", width: "80%", height: "90%", marginTop: "2em"}}>
+                <iframe title="File" src={getData()} height="100%" width="100%"/>
+            </div>
+        </Modal>
     )
+}
+
+FileViewer.propTypes = {
+    file: PropTypes.object.isRequired,
+    open: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired
 }

@@ -1,15 +1,15 @@
 import {ListElementDetails} from "../commons/ListElementDetails";
 import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {ApplicationTimeline} from "./ApplicationTimeline";
-import {FileViewer} from "../commons/FileViewer";
+import {FileViewerWrapper} from "./FileViewerWrapper";
 
 export const ApplicationDetails = ({application, process}) => {
 
     const getSeekerFiles = () => {
         return application.seekerFiles
             .map((file, idx) => (
-                <Grid item key={`${idx}`} xs={6} md={4}>
-                    <FileViewer undecodedFile={file} />
+                <Grid item key={`${idx}`} xs={12} md={6}>
+                    <FileViewerWrapper undecodedFile={file}/>
                 </Grid>))
     }
 
@@ -18,15 +18,18 @@ export const ApplicationDetails = ({application, process}) => {
             <Grid container direction="row" spacing={4}>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <Grid item xs={12}
+                              style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                             <div>
-                                <Typography variant="h6">{application.jobSeeker.user.firstName} {application.jobSeeker.user.lastName}</Typography>
+                                <Typography
+                                    variant="h6">{application.jobSeeker.user.firstName} {application.jobSeeker.user.lastName}</Typography>
                             </div>
                             <div>
                                 <Typography variant="h6" color="textSecondary">{process.offer.name}</Typography>
                             </div>
                         </Grid>
-                        <Grid item xs={12} style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <Grid item xs={12}
+                              style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                             <div>
                                 <Typography>{application.jobSeeker.user.mail}</Typography>
                             </div>
@@ -35,14 +38,18 @@ export const ApplicationDetails = ({application, process}) => {
                                 <Typography color="textSecondary">{application.applicationDate}</Typography>
                             </div>
                         </Grid>
-                        <Grid item xs={12}><Divider /></Grid>
+                        <Grid item xs={12}><Divider/></Grid>
                         <Grid item xs={12}>
-                            <Grid container direction="row" spacing={4}>
-                                {getSeekerFiles()}
-                            </Grid>
+                            {
+                                application.seekerFiles.length === 0 ?
+                                    <Typography>Candidate didn't supply any files.</Typography> :
+                                    <Grid container direction="row" spacing={4}>
+                                        {getSeekerFiles()}
+                                    </Grid>
+                            }
                         </Grid>
                         <Grid item xs={12}>
-                        {/*  Notes about candidate in future  */}
+                            {/*  Notes about candidate in future  */}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -52,13 +59,14 @@ export const ApplicationDetails = ({application, process}) => {
                             <Button color="secondary" variant="outlined">
                                 Reject Application
                             </Button>
-                            <Box m={1} />
+                            <Box m={1}/>
                             <Button color="primary" variant="contained">
                                 Next Stage
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <ApplicationTimeline stages={process.stages} currentStageId={application.stage.id} status={application.status} />
+                            <ApplicationTimeline stages={process.stages} currentStageId={application.stage.id}
+                                                 status={application.status}/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -67,6 +75,6 @@ export const ApplicationDetails = ({application, process}) => {
     }
 
     return (
-        <ListElementDetails cardContent={getCardContent()} />
+        <ListElementDetails cardContent={getCardContent()}/>
     )
 }
