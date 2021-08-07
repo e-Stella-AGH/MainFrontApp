@@ -6,10 +6,10 @@ export const ColumnAndDetailsLayout = ({details, list}) => {
     return (
         <div style={{marginTop: "15px"}}>
             <Grid container>
-                <Grid item xs={12} sm={6} lg={8}>
+                <Grid item xs={12} sm={8}>
                     {details}
                 </Grid>
-                <Grid item xs={12} sm={6} lg={4}>
+                <Grid item xs={12} sm={4}>
                     {list}
                 </Grid>
             </Grid>

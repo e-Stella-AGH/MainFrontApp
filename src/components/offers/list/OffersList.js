@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {useState} from "react";
 import {scrollToTop} from '../../../utils/functions';
 import {ListWithSelection} from "../../commons/ListWithSelection";
 

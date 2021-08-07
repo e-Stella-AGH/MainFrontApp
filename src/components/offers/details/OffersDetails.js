@@ -1,8 +1,6 @@
 import {useHistory} from "react-router-dom";
-import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
+import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import {colors} from "../../../utils/colors";
-import {constants} from "../../../utils/constants";
 import PropTypes from "prop-types";
 import {ListElementDetails} from "../../commons/ListElementDetails";
 

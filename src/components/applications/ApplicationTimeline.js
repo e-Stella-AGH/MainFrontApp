@@ -8,6 +8,7 @@ import {
 } from "@material-ui/lab";
 import {ProcessStage} from "../../utils/procesStages";
 import {makeStyles, Paper, Typography} from "@material-ui/core";
+import {colors} from "../../utils/colors";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -18,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const ApplicationTimeline = ({stages}) => {
-
-    console.log(stages)
+export const ApplicationTimeline = ({stages, currentStageId, status}) => {
 
     const classes = useStyles()
 
@@ -33,12 +32,26 @@ export const ApplicationTimeline = ({stages}) => {
         </Paper>
     )
 
+    const getDotColor = stageId => {
+        if (stageId < currentStageId) return colors['success']
+        if (stageId === currentStageId) return colors['main']
+        else {
+            if (status === "REJECTED") {
+                return colors.error
+            } else if (status === "ACCEPTED") {
+                return colors.success
+            } else return "grey"
+        }
+    }
+
     const getTimelineItem = (key, displayConnector) => {
-        const stage = ProcessStage[key.split(".")[0]]
+        const parts = key.split(".")
+        const stage = ProcessStage[parts[0]]
+        const stageId = Number(parts[1])
         return (
             <TimelineItem key={key}>
                 <TimelineSeparator>
-                    <TimelineDot>
+                    <TimelineDot style={{backgroundColor: getDotColor(stageId)}}>
                         {stage.icon}
                     </TimelineDot>
                     {displayConnector ? <TimelineConnector /> : null}
@@ -49,8 +62,9 @@ export const ApplicationTimeline = ({stages}) => {
     }
 
     const getTimelineItems = () => {
-        return stages.map((item, idx) => {
-            return getTimelineItem(`${item}.${idx}`, idx !== stages.length - 1)
+        return stages
+            .map((item, idx) => {
+            return getTimelineItem(`${item.type}.${item.id}`, idx !== stages.length - 1)
         })
     }
 
