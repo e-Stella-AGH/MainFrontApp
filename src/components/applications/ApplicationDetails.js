@@ -3,7 +3,7 @@ import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/
 import {ApplicationTimeline} from "./ApplicationTimeline";
 import {FileViewerWrapper} from "./FileViewerWrapper";
 
-export const ApplicationDetails = ({application, process}) => {
+export const ApplicationDetails = ({application, process, isHR}) => {
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -55,15 +55,18 @@ export const ApplicationDetails = ({application, process}) => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container>
-                        <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
-                            <Button color="secondary" variant="outlined">
-                                Reject Application
-                            </Button>
-                            <Box m={1}/>
-                            <Button color="primary" variant="contained">
-                                Next Stage
-                            </Button>
-                        </Grid>
+                        {
+                            isHR ?
+                            <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
+                                <Button color="secondary" variant="outlined">
+                                    Reject Application
+                                </Button>
+                                <Box m={1}/>
+                                <Button color="primary" variant="contained">
+                                    Next Stage
+                                </Button>
+                            </Grid> : null
+                        }
                         <Grid item xs={12}>
                             <ApplicationTimeline stages={process.stages} currentStageId={application.stage.id}
                                                  status={application.status}/>

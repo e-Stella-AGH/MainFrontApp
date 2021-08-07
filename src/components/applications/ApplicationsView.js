@@ -5,22 +5,21 @@ import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
 import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import {ApplicationDetails} from "./ApplicationDetails";
-import {processAPI} from "../../utils/apis/ProcessAPI";
 
-export const ApplicationsView = () => {
+export const ApplicationsView = ({ getApplications, getProcess, isHR }) => {
 
-    const { offerId } = useParams()
+    const { id } = useParams()
 
     const [selectedApplication, setSelectedApplication] = useState(null)
     const [applications, setApplications] = useState([])
     const [process, setProcess] = useState(null)
 
     useEffect(() => {
-        applicationsAPI.getApplicationsByOfferId(offerId)
+        getApplications(id)
             .then(data => setApplications(data))
-        processAPI.getProcessById(offerId)
+        getProcess(id)
             .then(data => setProcess(data))
-    }, [offerId])
+    }, [getApplications, getProcess, id])
 
     return (
         <>
@@ -29,7 +28,7 @@ export const ApplicationsView = () => {
                 sorter={null}
                 view={
                     <ColumnAndDetailsLayout
-                        details={selectedApplication ? <ApplicationDetails application={selectedApplication} process={process}/> : <div>Select application</div>}
+                        details={selectedApplication ? <ApplicationDetails application={selectedApplication} process={process} isHR={isHR}/> : <div>Select application</div>}
                         list={<ApplicationsList
                             applications={applications}
                             onSelectedApplication={selected => setSelectedApplication(selected)}
