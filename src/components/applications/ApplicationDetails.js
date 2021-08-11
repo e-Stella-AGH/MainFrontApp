@@ -5,10 +5,9 @@ import {FileViewerWrapper} from "./FileViewerWrapper";
 import {withSwal} from "../commons/formsCommons/WithSwal";
 import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
+import {processAPI} from "../../utils/apis/ProcessAPI";
 
 export const ApplicationDetails = ({application, isHR}) => {
-
-    console.log(application)
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -77,8 +76,7 @@ export const ApplicationDetails = ({application, isHR}) => {
                                 <Typography>{application.jobSeeker.user.mail}</Typography>
                             </div>
                             <div>
-                                {/*TODO: After merging ES-188 format date with processAPI._prepareDate()*/}
-                                <Typography color="textSecondary">{application.applicationDate}</Typography>
+                                <Typography color="textSecondary">{processAPI._prepareDate(new Date(application.applicationDate))}</Typography>
                             </div>
                         </Grid>
                         <Grid item xs={12}><Divider/></Grid>

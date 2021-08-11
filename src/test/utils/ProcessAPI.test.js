@@ -1,4 +1,4 @@
-import {processAPI} from "../utils/apis/ProcessAPI";
+import {processAPI} from "../../utils/apis/ProcessAPI";
 
 describe("should format date in dd.mm.yyyy format", () => {
 
