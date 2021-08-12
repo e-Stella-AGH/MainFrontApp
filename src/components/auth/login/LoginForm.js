@@ -3,8 +3,14 @@ import {loginAPI} from "../../../utils/apis/LoginAPI";
 import {FormField} from "../../commons/formsCommons/FormField";
 import {Button, Card, Grid, Typography} from "@material-ui/core";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
+import React from "react";
+import {useLoggedIn} from "../../../utils/hooks/useLoggedIn";
+import {Redirect} from "react-router-dom";
 
 export const LoginForm = (props) => {
+
+    const {loggedIn, login} = useLoggedIn()
+
     const defaultFormState = {
         login: "",
         password: ""
@@ -17,8 +23,9 @@ export const LoginForm = (props) => {
             loadingTitle: "Loging in...",
             promise: () => loginAPI.login(data.login, data.password),
             successSwalTitle: "Successfully logged in!",
-            successFunction: (token) => {
+            successFunction: () => {
                 reset()
+                login()
                 //TODO - add logic with our token
             },
             errorSwalTitle: "We couldn't log you in!"
@@ -28,8 +35,7 @@ export const LoginForm = (props) => {
         }
     }
 
-    return (
-        <Card variant="outlined" style={{width: "60%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
+    return loggedIn ? <Redirect to="/" /> : <Card variant="outlined" style={{width: "60%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
             <Typography variant="h5" style={{marginBottom: "20px", marginLeft: "auto", marginRight: "auto", width: "80%"}}>Login!</Typography>
             <div style={{width: "80%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
                 <form id="login-form" name="login-form" onSubmit={handleSubmit(onSubmit)} />
@@ -69,5 +75,4 @@ export const LoginForm = (props) => {
                 </Grid>
             </div>
         </Card>
-    )
 }

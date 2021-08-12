@@ -17,6 +17,8 @@ import {OrganizationsPartnerList} from "./components/organization/OrganizationsP
 import {organizationsAPI} from "./utils/apis/OrganizationApi";
 import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
+import {useLoggedIn} from "./utils/hooks/useLoggedIn";
+import UserMenu from "./components/userMenu/UserMenu";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -46,6 +48,8 @@ const routes = [
 
 function App() {
 
+    const {loggedIn, login, logout} = useLoggedIn()
+
     const getRoutes = () => {
         return routes.map((route, idx) => {
             return (
@@ -58,7 +62,7 @@ function App() {
         })
     }
 
-  return (
+    return (
           <Router>
               { /* NAVBAR */}
               <AppBar position="sticky" style={{ background: colors.navbar, height: `${constants.navbar_height}` }}>
@@ -76,12 +80,18 @@ function App() {
                           </Link>
                       </div>
                       <div style={{marginLeft: "auto"}}>
-                          <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                              <Button color="inherit" id="loginButton">Login</Button>
-                          </Link>
-                          <Link to="/register" style={{color: "white", textDecoration: "none"}}>
-                              <Button color="inherit" id="registerButton">Register</Button>
-                          </Link>
+                          {loggedIn ?
+                              <>
+                                  <UserMenu style={{color: "white", textDecoration: "none"}} />
+                              </> : <>
+                                  <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                                      <Button color="inherit" id="loginButton">Login</Button>
+                                  </Link>
+                                  <Link to="/register" style={{color: "white", textDecoration: "none"}}>
+                                      <Button color="inherit" id="registerButton">Register</Button>
+                                  </Link>
+                              </>
+                          }
                       </div>
                   </Toolbar>
               </AppBar>
