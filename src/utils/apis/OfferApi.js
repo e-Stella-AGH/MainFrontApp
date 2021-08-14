@@ -1,6 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
-import { headers } from "./headers";
+import {headers} from "./headers";
 import {jwtUtils} from "../jwt/jwtUtils";
 import {authFetch} from "../authFetch";
 import {checkStatusFetch} from "../catchFetch";

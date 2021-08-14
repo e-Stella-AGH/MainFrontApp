@@ -17,6 +17,9 @@ import {OrganizationsPartnerList} from "./components/organization/OrganizationsP
 import {organizationsAPI} from "./utils/apis/OrganizationApi";
 import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
+import {ApplicationsView} from "./components/applications/ApplicationsView";
+import {applicationsAPI} from "./utils/apis/applicationsAPI";
+import {processAPI} from "./utils/apis/ProcessAPI";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -33,10 +36,12 @@ const routes = [
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
+    createRoute("/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})),
     createRoute("/hr/offers", withUserAuth(OffersView, ["hr"], {getOffers: () => offersAPI.getOffersFromHr(), buttons: hrOfferButtons})),
     createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
     createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
     createRoute("/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])),
+    createRoute("/hr/applications/:id", withUserAuth(ApplicationsView, ["hr"], {isHR: true, getApplications: (id) => applicationsAPI.getApplicationsByOfferId(id)})),
     createRoute("/organization/users", withUserAuth(OrganizationsPartnerList, ["organization"], {users: () => organizationsAPI.getHrPartnersByOrganization()})),
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
