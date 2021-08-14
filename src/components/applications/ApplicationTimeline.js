@@ -40,13 +40,11 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
             return colors['main']
         }
         if (isBeforeCurrent) return colors['success']
-        else {
-            if (status === "REJECTED") {
-                return colors.error
-            } else if (status === "ACCEPTED") {
-                return colors["main-light"]
-            } else return "grey"
-        }
+        else if (status === "REJECTED") {
+            return colors.error
+        } else if (status === "ACCEPTED") {
+            return colors["main-light"]
+        } else return "grey"
     }
 
     const getTimelineItem = (key, displayConnector) => {

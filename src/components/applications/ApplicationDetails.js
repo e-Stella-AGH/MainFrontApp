@@ -97,7 +97,7 @@ export const ApplicationDetails = ({application, isHR}) => {
                 <Grid item xs={12}>
                     <Grid container>
                         {
-                            isHR ?
+                            isHR &&
                             <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
                                 <Button color="secondary" variant="outlined" onClick={rejectApplication} disabled={getDisabled()}>
                                     Reject Application
@@ -106,7 +106,7 @@ export const ApplicationDetails = ({application, isHR}) => {
                                 <Button color="primary" variant="contained" onClick={nextStage} disabled={getDisabled()}>
                                     Next Stage
                                 </Button>
-                            </Grid> : null
+                            </Grid>
                         }
                         <Grid item xs={12}>
                             <ApplicationTimeline stages={application.stages} currentStageId={application.stage.id}
