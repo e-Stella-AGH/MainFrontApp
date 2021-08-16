@@ -48,7 +48,7 @@ const routes = [
 
 function App() {
 
-    const {loggedIn, login, logout} = useLoggedIn()
+    const {loggedIn} = useLoggedIn()
 
     const getRoutes = () => {
         return routes.map((route, idx) => {

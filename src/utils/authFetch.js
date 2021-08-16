@@ -10,10 +10,18 @@ export const authFetch = (url, data) => {
     return fetch(url, authData).then(response => {
         if(response.status >= 200 && response.status < 300)
             return response
-        else
+        else {
+            localStorage.removeItem(loginAPI.authTokenStorageKey)
             return jwtUtils.refreshToken().then(() => {
                 authData.headers[loginAPI.jwtTokenKey] = jwtUtils.getAuthToken()
-                return fetch(url, authData)
+                return fetch(url, authData).then(response => {
+                    if (response.status < 200 || response.status >= 300) {
+                        localStorage.removeItem(loginAPI.refreshTokenStorageKey)
+                        window.location.reload()
+                    }
+                    return response
+                })
             })
+        }
     })
 }

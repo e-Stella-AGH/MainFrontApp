@@ -26,10 +26,10 @@ export default function UserMenu(props) {
     }
 
     return <>
-        direction ? {<>
+        {direction ? <>
             {redirect(direction)}
             <UserMenu {...props} />
-        </>} : <div style={props.style}>    
+        </> : <div style={props.style}>
             <IconButton style={props.style} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <Face />
             </IconButton>
@@ -41,12 +41,12 @@ export default function UserMenu(props) {
                 onClose={() => handleChoice(null)}
                 >
                 <MenuItem onClick={() => handleChoice("/offers")}>Profile</MenuItem>
-                <MenuItem onClick={() => handleChoice("/offers")}>My account</MenuItem>
+                <MenuItem onClick={() => handleChoice("/hr/offers/add")}>Settings</MenuItem>
                 <MenuItem onClick={() => {
                     handleChoice("/")
                     logout()
                 }}>Logout</MenuItem>
             </Menu>
-        </div>
+        </div>}
     </>
 }
