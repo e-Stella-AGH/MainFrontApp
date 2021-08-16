@@ -19,6 +19,7 @@ import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {useLoggedIn} from "./utils/hooks/useLoggedIn";
 import UserMenu from "./components/userMenu/UserMenu";
+import SettingsOverlay from "./components/userMenu/SettingsOverlay";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -43,6 +44,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
+    createRoute("/settings", <SettingsOverlay />, {marginTop: "1em"}),
     createRoute("*", <div>Page</div>)
 ]
 
@@ -95,7 +97,6 @@ function App() {
                       </div>
                   </Toolbar>
               </AppBar>
-
               <Switch>
                     {getRoutes()}
               </Switch>

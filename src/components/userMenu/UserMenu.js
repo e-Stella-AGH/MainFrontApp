@@ -41,7 +41,7 @@ export default function UserMenu(props) {
                 onClose={() => handleChoice(null)}
                 >
                 <MenuItem onClick={() => handleChoice("/offers")}>Profile</MenuItem>
-                <MenuItem onClick={() => handleChoice("/hr/offers/add")}>Settings</MenuItem>
+                <MenuItem onClick={() => handleChoice("/settings")}>Settings</MenuItem>
                 <MenuItem onClick={() => {
                     handleChoice("/")
                     logout()
