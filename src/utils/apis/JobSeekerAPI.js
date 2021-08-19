@@ -11,4 +11,11 @@ export const jobSeekerAPI = {
         .then(response => response.json())
     },
 
+    getFiles: function() {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/jobseekers/files`, {
+            method: "GET"
+        })
+        .then(response => response.json())
+    }
+
 }

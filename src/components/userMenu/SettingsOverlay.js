@@ -2,7 +2,6 @@ import React from 'react';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {Grid} from "@material-ui/core";
 import {FilesPage} from "./FilesPage";
@@ -10,6 +9,7 @@ import {jwtUtils} from "../../utils/jwt/jwtUtils";
 import {userTypes} from "../../utils/Enums";
 import {ProfilePage} from "./ProfliePage";
 import {SettingsPage} from "./SettingsPage";
+import {Redirect} from "react-router-dom";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         width: 500,
     },
+    indicator: {
+        left: "0px"
+    }
 }));
 
 export default function SettingsOverlay(props) {
@@ -52,24 +55,9 @@ export default function SettingsOverlay(props) {
         setValue(newValue);
     };
 
-    return (
-        <Grid container>
-            <Grid item xs={12} md={3} lg={2}>
-                <Tabs
-                    value={value}
-                    orientation="vertical"
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    variant="fullWidth"
-                    aria-label="full width tabs example"
-                >
-                    <Tab label="My Profile" {...a11yProps(0)} />
-                    <Tab label="Settings" {...a11yProps(1)} />
-                    {user?.userType == userTypes.JOB_SEEKER && <Tab label="Files" {...a11yProps(2)} />}
-                </Tabs>
-            </Grid>
-            <Grid item xs={12} md={9} lg={10}>
+    return user ? (<Grid container>
+        <Box clone order={{xs: 2}}>
+            <Grid item xs={12} md={9} lg={10} order={{ md: 1, xs: 2 }}>
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     <ProfilePage />
                 </TabPanel>
@@ -80,6 +68,26 @@ export default function SettingsOverlay(props) {
                     <FilesPage />
                 </TabPanel>
             </Grid>
-        </Grid>
-    );
+        </Box>
+        <Box clone order={{xs: 1}}>
+            <Grid item xs={12} md={3} lg={2} order={{ md: 2, xs: 1 }}>
+                <Tabs
+                    value={value}
+                    orientation="vertical"
+                    onChange={handleChange}
+                    indicatorColor="primary"
+                    classes={{
+                        indicator: classes.indicator
+                    }}
+                    textColor="primary"
+                    variant="fullWidth"
+                    aria-label="full width tabs example"
+                >
+                    <Tab label="My Profile" {...a11yProps(0)} />
+                    <Tab label="Settings" {...a11yProps(1)} />
+                    {user?.userType == userTypes.JOB_SEEKER && <Tab label="Files" {...a11yProps(2)} />}}
+                </Tabs>
+            </Grid>
+        </Box>
+        </Grid>) : <Redirect to="/" />;
 }
