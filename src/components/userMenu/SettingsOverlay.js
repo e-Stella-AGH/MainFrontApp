@@ -56,8 +56,8 @@ export default function SettingsOverlay(props) {
     };
 
     return user ? (<Grid container>
-        <Box clone order={{xs: 2}}>
-            <Grid item xs={12} md={9} lg={10} order={{ md: 1, xs: 2 }}>
+        <Box clone order={{xs: 2, md: 1}}>
+            <Grid item xs={12} md={9} lg={10}>
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     <ProfilePage />
                 </TabPanel>
@@ -69,8 +69,8 @@ export default function SettingsOverlay(props) {
                 </TabPanel>
             </Grid>
         </Box>
-        <Box clone order={{xs: 1}}>
-            <Grid item xs={12} md={3} lg={2} order={{ md: 2, xs: 1 }}>
+        <Box clone order={{xs: 1, md: 2}}>
+            <Grid item xs={12} md={3} lg={2}>
                 <Tabs
                     value={value}
                     orientation="vertical"

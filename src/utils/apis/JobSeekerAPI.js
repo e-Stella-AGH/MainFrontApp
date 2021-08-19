@@ -1,5 +1,4 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
-import Swal from "sweetalert2";
 import {authFetch} from "../authFetch";
 
 export const jobSeekerAPI = {
@@ -14,6 +13,17 @@ export const jobSeekerAPI = {
     getFiles: function() {
         return authFetch(recruitmentServiceBasicAPILink + `/api/jobseekers/files`, {
             method: "GET"
+        })
+        .then(response => response.json())
+    },
+
+    insertFile: function(filePayload) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/jobseekers/files`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(filePayload)
         })
         .then(response => response.json())
     }

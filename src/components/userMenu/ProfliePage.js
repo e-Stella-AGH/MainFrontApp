@@ -7,10 +7,10 @@ import {userTypes} from "../../utils/Enums";
 
 
 function info(label, value) {
-    return <><Grid item xs={2}>
+    return <><Grid item xs={12} sm={2}>
         <Paper style={{padding: "1em", backgroundColor: "lightgrey"}}><Box display="flex" justifyContent="flex-end">{label}</Box></Paper>
     </Grid>
-    <Grid item xs={10}>
+    <Grid item xs={12} sm={10}>
         <Paper style={{padding: "1em", backgroundColor: "primary"}}>{value}</Paper>
     </Grid></>
 }
