@@ -36,3 +36,9 @@ export const userMenuTabs = {
     SETTINGS: "settings",
     FILES: "files"
 }
+
+export const applicationStatus = {
+    IN_PROGRESS: "In progress",
+    ACCEPTED: "Accepted",
+    REJECTED: "Rejected"
+}

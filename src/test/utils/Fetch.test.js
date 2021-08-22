@@ -1,4 +1,4 @@
-import {recruitmentServiceBasicAPILink} from "../utils/apis/APILinks";
+import {recruitmentServiceBasicAPILink} from "../../utils/apis/APILinks";
 
 describe("fetch test, so we won't push localhost again", () => {
 

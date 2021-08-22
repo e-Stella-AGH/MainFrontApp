@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, Divider, Typography} from "@material-ui/core";
-import { colors } from "../../../utils/colors";
+import {colors} from "../../../utils/colors";
 import {SkillIndicator} from "./SkillIndicator";
 
 export const OfferSkill = ({ name, skillLevel }) => {

@@ -1,28 +1,36 @@
+import {colors} from "../../utils/colors";
 import {Card, CardContent, Divider, Typography} from "@material-ui/core";
-import {colors} from "../../../utils/colors";
+import PropTypes from "prop-types";
 
-export const ShortOfferDetails = ({ offer, selected, onClick, idx }) => {
+export const ListElement = ({ data, selected, onClick, idx }) => {
 
     const selectedStyle = selected ? {backgroundColor: colors.palette[6]} : {backgroundColor: colors.palette[9]}
 
     return(
-        <div style={{ width: "100%", marginBottom: "1em" }} onClick={() => onClick(offer, idx)}>
+        <div style={{ width: "100%", marginBottom: "1em" }} onClick={() => onClick(data, idx)}>
             <Card variant="outlined" style={selectedStyle}>
                 <CardContent style={{marginBottom: "1em"}}>
                     <Typography variant="h5">
-                        {offer.name}
+                        {data.first}
                     </Typography>
                     <Divider />
                     <div style={{marginTop: "1em"}}>
                         <Typography style={{float: "left"}} color="textSecondary">
-                            {offer.minSalary} - {offer.maxSalary}
+                            {data.second}
                         </Typography>
                         <Typography style={{float: "right"}}>
-                            {offer.position}
+                            {data.third}
                         </Typography>
                     </div>
                 </CardContent>
             </Card>
         </div>
     )
+}
+
+ListElement.propTypes = {
+    data: PropTypes.object.isRequired,
+    selected: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    idx: PropTypes.number.isRequired
 }

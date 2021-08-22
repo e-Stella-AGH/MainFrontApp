@@ -1,6 +1,6 @@
-import {offers} from "./DummyValues";
-import {filterTypes} from "../utils/Enums";
-import {filterOffers} from "../utils/functions";
+import {offers} from "../../DummyValues";
+import {filterTypes} from "../../../utils/Enums";
+import {filterOffers} from "../../../utils/functions";
 
 let testOffers = offers
 

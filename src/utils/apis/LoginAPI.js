@@ -1,6 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
-import { jwtUtils } from "../jwt/jwtUtils";
-import { headers } from "./headers";
+import {jwtUtils} from "../jwt/jwtUtils";
+import {headers} from "./headers";
 
 export const loginAPI = {
     jwtTokenKey: "x-jwt",
