@@ -1,11 +1,11 @@
 import {Controller, useForm} from "react-hook-form"
 import {Button, Grid, makeStyles} from "@material-ui/core"
 import {FormField} from "../../commons/formsCommons/FormField"
-import {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const OfferForm = (props) => {
     const { id } = useParams()
-
+    const [fetchError, setFetchError] = useState(false)
 
     const defaultFormState = {
         name:"",
@@ -47,6 +47,7 @@ export const OfferForm = (props) => {
         if(id !== undefined){
             offersAPI.getOfferById(id)
                 .then(data => updateOffer(data))
+                .catch(() => setFetchError(true))
         }
     }, [id])
 
@@ -72,7 +73,7 @@ export const OfferForm = (props) => {
         })
     }
 
-    return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
+    return fetchError ? <Redirect to="/" />: <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
         <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)}></form>
         <Grid container spacing={2}>
             {/* TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}

@@ -19,7 +19,6 @@ import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
-import {processAPI} from "./utils/apis/ProcessAPI";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {

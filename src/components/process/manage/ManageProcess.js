@@ -1,6 +1,6 @@
 import {ManageStages} from "./ManageStages";
 import {Button, Divider, Grid, Typography} from "@material-ui/core";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
 import {ManageEndDate} from "./ManageEndDate";
@@ -11,6 +11,7 @@ import {withSwal} from "../../commons/formsCommons/WithSwal";
 export const ManageProcess = () => {
 
     const {id} = useParams()
+    const [fetchError, setFetchError] = useState(false)
     const [process, setProcess] = useState(null)
     const [selectedEndDate, setSelectedEndDate] = useState(null)
 
@@ -20,6 +21,7 @@ export const ManageProcess = () => {
                 setProcess(data)
                 setSelectedEndDate(data?.endDate || new Date())
             })
+            .catch(() => setFetchError(true))
     }, [id])
 
     const showHelp = () => {
@@ -42,53 +44,51 @@ export const ManageProcess = () => {
         })
     }
 
-    return (
-        <div style={{marginLeft: "1em", marginRight: "1em"}}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <Grid container spacing={2} direction="column">
-                        <Grid item style={{marginLeft: "1em", marginRight: "auto"}}>
-                            <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
-                        </Grid>
-                        <Grid item> <Divider/> </Grid>
-                        <Grid container style={{display: "flex", flexGrow: 1}}>
-                            {/*<Grid item>*/}
-                            {/*  Beginning of recruitment process in future maybe  */}
-                            {/*</Grid>*/}
-                            <Grid item>
-                                <ManageEndDate selectedDate={selectedEndDate || new Date()}
-                                               onChange={(date) => setSelectedEndDate(date)}
-                                               processStartDate={process?.startDate}/>
-                            </Grid>
-                        </Grid>
+    return fetchError ? <Redirect to="/" /> : <div style={{marginLeft: "1em", marginRight: "1em"}}>
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+                <Grid container spacing={2} direction="column">
+                    <Grid item style={{marginLeft: "1em", marginRight: "auto"}}>
+                        <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
+                    </Grid>
+                    <Grid item> <Divider/> </Grid>
+                    <Grid container style={{display: "flex", flexGrow: 1}}>
                         {/*<Grid item>*/}
-                        {/*    In future tasks and quizzes? */}
+                        {/*  Beginning of recruitment process in future maybe  */}
                         {/*</Grid>*/}
                         <Grid item>
-                            <Grid container direction="row">
-                                <Grid item xs={false} sm={6} lg={8}/>
-                                <Grid item xs={12} sm={6} lg={4}>
-                                    <Button onClick={handleSubmit} variant="outlined">Submit</Button>
-                                </Grid>
-                            </Grid>
+                            <ManageEndDate selectedDate={selectedEndDate || new Date()}
+                                           onChange={(date) => setSelectedEndDate(date)}
+                                           processStartDate={process?.startDate}/>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Grid container direction="column" spacing={2}>
-                        <Grid item style={{marginLeft: "auto", marginRight: "2em"}}>
-                            <Grid container direction="row" spacing={1}>
-                                <Grid item><Typography variant="h6">Stages</Typography></Grid>
-                                <Grid item><HelpIcon onClick={showHelp} color="primary"/></Grid>
+                    {/*<Grid item>*/}
+                    {/*    In future tasks and quizzes? */}
+                    {/*</Grid>*/}
+                    <Grid item>
+                        <Grid container direction="row">
+                            <Grid item xs={false} sm={6} lg={8}/>
+                            <Grid item xs={12} sm={6} lg={4}>
+                                <Button onClick={handleSubmit} variant="outlined">Submit</Button>
                             </Grid>
-                        </Grid>
-                        <Grid item> <Divider/> </Grid>
-                        <Grid item>
-                            <ManageStages processId={id}/>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
-    )
+            <Grid item xs={12} sm={6}>
+                <Grid container direction="column" spacing={2}>
+                    <Grid item style={{marginLeft: "auto", marginRight: "2em"}}>
+                        <Grid container direction="row" spacing={1}>
+                            <Grid item><Typography variant="h6">Stages</Typography></Grid>
+                            <Grid item><HelpIcon onClick={showHelp} color="primary"/></Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item> <Divider/> </Grid>
+                    <Grid item>
+                        <ManageStages processId={id}/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </div>
 }

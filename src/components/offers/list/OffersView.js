@@ -2,7 +2,7 @@ import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
 import {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
@@ -15,6 +15,7 @@ export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [offers, setOffers] = useState([])
+    const [fetchError, setFetchError] = useState(false)
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
     const [sort, setSort] = useState({apply: (offers) => offers})
@@ -27,6 +28,7 @@ export const OffersView = (props) => {
         if (id !== undefined) {
             offersAPI.getOfferById(id)
                 .then(data => setSelectedOffer(data))
+                .catch(() => setFetchError(true))
         }
     }, [id])
 
@@ -46,8 +48,7 @@ export const OffersView = (props) => {
         setOffers(offers => ([...sort.apply(offers)]))
     }
 
-    return (
-        <StandardViewAndFilterLayout
+    return fetchError ? <Redirect to="/" /> : <StandardViewAndFilterLayout
             filter={<Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}
                             reloadOffers={handleFilterSubmitted}/>}
             sorter={<SorterWrapper onSort={handleSort}/>}
@@ -58,7 +59,6 @@ export const OffersView = (props) => {
                                   offers={offers}/>}
             />}
         />
-    )
 }
 
 OffersView.propTypes = {

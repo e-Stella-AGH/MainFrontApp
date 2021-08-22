@@ -9,12 +9,13 @@ export const processAPI = {
             method: "GET"
         })
             .then(response => response.json())
-            .catch(() => {
+            .catch(err => {
                 Swal.fire({
                     title: "Error",
                     text: "We weren't able to get this process!",
                     icon: "error"
                 })
+                throw err
             })
     },
 
