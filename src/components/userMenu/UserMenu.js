@@ -30,18 +30,17 @@ export default function UserMenu(props) {
             {redirect(direction)}
             <UserMenu {...props} />
         </> : <div style={props.style}>
-            <IconButton style={props.style} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            <IconButton style={props.style} aria-controls="user-menu" aria-haspopup="true" onClick={handleClick}>
                 <Face />
             </IconButton>
             <Menu
-                id="simple-menu"
+                id="user-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={() => handleChoice(null)}
                 >
-                <MenuItem onClick={() => handleChoice("/offers")}>Profile</MenuItem>
-                <MenuItem onClick={() => handleChoice("/settings")}>Settings</MenuItem>
+                <MenuItem onClick={() => handleChoice("/settings")}>My profile & settings</MenuItem>
                 <MenuItem onClick={() => {
                     handleChoice("/")
                     logout()

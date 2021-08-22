@@ -2,12 +2,11 @@ import {jobSeekerAPI} from "../../utils/apis/JobSeekerAPI";
 import React, {useCallback, useEffect, useState} from "react";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
-import {Save} from "@material-ui/icons";
+import {DeleteForever, Save} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import {useDropzone} from "react-dropzone";
 
 function _base64ToArrayBuffer(base64) {
-    console.log(base64)
     const binary_string = window.atob(base64);
     const len = binary_string.length;
     const bytes = new Uint8Array(len);
@@ -27,27 +26,22 @@ function _arrayBufferToBase64( buffer ) {
     return window.btoa(binary);
 }
 
-
-function handleDownload(fileName, base64) {
-    const url = window.URL.createObjectURL(new Blob([_base64ToArrayBuffer(base64)]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', fileName);
-    document.body.appendChild(link);
-    link.click();
-}
-
-const FileDownloadButton = ({index, fileName, base64}) =>
-    <Grid item xs={12} key={index}>
+const FileCard = ({file, handleDownload, handleDelete}) =>
+    <Grid item xs={12} style={{marginBottom: "15px"}}>
         <Paper style={{padding: "5px", paddingLeft: "1em", backgroundColor: "primary", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-            {fileName}
-            <IconButton
-                aria-controls="download-button"
-                aria-haspopup="true"
-                onClick={() => handleDownload(fileName, base64)}
-            >
-                <Save />
-            </IconButton>
+            {file.fileName}
+            <div>
+                <IconButton
+                    onClick={() => handleDownload(file.fileName, file.fileBase64)}
+                >
+                    <Save />
+                </IconButton>
+                <IconButton
+                    onClick={() => handleDelete(file.id)}
+                >
+                    <DeleteForever />
+                </IconButton>
+            </div>
         </Paper>
     </Grid>
 
@@ -73,35 +67,46 @@ const FilesDropzone = ({onDrop}) => {
 
 export const FilesPage = () => {
     const [files, setFiles] = useState([])
+
+    const fetchFiles = () => jobSeekerAPI.getFiles().then(a => setFiles(a))
+
     const onDrop = useCallback(acceptedFiles => {
-        acceptedFiles.map(value => {
-            return value.arrayBuffer().then(
-                arrayBuffer =>
-                    jobSeekerAPI.insertFile({
-                        fileName: value.name,
-                        file_base64: _arrayBufferToBase64(arrayBuffer)
-                    }).then(() => {
-                        jobSeekerAPI.getFiles().then(a => setFiles(a))
-                    })
+        Promise.all(acceptedFiles.map(value =>
+            value.arrayBuffer().then(
+                arrayBuffer => { return {
+                    fileName: value.name,
+                    fileBase64: _arrayBufferToBase64(arrayBuffer)
+                }}
             )
-        })
+        )).then(files => jobSeekerAPI.insertFiles(files)).then(fetchFiles)
     }, [])
 
     useEffect(
-        () => {
-            jobSeekerAPI.getFiles().then(a => setFiles(a))
-        },
+        fetchFiles,
     []
     )
 
+    function handleDownload(fileName, base64) {
+        const url = window.URL.createObjectURL(new Blob([_base64ToArrayBuffer(base64)]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    function handleDelete(id) {
+        jobSeekerAPI.deleteFile(id).then(fetchFiles)
+    }
+
     return <div>
         <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
+            <Grid item lg={files.length ? 6 : 12} xs={12}>
                 <FilesDropzone onDrop={onDrop} />
             </Grid>
-            <Grid container item md={6} xs={12} spacing={2}>
+            <Grid container item lg={6} xs={12}>
                 {files.map((value, index) =>
-                    <FileDownloadButton index={index} fileName={value.fileName} base64={value.fileBase64} />
+                    <FileCard key={index} file={value} handleDownload={handleDownload} handleDelete={handleDelete} />
                 )}
             </Grid>
         </Grid>

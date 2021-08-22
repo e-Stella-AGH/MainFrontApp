@@ -6,32 +6,30 @@ import Box from '@material-ui/core/Box';
 import {Grid} from "@material-ui/core";
 import {FilesPage} from "./FilesPage";
 import {jwtUtils} from "../../utils/jwt/jwtUtils";
-import {userTypes} from "../../utils/Enums";
-import {ProfilePage} from "./ProfliePage";
+import {userMenuTabs, userTypes} from "../../utils/Enums";
+import {ProfilePage} from "./ProfilePage";
 import {SettingsPage} from "./SettingsPage";
 import {Redirect} from "react-router-dom";
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
+function TabPanel({ children, value, tabName, ...other }) {
     return (
         <div
             role="tabpanel"
-            hidden={value !== index}
-            id={`full-width-tabpanel-${index}`}
-            aria-labelledby={`full-width-tab-${index}`}
+            hidden={value !== tabName}
+            id={`tabpanel-${tabName}`}
+            aria-labelledby={`tab-${tabName}`}
             style={{padding: "1em", color: "primary"}}
             {...other}
         >
-            {value === index && <Box>{children}</Box>}
+            {value === tabName && <Box>{children}</Box>}
         </div>
     );
 }
 
-function a11yProps(index) {
+function a11yProps(tabName) {
     return {
-        id: `full-width-tab-${index}`,
-        'aria-controls': `full-width-tabpanel-${index}`,
+        id: `tab-${tabName}`,
+        'aria-controls': `tabpanel-${tabName}`,
     };
 }
 
@@ -48,23 +46,22 @@ const useStyles = makeStyles((theme) => ({
 export default function SettingsOverlay(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [value, setValue] = React.useState(0);
+    const state = props.location?.state
+    const [value, setValue] = React.useState(state?.subPage || userMenuTabs.PROFILE);
     const user = jwtUtils.getUser();
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const handleChange = (event, newValue) => setValue(newValue)
 
     return user ? (<Grid container>
         <Box clone order={{xs: 2, md: 1}}>
             <Grid item xs={12} md={9} lg={10}>
-                <TabPanel value={value} index={0} dir={theme.direction}>
+                <TabPanel value={value} tabName={userMenuTabs.PROFILE} dir={theme.direction}>
                     <ProfilePage />
                 </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
+                <TabPanel value={value} tabName={userMenuTabs.SETTINGS} dir={theme.direction}>
                     <SettingsPage />
                 </TabPanel>
-                <TabPanel value={value} index={2} dir={theme.direction}>
+                <TabPanel value={value} tabName={userMenuTabs.FILES} dir={theme.direction}>
                     <FilesPage />
                 </TabPanel>
             </Grid>
@@ -81,11 +78,11 @@ export default function SettingsOverlay(props) {
                     }}
                     textColor="primary"
                     variant="fullWidth"
-                    aria-label="full width tabs example"
+                    aria-label="settings tabs"
                 >
-                    <Tab label="My Profile" {...a11yProps(0)} />
-                    <Tab label="Settings" {...a11yProps(1)} />
-                    {user?.userType == userTypes.JOB_SEEKER && <Tab label="Files" {...a11yProps(2)} />}}
+                    <Tab label="My Profile" value={userMenuTabs.PROFILE} {...a11yProps(userMenuTabs.PROFILE)} />
+                    <Tab label="Settings" value={userMenuTabs.SETTINGS} {...a11yProps(userMenuTabs.SETTINGS)} />
+                    {user?.userType === userTypes.JOB_SEEKER && <Tab label="Files" value={userMenuTabs.FILES} {...a11yProps(userMenuTabs.FILES)} />}}
                 </Tabs>
             </Grid>
         </Box>

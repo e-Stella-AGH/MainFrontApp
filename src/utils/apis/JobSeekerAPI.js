@@ -26,6 +26,22 @@ export const jobSeekerAPI = {
             body: JSON.stringify(filePayload)
         })
         .then(response => response.json())
-    }
+    },
 
+    deleteFile: function(id) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/jobseekers/files/${id}`, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+    },
+
+    insertFiles: function(files) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/jobseekers/files`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({files: files})
+        })
+    }
 }

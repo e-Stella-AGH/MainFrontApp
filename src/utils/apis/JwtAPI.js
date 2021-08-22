@@ -13,6 +13,9 @@ export const jwtAPI = {
                 }
             }
         ).then(
-            response => localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey)
-        ))
+            response => {
+                localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey));
+                return response;
+            }
+        )
 }

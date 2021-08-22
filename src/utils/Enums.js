@@ -30,3 +30,9 @@ export const userTypes = {
     HR: "hr",
     ORGANIZATION: "organization"
 }
+
+export const userMenuTabs = {
+    PROFILE: "profile",
+    SETTINGS: "settings",
+    FILES: "files"
+}

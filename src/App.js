@@ -1,6 +1,6 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Switch, Redirect} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
@@ -45,7 +45,11 @@ const routes = [
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("/settings", <SettingsOverlay />, {marginTop: "1em"}),
-    createRoute("*", <div>Page</div>)
+    // TODO: Does not work, dont know why
+    createRoute("/settings/profile", <Redirect to={{path: "/settings", state: { subPage: "profile" }}} />),
+    createRoute("/settings/settings", <Redirect to={{path: "/settings", state: { subPage: "settings" }}} />),
+    createRoute("/settings/files", <Redirect to={{path: "/settings", state: { subPage: "files" }}} />),
+    createRoute("*", <Redirect to="/" />)
 ]
 
 function App() {
