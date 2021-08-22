@@ -1,6 +1,6 @@
 import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
@@ -10,11 +10,12 @@ import PropTypes from "prop-types";
 import {SorterWrapper} from "../sorter/SorterWrapper";
 import {ColumnAndDetailsLayout} from "../../commons/ColumnAndDetailsLayout";
 import {StandardViewAndFilterLayout} from "../../commons/StandardViewAndFilterLayout";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState([])
+    const [offers, setOffers] = useState(null)
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
     const [sort, setSort] = useState({apply: (offers) => offers})
@@ -46,8 +47,7 @@ export const OffersView = (props) => {
         setOffers(offers => ([...sort.apply(offers)]))
     }
 
-    return (
-        <StandardViewAndFilterLayout
+    return offers == null ? <OffersLoadingScreen /> : <StandardViewAndFilterLayout
             filter={<Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}
                             reloadOffers={handleFilterSubmitted}/>}
             sorter={<SorterWrapper onSort={handleSort}/>}
@@ -58,9 +58,12 @@ export const OffersView = (props) => {
                                   offers={offers}/>}
             />}
         />
-    )
 }
 
 OffersView.propTypes = {
     getOffers: PropTypes.func.isRequired,
 }
+
+const OffersLoadingScreen = () => <div style={{display: "flex", justifyContent: "center", marginTop: "2em"}}>
+    <CircularProgress size={80} />
+</div>

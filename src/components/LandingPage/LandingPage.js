@@ -6,11 +6,12 @@ import {OffersList} from "../offers/list/OffersList";
 import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {offersAPI} from "../../utils/apis/OfferApi";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const LandingPage = (props) => {
 
     const history = useHistory()
-    const [offers, setOffers] = useState([])
+    const [offers, setOffers] = useState(null)
 
     useEffect(() => {
         offersAPI.getAllOffers()
@@ -41,11 +42,17 @@ export const LandingPage = (props) => {
             </div>
             <div style={{width: "25%", float: "left", marginRight: "10%"}}>
                 <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>Latest Offers</Typography>
-                <div style={{height: "60vh", overflowY: "hidden"}}>
-                    <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3} offers={offers}/>
-                </div>
-                <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button>
+                {offers == null ? <ListLoader /> : <><div style={{height: "60vh", overflowY: "hidden"}}>
+                        <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3}
+                                    offers={offers}/>
+                    </div>
+                    <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button></>
+                }
             </div>
         </div>
     )
 }
+
+const ListLoader = () => <div style={{display: "flex", justifyContent: "center", paddingTop: "2em"}}>
+    <CircularProgress size={60} />
+</div>

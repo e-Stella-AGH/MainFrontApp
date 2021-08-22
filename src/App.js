@@ -1,6 +1,6 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Switch, Redirect} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
@@ -46,7 +46,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("*", <div>Page</div>)
+    createRoute("*", <Redirect to="/" />)
 ]
 
 function App() {
