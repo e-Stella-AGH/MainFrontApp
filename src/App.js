@@ -1,6 +1,6 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
@@ -19,7 +19,7 @@ import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
-import {processAPI} from "./utils/apis/ProcessAPI";
+import Navbar from "./components/navbar/Navbar";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -46,7 +46,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("*", <Redirect to="/" />)
+    createRoute("*", <div>Page</div>)
 ]
 
 function App() {
@@ -64,37 +64,12 @@ function App() {
     }
 
   return (
-          <Router>
-              { /* NAVBAR */}
-              <AppBar position="sticky" style={{ background: colors.navbar, height: `${constants.navbar_height}` }}>
-                  <Toolbar>
-                      <div style={{marginLeft: "2%", marginRight: "1%"}}>
-                          <Link to="/" style={{color: "white", textDecoration: "none"}}>
-                              <Typography variant="h6">
-                                  e-Stella
-                              </Typography>
-                          </Link>
-                      </div>
-                      <div style={{marginLeft: "1%", marginRight: "auto"}}>
-                          <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
-                              <Button color="inherit">Offers</Button>
-                          </Link>
-                      </div>
-                      <div style={{marginLeft: "auto"}}>
-                          <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                              <Button color="inherit" id="loginButton">Login</Button>
-                          </Link>
-                          <Link to="/register" style={{color: "white", textDecoration: "none"}}>
-                              <Button color="inherit" id="registerButton">Register</Button>
-                          </Link>
-                      </div>
-                  </Toolbar>
-              </AppBar>
-
-              <Switch>
-                    {getRoutes()}
-              </Switch>
-          </Router>
+      <Router>
+          <Navbar />
+          <Switch>
+              {getRoutes()}
+          </Switch>
+      </Router>
   )
 }
 
