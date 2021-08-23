@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import {SorterWrapper} from "../sorter/SorterWrapper";
 import {ColumnAndDetailsLayout} from "../../commons/ColumnAndDetailsLayout";
 import {StandardViewAndFilterLayout} from "../../commons/StandardViewAndFilterLayout";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const OffersView = (props) => {
 
@@ -47,23 +47,19 @@ export const OffersView = (props) => {
         setOffers(offers => ([...sort.apply(offers)]))
     }
 
-    return offers == null ? <OffersLoadingScreen /> : <StandardViewAndFilterLayout
-            filter={<Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}
-                            reloadOffers={handleFilterSubmitted}/>}
-            sorter={<SorterWrapper onSort={handleSort}/>}
-            view={<ColumnAndDetailsLayout
-                details={selectedOffer === null ? <PickUpOffer/> :
-                    <OfferDetails offer={selectedOffer} buttons={props.buttons}/>}
-                list={<OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}
-                                  offers={offers}/>}
-            />}
+    const layoutInternalView = selectedOffer ? <OfferDetails offer={selectedOffer} buttons={props.buttons} /> : <PickUpOffer />
+    const offersList = <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
+
+    return offers == null ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
+            filter={<Filter offers={offers}
+                            onFilterSubmitted={handleFilterSubmitted}
+                            fixedOffers={fixedOffers}
+                            reloadOffers={handleFilterSubmitted} />}
+            sorter={<SorterWrapper onSort={handleSort} />}
+            view={<ColumnAndDetailsLayout details={layoutInternalView} list={offersList} />}
         />
 }
 
 OffersView.propTypes = {
     getOffers: PropTypes.func.isRequired,
 }
-
-const OffersLoadingScreen = () => <div style={{display: "flex", justifyContent: "center", marginTop: "2em"}}>
-    <CircularProgress size={80} />
-</div>

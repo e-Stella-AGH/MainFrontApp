@@ -1,14 +1,11 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OffersView} from "./components/offers/list/OffersView";
 import {OfferForm} from "./components/offers/createForm/OfferForm";
-import {colors} from "./utils/colors";
-import {constants} from "./utils/constants";
-import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 import {offersAPI} from "./utils/apis/OfferApi";
