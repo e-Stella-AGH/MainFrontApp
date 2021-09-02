@@ -30,3 +30,9 @@ export const userTypes = {
     HR: "hr",
     ORGANIZATION: "organization"
 }
+
+export const applicationStatus = {
+    IN_PROGRESS: "In progress",
+    ACCEPTED: "Accepted",
+    REJECTED: "Rejected"
+}

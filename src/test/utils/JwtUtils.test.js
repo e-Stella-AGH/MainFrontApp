@@ -1,7 +1,7 @@
-import {validateSchema} from "../utils/schemas/validateSchema";
-import {tokenPayloadSchema} from "../utils/schemas/tokenPayloadSchema";
-import {jwtUtils} from "../utils/jwt/jwtUtils";
-import {userTypes} from "../utils/Enums";
+import {validateSchema} from "../../utils/schemas/validateSchema";
+import {tokenPayloadSchema} from "../../utils/schemas/tokenPayloadSchema";
+import {jwtUtils} from "../../utils/jwt/jwtUtils";
+import {userTypes} from "../../utils/Enums";
 
 it('user token payload validates', () => {
     const user = {
