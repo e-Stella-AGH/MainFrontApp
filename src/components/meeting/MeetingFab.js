@@ -3,6 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {colors} from "../../utils/colors";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 export const MeetingFab = (props) => {
     return(
@@ -22,6 +23,12 @@ export const MeetingFab = (props) => {
                 onClick={props.onWhiteboard}
             >
                 <DashboardIcon />
+            </Action>
+            <Action
+                text="Task"
+                onClick={props.onTask}
+            >
+                <AssignmentIndIcon />
             </Action>
         </Fab>
     )

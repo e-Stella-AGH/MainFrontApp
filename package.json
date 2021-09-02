@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
     "date-fns": "^2.13.0",
+    "e-stella-code-editor": "^1.0.0",
     "e-stella-jitsi": "^1.0.1",
     "e-stella-whiteboard": "^1.0.1",
     "estella-two-column-dnd": "^1.0.2",

@@ -17,6 +17,7 @@ import {OrganizationsPartnerList} from "./components/organization/OrganizationsP
 import {organizationsAPI} from "./utils/apis/OrganizationApi";
 import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
+import {TaskWrapper} from "./components/task/TaskWrapper";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -41,6 +42,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
+    createRoute('/task/:id', <TaskWrapper />, {}),
     createRoute("*", <div>Page</div>)
 ]
 
