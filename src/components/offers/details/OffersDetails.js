@@ -1,7 +1,6 @@
 import {useHistory} from "react-router-dom";
-import {Box, Button, Card, CardContent, Divider, Grid, Typography} from "@material-ui/core";
+import {Box, Button, Card, CardContent, Divider, Grid, Typography, useTheme} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import {colors} from "../../../utils/colors";
 import {constants} from "../../../utils/constants";
 import PropTypes from "prop-types";
 
@@ -10,13 +9,15 @@ export const OfferDetails = (props) => {
 
     const history = useHistory()
 
+    const theme = useTheme()
+
     const offer = props.offer
 
     return (
         <div>
             <div>
                 <Card variant="outlined"
-                      style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", backgroundColor: colors.palette[9],
+                      style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", backgroundColor: theme.palette.card.light,
                           marginBottom: "1em", overflowY: 'scroll', maxHeight: `calc(100vh - 10em - ${constants["navbar_height"]})`}}>
                     <CardContent>
                         <Box mb={12}>

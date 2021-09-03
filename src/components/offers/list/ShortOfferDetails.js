@@ -1,9 +1,10 @@
-import {Card, CardContent, Divider, Typography} from "@material-ui/core";
-import {colors} from "../../../utils/colors";
+import {Card, CardContent, Divider, Typography, useTheme} from "@material-ui/core";
 
 export const ShortOfferDetails = ({ offer, selected, onClick, idx }) => {
 
-    const selectedStyle = selected ? {backgroundColor: colors.palette[6]} : {backgroundColor: colors.palette[9]}
+    const theme = useTheme()
+
+    const selectedStyle = selected ? {backgroundColor: theme.palette.focused.main} : {backgroundColor: theme.palette.card.light}
 
     return(
         <div style={{ width: "100%", marginBottom: "1em" }} onClick={() => onClick(offer, idx)}>

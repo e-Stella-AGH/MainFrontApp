@@ -1,13 +1,16 @@
 import {Action, Fab} from "react-tiny-fab";
 import AddIcon from '@material-ui/icons/Add';
-import {colors} from "../../utils/colors";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import {useTheme} from "@material-ui/core";
 
 export const MeetingFab = (props) => {
+
+    const theme = useTheme()
+
     return(
         <Fab
-            mainButtonStyles={{backgroundColor: colors.navbar}}
+            mainButtonStyles={{backgroundColor: theme.palette.primary.dark}}
             icon={<AddIcon />}
             event={'click'}
         >
