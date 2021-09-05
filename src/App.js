@@ -17,6 +17,8 @@ import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
 import Navbar from "./components/navbar/Navbar";
+import {TasksList} from "./components/tasks/TasksList";
+import {getTasks} from "./test/DummyValues";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -43,6 +45,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
+    createRoute("/tasks", <TasksList fetchTasks={() => getTasks()} />),
     createRoute("*", <div>Page</div>)
 ]
 

@@ -1,0 +1,113 @@
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import {AddDescription} from "./description/AddDescription";
+import {convertFileToBase64} from "../../utils/apis/files";
+import {AddTests} from "./tests/AddTests";
+import {AddDeadline} from "./AddDeadline";
+
+let task = {}
+
+const clearTask = () => task = {}
+
+const handleMarkdownChange = ({html, text}) => {
+    clearTask()
+    task['descriptionFileName'] = 'description.md'
+    task['descriptionBase64'] = window.btoa(text)
+}
+
+const handleTextChange = (text) => {
+    clearTask()
+    task['descriptionFileName'] = "description.txt"
+    task['descriptionBase64'] = window.btoa(text)
+}
+
+const handleFileChangeDescription = async (value) => {
+    clearTask()
+
+    const file = await handleFileChange(value, 'descriptionBase64')
+    task['descriptionFileName'] = file.fileName
+}
+
+const handleFileChangeTests = async (value) => {
+    delete task['testsBase64']
+    await handleFileChange(value, 'testsBase64')
+}
+
+const handleFileChange = async (value, key) => {
+    const file = {
+        fileName: value.name,
+        fileBase64: await convertFileToBase64(value)
+    }
+
+    task[key] = file.fileBase64.substring(
+        file.fileBase64.indexOf("base64") + 7
+    )
+    return file
+}
+
+const basicSwal = {
+    title: 'Add task',
+    showCancelButton: true,
+    confirmButtonColor: '#41A317',
+    confirmButtonText: 'Next',
+    allowOutsideClick: false
+}
+
+const MySwal = withReactContent(Swal)
+
+export const createTask = () => {
+    MySwal.fire({
+        ...basicSwal,
+        html: <AddDescription
+            handleChange={{'md': handleMarkdownChange, 'text': handleTextChange, 'file': handleFileChangeDescription}}/>
+    }).then(result => {
+        if (result.isConfirmed) {
+            createTests()
+        }
+    })
+}
+
+
+const handleManualTestsChange = (testCases) => {
+    delete task['testsBase64']
+}
+
+const createTests = () => {
+    MySwal.fire({
+        ...basicSwal,
+        html: <AddTests handleChange={{'file': handleFileChangeTests, 'manual': handleManualTestsChange}}/>
+    }).then(result => {
+        if(result.isConfirmed) {
+            createTimeLimit()
+        }
+    })
+}
+
+const createTimeLimit = () => {
+    MySwal.fire({
+        ...basicSwal,
+        input: 'number',
+        text: 'Add time limit'
+    }).then(result => {
+        if(result.isConfirmed) {
+            task['timeLimit'] = Number(result.value)
+            createDeadline()
+        }
+    })
+}
+
+const createDeadline = () => {
+    MySwal.fire({
+        ...basicSwal,
+        html: <AddDeadline handleChange={(date) => task['deadline'] = date} />,
+        confirmButtonText: 'Create'
+    }).then(result => {
+        if(result.isConfirmed) {
+            create()
+        }
+    })
+}
+
+const create = () => {
+    console.log(task)
+}
