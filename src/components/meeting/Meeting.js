@@ -8,24 +8,24 @@ import {CircularProgress} from "@material-ui/core";
 export const Meeting = () => {
     let { interviewId, companyId } = useParams()
     const [name, setName] = useState(null)
-    const [fetching, setFetching] = useState(true)
+    const [isFetching, setIsFetching] = useState(true)
 
     useEffect(() => {
         if(companyId === undefined) {
             interviewAPI.getJobSeekerNameByInterviewId(interviewId)
                 .then(data => {
                     setName(data?.name)
-                    setFetching(false)
+                    setIsFetching(false)
                 })
         } else {
-            setFetching(false)
+            setIsFetching(false)
         }
     }, [companyId, interviewId])
 
     return (
         <div>
             {
-                fetching ? <CircularProgress /> :
+                isFetching ? <CircularProgress /> :
                 name === null ?
                 <MeetingDisplayName roomName={`${interviewId}`}/>
                 : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"}/>

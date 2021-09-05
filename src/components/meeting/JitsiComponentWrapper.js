@@ -8,12 +8,12 @@ export const JitsiWrapper = (props) => {
 
     const [jitsiHeight, setJitsiHeight] = useState('calc(100vh - 60px)')
     const [jitsiWidth, setJitsiWidth] = useState('100%')
-    const [componentSeen, setComponentSeen] = useState(null)
+    const [actionComponent, setActionComponent] = useState(null)
 
     const addWhiteboard = () => {
         setJitsiWidth('20%')
         setJitsiHeight('calc(100vh - 60px)')
-        setComponentSeen(
+        setActionComponent(
             <div style={{float: "left", width: '80%', height: 'calc(100vh-60px)'}}>
                 <Whiteboard
                     client_id={process.env.REACT_APP_WHITEBOARD_KEY}
@@ -26,12 +26,12 @@ export const JitsiWrapper = (props) => {
     const defaultView = () => {
         setJitsiHeight('calc(100vh-60px)')
         setJitsiWidth('100%')
-        setComponentSeen(null)
+        setActionComponent(null)
     }
 
     const showTask = () => {
         setJitsiWidth('20%')
-        setComponentSeen(
+        setActionComponent(
             <div style={{float: "left", width: '80%', height: 'calc(100vh-60px)'}}>
                 <TaskWrapper id={16} submitLeftOffset={'25%'}/>
             </div>
@@ -49,7 +49,7 @@ export const JitsiWrapper = (props) => {
             <div style={{height: jitsiHeight, width: jitsiWidth, float: "left"}}>
                 <JitsiComponent admin={props.admin} roomName={props.roomName} displayName={props.displayName}/>
             </div>
-            {componentSeen}
+            {actionComponent}
         </div>
     )
 }
