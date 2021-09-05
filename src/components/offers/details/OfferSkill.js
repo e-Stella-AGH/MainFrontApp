@@ -26,7 +26,7 @@ export const OfferSkill = ({ name, skillLevel }) => {
 
     return (
         <Box m={2}>
-            <Card style={{backgroundColor: theme.palette.card.main}}>
+            <Card style={{backgroundColor: theme.palette.card.light}}>
                 <CardContent>
                     <Box m={1} id="indicators" style={{display: "flex"}}>
                         {getDotsOnSkillLevel()}

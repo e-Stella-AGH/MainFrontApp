@@ -6,16 +6,17 @@ export const offers = [
         position: "Centurion",
         minSalary: 10000,
         maxSalary: 25000,
-        organization:{
+        organization: {
             name: "Pega"
         },
-        skills:[
+        skills: [
             {
                 id: 15,
                 level: "MASTER",
                 name: "Throw pillum"
             },
-            {id:14,
+            {
+                id: 14,
                 level: "MASTER",
                 name: "Looting",
             }
@@ -28,16 +29,17 @@ export const offers = [
         position: "Senior developer Java",
         minSalary: 15000,
         maxSalary: 25000,
-        organization:{
+        organization: {
             name: "Qualtrics"
         },
-        skills:[
+        skills: [
             {
                 id: 15,
                 level: "MASTER",
                 name: "Throw pillum"
             },
-            {id:14,
+            {
+                id: 14,
                 level: "MASTER",
                 name: "Looting",
             }
@@ -50,16 +52,17 @@ export const offers = [
         position: "Senior developer Java",
         minSalary: 25000,
         maxSalary: 30000,
-        organization:{
+        organization: {
             name: "Pega"
         },
-        skills:[
+        skills: [
             {
                 id: 15,
                 level: "MASTER",
                 name: "Throw pillum"
             },
-            {id:14,
+            {
+                id: 14,
                 level: "MASTER",
                 name: "Looting",
             }
@@ -72,19 +75,53 @@ export const offers = [
         position: "Software Engineer Intern",
         minSalary: 3000,
         maxSalary: 3500,
-        organization:{
+        organization: {
             name: "Qualtrics"
         },
-        skills:[
+        skills: [
             {
                 id: 15,
                 level: "MASTER",
                 name: "Throw pillum"
             },
-            {id:14,
+            {
+                id: 14,
                 level: "MASTER",
                 name: "Looting",
             }
         ]
     }
 ]
+
+export const getApplications = () => {
+    return new Promise((resolve, reject) => {
+        resolve([
+            {
+                "id": 72,
+                "applicationDate": "2021-08-04",
+                "status": "IN_PROGRESS",
+                "stage": {"id": 40, "type": "ENDED"},
+                "jobSeeker": {
+                    "id": 71,
+                    "user": {"id": 71, "firstName": "Dawid", "lastName": "Dębowski", "mail": "test@test.com"}
+                },
+                "seekerFiles": [],
+                "offerName": "Centurion",
+                "stages": []
+            },
+            {
+                "id": 92,
+                "applicationDate": "2021-08-10",
+                "status": "ACCEPTED",
+                "stage": {"id": 88, "type": "APPLIED"},
+                "jobSeeker": {
+                    "id": 89,
+                    "user": {"id": 89, "firstName": "Dawid", "lastName": "Dębowski", "mail": "test@test.testcom"}
+                },
+                "seekerFiles": [],
+                "offerName": "Centurion",
+                "stages": []
+            }
+        ])
+    })
+}

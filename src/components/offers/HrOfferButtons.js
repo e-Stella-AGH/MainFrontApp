@@ -35,6 +35,14 @@ export const hrOfferButtons = (theme) => [
             color: "primary",
             variant: "contained"
         }
+    },
+    {
+        text: "Applications",
+        action: (offer, history) => history.push(`/hr/applications/${offer.id}`),
+        style: {
+            color: "primary",
+            variant: "contained"
+        }
     }
 
 ]
