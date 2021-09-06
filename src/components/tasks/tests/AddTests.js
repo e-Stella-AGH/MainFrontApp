@@ -1,7 +1,7 @@
 import {FileUpload} from "../../commons/FileUpload";
 import {FormControlLabel, Radio, RadioGroup, Typography} from "@material-ui/core";
 import {useState} from "react";
-import {ManualTestsCases} from "./Manual";
+import {ManualTestsCases} from "./testcases/Manual";
 
 export const AddTests = ({ handleChange }) => {
 
@@ -25,7 +25,7 @@ export const AddTests = ({ handleChange }) => {
     }
 
     return (
-        <div>
+        <div style={{minHeight: '60vh'}}>
             <Typography variant="h6">Add tests for your task</Typography>
             <Typography variant="subtitle1">Remember to set expected value as String, as our code checker will evaluate
                 result of code to String</Typography>

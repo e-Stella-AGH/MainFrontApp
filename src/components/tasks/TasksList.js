@@ -4,25 +4,34 @@ import {Button, Drawer, List, ListItem} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../utils/constants";
 import {createTask} from "./createTask";
+import {useParams} from "react-router-dom";
+import {tasksAPI} from "../../utils/apis/tasksAPI";
 
-export const TasksList = ({ fetchTasks }) => {
+export const TasksList = ({ fetchTasks, id }) => {
+
+    const { organizationId } = useParams()
 
     const [tasks, setTasks] = useState([])
-    console.log(tasks)
+    const [reload, setReload] = useState(false)
 
     const addTask = () => {
-        createTask()
+        createTask(tasks, reload, setReload)
     }
 
     useEffect(() => {
-        fetchTasks()
+        fetchTasks(organizationId || id)
             .then(data => setTasks(data))
-    }, [fetchTasks])
+    }, [fetchTasks, id, organizationId, reload])
+
+    const deleteTask = (id) => {
+        tasksAPI.updateTasks(tasks.filter(task => task.id !== id))
+            .then(_ => setReload(!reload))
+    }
 
     return (
         <div>
-            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '1em', marginLeft: '20%'}}>
-                {tasks.map(task => <Task key={task?.id} task={task}/>)}
+            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginLeft: '20%'}}>
+                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={{ 'delete': () => deleteTask(task?.id) }}/>)}
             </div>
             <Drawer
                 variant="permanent"

@@ -45,7 +45,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("/tasks", <TasksList fetchTasks={() => getTasks()} />),
+    createRoute("/tasks/:organizationId", <TasksList fetchTasks={(id) => getTasks(id)} />),
     createRoute("*", <div>Page</div>)
 ]
 
