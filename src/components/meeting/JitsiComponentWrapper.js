@@ -32,7 +32,7 @@ export const JitsiWrapper = (props) => {
     const showTask = () => {
         setJitsiWidth('20%')
         setActionComponent(
-            <div style={{float: "left", width: '80%', height: 'calc(100vh-60px)'}}>
+            <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
                 <TaskWrapper id={16} submitLeftOffset={'25%'}/>
             </div>
         )

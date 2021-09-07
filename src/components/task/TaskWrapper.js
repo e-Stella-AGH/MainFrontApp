@@ -1,6 +1,7 @@
 import {CodeEditor} from 'e-stella-code-editor'
 import {tasksApi} from "../../utils/apis/TasksApi";
 import {useParams} from "react-router-dom";
+import {constants} from "../../utils/constants";
 
 export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
 
