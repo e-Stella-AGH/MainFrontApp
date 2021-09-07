@@ -10,8 +10,12 @@ describe("Base layout test", () => {
     const renderList = (listItems, extractData, propsHandleSelect) => {
         render(
             <ThemeProvider theme={theme}>
-                <ListWithSelection listItems={listItems} propsHandleSelect={propsHandleSelect} extractData={extractData}
-                                   limit={NaN}/>
+                <ListWithSelection
+                    listItems={listItems}
+                    propsHandleSelect={propsHandleSelect}
+                    extractData={extractData}
+                    limit={NaN}
+                />
             </ThemeProvider>
         )
     }
@@ -19,8 +23,7 @@ describe("Base layout test", () => {
     it("should display anything we apply in list", () => {
         const listItems = [{first: "first", second: "second", third: "third"}]
         const extractData = (item) => item
-        renderList(listItems, extractData, () => {
-        })
+        renderList(listItems, extractData, () => {})
 
         expect(screen.getByText("first")).toBeVisible()
         expect(screen.getByText("second")).toBeVisible()

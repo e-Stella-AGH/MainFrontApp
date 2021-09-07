@@ -8,6 +8,7 @@ import {
 } from "@material-ui/lab";
 import {ProcessStage} from "../../utils/procesStages";
 import {makeStyles, Paper, Typography, useTheme} from "@material-ui/core";
+import {applicationStatus} from "../../utils/Enums";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,10 +41,10 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
             return theme.palette.primary.main
         }
         if (isBeforeCurrent) return theme.status.success.main
-        else if (status === "REJECTED") {
+        else if (status === applicationStatus.REJECTED.toUpperCase()) {
             return theme.status.danger.main
-        } else if (status === "ACCEPTED") {
-            return theme.palette.primary.light
+        } else if (status === applicationStatus.IN_PROGRESS.toUpperCase().replace(" ", "_")) {
+            return theme.palette.secondary.light
         } else return "grey"
     }
 

@@ -24,15 +24,15 @@ export const hrOfferButtons = (theme) => [
             })
         },
         style: {
-            style: { backgroundColor: theme.status.danger.main, color: '#ffffff' },
-            variant: "contained"
+            style: { border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main },
+            variant: "outlined"
         }
     },
     {
         text: "Edit process",
         action: (offer, history) => history.push(`/hr/process/manage/${offer.id}`),
         style: {
-            color: "primary",
+            style: { background: theme.palette.secondary.dark, color: theme.palette.background.main },
             variant: "contained"
         }
     },

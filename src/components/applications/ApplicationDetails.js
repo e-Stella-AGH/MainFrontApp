@@ -58,7 +58,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     }
 
     const getRejectButtonStyle = () =>
-        !getDisabled() ? {border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main} : {}
+        getDisabled() ? {} : {border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main}
 
 
     const getCardContent = () => {

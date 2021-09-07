@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {StandardViewAndFilterLayout} from "../commons/StandardViewAndFilterLayout";
 import {ColumnAndDetailsLayout} from "../commons/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
 import {CircularProgress} from "@material-ui/core";
