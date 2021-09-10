@@ -79,7 +79,7 @@ export const CompanyRegistration = (props) => {
                     />
                     <Grid item xs={false} sm={8} />
                     <Grid item xs={12} sm={4}>
-                        <Button type="submit" variant="contained" size="large" form="company-register-form" fullWidth>Register</Button>
+                        <Button type="submit" variant="contained" color="primary" size="large" form="company-register-form" fullWidth>Register</Button>
                     </Grid>
                 </Grid>
 

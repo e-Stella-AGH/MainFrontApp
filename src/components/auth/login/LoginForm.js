@@ -64,7 +64,7 @@ export const LoginForm = (props) => {
                     />
                     <Grid item xs={false} sm={8} />
                     <Grid item xs={12} sm={4}>
-                        <Button type="submit" variant="contained" size="large" form="login-form" fullWidth>Login</Button>
+                        <Button type="submit" variant="contained" color="primary" size="large" form="login-form" fullWidth>Login</Button>
                     </Grid>
                 </Grid>
             </div>

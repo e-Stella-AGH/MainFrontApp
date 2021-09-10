@@ -1,11 +1,13 @@
-import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
-import {colors} from "../../utils/colors";
+import {AppBar, Button, Toolbar, Typography, useTheme} from "@material-ui/core";
 import {constants} from "../../utils/constants";
 import {Link} from "react-router-dom";
 import React from "react";
 
-export const Navbar = () =>
-    <AppBar position="sticky" style={{ background: colors.navbar, height: `${constants.navbar_height}` }}>
+export const Navbar = () => {
+
+    const theme = useTheme()
+
+    return (<AppBar position="sticky" style={{background: theme.palette.primary.dark, height: `${constants.navbar_height}`}}>
         <Toolbar>
             <div style={{marginLeft: "2%", marginRight: "1%"}}>
                 <Link to="/" style={{color: "white", textDecoration: "none"}}>
@@ -28,6 +30,7 @@ export const Navbar = () =>
                 </Link>
             </div>
         </Toolbar>
-    </AppBar>
+    </AppBar>)
+}
 
 export default Navbar

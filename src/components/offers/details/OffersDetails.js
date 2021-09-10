@@ -1,8 +1,8 @@
 import {useHistory} from "react-router-dom";
 import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-import PropTypes from "prop-types";
 import {ListElementDetails} from "../../commons/ListElementDetails";
+import PropTypes from 'prop-types'
 
 
 export const OfferDetails = (props) => {
@@ -67,8 +67,8 @@ export const OfferDetails = (props) => {
                 <Grid container>
                     {offer.skills.map((skill, idx) =>
                         <Grid key={idx} item><OfferSkill key={idx}
-                                                          name={skill.name}
-                                                          skillLevel={skill.level}/></Grid>)}
+                                                         name={skill.name}
+                                                         skillLevel={skill.level}/></Grid>)}
                 </Grid>
             </Box>
             <Divider/>
