@@ -61,5 +61,8 @@
     "hooks": {
       "pre-commit": "npm test"
     }
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
