@@ -91,7 +91,7 @@ export const UserRegistration = (props) => {
                     />
                     <Grid item xs={false} sm={8} />
                     <Grid item xs={12} sm={4}>
-                        <Button type="submit" variant="contained" size="large" form="user-register-form" fullWidth>Register</Button>
+                        <Button type="submit" variant="contained" size="large" color="primary" form="user-register-form" fullWidth>Register</Button>
                     </Grid>
                 </Grid>
 

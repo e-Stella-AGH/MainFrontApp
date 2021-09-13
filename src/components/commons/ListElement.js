@@ -1,10 +1,11 @@
-import {colors} from "../../utils/colors";
-import {Card, CardContent, Divider, Typography} from "@material-ui/core";
+import {Card, CardContent, Divider, Typography, useTheme} from "@material-ui/core";
 import PropTypes from "prop-types";
 
 export const ListElement = ({ data, selected, onClick, idx }) => {
 
-    const selectedStyle = selected ? {backgroundColor: colors.palette[6]} : {backgroundColor: colors.palette[9]}
+    const theme = useTheme()
+
+    const selectedStyle = selected ? {backgroundColor: theme.palette.focused.main} : {backgroundColor: theme.palette.card.background}
 
     return(
         <div style={{ width: "100%", marginBottom: "1em" }} onClick={() => onClick(data, idx)}>
