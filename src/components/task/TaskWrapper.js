@@ -1,7 +1,6 @@
 import {CodeEditor} from 'e-stella-code-editor'
 import {tasksApi} from "../../utils/apis/TasksApi";
 import {useParams} from "react-router-dom";
-import {constants} from "../../utils/constants";
 
 export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
 
@@ -19,6 +18,8 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
                 fetchTasks={fetchTasks}
                 absoluteOffset={{settings: { top: 3, right: 0 }, submit: {top: 3, left: submitLeftOffset}}}
                 outerMonacoWrapperStyle={outerMonacoWrapperStyle}
+                //To test this
+                outerOnSubmit={(body) => tasksApi.sendTestResult({...body, id: id})}
              />
         </div>
     )
