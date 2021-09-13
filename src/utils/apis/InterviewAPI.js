@@ -2,7 +2,7 @@ export const interviewAPI = {
 
     getJobSeekerNameByInterviewId : function(interviewId) {
         return new Promise((resolve, reject) => {
-            resolve({text: "ok", ok: true})
+            resolve({text: "ok", ok: true, name: 'Waiting for endpoint'})
         })
     },
 

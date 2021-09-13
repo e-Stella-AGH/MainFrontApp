@@ -21,6 +21,7 @@ import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
 import Navbar from "./components/navbar/Navbar";
+import {TaskWrapper} from "./components/task/TaskWrapper";
 
 const theme = createTheme({
     status: {
@@ -81,6 +82,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
+    createRoute('/task/:id', <TaskWrapper />, {}),
     createRoute("*", <div>Page</div>)
 ]
 

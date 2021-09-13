@@ -10,6 +10,7 @@
     "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.4",
     "date-fns": "^2.13.0",
+    "e-stella-code-editor": "^1.0.1",
     "e-stella-jitsi": "^1.0.1",
     "e-stella-whiteboard": "^1.0.1",
     "estella-two-column-dnd": "^1.0.2",
@@ -26,8 +27,8 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test a --watchAll=false",
     "eject": "react-scripts eject"
   },
@@ -60,5 +61,8 @@
     "hooks": {
       "pre-commit": "npm test"
     }
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
