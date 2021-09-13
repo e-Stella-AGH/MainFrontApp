@@ -5,7 +5,7 @@ import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
 import {useParams} from "react-router-dom";
-import {tasksAPI} from "../../../utils/apis/TasksApi";
+import {tasksApi} from "../../../utils/apis/TasksApi";
 
 export const TasksList = ({ fetchTasks, id }) => {
 
@@ -24,7 +24,7 @@ export const TasksList = ({ fetchTasks, id }) => {
     }, [fetchTasks, id, organizationId, reload])
 
     const deleteTask = (id) => {
-        tasksAPI.updateTasks(tasks.filter(task => task.id !== id))
+        tasksApi.updateTasks(tasks.filter(task => task.id !== id))
             .then(_ => setReload(!reload))
     }
 

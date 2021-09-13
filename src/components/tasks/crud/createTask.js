@@ -4,7 +4,7 @@ import {AddDescription} from "./description/AddDescription";
 import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
-import {tasksAPI} from "../../../utils/apis/TasksApi";
+import {tasksApi} from "../../../utils/apis/TasksApi";
 
 let task = {}
 
@@ -111,6 +111,6 @@ const createDeadline = (tasks, reload, setReload) => {
 }
 
 const create = (tasks, reload, setReload) => {
-    tasksAPI.updateTasks([...tasks, task])
+    tasksApi.updateTasks([...tasks, task])
         .then(_ => setReload(!reload))
 }

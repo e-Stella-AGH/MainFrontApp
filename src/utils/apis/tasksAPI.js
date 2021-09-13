@@ -24,6 +24,10 @@ export const tasksApi = {
             method: "POST",
             body: JSON.stringify(body)
         })
-    }
+    },
 
+    updateTasks: (tasks) => {
+        console.log(tasks)
+    }
 }
+
