@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/components/commons/layouts/ListElement.js
-import {colors} from "../../../utils/colors";
-import {Card, CardContent, Divider, Typography} from "@material-ui/core";
-=======
 import {Card, CardContent, Divider, Typography, useTheme} from "@material-ui/core";
->>>>>>> origin/master:src/components/commons/ListElement.js
 import PropTypes from "prop-types";
 
 export const ListElement = ({ data, selected, onClick, idx }) => {

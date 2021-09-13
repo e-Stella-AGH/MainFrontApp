@@ -1,11 +1,5 @@
-<<<<<<< HEAD:src/components/commons/layouts/ListElementDetails.js
-import {colors} from "../../../utils/colors";
-import {constants} from "../../../utils/constants";
-import {Card} from "@material-ui/core";
-=======
-import {constants} from "../../utils/constants";
 import {Card, useTheme} from "@material-ui/core";
->>>>>>> origin/master:src/components/commons/ListElementDetails.js
+import {constants} from "../../../utils/constants";
 
 export const ListElementDetails = ({cardContent}) => {
 
