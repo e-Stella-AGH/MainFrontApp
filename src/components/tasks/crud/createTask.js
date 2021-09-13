@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {AddDescription} from "./description/AddDescription";
-import {convertFileToBase64} from "../../utils/apis/files";
+import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
-import {tasksAPI} from "../../utils/apis/tasksAPI";
+import {tasksAPI} from "../../../utils/apis/TasksApi";
 
 let task = {}
 

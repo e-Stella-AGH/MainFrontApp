@@ -19,9 +19,9 @@ import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
 import Navbar from "./components/navbar/Navbar";
-import {TasksList} from "./components/tasks/TasksList";
+import {TasksList} from "./components/tasks/crud/TasksList";
 import {getTasks} from "./test/DummyValues";
-import {TaskWrapper} from "./components/task/TaskWrapper";
+import {TaskWrapper} from "./components/tasks/TaskWrapper";
 
 const theme = createTheme({
     status: {

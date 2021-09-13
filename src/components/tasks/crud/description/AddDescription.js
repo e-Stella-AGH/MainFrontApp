@@ -1,7 +1,7 @@
-import {MarkdownEditor} from "../../commons/MarkdownEditor";
+import {MarkdownEditor} from "../../../commons/MarkdownEditor";
 import {FormControlLabel, Radio, RadioGroup, Typography} from "@material-ui/core";
 import {useState} from "react";
-import {FileUpload} from "../../commons/FileUpload";
+import {FileUpload} from "../../../commons/FileUpload";
 
 export const AddDescription = ({ handleChange }) => {
 

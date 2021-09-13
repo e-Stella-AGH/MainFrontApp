@@ -1,14 +1,8 @@
 import {useHistory} from "react-router-dom";
 import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {OfferSkill} from "./OfferSkill";
-<<<<<<< HEAD
 import PropTypes from "prop-types";
 import {ListElementDetails} from "../../commons/layouts/ListElementDetails";
-=======
-import {ListElementDetails} from "../../commons/ListElementDetails";
-import PropTypes from 'prop-types'
->>>>>>> origin/master
-
 
 export const OfferDetails = (props) => {
 

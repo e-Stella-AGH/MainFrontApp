@@ -1,4 +1,4 @@
-import {FileUpload} from "../../commons/FileUpload";
+import {FileUpload} from "../../../commons/FileUpload";
 import {FormControlLabel, Radio, RadioGroup, Typography} from "@material-ui/core";
 import {useState} from "react";
 import {ManualTestsCases} from "./testcases/Manual";

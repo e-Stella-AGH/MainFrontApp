@@ -2,10 +2,10 @@ import {useEffect, useState} from "react";
 import {Task} from "./Task";
 import {Button, Drawer, List, ListItem} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
-import {constants} from "../../utils/constants";
+import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
 import {useParams} from "react-router-dom";
-import {tasksAPI} from "../../utils/apis/tasksAPI";
+import {tasksAPI} from "../../../utils/apis/TasksApi";
 
 export const TasksList = ({ fetchTasks, id }) => {
 

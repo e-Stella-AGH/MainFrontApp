@@ -8,14 +8,9 @@ import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
 import {SorterWrapper} from "../sorter/SorterWrapper";
-<<<<<<< HEAD
 import {ColumnAndDetailsLayout} from "../../commons/layouts/ColumnAndDetailsLayout";
 import {StandardViewAndFilterLayout} from "../../commons/layouts/StandardViewAndFilterLayout";
-=======
-import {ColumnAndDetailsLayout} from "../../commons/ColumnAndDetailsLayout";
-import {StandardViewAndFilterLayout} from "../../commons/StandardViewAndFilterLayout";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
->>>>>>> origin/master
 
 export const OffersView = (props) => {
 
