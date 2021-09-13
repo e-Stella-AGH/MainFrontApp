@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {constants} from "../../utils/constants";
-import {scrollToTop} from "../../utils/functions";
+import {constants} from "../../../utils/constants";
+import {scrollToTop} from "../../../utils/functions";
 import {ListElement} from "./ListElement";
 
 export const ListWithSelection = ({listItems, extractData, limit, propsHandleSelect}) => {

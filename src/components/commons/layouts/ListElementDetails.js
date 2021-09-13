@@ -1,5 +1,5 @@
-import {colors} from "../../utils/colors";
-import {constants} from "../../utils/constants";
+import {colors} from "../../../utils/colors";
+import {constants} from "../../../utils/constants";
 import {Card} from "@material-ui/core";
 
 export const ListElementDetails = ({cardContent}) => {

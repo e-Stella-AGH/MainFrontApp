@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
-import {ListWithSelection} from "../../../components/commons/ListWithSelection";
-import {ListElementDetails} from "../../../components/commons/ListElementDetails";
+import {ListWithSelection} from "../../../components/commons/layouts/ListWithSelection";
+import {ListElementDetails} from "../../../components/commons/layouts/ListElementDetails";
 import userEvent from "@testing-library/user-event";
 
 describe("Base layout test", () => {

@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
-import {StandardViewAndFilterLayout} from "../commons/StandardViewAndFilterLayout";
-import {ColumnAndDetailsLayout} from "../commons/ColumnAndDetailsLayout";
+import {StandardViewAndFilterLayout} from "../commons/layouts/StandardViewAndFilterLayout";
+import {ColumnAndDetailsLayout} from "../commons/layouts/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";

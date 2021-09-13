@@ -1,4 +1,4 @@
-import {colors} from "../../utils/colors";
+import {colors} from "../../../utils/colors";
 import {Card, CardContent, Divider, Typography} from "@material-ui/core";
 import PropTypes from "prop-types";
 

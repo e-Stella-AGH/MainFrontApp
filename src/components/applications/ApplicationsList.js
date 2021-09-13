@@ -1,4 +1,4 @@
-import {ListWithSelection} from "../commons/ListWithSelection";
+import {ListWithSelection} from "../commons/layouts/ListWithSelection";
 import {scrollToTop} from "../../utils/functions";
 
 export const ApplicationsList = ({applications, onSelectedApplication}) => {
