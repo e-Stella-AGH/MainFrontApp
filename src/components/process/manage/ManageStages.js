@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
-import {Box, Card, CardContent, Typography} from "@material-ui/core";
+import {Box, Card, CardContent, Typography, useTheme} from "@material-ui/core";
 import {TwoColumnDnD} from "estella-two-column-dnd";
-import {colors} from "../../../utils/colors";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 import Swal from "sweetalert2";
 
 export const ManageStages = ({processId}) => {
+
+    const theme = useTheme()
 
     const [stages, setStages] = useState([])
     const [possibleStages, setPossibleStages] = useState([])
@@ -72,7 +73,7 @@ export const ManageStages = ({processId}) => {
             rightSubmitGridProps={{xs: 1}}
             materialButtonProps={{variant: "outlined"}}
             submitDivStyle={{marginTop: "15px"}}
-            listStyle={{height: "60vh", backgroundColor: colors.palette[7], padding: "1em", overflowY: "scroll"}}
+            listStyle={{height: "60vh", backgroundColor: theme.palette.focused.dark, padding: "1em", overflowY: "scroll"}}
         />
     )
 }

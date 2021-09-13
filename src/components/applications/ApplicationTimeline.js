@@ -7,8 +7,8 @@ import {
     TimelineSeparator
 } from "@material-ui/lab";
 import {ProcessStage} from "../../utils/procesStages";
-import {makeStyles, Paper, Typography} from "@material-ui/core";
-import {colors} from "../../utils/colors";
+import {makeStyles, Paper, Typography, useTheme} from "@material-ui/core";
+import {applicationStatus} from "../../utils/Enums";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export const ApplicationTimeline = ({stages, currentStageId, status}) => {
 
     const classes = useStyles()
+    const theme = useTheme()
 
     let isBeforeCurrent = true
 
@@ -37,13 +38,13 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
     const getDotColor = stageId => {
         if (stageId === currentStageId) {
             isBeforeCurrent = false
-            return colors['main']
+            return theme.palette.primary.main
         }
-        if (isBeforeCurrent) return colors['success']
-        else if (status === "REJECTED") {
-            return colors.error
-        } else if (status === "ACCEPTED") {
-            return colors["main-light"]
+        if (isBeforeCurrent) return theme.status.success.main
+        else if (status === applicationStatus.REJECTED.toUpperCase()) {
+            return theme.status.danger.main
+        } else if (status === applicationStatus.IN_PROGRESS.toUpperCase().replace(" ", "_")) {
+            return theme.palette.secondary.light
         } else return "grey"
     }
 

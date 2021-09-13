@@ -4,6 +4,8 @@ import userEvent from "@testing-library/user-event";
 import {ApplicationsView} from "../../../components/applications/ApplicationsView";
 import {getApplications} from "../../DummyValues";
 import {createMemoryHistory} from 'history';
+import {ThemeProvider} from "@material-ui/styles";
+import {theme} from "../../utils/theme";
 
 describe("Should render Applications View correctly", () => {
 
@@ -13,9 +15,11 @@ describe("Should render Applications View correctly", () => {
         history.push(route)
 
         render(
-            <Router history={history}>
-                <ApplicationsView getApplications={getApplications} isHR={isHR}/>
-            </Router>
+            <ThemeProvider theme={theme}>
+                <Router history={history}>
+                    <ApplicationsView getApplications={getApplications} isHR={isHR}/>
+                </Router>
+            </ThemeProvider>
         )
     }
 
