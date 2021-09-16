@@ -5,16 +5,14 @@ import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
 import {tasksApi} from "../../../utils/apis/TasksApi";
-import {useDevPassword} from "../../../utils/hooks/useDevPassword";
 
 export const TasksList = ({ fetchTasks, id }) => {
 
     const [tasks, setTasks] = useState([])
     const [reload, setReload] = useState(false)
-    const {get} = useDevPassword()
 
     const addTask = () => {
-        createTask(tasks, reload, setReload, get())
+        createTask(tasks, reload, setReload)
     }
 
     useEffect(() => {
