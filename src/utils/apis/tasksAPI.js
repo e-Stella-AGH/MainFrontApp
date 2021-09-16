@@ -30,7 +30,6 @@ export const tasksApi = {
     updateTasks: (tasks) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const { get } = useDevPassword()
-        console.log(tasks, get())
         return new Promise(resolve => resolve())
     }
 }
