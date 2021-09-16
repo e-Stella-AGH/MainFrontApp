@@ -57,14 +57,14 @@ const basicSwal = {
 
 const MySwal = withReactContent(Swal)
 
-export const createTask = (tasks, reload, setReload) => {
+export const createTask = (tasks, reload, setReload, devPassword) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDescription
             handleChange={{'md': handleMarkdownChange, 'text': handleTextChange, 'file': handleFileChangeDescription}}/>
     }).then(result => {
         if (result.isConfirmed) {
-            createTests(tasks, reload, setReload)
+            createTests(tasks, reload, setReload, devPassword)
         }
     })
 }
@@ -74,18 +74,18 @@ const handleManualTestsChange = (testCases) => {
     delete task['testsBase64']
 }
 
-const createTests = (tasks, reload, setReload) => {
+const createTests = (tasks, reload, setReload, devPassword) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddTests handleChange={{'file': handleFileChangeTests, 'manual': handleManualTestsChange}}/>
     }).then(result => {
         if(result.isConfirmed) {
-            createTimeLimit(tasks, reload, setReload)
+            createTimeLimit(tasks, reload, setReload, devPassword)
         }
     })
 }
 
-const createTimeLimit = (tasks, reload, setReload) => {
+const createTimeLimit = (tasks, reload, setReload, devPassword) => {
     MySwal.fire({
         ...basicSwal,
         input: 'number',
@@ -93,24 +93,24 @@ const createTimeLimit = (tasks, reload, setReload) => {
     }).then(result => {
         if(result.isConfirmed) {
             task['timeLimit'] = Number(result.value)
-            createDeadline(tasks, reload, setReload)
+            createDeadline(tasks, reload, setReload, devPassword)
         }
     })
 }
 
-const createDeadline = (tasks, reload, setReload) => {
+const createDeadline = (tasks, reload, setReload, devPassword) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDeadline handleChange={(date) => task['deadline'] = date} />,
         confirmButtonText: 'Create'
     }).then(result => {
         if(result.isConfirmed) {
-            create(tasks, reload, setReload)
+            create(tasks, reload, setReload, devPassword)
         }
     })
 }
 
-const create = (tasks, reload, setReload) => {
-    tasksApi.updateTasks([...tasks, task])
+const create = (tasks, reload, setReload, devPassword) => {
+    tasksApi.updateTasks([...tasks, task], devPassword)
         .then(_ => setReload(!reload))
 }

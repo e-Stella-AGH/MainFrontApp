@@ -2,6 +2,7 @@ import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuIt
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {theme} from "../../../test/utils/theme";
 
 export const Task = ({task, tasksOperations}) => {
 
@@ -36,7 +37,7 @@ export const Task = ({task, tasksOperations}) => {
                 open={!!menuAnchor}
                 onClose={menuClose}
             >
-                <MenuItem onClick={tasksOperations['delete']}>Delete</MenuItem>
+                <MenuItem onClick={tasksOperations['delete']} style={{color: theme.status.danger.main}}>Delete</MenuItem>
             </Menu>
         </Card>
     )

@@ -33,7 +33,7 @@ export const AddDescription = ({ handleChange }) => {
             <Typography variant="h6">Add description to your task</Typography>
             <div style={{margin: '1em'}} />
             <div style={{display: 'flex', justifyContent: 'center', flexFlow: 'row wrap', gap: '10px', marginBottom: '1em'}}>
-                <RadioGroup name="descriptionGroup" onChange={handleRadioChange} style={{display: "inline"}}>
+                <RadioGroup name="descriptionGroup" onChange={handleRadioChange} style={{display: "inline"}} defaultValue="Markdown">
                     <FormControlLabel value="text" control={<Radio/>} label="Text" labelPlacement="top"/>
                     <FormControlLabel value="md" control={<Radio/>} label="Markdown" labelPlacement="top"/>
                     <FormControlLabel value="file" control={<Radio/>} label="File" labelPlacement="top"/>

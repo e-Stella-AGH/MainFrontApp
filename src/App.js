@@ -6,7 +6,6 @@ import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
 import {OffersView} from "./components/offers/list/OffersView";
 import {OfferForm} from "./components/offers/createForm/OfferForm";
-import {createTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
 import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
@@ -19,43 +18,10 @@ import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
 import {applicationsAPI} from "./utils/apis/applicationsAPI";
 import Navbar from "./components/navbar/Navbar";
-import {TasksList} from "./components/tasks/crud/TasksList";
 import {getTasks} from "./test/DummyValues";
 import {TaskWrapper} from "./components/tasks/TaskWrapper";
-
-const theme = createTheme({
-    status: {
-        danger: {
-            main: '#d32f2f'
-        },
-        success: {
-            main: '#388e3c'
-        }
-    },
-    palette: {
-        primary: {
-            main: '#4c4fae'
-        },
-        secondary: {
-            main: '#54C1FB'
-        },
-        background: {
-            main: '#ffffff',
-            dark: '#272848'
-        },
-        card: {
-            main: '#d7d7d7',
-            light: '#e5e5e5',
-            dark: '#d3d3d3',
-            background: '#f8f7f5'
-        },
-        focused: {
-            light: '#8ff4ff',
-            main: '#54C1FB',
-            dark: '#0091c8'
-        }
-    }
-})
+import {TasksViewWrapper} from "./components/tasks/TasksViewWrapper";
+import {theme} from "./test/utils/theme";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -82,7 +48,7 @@ const routes = [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("/tasks/:organizationId", <TasksList fetchTasks={(id) => getTasks(id)} />),
+    createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
     createRoute('/task/:id', <TaskWrapper />, {}),
     createRoute("*", <div>Page</div>)
 ]

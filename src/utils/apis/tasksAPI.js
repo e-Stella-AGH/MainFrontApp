@@ -26,8 +26,8 @@ export const tasksApi = {
         })
     },
 
-    updateTasks: (tasks) => {
-        console.log(tasks)
+    updateTasks: (tasks, devPassword) => {
+        console.log(tasks, devPassword)
     }
 }
 

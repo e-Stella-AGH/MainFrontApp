@@ -4,24 +4,23 @@ import {Button, Drawer, List, ListItem} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
-import {useParams} from "react-router-dom";
 import {tasksApi} from "../../../utils/apis/TasksApi";
+import {useDevPassword} from "../../../utils/hooks/useDevPassword";
 
 export const TasksList = ({ fetchTasks, id }) => {
 
-    const { organizationId } = useParams()
-
     const [tasks, setTasks] = useState([])
     const [reload, setReload] = useState(false)
+    const {get} = useDevPassword()
 
     const addTask = () => {
-        createTask(tasks, reload, setReload)
+        createTask(tasks, reload, setReload, get())
     }
 
     useEffect(() => {
-        fetchTasks(organizationId || id)
+        fetchTasks(id)
             .then(data => setTasks(data))
-    }, [fetchTasks, id, organizationId, reload])
+    }, [fetchTasks, id, reload])
 
     const deleteTask = (id) => {
         tasksApi.updateTasks(tasks.filter(task => task.id !== id))
