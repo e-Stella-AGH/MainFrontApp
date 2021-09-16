@@ -2,7 +2,7 @@ import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from 'prop-types';
 
-export const EStellaDatePicker = ({ divStyle, additionalProps, selectedDate, handleDateChange }) => {
+export const EStellaDatePicker = ({ divStyle, additionalProps, selectedDate, handleDateChange, label="End of recruitment process" }) => {
 
     return (
         <div style={{...divStyle}}>
@@ -11,7 +11,7 @@ export const EStellaDatePicker = ({ divStyle, additionalProps, selectedDate, han
                     format="dd/MM/yyyy"
                     margin="normal"
                     value={selectedDate}
-                    label="End of recruitment process"
+                    label={label}
                     onChange={handleDateChange}
                     {...additionalProps}
                 />

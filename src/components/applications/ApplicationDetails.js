@@ -1,4 +1,4 @@
-import {ListElementDetails} from "../commons/ListElementDetails";
+import {ListElementDetails} from "../commons/layouts/ListElementDetails";
 import {Box, Button, CardContent, Divider, Grid, Typography, useTheme} from "@material-ui/core";
 import {ApplicationTimeline} from "./ApplicationTimeline";
 import {FileViewerWrapper} from "./FileViewerWrapper";

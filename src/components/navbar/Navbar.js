@@ -7,7 +7,11 @@ export const Navbar = () => {
 
     const theme = useTheme()
 
-    return (<AppBar position="sticky" style={{background: theme.palette.primary.dark, height: `${constants.navbar_height}`}}>
+    return (<AppBar position="sticky" style={{
+        background: theme.palette.primary.dark,
+        height: `${constants.navbar_height}`,
+        zIndex: theme.zIndex.drawer + 1
+    }}>
         <Toolbar>
             <div style={{marginLeft: "2%", marginRight: "1%"}}>
                 <Link to="/" style={{color: "white", textDecoration: "none"}}>
