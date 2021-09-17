@@ -1,6 +1,7 @@
 import {CodeEditor} from 'e-stella-code-editor'
 import {tasksApi} from "../../utils/apis/tasksAPI";
 import {useParams} from "react-router-dom";
+import {codeCheckerLink} from "../../utils/apis/APILinks";
 
 export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
 
@@ -14,7 +15,7 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
     return (
         <div>
             <CodeEditor
-                codeCheckerBaseLink={tasksApi.codeCheckerLink}
+                codeCheckerBaseLink={codeCheckerLink}
                 fetchTasks={fetchTasks}
                 absoluteOffset={{settings: { top: 3, right: 0 }, submit: {top: 3, left: submitLeftOffset}}}
                 outerMonacoWrapperStyle={outerMonacoWrapperStyle}

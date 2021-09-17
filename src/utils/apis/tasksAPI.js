@@ -18,8 +18,6 @@ export const tasksApi = {
         }
     },
 
-    codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
-
     sendTestResult: (body) => {
         return fetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskResult?taskId=${body.task.id}&processId=${body.id}`,{
             method: "POST",
