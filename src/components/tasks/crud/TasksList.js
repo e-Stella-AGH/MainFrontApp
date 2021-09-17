@@ -4,7 +4,7 @@ import {Button, Drawer, List, ListItem} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
-import {tasksApi} from "../../../utils/apis/TasksApi";
+import {tasksApi} from "../../../utils/apis/tasksAPI";
 
 export const TasksList = ({ fetchTasks, id }) => {
 
