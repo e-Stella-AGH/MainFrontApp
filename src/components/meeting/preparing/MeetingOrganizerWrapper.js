@@ -2,6 +2,7 @@ import {MeetingOrganizer} from "e-stella-meeting-organizer";
 import {meetingOrganizerLink} from "../../../utils/apis/APILinks";
 import {useParams} from "react-router-dom";
 import {jwtUtils} from "../../../utils/jwt/jwtUtils";
+import {constants} from "../../../utils/constants";
 
 export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
@@ -18,5 +19,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
     return <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                              userData={userData}
-                             outsideJwt={jwtUtils.getAuthToken()} outerOnPickSlot={onPickSlotByJobSeeker}/>
+                             outsideJwt={jwtUtils.getAuthToken()}
+                             outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
+                             drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}/>
 }
