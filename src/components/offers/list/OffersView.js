@@ -1,6 +1,6 @@
 import {OffersList} from "./OffersList";
 import {OfferDetails} from "../details/OffersDetails";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {useParams} from "react-router-dom";
 import {Filter} from "../filter/Filter";
@@ -8,13 +8,14 @@ import {offersAPI} from "../../../utils/apis/OfferApi";
 import {filterOffers} from "../../../utils/functions";
 import PropTypes from "prop-types";
 import {SorterWrapper} from "../sorter/SorterWrapper";
-import {ColumnAndDetailsLayout} from "../../commons/ColumnAndDetailsLayout";
-import {StandardViewAndFilterLayout} from "../../commons/StandardViewAndFilterLayout";
+import {ColumnAndDetailsLayout} from "../../commons/layouts/ColumnAndDetailsLayout";
+import {StandardViewAndFilterLayout} from "../../commons/layouts/StandardViewAndFilterLayout";
+import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState([])
+    const [offers, setOffers] = useState(null)
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
     const [sort, setSort] = useState({apply: (offers) => offers})
@@ -46,19 +47,17 @@ export const OffersView = (props) => {
         setOffers(offers => ([...sort.apply(offers)]))
     }
 
-    return (
-        <StandardViewAndFilterLayout
-            filter={<Filter offers={offers} onFilterSubmitted={handleFilterSubmitted} fixedOffers={fixedOffers}
-                            reloadOffers={handleFilterSubmitted}/>}
-            sorter={<SorterWrapper onSort={handleSort}/>}
-            view={<ColumnAndDetailsLayout
-                details={selectedOffer === null ? <PickUpOffer/> :
-                    <OfferDetails offer={selectedOffer} buttons={props.buttons}/>}
-                list={<OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))}
-                                  offers={offers}/>}
-            />}
+    const layoutInternalView = selectedOffer ? <OfferDetails offer={selectedOffer} buttons={props.buttons} /> : <PickUpOffer />
+    const offersList = <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
+
+    return offers == null ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
+            filter={<Filter offers={offers}
+                            onFilterSubmitted={handleFilterSubmitted}
+                            fixedOffers={fixedOffers}
+                            reloadOffers={handleFilterSubmitted} />}
+            sorter={<SorterWrapper onSort={handleSort} />}
+            view={<ColumnAndDetailsLayout details={layoutInternalView} list={offersList} />}
         />
-    )
 }
 
 OffersView.propTypes = {

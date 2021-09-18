@@ -1,17 +1,18 @@
-import {Box} from "@material-ui/core";
-import {colors} from "../../../utils/colors";
+import {Box, useTheme} from "@material-ui/core";
 
 export const SkillIndicator = (props) => {
 
+    const theme = useTheme()
+
     const fullCircleStyle = {
-        backgroundColor: colors.palette[3],
+        backgroundColor: theme.palette.focused.dark,
     }
 
     const emptyCircleStyle = {
         borderRadius: "50%",
         width: "15px",
         height: "15px",
-        border: `1px solid ${colors.palette[3]}`,
+        border: `1px solid ${theme.palette.focused.dark}`,
     }
 
     return(

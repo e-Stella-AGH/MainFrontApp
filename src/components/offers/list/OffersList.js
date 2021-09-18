@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {scrollToTop} from '../../../utils/functions';
-import {ListWithSelection} from "../../commons/ListWithSelection";
+import {ListWithSelection} from "../../commons/layouts/ListWithSelection";
 
 export const OffersList = (props) => {
 

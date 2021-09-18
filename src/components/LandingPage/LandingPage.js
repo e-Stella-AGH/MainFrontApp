@@ -4,13 +4,14 @@ import Image2 from '../../assets/landing_page_image2.png';
 import Image3 from '../../assets/landing_page_image3.png';
 import {OffersList} from "../offers/list/OffersList";
 import {useHistory} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {offersAPI} from "../../utils/apis/OfferApi";
+import CenteredCircularProgress from "../commons/CenteredCircularProgress";
 
-export const LandingPage = (props) => {
+export const LandingPage = () => {
 
     const history = useHistory()
-    const [offers, setOffers] = useState([])
+    const [offers, setOffers] = useState(null)
 
     useEffect(() => {
         offersAPI.getAllOffers()
@@ -40,11 +41,19 @@ export const LandingPage = (props) => {
                 </Grid>
             </div>
             <div style={{width: "25%", float: "left", marginRight: "10%"}}>
-                <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>Latest Offers</Typography>
-                <div style={{height: "60vh", overflowY: "hidden"}}>
-                    <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)} limit={3} offers={offers}/>
-                </div>
-                <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}> See more! </Button>
+                {offers == null ? <CenteredCircularProgress size={60} /> : <>
+                    <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>
+                        Latest Offers
+                    </Typography>
+                    <div style={{height: "60vh", overflowY: "hidden"}}>
+                        <OffersList onSelectedOffer={(selected) => history.push(`/offers/${selected.id}`)}
+                                    limit={3}
+                                    offers={offers}/>
+                    </div>
+                    <Button fullWidth variant="outlined" onClick={() => history.push('/offers')}>
+                        See more!
+                    </Button>
+                </>}
             </div>
         </div>
     )

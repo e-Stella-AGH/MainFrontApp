@@ -1,8 +1,9 @@
 import {useState} from "react";
-import {Box, Button, TextField, Typography} from "@material-ui/core";
-import {colors} from "../../utils/colors";
+import {Box, Button, TextField, Typography, useTheme} from "@material-ui/core";
 
 export const MeetingDisplayNameForm = (props) => {
+
+    const theme = useTheme()
 
     const [name, setName] = useState("")
 
@@ -17,7 +18,7 @@ export const MeetingDisplayNameForm = (props) => {
                     One more step...
                 </Typography>
             </Box>
-            <Box mb={5} m={2} style={{textAlign: "left", marginLeft: "31%", color: colors["text-gray"]}}>
+            <Box mb={5} m={2} style={{textAlign: "left", marginLeft: "31%", color: theme.palette.text.secondary}}>
                 <Typography variant="h5">
                     How should we call you?
                 </Typography>

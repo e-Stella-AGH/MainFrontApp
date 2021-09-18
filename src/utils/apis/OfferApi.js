@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import {headers} from "./headers";
 import {jwtUtils} from "../jwt/jwtUtils";
 import {authFetch} from "../authFetch";
+import {convertFileToBase64} from "./files";
 
 const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {

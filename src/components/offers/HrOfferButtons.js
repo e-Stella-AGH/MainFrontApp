@@ -1,7 +1,7 @@
 import {withSwal} from "../commons/formsCommons/WithSwal";
 import {offersAPI} from "../../utils/apis/OfferApi";
 
-export const hrOfferButtons = [
+export const hrOfferButtons = (theme) => [
     {
         text: "Edit",
         action: (offer, history) => {
@@ -24,14 +24,16 @@ export const hrOfferButtons = [
             })
         },
         style: {
-            color: "secondary"
+            style: { border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main },
+            variant: "outlined"
         }
     },
     {
         text: "Edit process",
         action: (offer, history) => history.push(`/hr/process/manage/${offer.id}`),
         style: {
-            color: "primary"
+            style: { background: theme.palette.secondary.dark, color: theme.palette.background.main },
+            variant: "contained"
         }
     },
     {
