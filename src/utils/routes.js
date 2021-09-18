@@ -19,7 +19,6 @@ import {getTasks} from "../test/DummyValues";
 import {TaskWrapper} from "../components/tasks/TaskWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
-import {MeetingOrganizer} from "e-stella-meeting-organizer";
 import {MeetingOrganizerWrapper} from "../components/meeting/preparing/MeetingOrganizerWrapper";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
@@ -49,7 +48,7 @@ const routes = [
     createRoute("/register", <RegistrationRouting />),
     createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
     createRoute('/task/:id', <TaskWrapper />, {}),
-    createRoute('/meeting/organizer', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"})),
+    createRoute('/meeting/organizer/:uuid', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"})),
     createRoute('/meeting/:type/:uuid', <MeetingOrganizerWrapper />),
     createRoute("*", <div>Page</div>)
 ]

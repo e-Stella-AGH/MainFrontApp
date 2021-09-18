@@ -1,13 +1,14 @@
 import {jwtUtils} from "./jwt/jwtUtils";
 import {loginAPI} from "./apis/LoginAPI";
+import {checkedFetch} from "./chekedFetch";
 
-export const authFetch = (url, data) => {
+export const authFetch = (url, data, error) => {
     const authToken = jwtUtils.getAuthToken()
     const dataHeaders = data?.headers
     const authHeaders = authToken ? {[loginAPI.jwtTokenKey]: authToken} : {}
     const newHeaders = dataHeaders ? Object.assign(dataHeaders, authHeaders) : authHeaders
     const authData = Object.assign(data || {}, {headers: newHeaders})
-    return fetch(url, authData).then(response => {
+    return checkedFetch(url, authData, error).then(response => {
         if(response.status >= 200 && response.status < 300)
             return response
         else
