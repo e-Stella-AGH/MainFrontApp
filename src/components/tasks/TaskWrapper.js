@@ -1,5 +1,5 @@
 import {CodeEditor} from 'e-stella-code-editor'
-import {tasksApi} from "../../utils/apis/tasksAPI";
+import {tasksApi} from "../../utils/apis/TasksApi";
 import {useParams} from "react-router-dom";
 import {codeCheckerLink} from "../../utils/apis/APILinks";
 
