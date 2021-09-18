@@ -1,6 +1,5 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from 'sweetalert2'
-import {useDevPassword} from "../hooks/useDevPassword";
 
 export const tasksApi = {
 
@@ -18,17 +17,13 @@ export const tasksApi = {
         }
     },
 
+    codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
+
     sendTestResult: (body) => {
         return fetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskResult?taskId=${body.task.id}&processId=${body.id}`,{
             method: "POST",
             body: JSON.stringify(body)
         })
-    },
-
-    updateTasks: (tasks) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const { get } = useDevPassword()
-        return new Promise(resolve => resolve())
     }
-}
 
+}
