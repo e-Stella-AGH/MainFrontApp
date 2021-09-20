@@ -1,6 +1,6 @@
 import {Redirect, useParams} from "react-router-dom";
-import {StandardViewAndFilterLayout} from "../commons/StandardViewAndFilterLayout";
-import {ColumnAndDetailsLayout} from "../commons/ColumnAndDetailsLayout";
+import {StandardViewAndFilterLayout} from "../commons/layouts/StandardViewAndFilterLayout";
+import {ColumnAndDetailsLayout} from "../commons/layouts/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
@@ -16,12 +16,14 @@ export const ApplicationsView = ({getApplications, isHR}) => {
     const [applications, setApplications] = useState([])
     const [fetching, setFetching] = useState(false)
     const [fetchError, setFetchError] = useState(false)
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
         setFetching(true)
         getApplications(id)
             .then(data => {
                 setApplications(data)
+                selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
                 setFetching(false)
             }).catch(err => {
                 Swal.fire({
@@ -32,7 +34,7 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                 setFetching(false)
                 setFetchError(true)
             })
-    }, [getApplications, id])
+    }, [getApplications, id, reload])
 
     return (
         fetchError ? <Redirect to="/" /> : <>
@@ -46,7 +48,7 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                     view={
                         <ColumnAndDetailsLayout
                             details={selectedApplication ?
-                                <ApplicationDetails application={selectedApplication} isHR={isHR} /> :
+                                <ApplicationDetails application={selectedApplication} isHR={isHR} reload={() => setReload(!reload)} /> :
                                 <div>Select application</div>}
                             list={<ApplicationsList
                                 applications={applications}

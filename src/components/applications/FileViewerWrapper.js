@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Button, Grid, Typography} from "@material-ui/core";
-import {FileViewer} from "../commons/FileViewer";
+import {GenericFileViewer} from "../commons/GenericFileViewer";
 
 export const FileViewerWrapper = ({undecodedFile}) => {
 
@@ -17,7 +17,7 @@ export const FileViewerWrapper = ({undecodedFile}) => {
                     View File
                 </Button>
             </Grid>
-            <FileViewer handleClose={handleClose} open={open} file={undecodedFile}/>
+            <GenericFileViewer handleClose={handleClose} open={open} file={undecodedFile}/>
         </Grid>
     )
 }
