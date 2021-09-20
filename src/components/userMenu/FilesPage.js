@@ -2,11 +2,11 @@ import {jobSeekerAPI} from "../../utils/apis/JobSeekerAPI";
 import React, {useCallback, useEffect, useState} from "react";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
-import {DeleteForever, Save} from "@material-ui/icons";
+import {DeleteForeverOutlined, GetAppOutlined} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import {useDropzone} from "react-dropzone";
 import {Button} from "@material-ui/core";
-import Swal from "sweetalert2";
+import {withSwal} from "../commons/formsCommons/WithSwal";
 
 function _base64ToArrayBuffer(base64) {
     const binary_string = window.atob(base64);
@@ -36,12 +36,12 @@ const FileCard = ({file, index, handleDownload, handleDelete}) =>
                 <IconButton
                     onClick={() => handleDownload(file.fileName, file.fileBase64)}
                 >
-                    <Save />
+                    <GetAppOutlined />
                 </IconButton>
                 <IconButton
                     onClick={() => handleDelete(index)}
                 >
-                    <DeleteForever />
+                    <DeleteForeverOutlined />
                 </IconButton>
             </div>
         </Paper>
@@ -81,7 +81,6 @@ export const FilesPage = () => {
                 }}
             )
         )).then(newFiles => {
-            console.log(newFiles)
             setFiles(oldFiles => oldFiles.concat(newFiles))
         })
     }, [])
@@ -105,29 +104,14 @@ export const FilesPage = () => {
     }
 
     function onSaveFiles() {
-        let swal = new Swal({
-            title: "Applying"
+        withSwal({
+            title: "Saving files",
+            promise: () => jobSeekerAPI.insertFiles(files),
+            successSwalTitle: "Success",
+            successSwalText: "You've successfully saved your files!",
+            errorSwalTitle: "Something went wrong",
+            errorSwalText: "We couldn't save these files for you"
         })
-        Swal.showLoading()
-        jobSeekerAPI.insertFiles(files)
-            .then((result) => {
-            if(!result.ok) throw Error("Something went wrong!")
-            swal.close()
-            Swal.fire({
-                title: "Success",
-                text: "You've successfully saved your files!",
-                icon: "success"
-            })
-        })
-            .catch((err) => {
-                swal.close()
-                Swal.fire({
-                    title: err,
-                    text: "We couldn't save these files for you",
-                    icon: "error",
-                    confirmButtonText: "ok"
-                })
-            })
     }
 
     return <div>

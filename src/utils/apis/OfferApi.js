@@ -73,12 +73,9 @@ export const offersAPI = {
     },
 
     applyWithUser: function(offerID) {
-        return new Promise((resolve) => {
-            resolve({})
+        return authFetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerID}/user`, {
+            method: "POST"
         })
-        // return authFetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerID}`, {
-        //     method: "POST"
-        // })
     },
 
     getOffersFromHr() {

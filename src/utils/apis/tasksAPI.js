@@ -1,13 +1,12 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from 'sweetalert2'
 import {useDevPassword} from "../hooks/useDevPassword";
-import {authFetch} from "../authFetch";
 
 export const tasksApi = {
 
     getTask: (processId) => {
         if(processId){
-            return authFetch(`${recruitmentServiceBasicAPILink}/api/tasks?process=${processId}`)
+            return fetch(`${recruitmentServiceBasicAPILink}/api/tasks?process=${processId}`)
                 .then(response => response.json())
         } else {
             Swal.fire({
@@ -22,7 +21,7 @@ export const tasksApi = {
     codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
 
     sendTestResult: (body) => {
-        return authFetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskResult?taskId=${body.task.id}&processId=${body.id}`,{
+        return fetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskResult?taskId=${body.task.id}&processId=${body.id}`,{
             method: "POST",
             body: JSON.stringify(body)
         })

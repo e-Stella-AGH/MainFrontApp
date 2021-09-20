@@ -14,7 +14,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import {Controller, useForm} from "react-hook-form"
 import {OfferSkill} from "../details/OfferSkill"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     button: {
         height: '97%'
     }
@@ -37,7 +37,7 @@ export const OfferFormSkillList = (props) => {
     }
 
     return <>
-        <form id="skill-form" name="skill-form" onSubmit={handleSubmit(onSkillAdd)}></form>
+        <form id="skill-form" name="skill-form" onSubmit={handleSubmit(onSkillAdd)} />
         <Grid item xs={12} sm={6}>
             <Controller
                 control={control}
@@ -82,6 +82,7 @@ export const OfferFormSkillList = (props) => {
                 type="submit" 
                 variant="contained" 
                 form="skill-form"
+                color="secondary"
                 fullWidth>Add skill</Button>
         </Grid>
         <Grid item xs={12}>

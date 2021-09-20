@@ -168,7 +168,15 @@ export const OfferForm = (props) => {
             />
             <Grid item xs={false} sm={8} />
             <Grid item xs={12} sm={4}>
-                <Button className={classes.button} type="submit" variant="contained" size="large" form="offer-form" fullWidth>Save offer</Button>
+                <Button className={classes.button}
+                        type="submit"
+                        variant="contained"
+                        size="large"
+                        form="offer-form"
+                        color="primary"
+                        fullWidth>
+                    Save offer
+                </Button>
             </Grid>
         </Grid></div>
 }

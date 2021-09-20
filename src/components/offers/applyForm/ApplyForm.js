@@ -6,6 +6,7 @@ import {offersAPI} from "../../../utils/apis/OfferApi";
 import {validateEmail} from "../../../utils/functions";
 import {useLoggedIn} from "../../../utils/hooks/useLoggedIn";
 import {jwtUtils} from "../../../utils/jwt/jwtUtils";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 
 export const ApplyForm = () => {
 
@@ -56,34 +57,14 @@ export const ApplyForm = () => {
     }
 
     const validatedApply = (files) => {
-        let swal = new Swal({
-            title: "Applying"
+        withSwal({
+            loadingTitle: "Applying",
+            promise: loggedIn ? offersAPI.applyWithUser(id) : offersAPI.applyWithNoUser(id, name, surname, email, files),
+            successSwalTitle: "Success",
+            successSwalText: "You've successfully applied to this offer!",
+            errorSwalTitle: "Something went wrong",
+            errorSwalText: "We couldn't process your application for this offer",
         })
-        Swal.showLoading()
-        let applyPromise
-        if (loggedIn)
-            applyPromise = offersAPI.applyWithUser(id)
-        else
-            applyPromise = offersAPI.applyWithNoUser(id, name, surname, email, files)
-
-        applyPromise.then((result) => {
-                if(!result.ok) throw Error("Something went wrong!")
-                swal.close()
-                Swal.fire({
-                    title: "Success",
-                    text: "You've successfully applied to this offer!",
-                    icon: "success"
-                })
-            })
-            .catch((err) => {
-                swal.close()
-                Swal.fire({
-                    title: err,
-                    text: "We couldn't process your application for this offer",
-                    icon: "error",
-                    confirmButtonText: "ok"
-                })
-            })
     }
 
     const validate = () => {

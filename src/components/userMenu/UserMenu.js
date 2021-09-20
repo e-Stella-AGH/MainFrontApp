@@ -11,8 +11,51 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Paper from "@material-ui/core/Paper";
 import Popover from "@material-ui/core/Popover";
 import {userTypes} from "../../utils/Enums";
+import {makeStyles} from "@material-ui/core";
+import {deepOrange, deepPurple} from "@material-ui/core/colors";
+
+const useStyles = makeStyles(theme => ({
+    purple0: {
+        backgroundColor: deepPurple[300],
+        color: theme.palette.getContrastText(deepPurple[300])
+    },
+    purple1: {
+        backgroundColor: deepPurple[200],
+        color: theme.palette.getContrastText(deepPurple[100])
+    },
+    pink0: {
+        backgroundColor: "#b53387",
+        color: theme.palette.getContrastText("#b53387")
+    },
+    green0: {
+        backgroundColor: "#0c4f06",
+        color: theme.palette.getContrastText("#0c4f06")
+    },
+    red0: {
+        backgroundColor: "#de2618",
+        color: theme.palette.getContrastText("#de2618")
+    },
+    red1: {
+        backgroundColor: "#9c0a00",
+        color: theme.palette.getContrastText("#9c0a00")
+    },
+    orange0: {
+        backgroundColor: deepOrange[500],
+        color: theme.palette.getContrastText(deepOrange[500])
+    },
+    orange1: {
+        backgroundColor: deepOrange[300],
+        color: theme.palette.getContrastText(deepOrange[300])
+    },
+    orange2: {
+        backgroundColor: deepOrange[200],
+        color: theme.palette.getContrastText(deepOrange[200])
+    },
+}))
 
 export default function UserMenu(props) {
+    const styles = useStyles()
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [direction, setDirection] = useState(null);
     const [open, setOpen] = useState(false);
@@ -20,30 +63,22 @@ export default function UserMenu(props) {
 
     const user = jwtUtils.getUser()
 
+    const colors = Object.values(styles)
+
     const stringToColor = (string) => {
         let hash = 0;
-        let i;
 
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash);
+        for (let i = 0; i < string.length; i += 1) {
+            hash = (string.charCodeAt(i) + ((hash << 5) - hash)) % 100;
         }
 
-        let color = '#';
-
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff;
-            color += `00${value.toString(16)}`.substr(-2);
-        }
-
-        return color;
+        return colors[hash % colors.length];
     }
 
     const userAvatar = (user) => {
         return {
-            sx: {
-                bgcolor: stringToColor(user.firstName+user.lastName),
-            },
-            children: `${user.firstName[0]}${user.lastName[0]}`,
+            className: stringToColor(user.firstName+user.lastName+user.mail),
+            children: `${user.firstName[0] || user.lastName[0] || user.mail[0] || ""}`,
         };
     }
 
@@ -92,6 +127,12 @@ export default function UserMenu(props) {
                             id="user-menu"
                             open={Boolean(anchorEl)}
                         >
+                            {user.userType === userTypes.ORGANIZATION && <MenuItem onClick={() => handleChoice("/organization/offers")}>
+                                Company's offers
+                            </MenuItem>}
+                            {user.userType === userTypes.ORGANIZATION && <MenuItem onClick={() => handleChoice("/organization/users")}>
+                                Company's partners
+                            </MenuItem>}
                             {user.userType === userTypes.HR && <MenuItem onClick={() => handleChoice("/hr/offers")}>
                                 My offers
                             </MenuItem>}
