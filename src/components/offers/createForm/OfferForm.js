@@ -1,13 +1,13 @@
 import {Controller, useForm} from "react-hook-form"
 import {Button, Grid, makeStyles} from "@material-ui/core"
 import {FormField} from "../../commons/formsCommons/FormField"
-import {useEffect} from "react"
+import React, {useEffect} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 import {useParams} from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     button: {
         height: '100%'
     }
@@ -24,10 +24,9 @@ export const OfferForm = (props) => {
         minSalary:"",
         maxSalary:"",
         description:"",
-        creatorId:"",
         skills:[]
     }
-    const {handleSubmit, watch, trigger, control, reset} = useForm({mode: "onChange", defaultValues:defaultFormState})
+    const {handleSubmit, watch, trigger, control, reset} = useForm({mode: "onChange", defaultValues: defaultFormState})
 
     const minSalary = watch("minSalary", null)
     const maxSalary = watch("maxSalary", null)
@@ -73,23 +72,8 @@ export const OfferForm = (props) => {
     }
 
     return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
-        <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)}></form>
+        <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)} />
         <Grid container spacing={2}>
-            {/* TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
-            <FormField
-                control={control}
-                name="creatorId"
-                rules={{
-                    required: {value: true, message: "Required field"},
-                    pattern: {value: /^\d+$/, message: "Must be an integer"}
-                }} 
-                defaultValue=""
-                additionalTextFieldProps={{
-                    label:"Creator Id",
-                    autoComplete: "off",
-                    form:"offer-form"
-                }} />
-            {/* / TO BE DELETED, CREATOR ID SHOULD BE PROVIDED BY SESSION */}
             <FormField
                 control={control}
                 name="name"
@@ -168,8 +152,8 @@ export const OfferForm = (props) => {
                 defaultValue=""
                 additionalTextFieldProps={{
                     multiline: true,
-                    rows: 8,
-                    rowsMax: 8,
+                    minRows: 8,
+                    maxRows: 8,
                     autoComplete: "off",
                     label:"Short description",
                     form:"offer-form"

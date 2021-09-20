@@ -1,6 +1,6 @@
 import {LandingPage} from "./components/LandingPage/LandingPage";
 import React from 'react';
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Meeting} from "./components/meeting/Meeting";
 import './App.css'
 import {ApplyForm} from "./components/offers/applyForm/ApplyForm";
@@ -22,6 +22,8 @@ import {getTasks} from "./test/DummyValues";
 import {TaskWrapper} from "./components/tasks/TaskWrapper";
 import {TasksViewWrapper} from "./components/tasks/TasksViewWrapper";
 import {theme} from "./test/utils/theme";
+import SettingsOverlay from "./components/userMenu/SettingsOverlay";
+import HrOffersView from "./components/offers/list/HrOffersView";
 
 const createRoute = (path, component, style={marginTop: "2em"}) => {
     return {
@@ -38,7 +40,7 @@ const routes = [
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
-    createRoute("/hr/offers", withUserAuth(OffersView, ["hr"], {getOffers: () => offersAPI.getOffersFromHr(), buttons: hrOfferButtons(theme)})),
+    createRoute("/hr/offers", withUserAuth(HrOffersView, ["hr"])),
     createRoute("/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})),
     createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
     createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
@@ -49,12 +51,8 @@ const routes = [
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
-    createRoute('/task/:id', <TaskWrapper />, {})
+    createRoute('/task/:id', <TaskWrapper />, {}),
     createRoute("/settings", <SettingsOverlay />, {marginTop: "1em"}),
-    // TODO: Does not work, dont know why
-    createRoute("/settings/profile", <Redirect to={{path: "/settings", state: { subPage: "profile" }}} />),
-    createRoute("/settings/settings", <Redirect to={{path: "/settings", state: { subPage: "settings" }}} />),
-    createRoute("/settings/files", <Redirect to={{path: "/settings", state: { subPage: "files" }}} />),
     createRoute("*", <div>Page</div>)
 ]
 

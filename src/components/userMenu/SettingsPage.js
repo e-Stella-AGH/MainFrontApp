@@ -25,7 +25,7 @@ const EditPersonalInfoForm = () => {
         })
 
     return (
-        <Card variant="outlined" style={{width: "90%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
+        <Card variant="outlined" style={{width: "90%", height: "100%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
             <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
                 <Typography variant="h5" style={{marginBottom: "20px"}}>Edit your personal data</Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,7 +63,7 @@ const EditPersonalInfoForm = () => {
                         />
                         <Grid item xs={false} sm={8} />
                         <Grid item xs={12} sm={4}>
-                            <Button type="submit" variant="contained" size="large" fullWidth>Save</Button>
+                            <Button type="submit" variant="contained" size="large" color="primary" fullWidth>Save</Button>
                         </Grid>
                     </Grid>
                 </form>
@@ -89,11 +89,13 @@ const EditPasswordForm = () => {
         })
 
     return (
-        <Card variant="outlined" style={{width: "90%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
-            <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
-                <Typography variant="h5" style={{marginBottom: "20px"}}>Edit password</Typography>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
+        <Card variant="outlined" style={{width: "90%", height: "100%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" style={{marginBottom: "20px"}}>Edit password</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
                         <FormField
                             control={control}
                             name="password"
@@ -106,12 +108,14 @@ const EditPasswordForm = () => {
                                 type: "password"
                             }}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
                         <FormField
                             control={control}
                             name="repeatedPassword"
                             rules={{
                                 required: {value: true, message: "Required field"},
-                                pattern: {value: getValues("password"), message: "Passwords has to match"},
+                                pattern: {value: getValues("password"), message: "Passwords have to match"},
                             }}
                             defaultValue=""
                             additionalTextFieldProps={{
@@ -119,13 +123,15 @@ const EditPasswordForm = () => {
                                 type: "password"
                             }}
                         />
-                        <Grid item xs={false} sm={8} />
-                        <Grid item xs={12} sm={4}>
-                            <Button type="submit" variant="contained" size="large" fullWidth>Save</Button>
-                        </Grid>
                     </Grid>
-                </form>
-            </div>
+                </Grid>
+                <Grid container>
+                    <Grid item xs={false} sm={8} />
+                    <Grid item xs={12} sm={4}>
+                        <Button type="submit" variant="contained" size="large" color="primary" fullWidth>Save</Button>
+                    </Grid>
+                </Grid>
+            </form>
         </Card>
     )
 }

@@ -1,18 +1,17 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from "sweetalert2";
-import {jwtUtils} from "../jwt/jwtUtils";
+import {authFetch} from "../authFetch";
 
 
 export const organizationsAPI = {
     getHrPartnersByOrganization: function() {
-        return fetch(recruitmentServiceBasicAPILink + `/api/organizations/hrpartners`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/organizations/hrpartners`, {
             method: "GET",
             headers: {
-                "Content-Type": 'application/json',
-                "x-jwt": jwtUtils.getAuthToken()
+                "Content-Type": 'application/json'
             }
         }).then(response => response.json())
-            .catch(err => {
+            .catch(() => {
                 Swal.fire({
                     title: "Error",
                     test: "We weren't able to get your organizations' HR users",
@@ -23,22 +22,20 @@ export const organizationsAPI = {
     },
 
     addHrPartner(form) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/hrpartners`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                "x-jwt": jwtUtils.getAuthToken()
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(form)
         })
     },
 
     deleteHrPartner(form) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/hrpartners/mail`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/hrpartners/mail`, {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
-                "x-jwt": jwtUtils.getAuthToken(),
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 mail: form.mail

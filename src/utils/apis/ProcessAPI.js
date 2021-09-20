@@ -5,7 +5,7 @@ import {authFetch} from "../authFetch";
 export const processAPI = {
 
     getProcessById: function (id) {
-        return fetch(recruitmentServiceBasicAPILink + `/api/process/${id}`, {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}`, {
             method: "GET"
         })
             .then(response => response.json())

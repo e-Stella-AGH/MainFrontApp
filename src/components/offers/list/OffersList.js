@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {scrollToTop} from '../../../utils/functions';
 import {ListWithSelection} from "../../commons/layouts/ListWithSelection";
+import React from "react";
 
 export const OffersList = (props) => {
 
@@ -15,7 +16,7 @@ export const OffersList = (props) => {
         }
     }
 
-    const handleShortOfferSelect = (offer, idx) => {
+    const handleShortOfferSelect = (offer) => {
         props.onSelectedOffer(offer)
         scrollToTop()
     }

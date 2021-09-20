@@ -1,16 +1,22 @@
 import Swal from "sweetalert2";
 import {useParams} from "react-router-dom";
 import {Box, Button, TextField, Typography} from "@material-ui/core";
-import {useState} from "react";
+import React, {useState} from "react";
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {validateEmail} from "../../../utils/functions";
+import {useLoggedIn} from "../../../utils/hooks/useLoggedIn";
+import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 
 export const ApplyForm = () => {
 
     const {id} = useParams()
-    const [name, setName] = useState("")
-    const [surname, setSurname] = useState("")
-    const [email, setEmail] = useState("")
+
+    const {loggedIn} = useLoggedIn()
+    const user = jwtUtils.getUser()
+
+    const [name, setName] = useState(user?.firstName || "")
+    const [surname, setSurname] = useState(user?.lastName || "")
+    const [email, setEmail] = useState(user?.mail || "")
     const [file, setFile] = useState(null)
 
     const [shouldValidateField, setShouldValidateField] = useState({
@@ -36,7 +42,7 @@ export const ApplyForm = () => {
                         Swal.close()
                     }
                 })
-            } else{
+            } else {
                 validatedApply([file])
             }
         } else {
@@ -54,8 +60,13 @@ export const ApplyForm = () => {
             title: "Applying"
         })
         Swal.showLoading()
-        offersAPI.applyWithNoUser(id, name, surname, email, files)
-            .then((result) => {
+        let applyPromise
+        if (loggedIn)
+            applyPromise = offersAPI.applyWithUser(id)
+        else
+            applyPromise = offersAPI.applyWithNoUser(id, name, surname, email, files)
+
+        applyPromise.then((result) => {
                 if(!result.ok) throw Error("Something went wrong!")
                 swal.close()
                 Swal.fire({
@@ -68,7 +79,7 @@ export const ApplyForm = () => {
                 swal.close()
                 Swal.fire({
                     title: err,
-                    text: "We couldn't apply you on this offer",
+                    text: "We couldn't process your application for this offer",
                     icon: "error",
                     confirmButtonText: "ok"
                 })
@@ -76,7 +87,7 @@ export const ApplyForm = () => {
     }
 
     const validate = () => {
-            return validateEmail(email) && validateName(name) && validateSurname(surname)
+        return validateEmail(email) && validateName(name) && validateSurname(surname)
     }
 
 
@@ -101,6 +112,7 @@ export const ApplyForm = () => {
                     }}
                     error={!validateName(name) && shouldValidateField.name}
                     helperText={!validateName(name) && shouldValidateField.name ? "Name cannot be empty" : " "}
+                    disabled={loggedIn}
                 />
             </Box>
             <Box m={4}>
@@ -115,6 +127,7 @@ export const ApplyForm = () => {
                     }}
                     error={!validateSurname(surname) && shouldValidateField.surname}
                     helperText={!validateSurname(surname) && shouldValidateField.surname ? "Surname cannot be empty" : " "}
+                    disabled={loggedIn}
                 />
             </Box>
             <Box m={4}>
@@ -129,6 +142,7 @@ export const ApplyForm = () => {
                     }}
                     error={!validateEmail(email) && shouldValidateField.email}
                     helperText={!validateEmail(email) && shouldValidateField.email ? "Email isn't valid" : " "}
+                    disabled={loggedIn}
                 />
             </Box>
             <Box m={4} style={{float: "right"}}>

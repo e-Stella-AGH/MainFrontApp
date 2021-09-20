@@ -18,7 +18,7 @@ function UserInfo({label, value}) {
 function displayType(userType) {
     switch (userType) {
         case userTypes.JOB_SEEKER:
-            return "Job Seeker"
+            return "Candidate"
 
         case userTypes.HR:
             return "Human Resources Specialist"
