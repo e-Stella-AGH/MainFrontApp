@@ -2,7 +2,7 @@ import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
 import {useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
-import {TaskWrapper} from "../tasks/TaskWrapper";
+import {TaskWrapper} from "../../tasks/TaskWrapper";
 
 export const JitsiWrapper = (props) => {
 
