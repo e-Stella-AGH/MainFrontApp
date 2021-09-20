@@ -1,5 +1,4 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
-import Swal from "sweetalert2";
 import {authFetch} from "../authFetch";
 
 export const processAPI = {
@@ -9,26 +8,11 @@ export const processAPI = {
             method: "GET"
         })
             .then(response => response.json())
-            .catch(err => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get this process!",
-                    icon: "error"
-                })
-                throw err
-            })
     },
 
     getAllPossibleStages: function() {
         return fetch(recruitmentServiceBasicAPILink + '/api/process/stages')
             .then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get possible stages!",
-                    icon: "error"
-                })
-            })
     },
 
     updateProcessStages: function(id, items) {

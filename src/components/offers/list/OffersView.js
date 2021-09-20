@@ -11,6 +11,7 @@ import {SorterWrapper} from "../sorter/SorterWrapper";
 import {ColumnAndDetailsLayout} from "../../commons/layouts/ColumnAndDetailsLayout";
 import {StandardViewAndFilterLayout} from "../../commons/layouts/StandardViewAndFilterLayout";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
+import Swal from "sweetalert2";
 
 export const OffersView = (props) => {
 
@@ -29,7 +30,13 @@ export const OffersView = (props) => {
         if (id !== undefined) {
             offersAPI.getOfferById(id)
                 .then(data => setSelectedOffer(data))
-                .catch(() => setFetchError(true))
+                .catch(err => {
+                    Swal.fire({
+                        title: "Error",
+                        text: "We weren't able to get this offer's details!",
+                        icon: "error"
+                    })
+                })
         }
     }, [id])
 
@@ -38,6 +45,13 @@ export const OffersView = (props) => {
             .then(data => {
                 setOffers(data || [])
                 setFixedOffers(data || [])
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers! You will be redirected to home page",
+                    icon: "error"
+                }).then(() => setFetchError(true))
             })
     }, [props])
 

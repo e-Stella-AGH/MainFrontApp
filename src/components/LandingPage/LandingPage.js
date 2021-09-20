@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {offersAPI} from "../../utils/apis/OfferApi";
 import CenteredCircularProgress from "../commons/CenteredCircularProgress";
+import Swal from "sweetalert2";
 
 export const LandingPage = () => {
 
@@ -16,6 +17,13 @@ export const LandingPage = () => {
     useEffect(() => {
         offersAPI.getAllOffers()
             .then(data => setOffers(data || []))
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get offers!",
+                    icon: "error"
+                })
+            })
     }, [])
 
     return(

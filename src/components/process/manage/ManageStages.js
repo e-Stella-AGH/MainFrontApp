@@ -24,9 +24,22 @@ export const ManageStages = ({processId}) => {
                 setStages(data.stages);
                 swal.close()
             })
-            .catch(() => setFetchError(true))
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We were unable to get this process! You will be redirected to home page",
+                    icon: "error"
+                }).then(() => setFetchError(true))
+            })
         processAPI.getAllPossibleStages()
             .then(data => setPossibleStages(data))
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We were unable to get possible stages!",
+                    icon: "error"
+                })
+            })
     }, [processId])
 
     const getPossibleStages = () => possibleStages.map(stage => {

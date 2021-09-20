@@ -6,6 +6,7 @@ import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 import {Redirect, useParams} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -47,7 +48,13 @@ export const OfferForm = (props) => {
         if(id !== undefined){
             offersAPI.getOfferById(id)
                 .then(data => updateOffer(data))
-                .catch(() => setFetchError(true))
+                .catch(err => {
+                    Swal.fire({
+                        title: "Error",
+                        text: "We weren't able to get this offer! You will be redirected to home page",
+                        icon: "error"
+                    }).then(() => setFetchError(true))
+                })
         }
     }, [id])
 

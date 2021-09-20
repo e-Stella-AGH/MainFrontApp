@@ -4,7 +4,7 @@ import {Redirect, useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
 import {ManageEndDate} from "./ManageEndDate";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 
@@ -21,7 +21,13 @@ export const ManageProcess = () => {
                 setProcess(data)
                 setSelectedEndDate(data?.endDate || new Date())
             })
-            .catch(() => setFetchError(true))
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We were unable to get this process! You will be redirected to home page",
+                    icon: "error"
+                }).then(() => setFetchError(true))
+            })
     }, [id])
 
     const showHelp = () => {
