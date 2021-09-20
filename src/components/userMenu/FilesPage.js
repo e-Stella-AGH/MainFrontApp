@@ -5,6 +5,8 @@ import IconButton from "@material-ui/core/IconButton";
 import {DeleteForever, Save} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import {useDropzone} from "react-dropzone";
+import {Button} from "@material-ui/core";
+import Swal from "sweetalert2";
 
 function _base64ToArrayBuffer(base64) {
     const binary_string = window.atob(base64);
@@ -26,7 +28,7 @@ function _arrayBufferToBase64( buffer ) {
     return window.btoa(binary);
 }
 
-const FileCard = ({file, handleDownload, handleDelete}) =>
+const FileCard = ({file, index, handleDownload, handleDelete}) =>
     <Grid item xs={12} style={{marginBottom: "15px"}}>
         <Paper style={{padding: "5px", paddingLeft: "1em", backgroundColor: "primary", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             {file.fileName}
@@ -37,7 +39,7 @@ const FileCard = ({file, handleDownload, handleDelete}) =>
                     <Save />
                 </IconButton>
                 <IconButton
-                    onClick={() => handleDelete(file.id)}
+                    onClick={() => handleDelete(index)}
                 >
                     <DeleteForever />
                 </IconButton>
@@ -78,7 +80,10 @@ export const FilesPage = () => {
                     fileBase64: _arrayBufferToBase64(arrayBuffer)
                 }}
             )
-        )).then(files => jobSeekerAPI.insertFiles(files)).then(fetchFiles)
+        )).then(newFiles => {
+            console.log(newFiles)
+            setFiles(oldFiles => oldFiles.concat(newFiles))
+        })
     }, [])
 
     useEffect(
@@ -95,8 +100,34 @@ export const FilesPage = () => {
         link.click();
     }
 
-    function handleDelete(id) {
-        jobSeekerAPI.deleteFile(id).then(fetchFiles)
+    function handleDelete(index) {
+        setFiles(oldFiles => oldFiles.filter((_, ind) => index !== ind))
+    }
+
+    function onSaveFiles() {
+        let swal = new Swal({
+            title: "Applying"
+        })
+        Swal.showLoading()
+        jobSeekerAPI.insertFiles(files)
+            .then((result) => {
+            if(!result.ok) throw Error("Something went wrong!")
+            swal.close()
+            Swal.fire({
+                title: "Success",
+                text: "You've successfully saved your files!",
+                icon: "success"
+            })
+        })
+            .catch((err) => {
+                swal.close()
+                Swal.fire({
+                    title: err,
+                    text: "We couldn't save these files for you",
+                    icon: "error",
+                    confirmButtonText: "ok"
+                })
+            })
     }
 
     return <div>
@@ -104,10 +135,14 @@ export const FilesPage = () => {
             <Grid item lg={files.length ? 6 : 12} xs={12}>
                 <FilesDropzone onDrop={onDrop} />
             </Grid>
-            <Grid container item lg={6} xs={12}>
+            <Grid container item lg={files.length ? 6 : false} xs={12}>
                 {files.map((value, index) =>
-                    <FileCard key={index} file={value} handleDownload={handleDownload} handleDelete={handleDelete} />
+                    <FileCard key={index} index={index} file={value} handleDownload={handleDownload} handleDelete={handleDelete} />
                 )}
+            </Grid>
+            <Grid item xs={false} md={6} lg={10} />
+            <Grid item xs={12} md={6} lg={2}>
+                <Button fullWidth variant="contained" color="primary" onClick={onSaveFiles}>Save files</Button>
             </Grid>
         </Grid>
     </div>
