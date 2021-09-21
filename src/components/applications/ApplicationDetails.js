@@ -1,21 +1,23 @@
-import {ListElementDetails} from "../commons/layouts/ListElementDetails";
-import {Box, Button, CardContent, Divider, Grid, Typography, useTheme} from "@material-ui/core";
-import {ApplicationTimeline} from "./ApplicationTimeline";
-import {FileViewerWrapper} from "./FileViewerWrapper";
-import {withSwal} from "../commons/formsCommons/WithSwal";
-import {applicationsAPI} from "../../utils/apis/applicationsAPI";
+import { ListElementDetails } from "../commons/layouts/ListElementDetails";
+import { Box, Button, CardContent, Divider, Grid, Typography, useTheme } from "@material-ui/core";
+import { ApplicationTimeline } from "./ApplicationTimeline";
+import { FileViewerWrapper } from "./FileViewerWrapper";
+import { withSwal } from "../commons/formsCommons/WithSwal";
+import { applicationsAPI } from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
-import {processAPI} from "../../utils/apis/ProcessAPI";
+import { processAPI } from "../../utils/apis/ProcessAPI";
+import { useHistory } from "react-router-dom";
 
-export const ApplicationDetails = ({application, isHR, reload}) => {
+export const ApplicationDetails = ({ application, isHR, reload }) => {
 
     const theme = useTheme()
+    const history = useHistory()
 
     const getSeekerFiles = () => {
         return application.seekerFiles
             .map((file, idx) => (
                 <Grid item key={`${idx}`} xs={12} md={6}>
-                    <FileViewerWrapper undecodedFile={file}/>
+                    <FileViewerWrapper undecodedFile={file} />
                 </Grid>))
     }
 
@@ -28,7 +30,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
             cancelButtonText: "Abort!",
             icon: "question"
         }).then(result => {
-            if(result.isConfirmed) {
+            if (result.isConfirmed) {
                 withSwal({
                     loadingTitle: "Rejecting Application",
                     promise: () => applicationsAPI.rejectApplication(application.id).then(_ => reload()),
@@ -58,8 +60,10 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     }
 
     const getRejectButtonStyle = () =>
-        getDisabled() ? {} : {border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main}
+        getDisabled() ? {} : { border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main }
 
+    const teleportToMO = () =>
+        history.push(`/meeting/organizer/${application.id}`)
 
     const getCardContent = () => {
         return (<CardContent>
@@ -67,7 +71,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}
-                              style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                            style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                             <div>
                                 <Typography
                                     variant="h6">{application.jobSeeker.user.firstName} {application.jobSeeker.user.lastName}</Typography>
@@ -77,7 +81,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                             </div>
                         </Grid>
                         <Grid item xs={12}
-                              style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                            style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                             <div>
                                 <Typography>{application.jobSeeker.user.mail}</Typography>
                             </div>
@@ -85,8 +89,8 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                                 <Typography color="textSecondary">{processAPI._prepareDate(new Date(application.applicationDate))}</Typography>
                             </div>
                         </Grid>
-                        <Grid item xs={12}><Divider/></Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12}><Divider /></Grid>
+                        <Grid item xs={8}>
                             {
                                 application.seekerFiles.length === 0 ?
                                     <Typography>Candidate didn't supply any files.</Typography> :
@@ -95,6 +99,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                                     </Grid>
                             }
                         </Grid>
+                        <Grid item xs={4}><Button color="secondary" variant="outlined" disabled={getDisabled()} onClick={teleportToMO}>Plan meeting</Button></Grid>
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
                         </Grid>
@@ -104,11 +109,11 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                     <Grid container>
                         {
                             isHR &&
-                            <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
+                            <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
                                 <Button style={getRejectButtonStyle()} variant="outlined" onClick={rejectApplication} disabled={getDisabled()}>
                                     Reject Application
                                 </Button>
-                                <Box m={1}/>
+                                <Box m={1} />
                                 <Button color="primary" variant="contained" onClick={nextStage} disabled={getDisabled()}>
                                     Next Stage
                                 </Button>
@@ -116,7 +121,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                         }
                         <Grid item xs={12}>
                             <ApplicationTimeline stages={application.stages} currentStageId={application.stage.id}
-                                                 status={application.status}/>
+                                status={application.status} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -125,6 +130,6 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     }
 
     return (
-        <ListElementDetails cardContent={getCardContent()}/>
+        <ListElementDetails cardContent={getCardContent()} />
     )
 }
