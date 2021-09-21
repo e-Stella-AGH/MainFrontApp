@@ -4,7 +4,7 @@ import {AddDescription} from "./description/AddDescription";
 import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
-import {tasksApi} from "../../../utils/apis/TasksApi";
+import {tasksApi} from "../../../utils/apis/TasksAPI";
 
 let task = {}
 

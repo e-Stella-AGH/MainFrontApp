@@ -1,15 +1,15 @@
-import {CodeEditor} from 'e-stella-code-editor'
-import {tasksApi} from "../../utils/apis/TasksApi";
-import {useParams} from "react-router-dom";
-import {codeCheckerLink} from "../../utils/apis/APILinks";
+import { CodeEditor } from 'e-stella-code-editor'
+import { tasksApi } from "../../utils/apis/TasksAPI";
+import { useParams } from "react-router-dom";
+import { codeCheckerLink } from "../../utils/apis/APILinks";
 
 export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
 
     let { id } = useParams()
 
-    if(!id) id = propId
+    if (!id) id = propId
 
-    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => {})
+    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => { })
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
 
     return (
@@ -17,11 +17,11 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
             <CodeEditor
                 codeCheckerBaseLink={codeCheckerLink}
                 fetchTasks={fetchTasks}
-                absoluteOffset={{settings: { top: 3, right: 0 }, submit: {top: 3, left: submitLeftOffset}}}
+                absoluteOffset={{ settings: { top: 3, right: 0 }, submit: { top: 3, left: submitLeftOffset } }}
                 outerMonacoWrapperStyle={outerMonacoWrapperStyle}
                 //To test this
-                outerOnSubmit={(body) => tasksApi.sendTestResult({...body, id: id})}
-             />
+                outerOnSubmit={(body) => tasksApi.sendTestResult({ ...body, id: id })}
+            />
         </div>
     )
 }
