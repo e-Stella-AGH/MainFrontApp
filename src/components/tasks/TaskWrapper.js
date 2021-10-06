@@ -4,17 +4,18 @@ import {useParams} from "react-router-dom";
 import {codeCheckerLink} from "../../utils/apis/APILinks";
 import {useAbly} from "../../utils/hooks/useAbly";
 
-export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0, fallbackTask }) => {
+export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
 
     let { id } = useParams()
 
     if(!id) id = propId
 
     const { pub, sub, clientId } = useAbly(`codeChanged/${id}`)
-    console.log(clientId)
 
-    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => fallbackTask)
+    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => {})
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
+
+    console.log(tasksApi.getTask(id || NaN).then(data => console.log(data)))
 
     return (
         <div>
