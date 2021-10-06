@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch} from "react-router-dom";
+import {HashRouter as Router, Switch} from "react-router-dom";
 import './App.css'
 import {ThemeProvider} from '@material-ui/styles';
 import Navbar from "./components/navbar/Navbar";
