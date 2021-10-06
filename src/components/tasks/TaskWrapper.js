@@ -2,14 +2,18 @@ import {CodeEditor} from 'e-stella-code-editor'
 import {tasksApi} from "../../utils/apis/TasksApi";
 import {useParams} from "react-router-dom";
 import {codeCheckerLink} from "../../utils/apis/APILinks";
+import {useAbly} from "../../utils/hooks/useAbly";
 
-export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
+export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0, fallbackTask }) => {
 
     let { id } = useParams()
 
     if(!id) id = propId
 
-    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => {})
+    const { pub, sub, clientId } = useAbly(`codeChanged/${id}`)
+    console.log(clientId)
+
+    const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => fallbackTask)
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
 
     return (
@@ -21,6 +25,7 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
                 outerMonacoWrapperStyle={outerMonacoWrapperStyle}
                 //To test this
                 outerOnSubmit={(body) => tasksApi.sendTestResult({...body, id: id})}
+                sharingCodeFunctions={{ pub, sub, id: clientId }}
              />
         </div>
     )
