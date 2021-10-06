@@ -1,3 +1,6 @@
+import {authFetch} from "../authFetch";
+import {meetingOrganizerLink} from "./APILinks";
+
 export const interviewAPI = {
 
     getJobSeekerNameByInterviewId : function(interviewId) {
@@ -6,6 +9,9 @@ export const interviewAPI = {
         })
     },
 
-
+    getNewestInterview: applicationId => {
+        return authFetch(meetingOrganizerLink + `api/interview/newest/${applicationId}`, {}, Error("Couldn't find interview for this application"))
+            .then(response => response.json())
+    }
 
 }
