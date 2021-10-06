@@ -15,8 +15,6 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
     const fetchTasks = toSolveTask ? () => tasksApi.getTask(id || NaN) : () => new Promise(_ => {})
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
 
-    console.log(tasksApi.getTask(id || NaN).then(data => console.log(data)))
-
     return (
         <div>
             <CodeEditor
