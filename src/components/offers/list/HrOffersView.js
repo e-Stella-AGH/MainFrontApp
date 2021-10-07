@@ -4,16 +4,32 @@ import {theme} from "../../../test/utils/theme";
 import {OffersView} from "./OffersView";
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button} from "@material-ui/core";
+import {Button, Drawer, List, ListItem} from "@material-ui/core";
+import {constants} from "../../../utils/constants";
+import {AddCircleOutline} from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
 
-const HrOffersView = () => <div style={{width: "90%", marginRight: "auto", marginLeft: "auto"}}>
-    <Link to="/hr/offers/add">
-        <Button variant="contained" color="primary" style={{marginBottom: "1em"}}>Add new offer</Button>
-    </Link>
+const marginWithDrawer = "150px"
+
+const HrOffersView = () => <div style={{marginRight: "5%", marginLeft: marginWithDrawer}}>
     <OffersView
         getOffers={() => offersAPI.getOffersFromHr()}
         buttons={hrOfferButtons(theme)}
     />
+    <Drawer
+        variant="permanent"
+        style={{display: "flex", alignItems: "center", width: marginWithDrawer}}
+    >
+        <List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
+            <ListItem>
+                <Link to="/hr/offers/add">
+                    <IconButton>
+                        <AddCircleOutline fontSize="large" color="action"/>
+                    </IconButton>
+                </Link>
+            </ListItem>
+        </List>
+    </Drawer>
 </div>
 
 export default HrOffersView

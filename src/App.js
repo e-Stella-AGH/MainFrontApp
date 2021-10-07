@@ -11,7 +11,7 @@ import {LoginForm} from "./components/auth/login/LoginForm";
 import {RegistrationRouting} from "./components/auth/registration/RegistrationRouting";
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
-import {OrganizationsPartnerList} from "./components/organization/OrganizationsPartnerList";
+import {OrganizationPartnersManagement} from "./components/organization/OrganizationPartnersManagement";
 import {organizationsAPI} from "./utils/apis/OrganizationApi";
 import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
@@ -41,12 +41,13 @@ const routes = [
     createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
     createRoute("/hr/offers", withUserAuth(HrOffersView, ["hr"])),
+    createRoute("/hr/offers/view/:id", withUserAuth(HrOffersView, ["hr"])),
     createRoute("/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})),
     createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
     createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
     createRoute("/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])),
     createRoute("/hr/applications/:id", withUserAuth(ApplicationsView, ["hr"], {isHR: true, getApplications: (id) => applicationsAPI.getApplicationsByOfferId(id)})),
-    createRoute("/organization/users", withUserAuth(OrganizationsPartnerList, ["organization"], {users: () => organizationsAPI.getHrPartnersByOrganization()})),
+    createRoute("/organization/users", withUserAuth(OrganizationPartnersManagement, ["organization"])),
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
     createRoute("/login", <LoginForm />),
     createRoute("/register", <RegistrationRouting />),

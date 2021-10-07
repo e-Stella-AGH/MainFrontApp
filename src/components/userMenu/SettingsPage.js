@@ -24,12 +24,14 @@ const EditPersonalInfoForm = () => {
             errorSwalTitle: "We couldn't change your personal data!"
         })
 
-    return (
-        <Card variant="outlined" style={{width: "90%", height: "100%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
-            <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
-                <Typography variant="h5" style={{marginBottom: "20px"}}>Edit your personal data</Typography>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
+    return <Card variant="outlined" style={{height: "100%"}}>
+        <div style={{width: "80%", height: "100%", margin: "auto", marginTop: "30px"}}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "85%"}}>
+                <Grid container spacing={0.5}>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" style={{marginBottom: "20px"}}>Edit your personal data</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
                         <FormField
                             control={control}
                             name="mail"
@@ -39,6 +41,8 @@ const EditPersonalInfoForm = () => {
                                 disabled: true
                             }}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
                         <FormField
                             control={control}
                             name="firstName"
@@ -50,6 +54,8 @@ const EditPersonalInfoForm = () => {
                                 label: "First Name",
                             }}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
                         <FormField
                             control={control}
                             name="lastName"
@@ -61,15 +67,17 @@ const EditPersonalInfoForm = () => {
                                 label: "Last Name",
                             }}
                         />
-                        <Grid item xs={false} sm={8} />
-                        <Grid item xs={12} sm={4}>
-                            <Button type="submit" variant="contained" size="large" color="primary" fullWidth>Save</Button>
-                        </Grid>
                     </Grid>
-                </form>
-            </div>
-        </Card>
-    )
+                </Grid>
+                <Grid container>
+                    <Grid item xs={false} sm={8} />
+                    <Grid item xs={12} sm={4}>
+                        <Button type="submit" variant="contained" size="large" color="primary" fullWidth>Save</Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </div>
+    </Card>
 }
 
 const EditPasswordForm = () => {
@@ -88,9 +96,9 @@ const EditPasswordForm = () => {
             errorSwalTitle: "We couldn't change your password!"
         })
 
-    return (
-        <Card variant="outlined" style={{width: "90%", height: "100%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
-            <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
+    return <Card variant="outlined" style={{height: "100%"}}>
+        <div style={{width: "80%", height: "100%", margin: "auto", marginTop: "30px"}}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "85%"}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h5" style={{marginBottom: "20px"}}>Edit password</Typography>
@@ -132,14 +140,14 @@ const EditPasswordForm = () => {
                     </Grid>
                 </Grid>
             </form>
-        </Card>
-    )
+        </div>
+    </Card>
 }
 
 export const SettingsPage = () => {
     return <>
         <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} style={{paddingBottom: "20px"}    }>
                 <EditPersonalInfoForm />
             </Grid>
             <Grid item xs={12} md={6}>
