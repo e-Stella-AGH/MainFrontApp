@@ -8,20 +8,19 @@ export const authFetch = (url, data) => {
     const newHeaders = dataHeaders ? Object.assign(dataHeaders, authHeaders) : authHeaders
     const authData = Object.assign(data || {}, {headers: newHeaders})
     return fetch(url, authData).then(response => {
-        if(response.status >= 200 && response.status < 300)
+        if(response.status !== 401)
             return response
-        else {
-            localStorage.removeItem(loginAPI.authTokenStorageKey)
+        else
             return jwtUtils.refreshToken().then(() => {
                 authData.headers[loginAPI.jwtTokenKey] = jwtUtils.getAuthToken()
                 return fetch(url, authData).then(response => {
-                    if (response.status < 200 || response.status >= 300) {
+                    if (response.status === 401) {
                         localStorage.removeItem(loginAPI.refreshTokenStorageKey)
+                        localStorage.removeItem(loginAPI.authTokenStorageKey)
                         window.location.reload()
                     }
                     return response
                 })
             })
-        }
     })
 }

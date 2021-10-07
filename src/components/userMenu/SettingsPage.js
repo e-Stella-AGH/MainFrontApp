@@ -27,7 +27,7 @@ const EditPersonalInfoForm = () => {
     return <Card variant="outlined" style={{height: "100%"}}>
         <div style={{width: "80%", height: "100%", margin: "auto", marginTop: "30px"}}>
             <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "85%"}}>
-                <Grid container spacing={0.5}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography variant="h5" style={{marginBottom: "20px"}}>Edit your personal data</Typography>
                     </Grid>

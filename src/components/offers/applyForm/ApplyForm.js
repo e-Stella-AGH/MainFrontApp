@@ -59,7 +59,7 @@ export const ApplyForm = () => {
     const validatedApply = (files) => {
         withSwal({
             loadingTitle: "Applying",
-            promise: loggedIn ? offersAPI.applyWithUser(id) : offersAPI.applyWithNoUser(id, name, surname, email, files),
+            promise: () => loggedIn ? offersAPI.applyWithUser(id) : offersAPI.applyWithNoUser(id, name, surname, email, files),
             successSwalTitle: "Success",
             successSwalText: "You've successfully applied to this offer!",
             errorSwalTitle: "Something went wrong",

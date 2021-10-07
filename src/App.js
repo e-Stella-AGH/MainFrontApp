@@ -12,7 +12,6 @@ import {RegistrationRouting} from "./components/auth/registration/RegistrationRo
 import {offersAPI} from "./utils/apis/OfferApi";
 import {hrOfferButtons} from "./components/offers/HrOfferButtons";
 import {OrganizationPartnersManagement} from "./components/organization/OrganizationPartnersManagement";
-import {organizationsAPI} from "./utils/apis/OrganizationApi";
 import {withUserAuth} from "./components/auth/withUserAuth";
 import {ManageProcess} from "./components/process/manage/ManageProcess";
 import {ApplicationsView} from "./components/applications/ApplicationsView";
@@ -60,15 +59,13 @@ const routes = [
 function App() {
 
     const getRoutes = () => {
-        return routes.map((route, idx) => {
-            return (
-                <Route exact path={route.path} key={`${idx}`}>
-                    <div style={route.style}>
-                        {route.component}
-                    </div>
-                </Route>
-            )
-        })
+        return routes.map((route, idx) =>
+            <Route exact path={route.path} key={`${idx}`}>
+                <div style={route.style}>
+                    {route.component}
+                </div>
+            </Route>
+        )
     }
 
   return (
