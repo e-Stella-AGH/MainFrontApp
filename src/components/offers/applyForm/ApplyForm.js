@@ -61,7 +61,7 @@ export const ApplyForm = () => {
             loadingTitle: "Applying",
             promise: () => loggedIn ? offersAPI.applyWithUser(id) : offersAPI.applyWithNoUser(id, name, surname, email, files),
             successSwalTitle: "Success",
-            successSwalText: "You've successfully applied to this offer!",
+            successSwalText: "You've successfully applied for this offer!",
             errorSwalTitle: "Something went wrong",
             errorSwalText: "We couldn't process your application for this offer",
         })
