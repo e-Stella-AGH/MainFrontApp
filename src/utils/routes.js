@@ -29,7 +29,7 @@ const createRoute = (path, component, style={marginTop: "2em"}) => {
     }
 }
 
-const routes = [
+const routes = ([reload, setReload]) => [
     createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
     createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
     createRoute("/interview/:interviewId/", <Meeting />, {}),
@@ -44,7 +44,7 @@ const routes = [
     createRoute("/hr/applications/:id", withUserAuth(ApplicationsView, ["hr"], {isHR: true, getApplications: (id) => applicationsAPI.getApplicationsByOfferId(id)})),
     createRoute("/organization/users", withUserAuth(OrganizationsPartnerList, ["organization"], {users: () => organizationsAPI.getHrPartnersByOrganization()})),
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
-    createRoute("/login", <LoginForm />),
+    createRoute("/login", <LoginForm reload={{reload, setReload}} />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
     createRoute('/task/:id', <TaskWrapper />, {}),
@@ -53,8 +53,8 @@ const routes = [
     createRoute("*", <div>Page</div>)
 ]
 
-export const getRoutes = () => {
-    return routes.map((route, idx) => {
+export const getRoutes = ([reload, setReload]) => {
+    return routes([reload, setReload]).map((route, idx) => {
         return (
             <Route exact path={route.path} key={`${idx}`}>
                 <div style={route.style}>
