@@ -23,9 +23,10 @@ export const LoginForm = (props) => {
             loadingTitle: "Logging in...",
             promise: () => loginAPI.login(data.login, data.password),
             successSwalTitle: "Successfully logged in!",
-            successFunction: () => {
+            successFunction: (token) => {
                 reset()
                 login()
+                props.reload.setReload(!props.reload.reload)
             },
             errorSwalTitle: "We couldn't log you in!"
         })

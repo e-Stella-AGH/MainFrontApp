@@ -6,10 +6,12 @@ import {withSwal} from "../commons/formsCommons/WithSwal";
 import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
+import {useHistory} from "react-router-dom";
 
 export const ApplicationDetails = ({application, isHR, reload}) => {
 
     const theme = useTheme()
+    const history = useHistory()
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -60,6 +62,8 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     const getRejectButtonStyle = () =>
         getDisabled() ? {} : {border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main}
 
+    const teleportToMO = () =>
+        history.push(`/meeting/organizer/${application.id}`)
 
     const getCardContent = () => {
         return (<CardContent>
@@ -86,7 +90,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                             </div>
                         </Grid>
                         <Grid item xs={12}><Divider/></Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={8}>
                             {
                                 application.seekerFiles.length === 0 ?
                                     <Typography>Candidate didn't supply any files.</Typography> :
@@ -95,6 +99,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                                     </Grid>
                             }
                         </Grid>
+                        <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
                         </Grid>

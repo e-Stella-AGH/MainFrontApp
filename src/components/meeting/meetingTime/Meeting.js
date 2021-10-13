@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {interviewAPI} from "../../utils/apis/InterviewAPI";
+import {interviewAPI} from "../../../utils/apis/InterviewAPI";
 import {MeetingDisplayName} from "./MeetingDisplayName";
 import {JitsiWrapper} from "./JitsiComponentWrapper";
 import {CircularProgress} from "@material-ui/core";
