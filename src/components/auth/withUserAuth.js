@@ -3,7 +3,7 @@ import {UnauthenticatedPage} from "./UnauthenticatedPage";
 import PropTypes from 'prop-types';
 
 export const withUserAuth = (WrappedComponent, permittedTypes, wrappedProps) => {
-    let user = jwtUtils.getUser()
+    const user = jwtUtils.getUser()
 
     return (
         <>
@@ -16,7 +16,7 @@ export const withUserAuth = (WrappedComponent, permittedTypes, wrappedProps) => 
 
 withUserAuth.propTypes = {
     permittedTypes: PropTypes.array.isRequired,
-    WrappedComponent: PropTypes.any
+    WrappedComponent: PropTypes.any.isRequired
 }
 
 withUserAuth.defaultProps = {
