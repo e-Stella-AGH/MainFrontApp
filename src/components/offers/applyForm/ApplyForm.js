@@ -22,6 +22,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import DialogActions from "@material-ui/core/DialogActions";
 import {jobSeekerAPI} from "../../../utils/apis/JobSeekerAPI";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -285,6 +286,10 @@ export const ApplyForm = () => {
                 <FileCard file={file} index={ind} handleDelete={handleDeleteFile} />
             </Grid>)}
             <Grid item xs={12}>
+                <Divider />
+            </Grid>
+            <Grid item md={9} xs={false} />
+            <Grid item md={3} xs={12}>
                 <Button variant="contained"
                         size="large"
                         color="primary"

@@ -165,7 +165,7 @@ export const FilesPage = () => {
             <Grid item lg={files.length ? 6 : 12} xs={12}>
                 <FilesDropzone onDrop={onDrop} />
             </Grid>
-            <Grid container item lg={files.length ? 6 : false} xs={12}>
+            <Grid container item alignContent="flex-start" lg={files.length ? 6 : false} xs={12}>
                 <Grid item xs={12} style={{marginBottom: "15px"}}>
                     {filesChanged && <FilesChangedTip onSaveFiles={onSaveFiles}/>}
                 </Grid>
