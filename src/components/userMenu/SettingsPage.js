@@ -1,7 +1,7 @@
 import {Button, Card, Grid, Typography} from "@material-ui/core";
 import {FormField} from "../commons/formsCommons/FormField";
 import {useForm} from "react-hook-form";
-import React from "react";
+import React, {useEffect} from "react";
 import {jwtUtils} from "../../utils/jwt/jwtUtils";
 import {userAPI} from "../../utils/apis/UserAPI";
 import {withSwal} from "../commons/formsCommons/WithSwal";
@@ -16,16 +16,16 @@ const EditPersonalInfoForm = () => {
 
     const { handleSubmit, control } = useForm({mode: "onChange", defaultValues: defaultFormState})
 
-    const onSubmit = (formState) =>
+    const onSubmit = ({firstName, lastName}) =>
         withSwal({
             loadingTitle: "Waiting for server response...",
-            promise: () => userAPI.updateUser(formState),
+            promise: () => userAPI.updatePersonalData({firstName, lastName}),
             successSwalTitle: "Successful change!",
             errorSwalTitle: "We couldn't change your personal data!"
         })
 
-    return <Card variant="outlined" style={{height: "100%"}}>
-        <div style={{width: "80%", height: "100%", margin: "auto", marginTop: "30px"}}>
+    return <Card variant="outlined" style={{paddingBottom: "30px", paddingTop: "30px"}}>
+        <div style={{width: "80%", margin: "auto"}}>
             <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "85%"}}>
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -82,31 +82,56 @@ const EditPersonalInfoForm = () => {
 
 const EditPasswordForm = () => {
     const defaultFormState = {
-        password: "",
+        oldPassword: "",
+        newPassword: "",
         repeatedPassword: ""
     }
 
-    const { handleSubmit, control, getValues } = useForm({mode: "onChange", defaultValues: defaultFormState})
+    const { handleSubmit, control, watch, trigger } = useForm({mode: "onChange", defaultValues: defaultFormState})
 
-    const onSubmit = ({password}) =>
+    const newPasswordInput = watch("newPassword")
+
+    useEffect(
+        () => {
+            if(newPasswordInput)
+                trigger("repeatedPassword")
+        },
+        [newPasswordInput, trigger]
+    )
+
+    const onSubmit = ({oldPassword, newPassword}) =>
         withSwal({
             loadingTitle: "Waiting for server response...",
-            promise: () => userAPI.updateUser({password}),
+            promise: () => userAPI.updatePassword({oldPassword: oldPassword, newPassword: newPassword}),
             successSwalTitle: "Successfully changed password!",
             errorSwalTitle: "We couldn't change your password!"
         })
 
-    return <Card variant="outlined" style={{height: "100%"}}>
-        <div style={{width: "80%", height: "100%", margin: "auto", marginTop: "30px"}}>
+    return <Card variant="outlined" style={{paddingBottom: "30px", paddingTop: "30px"}}>
+        <div style={{width: "80%", margin: "auto"}}>
             <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "85%"}}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography variant="h5" style={{marginBottom: "20px"}}>Edit password</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <FormField
                             control={control}
-                            name="password"
+                            name="oldPassword"
+                            rules={{
+                                required: {value: true, message: "Required field"}
+                            }}
+                            defaultValue=""
+                            additionalTextFieldProps={{
+                                label: "Current password",
+                                type: "password"
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormField
+                            control={control}
+                            name="newPassword"
                             rules={{
                                 required: {value: true, message: "Required field"}
                             }}
@@ -123,7 +148,7 @@ const EditPasswordForm = () => {
                             name="repeatedPassword"
                             rules={{
                                 required: {value: true, message: "Required field"},
-                                pattern: {value: getValues("password"), message: "Passwords have to match"},
+                                pattern: {value: new RegExp(`^${newPasswordInput}$`), message: "Passwords have to match"},
                             }}
                             defaultValue=""
                             additionalTextFieldProps={{
@@ -147,7 +172,7 @@ const EditPasswordForm = () => {
 export const SettingsPage = () => {
     return <>
         <Grid container spacing={2}>
-            <Grid item xs={12} md={6} style={{paddingBottom: "20px"}    }>
+            <Grid item xs={12} md={6}>
                 <EditPersonalInfoForm />
             </Grid>
             <Grid item xs={12} md={6}>

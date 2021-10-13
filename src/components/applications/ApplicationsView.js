@@ -24,7 +24,7 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                 selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
                 setFetching(false)
             }).catch(() => setFetching(false))
-    }, [getApplications, id, reload])
+    }, [setApplications, getApplications, id, reload])
 
     return (
         <>

@@ -11,5 +11,25 @@ export const userAPI = {
             },
             body: JSON.stringify(userRequest)
         })
+    },
+
+    updatePersonalData: function (personalData) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/users/personalData`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(personalData)
+        })
+    },
+
+    updatePassword: function (passwordRequest) {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/users/password`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(passwordRequest)
+        })
     }
 }

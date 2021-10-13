@@ -25,7 +25,7 @@ export const Navbar = () => {
             </div>
             <div style={{marginLeft: "1%", marginRight: "auto"}}>
                 <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
-                    <Button color="inherit">Offers</Button>
+                    <Button color="inherit">All Offers</Button>
                 </Link>
             </div>
             {loggedIn ? <UserMenu /> : <div style={{marginLeft: "auto"}}>

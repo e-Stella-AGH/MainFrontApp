@@ -17,8 +17,10 @@ export const OffersList = (props) => {
     }
 
     const handleShortOfferSelect = (offer) => {
-        props.onSelectedOffer(offer)
-        scrollToTop()
+        if(props.onSelectedOffer) {
+            props.onSelectedOffer(offer)
+            scrollToTop()
+        }
     }
 
     return (
@@ -27,13 +29,14 @@ export const OffersList = (props) => {
             extractData={getData}
             limit={props.limit}
             propsHandleSelect={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
+            isSelectable={!!props.onSelectedOffer}
         />
     )
 }
 
 OffersList.propTypes = {
     limit: PropTypes.number,
-    onSelectedOffer: PropTypes.func.isRequired,
+    onSelectedOffer: PropTypes.func,
     offers: PropTypes.array.isRequired
 }
 

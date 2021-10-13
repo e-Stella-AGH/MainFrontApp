@@ -24,7 +24,7 @@ import {theme} from "./test/utils/theme";
 import SettingsOverlay from "./components/userMenu/SettingsOverlay";
 import HrOffersView from "./components/offers/list/HrOffersView";
 
-const createRoute = (path, component, style={marginTop: "2em"}) => {
+const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) => {
     return {
         path,
         style,
@@ -33,28 +33,28 @@ const createRoute = (path, component, style={marginTop: "2em"}) => {
 }
 
 const routes = [
-    createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
-    createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
-    createRoute("/interview/:interviewId/", <Meeting />, {}),
-    createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
-    createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>, {margin: "1em", marginTop: "2em"}),
-    createRoute("/hr/offers", withUserAuth(HrOffersView, ["hr"])),
-    createRoute("/hr/offers/view/:id", withUserAuth(HrOffersView, ["hr"])),
-    createRoute("/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})),
-    createRoute("/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})),
-    createRoute("/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})),
-    createRoute("/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])),
-    createRoute("/hr/applications/:id", withUserAuth(ApplicationsView, ["hr"], {isHR: true, getApplications: (id) => applicationsAPI.getApplicationsByOfferId(id)})),
-    createRoute("/organization/users", withUserAuth(OrganizationPartnersManagement, ["organization"])),
-    createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
-    createRoute("/login", <LoginForm />),
-    createRoute("/register", <RegistrationRouting />),
-    createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
-    createRoute('/task/:id', <TaskWrapper />, {}),
-    createRoute("/settings", <SettingsOverlay />, {marginTop: "1em"}),
-    createRoute("*", <div>Page</div>)
-]
+    ["/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>],
+    ["/interview/:interviewId/:companyId", <Meeting />, {}],
+    ["/interview/:interviewId/", <Meeting />, {}],
+    ["/offers/apply/:id", <ApplyForm />],
+    ["/offers", <OffersView getOffers={offersAPI.getAllOffers}/>],
+    ["/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>],
+    ["/hr/offers", withUserAuth(HrOffersView, ["hr"])],
+    ["/hr/offers/view/:id", withUserAuth(HrOffersView, ["hr"])],
+    ["/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})],
+    ["/hr/offers/add", withUserAuth(OfferForm, ["hr"], {onSubmit: (form) => offersAPI.create(form)})],
+    ["/hr/offers/edit/:id", withUserAuth(OfferForm, ["hr"], {onSubmit:(form) => offersAPI.update(form)})],
+    ["/hr/process/manage/:id", withUserAuth(ManageProcess, ["hr"])],
+    ["/hr/applications/:id", withUserAuth(ApplicationsView, ["hr"], {isHR: true, getApplications: (id) => applicationsAPI.getApplicationsByOfferId(id)})],
+    ["/organization/users", withUserAuth(OrganizationPartnersManagement, ["organization"])],
+    ["/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})],
+    ["/login", <LoginForm />],
+    ["/register", <RegistrationRouting />],
+    ["/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />],
+    ['/task/:id', <TaskWrapper />, {}],
+    ["/settings", <SettingsOverlay />],
+    ["*", <div>Page</div>]
+].map(buildingArray => createRoute(...buildingArray))
 
 function App() {
 

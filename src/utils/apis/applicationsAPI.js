@@ -15,7 +15,6 @@ export const applicationsAPI = {
             recruitmentServiceBasicAPILink + '/api/applications/job-seeker',
             {method: "GET"}
         ).then(response => response.json())
-            .then(data => console.log(data))
     },
 
     rejectApplication: function(applicationId) {

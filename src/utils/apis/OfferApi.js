@@ -2,7 +2,6 @@ import {recruitmentServiceBasicAPILink} from "./APILinks"
 import Swal from "sweetalert2";
 import {headers} from "./headers";
 import {authFetch} from "../authFetch";
-import {convertFileToBase64} from "./files";
 
 export const offersAPI = {
     getOfferById: function(offerId){
@@ -29,21 +28,7 @@ export const offersAPI = {
             })
     },
 
-    applyWithNoUser: async function (offerId, name, surname, email, files=[]) {
-        let convertedFiles = await Promise.all(files.map(async file => {
-            return {
-                fileName: file.name,
-                fileBase64: await convertFileToBase64(file)
-            }
-        }))
-        convertedFiles = convertedFiles.map(file => {
-            return {
-                ...file,
-                fileBase64: convertedFiles[0].fileBase64.substring(
-                    convertedFiles[0].fileBase64.indexOf("base64") + 7
-                )
-            }
-        })
+    applyWithNoUser: function (offerId, name, surname, email, files=[]) {
         return fetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerId}/no-user`, {
             method: "POST",
             headers: headers,
@@ -51,7 +36,7 @@ export const offersAPI = {
                 firstName: name,
                 lastName: surname,
                 mail: email,
-                files: convertedFiles
+                files: files
             })
         })
     },
@@ -72,9 +57,13 @@ export const offersAPI = {
         })
     },
 
-    applyWithUser: function(offerID) {
+    applyWithUser: function(offerID, files) {
         return authFetch(recruitmentServiceBasicAPILink + `/api/applications/apply/${offerID}/user`, {
-            method: "POST"
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                files: files
+            })
         })
     },
 

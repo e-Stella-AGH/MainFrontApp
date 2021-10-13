@@ -61,7 +61,7 @@ const LandingOrganizationOffers = () => {
     const [offers, setOffers] = useState(null)
 
     useEffect(() => {
-        return offersAPI.getOffersFromHr().then(data => setOffers(data || []));
+        return offersAPI.getOffersFromOrganization().then(data => setOffers(data || []));
     }, [])
 
     return offers == null ? <CenteredCircularProgress size={60} /> : <>
@@ -69,12 +69,11 @@ const LandingOrganizationOffers = () => {
             Your recently created offers
         </Typography>
         <div style={{height: "60vh", overflowY: "hidden"}}>
-            <OffersList onSelectedOffer={(selected) => history.push(`/hr/offers/view/${selected.id}`)}
-                        limit={3}
+            <OffersList limit={3}
                         offers={offers}/>
         </div>
-        <Button fullWidth variant="outlined" onClick={() => history.push('/hr/offers')}>
-            Go to your offers
+        <Button fullWidth variant="outlined" onClick={() => history.push('/organization/offers')}>
+            Go to organization's offers
         </Button>
     </>
 }
@@ -86,7 +85,7 @@ const LandingList = () => {
         case userTypes.HR:
             return <LandingHrOffers />
         case userTypes.ORGANIZATION:
-            return <div />
+            return <LandingOrganizationOffers />
         default:
             return <LandingOffers />
     }

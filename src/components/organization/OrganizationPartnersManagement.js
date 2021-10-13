@@ -9,11 +9,6 @@ export const OrganizationPartnersManagement = (props) => {
 
     const [users, setUsers] = useState([])
 
-    useEffect(
-        () => console.log(users),
-        [users]
-    )
-
     function updateUsers(data) {
         setUsers(data.map(el => el.user))
     }

@@ -4,11 +4,11 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import {DeleteForeverOutlined, GetAppOutlined} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
-import {useDropzone} from "react-dropzone";
 import {Button, Typography} from "@material-ui/core";
 import {withSwal} from "../commons/formsCommons/WithSwal";
 import deepOrange from "@material-ui/core/colors/deepOrange";
 import Box from "@material-ui/core/Box";
+import FilesDropzone from "./FilesDropzone";
 
 function _base64ToArrayBuffer(base64) {
     const binary_string = window.atob(base64);
@@ -95,30 +95,10 @@ const FileCard = ({file, index, initialFiles, handleDownload, handleDelete}) => 
         </div>
     </>
     return <Grid item xs={12} style={{marginBottom: "15px"}}>
-        {initialFiles.some(a => a.id == file.id) ?
+        {initialFiles.some(a => a.id === file.id) ?
             <OldFilePaper>{ch}</OldFilePaper>:
             <NewFilePaper>{ch}</NewFilePaper>}
     </Grid>
-}
-
-const FilesDropzone = ({onDrop}) => {
-    const {isDragActive, getRootProps, getInputProps} = useDropzone({onDrop})
-    const color = isDragActive ? "grey" : "lightgrey"
-    return <Paper style={{
-        padding: "2em",
-        paddingTop: "4em",
-        paddingBottom: "4em",
-        backgroundColor: color,
-        justifyContent: "center",
-        display: "flex"
-    }} {...getRootProps()}>
-        <input {...getInputProps()} />
-        {
-            isDragActive ?
-                <p>Drop files here...</p> :
-                <p>Drag and drop files here, or click to select them</p>
-        }
-    </Paper>
 }
 
 export const FilesPage = () => {
