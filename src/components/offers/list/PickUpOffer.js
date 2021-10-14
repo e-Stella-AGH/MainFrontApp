@@ -1,8 +1,6 @@
-export const PickUpOffer = (props) => {
+import React from "react";
 
-    return (
-        <div>
-            Pick up offer
-        </div>
-    )
-}
+export const PickUpOffer = () =>
+    <div>
+        Pick up offer
+    </div>

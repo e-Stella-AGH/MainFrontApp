@@ -1,6 +1,6 @@
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {Button, Drawer, Grid} from "@material-ui/core";
-import {useState} from "react";
+import React, {useState} from "react";
 import {InDrawerFilter} from "./InDrawerFilter";
 import PropTypes from "prop-types";
 import {ActiveFilter} from "./ActiveFilter";

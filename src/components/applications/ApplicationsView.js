@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {StandardViewAndFilterLayout} from "../commons/layouts/StandardViewAndFilterLayout";
 import {ColumnAndDetailsLayout} from "../commons/layouts/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
 import {CircularProgress} from "@material-ui/core";
@@ -23,8 +23,8 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                 setApplications(data)
                 selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
                 setFetching(false)
-            }).catch(err => setFetching(false))
-    }, [getApplications, id, reload])
+            }).catch(() => setFetching(false))
+    }, [setApplications, getApplications, id, reload])
 
     return (
         <>

@@ -31,6 +31,12 @@ export const userTypes = {
     ORGANIZATION: "organization"
 }
 
+export const userMenuTabs = {
+    PROFILE: "profile",
+    SETTINGS: "settings",
+    FILES: "files"
+}
+
 export const applicationStatus = {
     IN_PROGRESS: "In progress",
     ACCEPTED: "Accepted",

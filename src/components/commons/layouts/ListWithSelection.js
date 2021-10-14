@@ -1,16 +1,18 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {constants} from "../../../utils/constants";
 import {scrollToTop} from "../../../utils/functions";
 import {ListElement} from "./ListElement";
 
-export const ListWithSelection = ({listItems, extractData, limit, propsHandleSelect}) => {
+export const ListWithSelection = ({listItems, extractData, limit, propsHandleSelect, isSelectable}) => {
 
     const [selectedIdx, setSelectedIdx] = useState(-1)
 
     const handleSelect = (item, idx) => {
-        setSelectedIdx(idx)
-        propsHandleSelect(item, idx)
-        scrollToTop()
+        if(isSelectable) {
+            setSelectedIdx(idx)
+            propsHandleSelect(item, idx)
+            scrollToTop()
+        }
     }
 
     const getListItems = () => {

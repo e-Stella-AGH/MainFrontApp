@@ -15,7 +15,7 @@ import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState(null)
+    const [offers, setOffers] = useState([])
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
     const [sort, setSort] = useState({apply: (offers) => offers})

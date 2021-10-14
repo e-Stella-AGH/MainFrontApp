@@ -4,8 +4,9 @@ import {loginAPI} from "../../../utils/apis/LoginAPI";
 import {Button, Card, Grid, Typography} from "@material-ui/core";
 import {FormField} from "../../commons/formsCommons/FormField";
 import {useHistory} from "react-router-dom";
+import React from "react";
 
-export const CompanyRegistration = (props) => {
+export const CompanyRegistration = () => {
 
     const defaultFormState = {
         name: "",
