@@ -100,7 +100,7 @@ export default function UserMenu(props) {
         return <Redirect to={direction} />
     }
 
-    return <>
+    return user && <>
         {direction ? <>
             {redirect(direction)}
             <UserMenu {...props} />
