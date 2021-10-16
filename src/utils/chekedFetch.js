@@ -1,12 +1,20 @@
-const checkResponseStatusOrThrowError = (response, error) => {
-    if(response.status < 200 || response.status > 299)
-        throw error || Error("Something went wrong")
+class HttpError extends Error {
+    constructor(code, message) {
+        super(message)
+        this.code = code
+    }
 }
 
-export const checkedFetch = (url, data, error, withSwal) => {
+const checkResponseStatusOrThrowError = (response, errorMessage) => {
+    const code = response.status
+    if(code < 200 || code > 299)
+        throw new HttpError(code, errorMessage || "Something went wrong")
+}
+
+export const checkedFetch = (url, data, errorMessage) => {
     return fetch(url, data)
         .then(response => {
-            checkResponseStatusOrThrowError(response, error)
+            checkResponseStatusOrThrowError(response, errorMessage)
             return response
-        }).catch(err => {throw new Error()})
+        })
 }
