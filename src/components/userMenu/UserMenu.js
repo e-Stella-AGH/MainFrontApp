@@ -107,7 +107,7 @@ export default function UserMenu(props) {
         </> : <div style={props.style}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <IconButton style={props.style} onClick={handleClick}>
-                    <Avatar {...userAvatar(jwtUtils.getUser())} />
+                    <Avatar {...userAvatar(user)} />
                 </IconButton>
             </Box>
             <Popover
