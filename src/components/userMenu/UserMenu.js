@@ -100,14 +100,14 @@ export default function UserMenu(props) {
         return <Redirect to={direction} />
     }
 
-    return <>
+    return user && <>
         {direction ? <>
             {redirect(direction)}
             <UserMenu {...props} />
         </> : <div style={props.style}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <IconButton style={props.style} onClick={handleClick}>
-                    <Avatar {...userAvatar(jwtUtils.getUser())} />
+                    <Avatar {...userAvatar(user)} />
                 </IconButton>
             </Box>
             <Popover
