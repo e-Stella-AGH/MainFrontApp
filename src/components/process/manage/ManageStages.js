@@ -6,11 +6,11 @@ import {withSwal} from "../../commons/formsCommons/WithSwal";
 import Swal from "sweetalert2";
 import {Redirect} from "react-router-dom";
 
-export const ManageStages = ({processId}) => {
+export const ManageStages = ({processId, processData}) => {
 
     const theme = useTheme()
 
-    const [stages, setStages] = useState([])
+    const stages = processData.stages
     const [possibleStages, setPossibleStages] = useState([])
     const [fetchError, setFetchError] = useState(false)
 
@@ -19,18 +19,6 @@ export const ManageStages = ({processId}) => {
             title: "Getting data"
         })
         Swal.showLoading()
-        processAPI.getProcessById(processId)
-            .then(data => {
-                setStages(data.stages);
-                swal.close()
-            })
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We were unable to get this process! You will be redirected to home page",
-                    icon: "error"
-                }).then(() => setFetchError(true))
-            })
         processAPI.getAllPossibleStages()
             .then(data => setPossibleStages(data))
             .catch(() => {
@@ -38,9 +26,10 @@ export const ManageStages = ({processId}) => {
                     title: "Error",
                     text: "We were unable to get possible stages!",
                     icon: "error"
-                })
+                }).then(() => setFetchError(true))
             })
-    }, [processId])
+            .finally(() => swal.close())
+    }, [])
 
     const getPossibleStages = () => possibleStages.map(stage => {
         return {'type': stage}

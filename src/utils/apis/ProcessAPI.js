@@ -1,5 +1,6 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import {authFetch} from "../authFetch";
+import {checkedFetch} from "../chekedFetch";
 
 export const processAPI = {
 
@@ -11,7 +12,7 @@ export const processAPI = {
     },
 
     getAllPossibleStages: function() {
-        return fetch(recruitmentServiceBasicAPILink + '/api/process/stages')
+        return checkedFetch(recruitmentServiceBasicAPILink + '/api/process/stages')
             .then(response => response.json())
     },
 

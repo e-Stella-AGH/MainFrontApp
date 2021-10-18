@@ -1,7 +1,7 @@
 import {Controller, useForm} from "react-hook-form"
 import {Button, Grid, makeStyles} from "@material-ui/core"
 import {FormField} from "../../commons/formsCommons/FormField"
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
@@ -47,7 +47,7 @@ export const OfferForm = (props) => {
         if(id !== undefined){
             offersAPI.getOfferById(id)
                 .then(data => updateOffer(data))
-                .catch(err => {
+                .catch(() => {
                     Swal.fire({
                         title: "Error",
                         text: "We weren't able to get this offer! You will be redirected to home page",

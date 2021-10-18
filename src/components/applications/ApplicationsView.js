@@ -5,8 +5,8 @@ import {ApplicationsList} from "./ApplicationsList";
 import React, {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
-import {CircularProgress} from "@material-ui/core";
 import Swal from "sweetalert2";
+import CenteredCircularProgress from "../commons/CenteredCircularProgress";
 
 export const ApplicationsView = ({getApplications, isHR}) => {
 
@@ -28,21 +28,18 @@ export const ApplicationsView = ({getApplications, isHR}) => {
             }).catch(() => {
                 Swal.fire({
                     title: "Error",
-                    text: "We weren't able to find this offer! You will be redirected to home page",
+                    text: "We weren't able to get this offer's applications! You will be redirected to your offers",
                     icon: "error"
                 }).then(() => {
                     setFetchError(true)
+                    setFetching(false)
                 })
-                setFetching(false)
             })
     }, [setApplications, getApplications, id, reload])
 
-    return (
-        fetchError ? <Redirect to="/" /> : <>
-            {
-                fetching ? <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CircularProgress size={100} /></div>
-                    :
-                applications?.length !== 0 && applications !== undefined ?
+    return fetchError ? <Redirect to="/hr/offers" />
+        : (fetching ? <CenteredCircularProgress size={80} />
+            : (applications?.length !== 0 && applications !== undefined ?
                 <StandardViewAndFilterLayout
                     filter={null}
                     sorter={null}
@@ -58,7 +55,6 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                         />
                     }
                 /> : <EmptyApplicationsView isHR={isHR} />
-            }
-        </>
-    )
+            )
+        )
 }

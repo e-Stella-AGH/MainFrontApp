@@ -1,16 +1,16 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
-import Swal from "sweetalert2";
 import {headers} from "./headers";
 import {authFetch} from "../authFetch";
+import {checkedFetch} from "../chekedFetch";
 
 export const offersAPI = {
     getOfferById: function(offerId){
-        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
+        return checkedFetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
             .then(response => response.json())
     },
 
     getAllOffers: function(){
-        return fetch(recruitmentServiceBasicAPILink + "/api/offers")
+        return checkedFetch(recruitmentServiceBasicAPILink + "/api/offers")
             .then(response => response.json())
     },
 
@@ -58,26 +58,12 @@ export const offersAPI = {
             method: "GET",
             headers: headers
         }).then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     },
 
     getOffersFromOrganization() {
         return authFetch(recruitmentServiceBasicAPILink + `/api/organizations/offers`, {
             method: "GET"
         }).then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     },
 
     deleteOffer(id) {

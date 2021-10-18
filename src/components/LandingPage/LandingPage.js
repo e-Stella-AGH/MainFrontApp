@@ -47,7 +47,14 @@ const LandingHrOffers = () => {
     const [offers, setOffers] = useState(null)
 
     useEffect(() => {
-        return offersAPI.getOffersFromHr().then(data => setOffers(data || []));
+        return offersAPI
+            .getOffersFromHr()
+            .then(data => setOffers(data || []))
+            .catch(() => Swal.fire({
+                title: "Error",
+                text: "We weren't able to get offers!",
+                icon: "error"
+            }))
     }, [])
 
     return offers == null ? <CenteredCircularProgress size={60} /> : <>
@@ -69,9 +76,16 @@ const LandingOrganizationOffers = () => {
     const history = useHistory()
     const [offers, setOffers] = useState(null)
 
-    useEffect(() => {
-        return offersAPI.getOffersFromOrganization().then(data => setOffers(data || []));
-    }, [])
+    useEffect(() =>
+        offersAPI
+            .getOffersFromOrganization()
+            .then(data => setOffers(data || []))
+            .catch(() => Swal.fire({
+                title: "Error",
+                text: "We weren't able to get offers!",
+                icon: "error"
+            }))
+    , [])
 
     return offers == null ? <CenteredCircularProgress size={60} /> : <>
         <Typography variant="h6" style={{marginBottom: "1em", textAlign: "right"}}>

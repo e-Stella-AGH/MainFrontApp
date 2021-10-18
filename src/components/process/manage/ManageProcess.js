@@ -7,6 +7,7 @@ import {ManageEndDate} from "./ManageEndDate";
 import React, {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
+import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const ManageProcess = () => {
 
@@ -50,51 +51,54 @@ export const ManageProcess = () => {
         })
     }
 
-    return fetchError ? <Redirect to="/" /> : <div style={{marginLeft: "1em", marginRight: "1em"}}>
-        <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-                <Grid container spacing={2} direction="column">
-                    <Grid item style={{marginLeft: "1em", marginRight: "auto"}}>
-                        <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
-                    </Grid>
-                    <Grid item> <Divider/> </Grid>
-                    <Grid container style={{display: "flex", flexGrow: 1}}>
+    const ManageProcessInside = () =>
+        process == null ? <CenteredCircularProgress size={80} /> : <div style={{marginLeft: "1em", marginRight: "1em"}}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Grid container spacing={2} direction="column">
+                        <Grid item style={{marginLeft: "1em", marginRight: "auto"}}>
+                            <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
+                        </Grid>
+                        <Grid item> <Divider/> </Grid>
+                        <Grid container style={{display: "flex", flexGrow: 1}}>
+                            {/*<Grid item>*/}
+                            {/*  Beginning of recruitment process in future maybe  */}
+                            {/*</Grid>*/}
+                            <Grid item>
+                                <ManageEndDate selectedDate={selectedEndDate || new Date()}
+                                               onChange={(date) => setSelectedEndDate(date)}
+                                               processStartDate={process?.startDate}/>
+                            </Grid>
+                        </Grid>
                         {/*<Grid item>*/}
-                        {/*  Beginning of recruitment process in future maybe  */}
+                        {/*    In future tasks and quizzes? */}
                         {/*</Grid>*/}
                         <Grid item>
-                            <ManageEndDate selectedDate={selectedEndDate || new Date()}
-                                           onChange={(date) => setSelectedEndDate(date)}
-                                           processStartDate={process?.startDate}/>
-                        </Grid>
-                    </Grid>
-                    {/*<Grid item>*/}
-                    {/*    In future tasks and quizzes? */}
-                    {/*</Grid>*/}
-                    <Grid item>
-                        <Grid container direction="row">
-                            <Grid item xs={false} sm={6} lg={8}/>
-                            <Grid item xs={12} sm={6} lg={4}>
-                                <Button onClick={handleSubmit} variant="outlined">Submit</Button>
+                            <Grid container direction="row">
+                                <Grid item xs={false} sm={6} lg={8}/>
+                                <Grid item xs={12} sm={6} lg={4}>
+                                    <Button onClick={handleSubmit} variant="outlined">Submit</Button>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <Grid container direction="column" spacing={2}>
-                    <Grid item style={{marginLeft: "auto", marginRight: "2em"}}>
-                        <Grid container direction="row" spacing={1}>
-                            <Grid item><Typography variant="h6">Stages</Typography></Grid>
-                            <Grid item><HelpIcon onClick={showHelp} color="primary"/></Grid>
+                <Grid item xs={12} sm={6}>
+                    <Grid container direction="column" spacing={2}>
+                        <Grid item style={{marginLeft: "auto", marginRight: "2em"}}>
+                            <Grid container direction="row" spacing={1}>
+                                <Grid item><Typography variant="h6">Stages</Typography></Grid>
+                                <Grid item><HelpIcon onClick={showHelp} color="primary"/></Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item> <Divider/> </Grid>
-                    <Grid item>
-                        <ManageStages processId={id}/>
+                        <Grid item> <Divider/> </Grid>
+                        <Grid item>
+                            <ManageStages processId={id} processData={process}/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-    </div>
+        </div>
+
+    return fetchError ? <Redirect to="/" /> : <ManageProcessInside />
 }

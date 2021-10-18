@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState([])
+    const [offers, setOffers] = useState(null)
     const [fetchError, setFetchError] = useState(false)
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
@@ -63,8 +63,11 @@ export const OffersView = (props) => {
         setOffers(offers => ([...sort.apply(offers)]))
     }
 
-    const layoutInternalView = selectedOffer ? <OfferDetails offer={selectedOffer} buttons={props.buttons} /> : <PickUpOffer />
-    const offersList = <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
+    const layoutInternalView = () =>
+        selectedOffer ? <OfferDetails offer={selectedOffer} buttons={props.buttons} /> : <PickUpOffer />
+
+    const offersList = () =>
+        <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
 
     return fetchError ? <Redirect to="/" /> : (offers == null ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
             filter={<Filter offers={offers}
@@ -72,7 +75,7 @@ export const OffersView = (props) => {
                             fixedOffers={fixedOffers}
                             reloadOffers={handleFilterSubmitted} />}
             sorter={<SorterWrapper onSort={handleSort} />}
-            view={<ColumnAndDetailsLayout details={layoutInternalView} list={offersList} />}
+            view={<ColumnAndDetailsLayout details={layoutInternalView()} list={offersList()} />}
         />)
 }
 
