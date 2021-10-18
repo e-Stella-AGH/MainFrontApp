@@ -1,5 +1,6 @@
 import {Grid} from "@material-ui/core";
 import PropTypes from "prop-types";
+import React from "react";
 
 export const ColumnAndDetailsLayout = ({details, list}) => {
 

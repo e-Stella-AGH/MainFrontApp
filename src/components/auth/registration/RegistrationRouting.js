@@ -1,15 +1,14 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {UserRegistration} from "./UserRegistration";
 import {CompanyRegistration} from "./CompanyRegistration";
 import {RegistrationRadioButtons} from "./RegistrationRadioButtons";
 
-export const RegistrationRouting = (props) => {
+export const RegistrationRouting = () => {
 
     const [render, setRender] = useState("user")
 
     const handleChange = (value) => {
         setRender(value)
-        console.log(value)
     }
 
     const getRegistrationForm = () => {

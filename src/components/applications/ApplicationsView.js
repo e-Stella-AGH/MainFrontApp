@@ -35,7 +35,7 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                 })
                 setFetching(false)
             })
-    }, [getApplications, id, reload])
+    }, [setApplications, getApplications, id, reload])
 
     return (
         fetchError ? <Redirect to="/" /> : <>

@@ -30,7 +30,7 @@ export const OffersView = (props) => {
         if (id !== undefined) {
             offersAPI.getOfferById(id)
                 .then(data => setSelectedOffer(data))
-                .catch(err => {
+                .catch(() => {
                     Swal.fire({
                         title: "Error",
                         text: "We weren't able to get this offer's details!",

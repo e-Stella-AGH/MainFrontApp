@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import {organizationsAPI} from "../../utils/apis/OrganizationApi";
 import {withSwal} from "../commons/formsCommons/WithSwal";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     button: {
         height: '97%'
     }
@@ -101,6 +101,7 @@ export const PartnerForm = (props) => {
                     className={classes.button}
                     type="submit"
                     variant="contained"
+                    color="primary"
                     form="user-form"
                     fullWidth>Add HR user</Button>
             </Grid>

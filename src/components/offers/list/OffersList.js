@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {scrollToTop} from '../../../utils/functions';
 import {ListWithSelection} from "../../commons/layouts/ListWithSelection";
+import React from "react";
 
 export const OffersList = (props) => {
 
@@ -15,9 +16,11 @@ export const OffersList = (props) => {
         }
     }
 
-    const handleShortOfferSelect = (offer, idx) => {
-        props.onSelectedOffer(offer)
-        scrollToTop()
+    const handleShortOfferSelect = (offer) => {
+        if(props.onSelectedOffer) {
+            props.onSelectedOffer(offer)
+            scrollToTop()
+        }
     }
 
     return (
@@ -26,13 +29,14 @@ export const OffersList = (props) => {
             extractData={getData}
             limit={props.limit}
             propsHandleSelect={(offer, idx) => handleShortOfferSelect(offer.offer, idx)}
+            isSelectable={!!props.onSelectedOffer}
         />
     )
 }
 
 OffersList.propTypes = {
     limit: PropTypes.number,
-    onSelectedOffer: PropTypes.func.isRequired,
+    onSelectedOffer: PropTypes.func,
     offers: PropTypes.array.isRequired
 }
 

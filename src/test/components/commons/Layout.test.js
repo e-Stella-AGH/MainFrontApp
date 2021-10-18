@@ -15,6 +15,7 @@ describe("Base layout test", () => {
                     propsHandleSelect={propsHandleSelect}
                     extractData={extractData}
                     limit={NaN}
+                    isSelectable={true}
                 />
             </ThemeProvider>
         )

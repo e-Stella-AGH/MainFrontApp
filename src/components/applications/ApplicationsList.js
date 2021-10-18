@@ -23,6 +23,7 @@ export const ApplicationsList = ({applications, onSelectedApplication}) => {
             extractData={extractData}
             limit={NaN}
             propsHandleSelect={(application, idx) => handleSelect(application.application, idx)}
+            isSelectable={!!onSelectedApplication}
         />
     )
 }
