@@ -18,13 +18,12 @@ export const ListWithSelection = ({listItems, extractData, limit, propsHandleSel
     const getListItems = () => {
         return listItems
             ?.filter((item, idx) => limit ? idx < limit : true)
-            ?.map((item, idx) => {
-                return selectedIdx === idx ?
+            ?.map((item, idx) => 
+                (
                     <ListElement key={idx} idx={idx} onClick={(item, idx) => handleSelect(item, idx)}
-                              selected data={extractData(item)} />
-                    : <ListElement key={idx} idx={idx} onClick={(item, idx) => handleSelect(item, idx)} data={extractData(item)}
-                                selected={false} />
-            })
+                              selected={selectedIdx === idx} data={extractData(item)} /> 
+                )
+            )
     }
 
     return (

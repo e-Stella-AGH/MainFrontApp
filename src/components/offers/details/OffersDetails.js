@@ -3,12 +3,50 @@ import {Box, Button, CardContent, Divider, Grid, Typography} from "@material-ui/
 import {OfferSkill} from "./OfferSkill";
 import PropTypes from "prop-types";
 import {ListElementDetails} from "../../commons/layouts/ListElementDetails";
+import {SingleMenu} from './SingleMenu.js'
+import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 
 export const OfferDetails = (props) => {
 
     const history = useHistory()
 
     const offer = props.offer
+
+    const groups = (buttons) => buttons.reduce((groups, item) => {
+        const group = (groups[item.menu] || []);
+        group.push(item);
+        groups[item.menu] = group;
+        return groups;
+      }, {});
+
+    const getButtons = () => {
+        const user = jwtUtils.getUser()
+
+        if (user?.userType == "hr" || user?.userType == "organization") {
+            return (<div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
+                        {
+                        Object.entries(groups(props.buttons)).map(([menu, buttons]) => {
+                            console.log(menu, buttons)
+                            return <Box key={menu} mr={1} ml={1}>
+                                <SingleMenu menuName={menu} buttons={buttons} offer={offer} history={history} />
+                            </Box>
+                            })
+                        }
+                    </div>)
+        }
+
+        return (<div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
+            {props.buttons.map(button => {
+            return <Box key={button.text} mr={1} ml={1}>
+                <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
+                    <Typography>
+                        {button.text}
+                    </Typography>
+                </Button>
+            </Box>})}
+            </div>
+        )
+    }
 
     const getCardContent = () => {
         return (<CardContent>
@@ -25,18 +63,7 @@ export const OfferDetails = (props) => {
                         </Typography>
                     </Box>
                 </div>
-                <div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
-                    {props.buttons.map(button => {
-                        return <Box key={button.text} mr={1} ml={1}>
-                            <Button variant="outlined" onClick={() => button.action(offer, history)} {...button.style}>
-                                <Typography>
-                                    {button.text}
-                                </Typography>
-                            </Button>
-                        </Box>
-                    })}
-
-                </div>
+                {getButtons()}
             </Box>
             <Divider/>
             <Box style={{width: "100%"}}>
@@ -90,6 +117,8 @@ OfferDetails.propTypes = {
 OfferDetails.defaultProps = {
     buttons: [{
         text: "Apply",
-        action: (offer, history) => history.push(`/offers/apply/${offer.id}`)
+        action: (offer, history) => history.push(`/offers/apply/${offer.id}`),
+        menu: "Apply menu",
+        style: {color: 'primary', variant: 'contained'}
     }]
 }

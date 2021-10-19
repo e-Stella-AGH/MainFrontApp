@@ -16,8 +16,9 @@ export const offersAPI = {
             })
     },
 
-    getAllOffers: function(){
-        return fetch(recruitmentServiceBasicAPILink + "/api/offers")
+    getAllOffers: function(forCandidate = false){
+        const queryParam = forCandidate ? "?only_started=true" : ""
+        return fetch(recruitmentServiceBasicAPILink + "/api/offers" + queryParam)
             .then(response => response.json())
             .catch(() => {
                 Swal.fire({

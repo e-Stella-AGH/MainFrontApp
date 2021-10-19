@@ -13,17 +13,19 @@ export const authFetch = (url, data, errorMessage) => {
             if(httpError.code && httpError.code === 401)
                 jwtUtils.refreshToken().then(() => {
                     authData.headers[loginAPI.jwtTokenKey] = jwtUtils.getAuthToken()
-                    return checkedFetch(url, authData, errorMessage).catch(httpError => {
-                        if(httpError.code && httpError.code === 401) {
-                            localStorage.removeItem(loginAPI.refreshTokenStorageKey)
-                            localStorage.removeItem(loginAPI.authTokenStorageKey)
-                            window.location.reload()
-                        } else {
-                            throw httpError
-                        }
-                    })
+                    return checkedFetch(url, authData, errorMessage)
+                        .catch(httpError => {
+                            if(httpError.code && httpError.code === 401) {
+                                localStorage.removeItem(loginAPI.refreshTokenStorageKey)
+                                localStorage.removeItem(loginAPI.authTokenStorageKey)
+                                window.location.reload()
+                            } else {
+                                throw httpError
+                            }
+                        })
                 })
-            else
+            else {
                 throw httpError
+            }
         })
 }

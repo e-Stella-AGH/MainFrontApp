@@ -55,6 +55,15 @@ export const processAPI = {
         })
     },
 
+    startProcess: (id) => {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}/start`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+
     _prepareDate: function(date) {
         return ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." + date.getFullYear()
     }
