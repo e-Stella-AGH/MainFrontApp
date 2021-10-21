@@ -7,7 +7,6 @@ import { Typography, Grid } from '@material-ui/core'
 export const OffersList = (props) => {
 
     const offers = props.offers
-    console.log(offers)
 
     const getData = (offer) => {
         return {

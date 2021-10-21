@@ -2,10 +2,10 @@ import {EStellaDatePicker} from "../../commons/EStellaDatePicker";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-export const ManageDate = ({selectedDate, onChange, processStartDate, disabled}) => {
+export const ManageDate = ({selectedDate, onChange, processStartDate, disabled, label}) => {
 
     const handleDateChange = (date) => {
-        if (date > new Date(processStartDate)) {
+        if (!processStartDate || date > new Date(processStartDate)) {
             onChange(date)
         } else {
             Swal.fire({
@@ -21,6 +21,7 @@ export const ManageDate = ({selectedDate, onChange, processStartDate, disabled})
             handleDateChange={handleDateChange}
             divStyle={{marginLeft: "1em", marginRight: "auto"}}
             disabled={disabled}
+            label={label}
         />
 }
 

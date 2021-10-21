@@ -26,7 +26,6 @@ export const OfferDetails = (props) => {
             return (<div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
                         {
                         Object.entries(groups(props.buttons)).map(([menu, buttons]) => {
-                            console.log(menu, buttons)
                             return <Box key={menu} mr={1} ml={1}>
                                 <SingleMenu menuName={menu} buttons={buttons} offer={offer} history={history} />
                             </Box>
