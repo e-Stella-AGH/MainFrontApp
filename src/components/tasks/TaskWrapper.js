@@ -23,7 +23,6 @@ export const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset =
                 solverId={taskStageUUID}
                 absoluteOffset={{settings: { top: 3, right: 0 }, submit: {top: 3, left: submitLeftOffset}}}
                 outerMonacoWrapperStyle={outerMonacoWrapperStyle}
-                //To test this
                 sharingCodeFunctions={{ pub, sub, id: clientId }}
              />
         </div>
