@@ -15,7 +15,7 @@ const LandingOffers = () => {
     const [offers, setOffers] = useState(null)
 
     useEffect(() => {
-        return offersAPI.getAllOffers().then(data => setOffers(data || []));
+        return offersAPI.getAllOffers(true).then(data => setOffers(data || []));
     }, [])
 
     return offers == null ? <CenteredCircularProgress size={60} /> : <>

@@ -2,7 +2,7 @@ import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuIt
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {theme} from "../../../test/utils/theme";
+import {theme} from "../../../utils/theme";
 
 export const Task = ({task, tasksOperations}) => {
 

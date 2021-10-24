@@ -5,7 +5,7 @@ import {ApplicationsView} from "../../../components/applications/ApplicationsVie
 import {getApplications} from "../../DummyValues";
 import {createMemoryHistory} from 'history';
 import {ThemeProvider} from "@material-ui/styles";
-import {theme} from "../../utils/theme";
+import {theme} from "../../../utils/theme";
 
 describe("Should render Applications View correctly", () => {
 

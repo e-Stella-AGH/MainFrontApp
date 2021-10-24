@@ -52,7 +52,8 @@ export const ManageStages = ({processId}) => {
         <TwoColumnDnD
             firstListItems={getStages()}
             secondListItems={getPossibleStages()}
-            forbiddenIndexes={[0, getStages()?.length]}
+            //temporary solution - would be the best to actually change TwoColumnDnD to fire callback about setting items length
+            forbiddenIndexes={[0, 20]}
             warningFunction={() => fireSwal(
                 "You can't do this!",
                 "We're sorry, but you cannot set this stage here! See help for more information.",

@@ -5,7 +5,7 @@ import {OffersView} from "../components/offers/list/OffersView";
 import {offersAPI} from "./apis/OfferApi";
 import {withUserAuth} from "../components/auth/withUserAuth";
 import {hrOfferButtons} from "../components/offers/HrOfferButtons";
-import {theme} from "../test/utils/theme";
+import {theme} from "./theme";
 import {ApplicationsView} from "../components/applications/ApplicationsView";
 import {applicationsAPI} from "./apis/applicationsAPI";
 import {OfferForm} from "../components/offers/createForm/OfferForm";
@@ -35,7 +35,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
     createRoute("/interview/:interviewId/", <Meeting />, {}),
     createRoute("/offers/apply/:id", <ApplyForm />),
-    createRoute("/offers", <OffersView getOffers={offersAPI.getAllOffers}/>),
+    createRoute("/offers", <OffersView getOffers={() => offersAPI.getAllOffers(true)}/>),
     createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>),
     createRoute("/hr/offers", withUserAuth(HrOffersView, ["hr"])),
     createRoute("/hr/offers/view/:id", withUserAuth(HrOffersView, ["hr"])),
