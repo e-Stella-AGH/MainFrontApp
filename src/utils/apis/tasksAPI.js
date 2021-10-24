@@ -30,7 +30,7 @@ export const tasksApi = {
 
     getTasks: (tasksStageId) => {
         if (tasksStageId) {
-            return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?tasksStage=${tasksStageId}`)
+            return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?taskStage=${tasksStageId}`)
                 .then(response => {
                     Swal.close()
                     return response.json()
