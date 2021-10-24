@@ -97,28 +97,3 @@ export const Dates = ({ process, reload, setReload }) => {
         </>
     )
 }
-
-{/* <>
-    <Grid container spacing={3}>
-        <div style={{display: 'inline-block'}}>
-            <div style={{ float: 'left', marginLeft: '4em', marginTop: '1em' }}>
-                <Button variant="contained" color="primary" size="large" onClick={startProcess} disabled={isProcessStarted()}>Start Process Now</Button>
-            </div>
-            <div style={{ float: 'right', marginRight: '4em' }}>
-                <ManageDate selectedDate={selectedEndDate}
-                                onChange={(date) => setSelectedEndDate(date)}
-                                processStartDate={process?.startDate}
-                />
-            </div>
-        </div>
-    </Grid>
-
-    <Grid item>
-        <Grid container direction="row">
-            <Grid item xs={false} sm={6} lg={8}/>
-            <Grid item xs={12} sm={6} lg={4}>
-                <Button onClick={handleSubmit} variant="outlined" color="primary">Set End Date</Button>
-            </Grid>
-        </Grid>
-    </Grid>
-</> */}
