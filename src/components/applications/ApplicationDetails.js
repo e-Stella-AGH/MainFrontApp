@@ -93,13 +93,16 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                         <Grid item xs={8}>
                             {
                                 application.seekerFiles.length === 0 ?
-                                    <Typography>Candidate didn't supply any files.</Typography> :
+                                    <Typography> { isHR ? "Candidate" : "You" } didn't supply any files.</Typography> :
                                     <Grid container direction="row" spacing={4}>
                                         {getSeekerFiles()}
                                     </Grid>
                             }
                         </Grid>
-                        <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
+                        {
+                            isHR && 
+                            (<Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>)
+                        }
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
                         </Grid>

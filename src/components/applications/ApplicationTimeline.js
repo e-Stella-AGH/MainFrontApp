@@ -44,7 +44,7 @@ export const ApplicationTimeline = ({stages, currentStageId, status}) => {
         else if (status === applicationStatus.REJECTED.toUpperCase()) {
             return theme.status.danger.main
         } else if (status === applicationStatus.IN_PROGRESS.toUpperCase().replace(" ", "_")) {
-            return theme.palette.secondary.light
+            return "grey"
         } else return "grey"
     }
 
