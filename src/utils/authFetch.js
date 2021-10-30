@@ -10,7 +10,7 @@ export const authFetch = (url, data, errorMessage) => {
     const authData = Object.assign(data || {}, {headers: newHeaders})
     return checkedFetch(url, authData, errorMessage)
         .catch(httpError => {
-            if(httpError.code && httpError.code === 401)
+            if(httpError.code === 401)
                 jwtUtils.refreshToken().then(() => {
                     authData.headers[loginAPI.jwtTokenKey] = jwtUtils.getAuthToken()
                     return checkedFetch(url, authData, errorMessage)
@@ -24,8 +24,7 @@ export const authFetch = (url, data, errorMessage) => {
                             }
                         })
                 })
-            else {
+            else
                 throw httpError
-            }
         })
 }

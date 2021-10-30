@@ -13,7 +13,6 @@ import {ManageProcess} from "../components/process/manage/ManageProcess";
 import {LoginForm} from "../components/auth/login/LoginForm";
 import {RegistrationRouting} from "../components/auth/registration/RegistrationRouting";
 import {TasksViewWrapper} from "../components/tasks/TasksViewWrapper";
-import {getTasks} from "../test/DummyValues";
 import {TaskWrapper} from "../components/tasks/TaskWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
@@ -21,6 +20,7 @@ import {MeetingOrganizerWrapper} from "../components/meeting/preparing/MeetingOr
 import HrOffersView from "../components/offers/list/HrOffersView";
 import SettingsOverlay from "../components/userMenu/SettingsOverlay";
 import {OrganizationPartnersManagement} from "../components/organization/OrganizationPartnersManagement";
+import {tasksApi} from "./apis/TasksApi";
 
 const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) => {
     return {
@@ -48,7 +48,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
     createRoute("/login", <LoginForm reload={{reload, setReload}} />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id) => getTasks(id)} />),
+    createRoute("/tasks/:organizationId", <TasksViewWrapper fetchTasks={(id, devPass) => tasksApi.getOrganizationTasks(id, devPass)} />),
     createRoute('/task/:id', <TaskWrapper />, {}),
     createRoute('/meeting/organizer/:uuid', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"}), {marginTop: "2em"}),
     createRoute('/meeting/:type/:uuid', <MeetingOrganizerWrapper />, {marginTop: "2em"}),

@@ -4,13 +4,13 @@ import {AddDescription} from "./description/AddDescription";
 import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
-import {tasksApi} from "../../../utils/apis/TasksApi";
+import {withSwal} from "../../commons/formsCommons/WithSwal";
 
 let task = {}
 
 const clearTask = () => task = {}
 
-const handleMarkdownChange = ({html, text}) => {
+const handleMarkdownChange = ({text}) => {
     clearTask()
     task['descriptionFileName'] = 'description.md'
     task['descriptionBase64'] = window.btoa(text)
@@ -57,35 +57,37 @@ const basicSwal = {
 
 const MySwal = withReactContent(Swal)
 
-export const createTask = (tasks, reload, setReload) => {
+export const createTask = (addTask, reload, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDescription
             handleChange={{'md': handleMarkdownChange, 'text': handleTextChange, 'file': handleFileChangeDescription}}/>
     }).then(result => {
         if (result.isConfirmed) {
-            createTests(tasks, reload, setReload)
+            createTests(addTask, reload, setReload)
         }
     })
 }
 
 
 const handleManualTestsChange = (testCases) => {
+    console.log(testCases.map(JSON.stringify))
     delete task['testsBase64']
+    task['testsBase64'] = btoa(JSON.stringify(testCases))
 }
 
-const createTests = (tasks, reload, setReload) => {
+const createTests = (addTask, reload, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddTests handleChange={{'file': handleFileChangeTests, 'manual': handleManualTestsChange}}/>
     }).then(result => {
         if(result.isConfirmed) {
-            createTimeLimit(tasks, reload, setReload)
+            createTimeLimit(addTask, reload, setReload)
         }
     })
 }
 
-const createTimeLimit = (tasks, reload, setReload) => {
+const createTimeLimit = (addTask, reload, setReload) => {
     MySwal.fire({
         ...basicSwal,
         input: 'number',
@@ -93,24 +95,32 @@ const createTimeLimit = (tasks, reload, setReload) => {
     }).then(result => {
         if(result.isConfirmed) {
             task['timeLimit'] = Number(result.value)
-            createDeadline(tasks, reload, setReload)
+            createDeadline(addTask, reload, setReload)
         }
     })
 }
 
-const createDeadline = (tasks, reload, setReload) => {
+const createDeadline = (addTask, reload, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDeadline handleChange={(date) => task['deadline'] = date} />,
         confirmButtonText: 'Create'
     }).then(result => {
         if(result.isConfirmed) {
-            create(tasks, reload, setReload)
+            create(addTask, reload, setReload)
         }
     })
 }
 
-const create = (tasks, reload, setReload) => {
-    tasksApi.updateTasks([...tasks, task])
-        .then(_ => setReload(!reload))
+const create = (addTask, reload, setReload) => {
+    withSwal({
+        promise: () => addTask(task).then(resp => {
+            setReload(!reload)
+            return resp
+        }),
+        successSwalTitle: "Success",
+        successSwalText: "Successfully added new task",
+        errorSwalTitle: "Error",
+        errorSwalText: "Error occurred while adding task"
+    })
 }
