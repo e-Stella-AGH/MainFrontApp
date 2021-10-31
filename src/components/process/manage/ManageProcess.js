@@ -1,11 +1,11 @@
 import {ManageStages} from "./ManageStages";
-import { Divider, Grid, Typography} from "@material-ui/core";
+import {Divider, Grid, Typography} from "@material-ui/core";
 import {Redirect, useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
 import React, {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
-import { Dates } from "./Dates";
+import {Dates} from "./Dates";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const ManageProcess = () => {
@@ -39,14 +39,6 @@ export const ManageProcess = () => {
                 '<li>To delete stage from right list, simply drag it outside the list</li>' +
                 '<li>Remember that you cannot insert before APPLIED stage and after ENDED stage</li>' +
                 '</ul>'
-        })
-    }
-
-    const handleSubmit = () => {
-        withSwal({
-            loadingTitle: "Updating end date",
-            promise: () => processAPI.changeEndDate(id, selectedEndDate),
-            successSwalTitle: "Date updated"
         })
     }
 
