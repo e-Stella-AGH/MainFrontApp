@@ -1,12 +1,11 @@
 import {ManageStages} from "./ManageStages";
-import {Button, Divider, Grid, Typography} from "@material-ui/core";
+import { Divider, Grid, Typography} from "@material-ui/core";
 import {Redirect, useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
-import {ManageEndDate} from "./ManageEndDate";
 import React, {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
-import {withSwal} from "../../commons/formsCommons/WithSwal";
+import { Dates } from "./Dates";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const ManageProcess = () => {
@@ -14,13 +13,13 @@ export const ManageProcess = () => {
     const {id} = useParams()
     const [fetchError, setFetchError] = useState(false)
     const [process, setProcess] = useState(null)
-    const [selectedEndDate, setSelectedEndDate] = useState(null)
+
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
         processAPI.getProcessById(id)
             .then(data => {
                 setProcess(data)
-                setSelectedEndDate(data?.endDate || new Date())
             })
             .catch(() => {
                 Swal.fire({
@@ -29,7 +28,7 @@ export const ManageProcess = () => {
                     icon: "error"
                 }).then(() => setFetchError(true))
             })
-    }, [id])
+    }, [id, reload])
 
     const showHelp = () => {
         Swal.fire({
@@ -60,26 +59,9 @@ export const ManageProcess = () => {
                             <Grid item><Typography variant="h5">Recruitment Process Settings</Typography></Grid>
                         </Grid>
                         <Grid item> <Divider/> </Grid>
-                        <Grid container style={{display: "flex", flexGrow: 1}}>
-                            {/*<Grid item>*/}
-                            {/*  Beginning of recruitment process in future maybe  */}
-                            {/*</Grid>*/}
-                            <Grid item>
-                                <ManageEndDate selectedDate={selectedEndDate || new Date()}
-                                               onChange={(date) => setSelectedEndDate(date)}
-                                               processStartDate={process?.startDate}/>
-                            </Grid>
-                        </Grid>
-                        {/*<Grid item>*/}
-                        {/*    In future tasks and quizzes? */}
-                        {/*</Grid>*/}
-                        <Grid item>
-                            <Grid container direction="row">
-                                <Grid item xs={false} sm={6} lg={8}/>
-                                <Grid item xs={12} sm={6} lg={4}>
-                                    <Button onClick={handleSubmit} variant="outlined">Submit</Button>
-                                </Grid>
-                            </Grid>
+
+                        <Grid item style={{marginLeft: "1em", marginRight: "1em", marginTop: '1em'}}>
+                            <Dates process={process} reload={reload} setReload={setReload} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -92,8 +74,8 @@ export const ManageProcess = () => {
                             </Grid>
                         </Grid>
                         <Grid item> <Divider/> </Grid>
-                        <Grid item>
-                            <ManageStages processId={id} processData={process}/>
+                        <Grid item style={{marginTop: '1em'}}>
+                            <ManageStages processId={id}/>
                         </Grid>
                     </Grid>
                 </Grid>

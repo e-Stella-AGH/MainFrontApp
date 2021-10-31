@@ -9,8 +9,9 @@ export const offersAPI = {
             .then(response => response.json())
     },
 
-    getAllOffers: function(){
-        return checkedFetch(recruitmentServiceBasicAPILink + "/api/offers")
+    getAllOffers: function(forCandidate = false){
+        const queryParam = forCandidate ? "?only_started=true" : ""
+        return checkedFetch(recruitmentServiceBasicAPILink + "/api/offers" + queryParam)
             .then(response => response.json())
     },
 

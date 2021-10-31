@@ -2,15 +2,15 @@ import {EStellaDatePicker} from "../../commons/EStellaDatePicker";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-export const ManageEndDate = ({selectedDate, onChange, processStartDate}) => {
+export const ManageDate = ({selectedDate, onChange, processStartDate, disabled, label}) => {
 
     const handleDateChange = (date) => {
-        if (date > new Date(processStartDate)) {
+        if (!processStartDate || date > new Date(processStartDate)) {
             onChange(date)
         } else {
             Swal.fire({
                 title: "Oops, you cannot do this!",
-                text: "Looks like you've tried to set a date that's earlier than start date!",
+                text: "Looks like you've tried to set a date that's earlier than today!",
                 icon: "error"
             })
         }
@@ -20,10 +20,12 @@ export const ManageEndDate = ({selectedDate, onChange, processStartDate}) => {
             selectedDate={selectedDate}
             handleDateChange={handleDateChange}
             divStyle={{marginLeft: "1em", marginRight: "auto"}}
+            disabled={disabled}
+            label={label}
         />
 }
 
-ManageEndDate.propTypes = {
+ManageDate.propTypes = {
     selectedDate: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
 }

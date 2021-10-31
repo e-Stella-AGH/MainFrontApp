@@ -16,7 +16,7 @@ const LandingOffers = () => {
     const [offers, setOffers] = useState(null)
 
     useEffect(() => {
-        offersAPI.getAllOffers()
+        offersAPI.getAllOffers(true)
             .then(data => setOffers(data || []))
             .catch(() => {
                 Swal.fire({

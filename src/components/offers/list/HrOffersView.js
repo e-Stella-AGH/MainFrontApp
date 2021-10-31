@@ -1,6 +1,6 @@
 import {offersAPI} from "../../../utils/apis/OfferApi";
 import {hrOfferButtons} from "../HrOfferButtons";
-import {theme} from "../../../test/utils/theme";
+import {theme} from "../../../utils/theme";
 import {OffersView} from "./OffersView";
 import React from "react";
 import {Link} from "react-router-dom";

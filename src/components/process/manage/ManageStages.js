@@ -6,11 +6,11 @@ import {withSwal} from "../../commons/formsCommons/WithSwal";
 import Swal from "sweetalert2";
 import {Redirect} from "react-router-dom";
 
-export const ManageStages = ({processId, processData}) => {
+export const ManageStages = ({processId}) => {
 
     const theme = useTheme()
 
-    const stages = processData.stages
+    const [stages, setStages] = useState([])
     const [possibleStages, setPossibleStages] = useState([])
     const [fetchError, setFetchError] = useState(false)
 
@@ -19,6 +19,19 @@ export const ManageStages = ({processId, processData}) => {
             title: "Getting data"
         })
         Swal.showLoading()
+        processAPI.getProcessById(processId)
+            .then(data => {
+                setStages(data.stages);
+                swal.close()
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We were unable to get process data!",
+                    icon: "error"
+                }).then(() => setFetchError(true))
+            })
+            .finally(() => swal.close())
         processAPI.getAllPossibleStages()
             .then(data => setPossibleStages(data))
             .catch(() => {
@@ -56,7 +69,8 @@ export const ManageStages = ({processId, processData}) => {
     return fetchError ? <Redirect to="/" /> : <TwoColumnDnD
         firstListItems={getStages()}
         secondListItems={getPossibleStages()}
-        forbiddenIndexes={[0, getStages()?.length]}
+        //temporary solution - would be the best to actually change TwoColumnDnD to fire callback about setting items length
+        forbiddenIndexes={[0, 20]}
         warningFunction={() => fireSwal(
             "You can't do this!",
             "We're sorry, but you cannot set this stage here! See help for more information.",

@@ -24,7 +24,7 @@ export const theme = createTheme({
             main: '#d7d7d7',
             light: '#e5e5e5',
             dark: '#d3d3d3',
-            background: '#f8f7f5'
+            background: '#ffffff'
         },
         focused: {
             light: '#8ff4ff',

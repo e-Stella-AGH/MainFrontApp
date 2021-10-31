@@ -3,7 +3,7 @@ import {ListWithSelection} from "../../../components/commons/layouts/ListWithSel
 import {ListElementDetails} from "../../../components/commons/layouts/ListElementDetails";
 import userEvent from "@testing-library/user-event";
 import {ThemeProvider} from "@material-ui/styles";
-import {theme} from "../../utils/theme";
+import {theme} from "../../../utils/theme";
 
 describe("Base layout test", () => {
 
