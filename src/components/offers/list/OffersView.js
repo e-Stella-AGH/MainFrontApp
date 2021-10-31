@@ -16,8 +16,9 @@ import Swal from "sweetalert2";
 export const OffersView = (props) => {
 
     const [selectedOffer, setSelectedOffer] = useState(null)
-    const [offers, setOffers] = useState(null)
+    const [offers, setOffers] = useState([])
     const [fetchError, setFetchError] = useState(false)
+    const [fetching, setFetching] = useState(true)
     const {id} = useParams()
     const [fixedOffers, setFixedOffers] = useState([])
     const [sort, setSort] = useState({apply: (offers) => offers})
@@ -45,13 +46,17 @@ export const OffersView = (props) => {
             .then(data => {
                 setOffers(data || [])
                 setFixedOffers(data || [])
+                setFetching(false)
             })
             .catch(() => {
                 Swal.fire({
                     title: "Error",
                     text: "We weren't able to get offers! You will be redirected to home page",
                     icon: "error"
-                }).then(() => setFetchError(true))
+                }).then(() => {
+                    setFetching(false)
+                    setFetchError(true)
+                })
             })
     }, [props])
 
@@ -69,7 +74,7 @@ export const OffersView = (props) => {
     const offersList = () =>
         <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
 
-    return fetchError ? <Redirect to="/" /> : (offers == null ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
+    return fetchError ? <Redirect to="/" /> : (fetching ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
             filter={<Filter offers={offers}
                             onFilterSubmitted={handleFilterSubmitted}
                             fixedOffers={fixedOffers}
