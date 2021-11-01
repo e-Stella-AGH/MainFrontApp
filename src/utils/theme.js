@@ -1,6 +1,9 @@
 import {createTheme} from "@material-ui/core/styles";
 
 export const theme = createTheme({
+    zIndex: {
+        drawer: 1000
+    },
     status: {
         danger: {
             main: '#d32f2f'

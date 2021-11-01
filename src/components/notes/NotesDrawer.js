@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const NotesDrawer = ({ notes }) => {
+export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
 
     const classes = useStyles()
     const theme = useTheme()
@@ -80,7 +80,7 @@ export const NotesDrawer = ({ notes }) => {
                     }),
                   }}
             >
-                {!open ? closedView : <NotesMenu notes={notes} />}
+                {!open ? closedView : <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} />}
             </Drawer>
         </div>
     )

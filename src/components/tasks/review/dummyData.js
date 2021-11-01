@@ -7,12 +7,12 @@ export const dummyData = {
         },
         {
             author: "author@author.com",
-            tags: ["tag1", "tag2", "tag3"],
+            tags: ["tag1", "tag5", "tag3"],
             text: "SnVzdCBhIG5vdGU="
         },
         {
             author: "author@author.com",
-            tags: ["tag1", "tag2", "tag3"],
+            tags: ["tag1", "tag2", "tag4"],
             text: "SnVzdCBhIG5vdGU="
         },
     ],
