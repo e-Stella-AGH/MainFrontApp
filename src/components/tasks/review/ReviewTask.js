@@ -3,9 +3,9 @@ import {tasksApi} from '../../../utils/apis/tasksAPI';
 import { useDevPassword } from '../../../utils/hooks/useDevPassword'
 import { NotesDrawer } from '../../notes/NotesDrawer';
 import { TasksCarousel } from './TasksCarousel'
-import { dummyData } from './dummyData';
 import Swal from 'sweetalert2'
 import {useHistory} from 'react-router-dom'
+import { Typography } from '@material-ui/core'
 
 export const ReviewTask = ({ id: taskStageUUID }) => {
 
@@ -40,7 +40,7 @@ export const ReviewTask = ({ id: taskStageUUID }) => {
     return(
         <div>
             <NotesDrawer notes={notes} uuid={taskStageUUID} uuid_key="task_note" reload={reload} setReload={setReload} />
-            <TasksCarousel tasks={tasks} />
+            { tasks?.length > 0 ? <TasksCarousel tasks={tasks} /> : <Typography variant="h5" style={{textAlign: 'center'}}> There are no tasks results to show! </Typography>}
         </div>
     )
 }

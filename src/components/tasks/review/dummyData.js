@@ -21,7 +21,13 @@ export const dummyData = {
             code: "def something():\n    whatever()",
             results: "xd",
             tests: "xd",
-            description: "xd"
+            description: "Q2/FmyB0YW0sIHphZGFua28gd2FyaWFjaWUgaSB0eWxl"
+        },
+        {
+            code: "def something():\n    whatever()",
+            results: "xd",
+            tests: "xd",
+            description: "QW5vdGhlciB1c2VsZXNzIHRhc2ssIGNhdXNlIHdlIGtub3cgdGhhdCB3ZSdsbCBvbmx5IG1ha2UgYnV0dG9ucyBiaWdnZXI="
         }
     ]
 }
