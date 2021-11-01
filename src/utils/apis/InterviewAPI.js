@@ -1,5 +1,5 @@
 import {authFetch} from "../authFetch";
-import {meetingOrganizerLink} from "./APILinks";
+import {meetingOrganizerLink, recruitmentServiceBasicAPILink} from "./APILinks";
 
 export const interviewAPI = {
 
@@ -9,8 +9,8 @@ export const interviewAPI = {
         })
     },
 
-    getNewestInterview: applicationId => {
-        return authFetch(meetingOrganizerLink + `api/interview/newest/${applicationId}`, {}, "Couldn't find interview for this application")
+    getNewestInterviewId: applicationId => {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/interview/newest/${applicationId}`, {}, "Couldn't find interview for this application")
             .then(response => response.json())
     }
 

@@ -7,6 +7,8 @@ import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
 import {useHistory} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { interviewAPI } from '../../utils/apis/InterviewAPI';
 
 export const ApplicationDetails = ({application, isHR, reload}) => {
 

@@ -5,6 +5,7 @@ import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 import {constants} from "../../../utils/constants";
 import {useEffect, useState} from "react";
 import {interviewAPI} from "../../../utils/apis/InterviewAPI";
+import { CircularProgress } from '@material-ui/core';
 
 export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
@@ -22,16 +23,15 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
     useEffect(() => {
         if(userData.userType === "organizer") {
-            interviewAPI.getNewestInterview(uuid)
-                .then(data => {
-                    setMeetingUUID(data?.meetingUUID)
-                })
+            interviewAPI.getNewestInterviewId(uuid)
+                .then(data => setMeetingUUID(data.uuid))
         }
     }, [type, uuid])
 
-    return <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
+    return meetingUUID ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                              userData={userData}
                              outsideJwt={jwtUtils.getAuthToken()}
                              outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
-                             drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}} outsideMeetingUUID={meetingUUID} />
+                             drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}
+                             outsideMeetingUUID={meetingUUID} /> : <CircularProgress size={80} />
 }
