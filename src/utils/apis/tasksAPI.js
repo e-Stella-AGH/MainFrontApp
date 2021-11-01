@@ -52,7 +52,6 @@ export const tasksApi = {
     codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
 
     getNotesWithTasksByTaskUUID: (taskStageUUID, devPassword) => {
-        console.log(devPassword)
         return checkedFetch(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?task_note=${taskStageUUID}&with_tasks=true`, {
             method: "GET",
             headers: {
