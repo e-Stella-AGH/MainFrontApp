@@ -22,7 +22,6 @@ export const applicationsAPI = {
     },
 
     nextStage: function(applicationId, devMails) {
-        console.log(applicationId, devMails)
         return authFetch(recruitmentServiceBasicAPILink + `/api/applications/${applicationId}/next`, {
             method: "PUT",
             body: JSON.stringify({"devs": devMails})

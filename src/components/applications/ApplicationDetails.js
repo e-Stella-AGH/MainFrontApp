@@ -7,13 +7,12 @@ import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
 import {useHistory} from "react-router-dom";
+import {validateEmail} from "../../utils/functions";
 
 export const ApplicationDetails = ({application, isHR, reload}) => {
 
     const theme = useTheme()
     const history = useHistory()
-
-    console.log(application)
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -62,6 +61,12 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                         devsMails.split(",")
                             .map(mail => mail.trim())
                             .forEach(mail => devMails.push(mail))
+                        devMails.forEach(mail => {
+                            if(!validateEmail(mail)) {
+                                Swal.showValidationMessage(`${mail} is not a valid email`)
+                                devMails.length = 0
+                            } 
+                        })
                     } else {
                         Swal.showValidationMessage("Please, add mails of such people, as you won't be able to change it later.")
                     }
@@ -94,8 +99,6 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
         if (checkForNext) indexOfNextStage += 1
         return types.includes(application?.stages[indexOfNextStage]?.type)
     }
-
-    console.log(nextStageRequiresDevs())
 
     const getDisabled = () => {
         return application.status === "REJECTED" || application.status === "ACCEPTED"
