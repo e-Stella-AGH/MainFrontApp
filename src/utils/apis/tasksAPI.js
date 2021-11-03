@@ -28,27 +28,7 @@ export const tasksApi = {
         }
     },
 
-    getTasks: (tasksStageId) => {
-        if (tasksStageId) {
-            return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?taskStage=${tasksStageId}`)
-                .then(response => {
-                    Swal.close()
-                    return response.json()
-                })
-                .catch(err => {
-                    Swal.close()
-                    return new Promise(resolve => resolve([fallbackTask]))
-                })
-        } else {
-            Swal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: `Looks like somebody didn't add a task but wants to solve one something, we've prepared a task for you though!`
-            })
-            return new Promise(_ => fallbackTask)
-        }
-    },
-
     codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
+
 
 }
