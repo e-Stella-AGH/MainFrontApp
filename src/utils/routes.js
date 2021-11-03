@@ -36,7 +36,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/interview/:interviewId/", <Meeting />, {}),
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={() => offersAPI.getAllOffers(true)}/>),
-    createRoute("/offers/:id", <OffersView getOffers={offersAPI.getAllOffers}/>),
+    createRoute("/offers/:id", <OffersView getOffers={() => offersAPI.getAllOffers(true)}/>),
     createRoute("/hr/offers", withUserAuth(HrOffersView, ["hr"])),
     createRoute("/hr/offers/view/:id", withUserAuth(HrOffersView, ["hr"])),
     createRoute("/user/applications", withUserAuth(ApplicationsView, ["job_seeker"], {isHR: false, getApplications: () => applicationsAPI.getApplicationsByJobSeeker()})),
