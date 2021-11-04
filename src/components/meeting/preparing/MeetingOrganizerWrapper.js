@@ -5,7 +5,6 @@ import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 import {constants} from "../../../utils/constants";
 import React, {useEffect, useState} from "react";
 import {interviewAPI} from "../../../utils/apis/InterviewAPI";
-import { CircularProgress } from '@material-ui/core';
 import Swal from "sweetalert2";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
@@ -25,7 +24,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
     const onPickSlotByJobSeeker = userData.userType === "job_seeker" ? (slot) => console.log(slot) : () => {}
 
     useEffect(() => {
-        if(userData.userType === "organizer") {
+        if(type === "organizer") {
             interviewAPI.getNewestInterview(uuid)
                 .then(data => {
                     setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
@@ -33,7 +32,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
                 .catch(() =>
                     Swal.fire({
                         title: "Error",
-                        text: "We couldn't find an interview for this application! You will be redirected to home page",
+                        text: "We couldn't find the interview data for this application! You will be redirected to home page",
                         icon: "error"
                     }).then(() => {
                         setFetchError(true)
