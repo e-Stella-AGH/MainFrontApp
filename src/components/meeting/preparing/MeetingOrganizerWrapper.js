@@ -5,11 +5,12 @@ import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 import {constants} from "../../../utils/constants";
 import {useEffect, useState} from "react";
 import {interviewAPI} from "../../../utils/apis/InterviewAPI";
+import { CircularProgress } from '@material-ui/core';
 
 export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
     const {type : paramType, uuid} = useParams()
-    const [meetingUUID, setMeetingUUID] = useState("")
+    const [outsideValues, setOutsideValues] = useState(null)
 
     const type = paramType || propType
 
@@ -24,14 +25,15 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         if(userData.userType === "organizer") {
             interviewAPI.getNewestInterview(uuid)
                 .then(data => {
-                    setMeetingUUID(data?.meetingUUID)
+                    setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
                 })
         }
     }, [type, uuid])
 
-    return <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
-                             userData={userData}
-                             outsideJwt={jwtUtils.getAuthToken()}
-                             outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
-                             drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}} outsideMeetingUUID={meetingUUID} />
+    return !!outsideValues ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
+                                userData={userData}
+                                outsideJwt={jwtUtils.getAuthToken()}
+                                outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
+                                drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}
+                                outsideMeetingValues={outsideValues} />: <CircularProgress size={80} />
 }
