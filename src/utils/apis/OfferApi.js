@@ -1,32 +1,18 @@
 import {recruitmentServiceBasicAPILink} from "./APILinks"
-import Swal from "sweetalert2";
 import {headers} from "./headers";
 import {authFetch} from "../authFetch";
+import {checkedFetch} from "../chekedFetch";
 
 export const offersAPI = {
     getOfferById: function(offerId){
-        return fetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
+        return checkedFetch(recruitmentServiceBasicAPILink + `/api/offers/${offerId}`)
             .then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get this offer!",
-                    icon: "error"
-                })
-            })
     },
 
     getAllOffers: function(forCandidate = false){
         const queryParam = forCandidate ? "?only_started=true" : ""
-        return fetch(recruitmentServiceBasicAPILink + "/api/offers" + queryParam)
+        return checkedFetch(recruitmentServiceBasicAPILink + "/api/offers" + queryParam)
             .then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     },
 
     applyWithNoUser: function (offerId, name, surname, email, files=[]) {
@@ -73,26 +59,12 @@ export const offersAPI = {
             method: "GET",
             headers: headers
         }).then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     },
 
     getOffersFromOrganization() {
         return authFetch(recruitmentServiceBasicAPILink + `/api/organizations/offers`, {
             method: "GET"
         }).then(response => response.json())
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "We weren't able to get offers!",
-                    icon: "error"
-                })
-            })
     },
 
     deleteOffer(id) {
