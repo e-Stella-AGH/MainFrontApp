@@ -5,15 +5,22 @@ import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
-import Swal from "sweetalert2";
 
-export const TasksList = ({ fetchTasks, onFetchFail, id, onCreateTask, onDeleteTask }) => {
+export const TasksList = ({
+                              fetchTasks,
+                              reload,
+                              setReload,
+                              onFetchFailedByServer,
+                              onUnauthFetch,
+                              id,
+                              onCreateTask,
+                              onDeleteTask
+                          }) => {
 
     const [tasks, setTasks] = useState([])
-    const [reload, setReload] = useState(false)
     const [fetching, setFetching] = useState(true)
 
-    const addTask = () => createTask(onCreateTask, reload, setReload)
+    const addTask = () => createTask(onCreateTask, setReload)
 
     useEffect(() => {
         fetchTasks(id)
@@ -21,17 +28,16 @@ export const TasksList = ({ fetchTasks, onFetchFail, id, onCreateTask, onDeleteT
                 setTasks(data)
                 setFetching(false)
             })
-            .catch(() => {
-                Swal.fire({
-                    title: "Error",
-                    text: "You cannot access this panel! Check your credentials!",
-                    icon: "error"
-                }).then(() => onFetchFail())
+            .catch(httpError => {
+                if (400 <= httpError.code && httpError.code < 500)
+                    onUnauthFetch(httpError)
+                else
+                    onFetchFailedByServer()
             })
-    }, [fetchTasks, id, reload, setTasks, setFetching, onFetchFail])
+    }, [reload, fetchTasks, id, setTasks, setFetching, onUnauthFetch, onFetchFailedByServer])
 
     const deleteTask = (taskId) => onDeleteTask(taskId).then(resp => {
-        setReload(!reload)
+        setReload(r => !r)
         return resp
     })
 

@@ -5,6 +5,7 @@ import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
+import React from "react";
 
 let task = {}
 
@@ -57,37 +58,36 @@ const basicSwal = {
 
 const MySwal = withReactContent(Swal)
 
-export const createTask = (addTask, reload, setReload) => {
+export const createTask = (onCreateTask, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDescription
             handleChange={{'md': handleMarkdownChange, 'text': handleTextChange, 'file': handleFileChangeDescription}}/>
     }).then(result => {
         if (result.isConfirmed) {
-            createTests(addTask, reload, setReload)
+            createTests(onCreateTask, setReload)
         }
     })
 }
 
 
 const handleManualTestsChange = (testCases) => {
-    console.log(testCases.map(JSON.stringify))
     delete task['testsBase64']
     task['testsBase64'] = btoa(JSON.stringify(testCases))
 }
 
-const createTests = (addTask, reload, setReload) => {
+const createTests = (onCreateTask, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddTests handleChange={{'file': handleFileChangeTests, 'manual': handleManualTestsChange}}/>
     }).then(result => {
         if(result.isConfirmed) {
-            createTimeLimit(addTask, reload, setReload)
+            createTimeLimit(onCreateTask, setReload)
         }
     })
 }
 
-const createTimeLimit = (addTask, reload, setReload) => {
+const createTimeLimit = (onCreateTask, setReload) => {
     MySwal.fire({
         ...basicSwal,
         input: 'number',
@@ -95,27 +95,27 @@ const createTimeLimit = (addTask, reload, setReload) => {
     }).then(result => {
         if(result.isConfirmed) {
             task['timeLimit'] = Number(result.value)
-            createDeadline(addTask, reload, setReload)
+            createDeadline(onCreateTask, setReload)
         }
     })
 }
 
-const createDeadline = (addTask, reload, setReload) => {
+const createDeadline = (onCreateTask, setReload) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDeadline handleChange={(date) => task['deadline'] = date} />,
         confirmButtonText: 'Create'
     }).then(result => {
         if(result.isConfirmed) {
-            create(addTask, reload, setReload)
+            create(onCreateTask, setReload)
         }
     })
 }
 
-const create = (addTask, reload, setReload) => {
+const create = (onCreateTask, setReload) => {
     withSwal({
-        promise: () => addTask(task).then(resp => {
-            setReload(!reload)
+        promise: () => onCreateTask(task).then(resp => {
+            setReload(reload => !reload)
             return resp
         }),
         successSwalTitle: "Success",
