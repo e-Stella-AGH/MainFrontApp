@@ -12,6 +12,11 @@ export const interviewAPI = {
     getNewestInterviewId: applicationId => {
         return authFetch(recruitmentServiceBasicAPILink + `/api/interview/newest/${applicationId}`, {}, "Couldn't find interview for this application")
             .then(response => response.json())
+    },
+
+    getNewestInterview: applicationId => {
+        return authFetch(recruitmentServiceBasicAPILink + `/api/interview/newest/${applicationId}/interview`, {}, "Couldn't find interview for this application")
+            .then(response => response.json())
     }
 
 }
