@@ -53,8 +53,6 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         }
     }, [type, uuid])
 
-    console.log(userData)
-
     return fetchError ? <Redirect to={redirectPath} /> : (
         !!outsideValues || !!userData ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                                 userData={userData}
