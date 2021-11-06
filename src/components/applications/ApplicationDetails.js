@@ -7,6 +7,7 @@ import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
 import {useHistory} from "react-router-dom";
+import {validateEmail} from "../../utils/functions";
 
 export const ApplicationDetails = ({application, isHR, reload}) => {
 
@@ -33,7 +34,8 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
             if(result.isConfirmed) {
                 withSwal({
                     loadingTitle: "Rejecting Application",
-                    promise: () => applicationsAPI.rejectApplication(application.id).then(_ => reload()),
+                    promise: () => applicationsAPI.rejectApplication(application.id),
+                    successFunction: () => reload(),
                     successSwalText: "Application rejected successfully"
                 })
             } else {
@@ -47,12 +49,55 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     }
 
     const nextStage = () => {
+        if ( nextStageRequiresDevs() ) {
+            const devMails = []
+            Swal.fire({
+                title: "We need more info",
+                icon: "warning",
+                text: 'Next stage of this appliaction requires people with technical knowledge. Please, insert their mails here, splitting them with commas (,)',
+                input: "text",
+                preConfirm: (devsMails) => {
+                    if (devsMails) {
+                        devsMails.split(",")
+                            .map(mail => mail.trim())
+                            .forEach(mail => devMails.push(mail))
+                        devMails.forEach(mail => {
+                            if(!validateEmail(mail)) {
+                                Swal.showValidationMessage(`${mail} is not a valid email`)
+                                devMails.length = 0
+                            } 
+                        })
+                    } else {
+                        Swal.showValidationMessage("Please, add mails of such people, as you won't be able to change it later.")
+                    }
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    doSetNextStage(devMails)
+                }
+            })
+        } else {
+            doSetNextStage([])
+        }
+    }
+
+    const doSetNextStage = (devMails) => {
         withSwal({
             loadingTitle: "Setting next stage of Application",
-            promise: () => applicationsAPI.nextStage(application.id),
+            promise: () => applicationsAPI.nextStage(application.id, devMails),
             successFunction: () => reload(),
             successSwalTitle: "Next stage set successfully"
         })
+    }
+
+    const nextStageRequiresDevs = () => nextStageIsOneOf(["TECHNICAL_INTERVIEW", "TASK"], true)
+
+    const stageRequiresMeeting = () => nextStageIsOneOf(["TECHNICAL_INTERVIEW", "HR_INTERVIEW"])
+
+    const nextStageIsOneOf = (types, checkForNext) => {
+        let indexOfNextStage = application?.stages?.findIndex(stage => stage.id === application.stage.id)
+        if (checkForNext) indexOfNextStage += 1
+        return types.includes(application?.stages[indexOfNextStage]?.type)
     }
 
     const getDisabled = () => {
@@ -99,7 +144,10 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                                     </Grid>
                             }
                         </Grid>
-                        <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
+                        {
+                            isHR && stageRequiresMeeting() && !getDisabled() &&
+                                <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
+                        }
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
                         </Grid>
