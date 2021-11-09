@@ -64,7 +64,7 @@ export const AddNote = ({ onCancel, uuid, uuid_key, reload, setReload }) => {
         if (!devMail) {
             Swal.fire({
                 title: "Missing informations!",
-                html: 'Please, provide your mail, as everyone will know, who you are.<br /><input type="text" id="mail" class="swal2-input" placeholder="Mail">',
+                html: 'Please, provide your mail, as everyone knows, who you are.<br /><input type="text" id="mail" class="swal2-input" placeholder="Mail">',
                 icon: 'warning',
                 preConfirm: () => {
                     const mail = Swal.getPopup().querySelector('#mail').value
