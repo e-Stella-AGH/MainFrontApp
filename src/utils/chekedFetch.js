@@ -7,8 +7,9 @@ class HttpError extends Error {
 
 const checkResponseStatusOrThrowError = (response, errorMessage) => {
     const code = response.status
-    if(code < 200 || code > 299)
+    if(code < 200 || code > 299) {
         throw new HttpError(code, errorMessage || "Something went wrong")
+    }
 }
 
 export const checkedFetch = (url, data, errorMessage) => {

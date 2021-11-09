@@ -4,9 +4,11 @@ import 'react-markdown-editor-lite/lib/index.css';
 
 const mdParser = new MarkdownIt()
 
-export const MarkdownEditor = ({ style, handleChange }) => {
+export const MarkdownEditor = ({ style, handleChange, view }) => {
+
+    const usableView = {menu: true, html: true, md: true, ...view}
 
     return (
-        <MdEditor style={style || { height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleChange} />
+        <MdEditor style={style || { height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleChange} view={usableView} />
     )
 }

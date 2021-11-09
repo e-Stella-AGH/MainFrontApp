@@ -7,6 +7,8 @@ import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
 import {useHistory} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { interviewAPI } from '../../utils/apis/InterviewAPI';
 import {validateEmail} from "../../utils/functions";
 
 export const ApplicationDetails = ({application, isHR, reload}) => {
@@ -108,7 +110,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
         getDisabled() ? {} : {border: `1px solid ${theme.status.danger.main}`, color: theme.status.danger.main}
 
     const teleportToMO = () =>
-        history.push(`/meeting/organizer/${application.id}`)
+        isHR ? history.push(`/meeting/organizer/${application.id}`) : history.push(`/meeting/job_seeker/${application.id}`)
 
     const getCardContent = () => {
         return (<CardContent>
@@ -145,7 +147,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                             }
                         </Grid>
                         {
-                            isHR && stageRequiresMeeting() && !getDisabled() &&
+                            stageRequiresMeeting() && !getDisabled() &&
                                 <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
                         }
                         <Grid item xs={12}>
