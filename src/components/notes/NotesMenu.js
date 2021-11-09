@@ -34,7 +34,7 @@ export const NotesMenu = ({ notes, uuid, uuid_key, reload, setReload }) => {
                 </Grid>
             </Grid>
 
-            { showAdd && <AddNote onCancel={() => setShowAdd(false)} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} /> }
+            { showAdd && <AddNote onCancel={() => setShowAdd(false)} uuid={uuid} uuid_key={uuid_key} setReload={setReload} /> }
 
             <Divider style={{marginTop: '1em'}} />
 

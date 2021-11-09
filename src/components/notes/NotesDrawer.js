@@ -80,7 +80,7 @@ export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
                     }),
                   }}
             >
-                {!open ? closedView : <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} />}
+                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} /> : closedView}
             </Drawer>
         </div>
     )

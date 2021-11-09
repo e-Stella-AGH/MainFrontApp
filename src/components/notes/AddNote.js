@@ -5,13 +5,13 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { TagsList } from './TagsList'
 import '../../App.css';
 import { useDevMail } from '../../utils/hooks/useDevMail';
-import { encode } from '../../utils/hooks/Base64';
+import { encodeBase64 } from '../../utils/hooks/Base64';
 import { useDevPassword } from '../../utils/hooks/useDevPassword';
 import { NoteApi } from '../../utils/apis/NoteApi';
 import Swal from 'sweetalert2'
 import {withSwal} from '../commons/formsCommons/WithSwal'
 
-export const AddNote = ({ onCancel, uuid, uuid_key, reload, setReload }) => {
+export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
 
     const theme = useTheme()
     const {getEncoded} = useDevPassword()
@@ -45,13 +45,13 @@ export const AddNote = ({ onCancel, uuid, uuid_key, reload, setReload }) => {
                     note_body: {
                         author: devMail,
                         tags: tags,
-                        fileBase64: encode(noteText)
+                        fileBase64: encodeBase64(noteText)
                     },
                     dev_password: getEncoded()
                 }),
             successSwalTitle: 'Note successfully added',
             successFunction: () => {
-                setReload?.(!reload)
+                setReload?.(reload => !reload)
             }
         })
         setTags([])
@@ -64,7 +64,7 @@ export const AddNote = ({ onCancel, uuid, uuid_key, reload, setReload }) => {
         if (!devMail) {
             Swal.fire({
                 title: "Missing informations!",
-                html: 'Please, provide your mail, as everyone knows, who you are.<br /><input type="text" id="mail" class="swal2-input" placeholder="Mail">',
+                html: 'Please, provide your mail, so everyone knows, who you are.<br /><input type="text" id="mail" class="swal2-input" placeholder="Mail">',
                 icon: 'warning',
                 preConfirm: () => {
                     const mail = Swal.getPopup().querySelector('#mail').value

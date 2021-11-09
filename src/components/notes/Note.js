@@ -1,5 +1,5 @@
 import { Card, Chip, Divider, CardContent, Typography } from '@material-ui/core';
-import { decode } from '../../utils/hooks/Base64'
+import { decodeBase64 } from '../../utils/hooks/Base64'
 import { TagsList } from './TagsList'
 
 export const Note = ({ note }) => {
@@ -10,7 +10,7 @@ export const Note = ({ note }) => {
             <TagsList tags={note.tags} />
             <Divider />
             <CardContent>
-                {decode(note.text)}
+                {decodeBase64(note.text)}
             </CardContent>
         </Card>
     )

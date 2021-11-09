@@ -1,4 +1,4 @@
-import { encode } from './Base64'
+import { encodeBase64 } from './Base64'
 
 export const useDevPassword = () => {
 
@@ -8,7 +8,7 @@ export const useDevPassword = () => {
 
     const get = () => sessionStorage.getItem(devPasswordKey)
 
-    const getEncoded = () => encode(sessionStorage.getItem(devPasswordKey))
+    const getEncoded = () => encodeBase64(sessionStorage.getItem(devPasswordKey))
 
     return {get, set, getEncoded}
 
