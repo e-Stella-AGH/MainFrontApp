@@ -36,14 +36,14 @@ const useStyles = makeStyles((theme) => ({
   }
 
 
-export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTasks, setReload, taskStageUUID }) => {
+export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTasks, setReload, assignKey, assignUUIDValue }) => {
 
     const classes = useStyles()
-    const {getEncoded, get} = useDevPassword()
+    const {getEncoded} = useDevPassword()
 
     const onAssign = (task) => {
         const tasksIds = alreadyAssignedTasks.map(assignedTask => assignedTask.id)
-        tasksApi.assignTasks([...tasksIds, task.id], getEncoded(), setReload, "taskStage", taskStageUUID)
+        tasksApi.assignTasks([...tasksIds, task.id], getEncoded(), setReload, assignKey, assignUUIDValue)
     }
 
     return (

@@ -98,7 +98,8 @@ export const DevApplicationDetails = ({devApplication}) => {
                 alreadyAssignedTasks={alreadyAssignedTasks}
                 organizationTasks={organizationTasks}
                 setReload={setReload}
-                taskStageUUID={devApplication.taskStageUUID}
+                assignKey="taskStage"
+                assignUUIDValue={devApplication.taskStageUUID}
             />
         </div>
     )
