@@ -1,8 +1,6 @@
 import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuItem} from "@material-ui/core";
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {theme} from "../../../utils/theme";
 import { getFirstLineFromTaskDescription } from "../tasksUtils";
 
 export const Task = ({task, tasksOperations}) => {
@@ -16,7 +14,7 @@ export const Task = ({task, tasksOperations}) => {
 
     return (
         <Card style={{padding: '1em'}}>
-{/*            UNCOMMENT IF MENU WILL BE NECCESSARY
+        {/*            UNCOMMENT IF MENU WILL BE NECCESSARY
             <div style={{float: 'right'}}>
                 <IconButton onClick={(event) => setMenuAnchor(event.currentTarget)}>
                     <MoreHorizIcon/>

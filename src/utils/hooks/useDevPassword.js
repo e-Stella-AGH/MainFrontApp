@@ -13,7 +13,6 @@ export const useDevPassword = () => {
         return password ? encodeBase64(password) : ''
     }
 
-
     return {get, set, getEncoded}
 
 }

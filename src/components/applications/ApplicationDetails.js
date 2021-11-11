@@ -11,7 +11,11 @@ import { useEffect, useState } from 'react';
 import { interviewAPI } from '../../utils/apis/InterviewAPI';
 import {validateEmail} from "../../utils/functions";
 
+<<<<<<< HEAD
 export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
+=======
+export const ApplicationDetails = ({application, isHR, reload}) => {
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
 
     const theme = useTheme()
     const history = useHistory()
@@ -140,15 +144,24 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
                         <Grid item xs={8}>
                             {
                                 application.seekerFiles.length === 0 ?
+<<<<<<< HEAD
                                     <Typography>{ isHR || isDev ? 'Candidate' : 'You' } didn't supply any files.</Typography> :
+=======
+                                    <Typography>Candidate didn't supply any files.</Typography> :
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
                                     <Grid container direction="row" spacing={4}>
                                         {getSeekerFiles()}
                                     </Grid>
                             }
                         </Grid>
                         {
+<<<<<<< HEAD
                             stageRequiresMeeting() && !getDisabled() && !isDev &&
                                 (<Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>)
+=======
+                            stageRequiresMeeting() && !getDisabled() &&
+                                <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
                         }
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
@@ -158,7 +171,11 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
                 <Grid item xs={12}>
                     <Grid container>
                         {
+<<<<<<< HEAD
                             isHR && !isDev &&
+=======
+                            isHR &&
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
                             <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
                                 <Button style={getRejectButtonStyle()} variant="outlined" onClick={rejectApplication} disabled={getDisabled()}>
                                     Reject Application

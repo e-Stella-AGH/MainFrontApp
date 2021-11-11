@@ -18,14 +18,14 @@ export const ManualTestsCases = ({ handleSubmit }) => {
             expectedResult: testCase.output,
             testCaseId: testCases.length === 0 ? 1 : testCases[testCases.length - 1].testCaseId + 1
         }
-        setTestCases(testCases => [
+        setTestCases([
             ...testCases,
             preparedTestCase
         ])
     }
 
     const handleDelete = (testCase) => {
-        setTestCases( testCases => 
+        setTestCases(
             testCases.filter(test => test.testCaseId !== testCase.testCaseId)
         )
     }

@@ -4,6 +4,7 @@ import {ColumnAndDetailsLayout} from "../commons/layouts/ColumnAndDetailsLayout"
 import {ApplicationsList} from "./ApplicationsList";
 import React, {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
+<<<<<<< HEAD
 import {DevApplicationDetails} from './DevApplicationDetails';
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
 import Swal from "sweetalert2";
@@ -16,6 +17,15 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
     const {getEncoded} = useDevPassword()
 
     const devPassword = getEncoded()
+=======
+import {EmptyApplicationsView} from "./EmptyApplicationsView";
+import Swal from "sweetalert2";
+import CenteredCircularProgress from "../commons/CenteredCircularProgress";
+
+export const ApplicationsView = ({getApplications, isHR}) => {
+
+    const {id} = useParams()
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
 
     const [selectedApplication, setSelectedApplication] = useState(null)
     const [applications, setApplications] = useState([])
@@ -25,7 +35,11 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
 
     useEffect(() => {
         setFetching(true)
+<<<<<<< HEAD
         getApplications(id, mailInBase64, devPassword)
+=======
+        getApplications(id)
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
             .then(data => {
                 setApplications(data)
                 selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
@@ -33,7 +47,11 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
             }).catch(() => {
                 Swal.fire({
                     title: "Error",
+<<<<<<< HEAD
                     text: `We weren't able to get this offer's applications! You will be redirected to ${isDev ? 'main page' : 'your offers'}.`,
+=======
+                    text: "We weren't able to get this offer's applications! You will be redirected to your offers",
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
                     icon: "error"
                 }).then(() => {
                     setFetchError(true)
@@ -42,6 +60,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
             })
     }, [setApplications, getApplications, id, reload])
 
+<<<<<<< HEAD
     const getStandardView = (innerApplications, WrappedComponent = ApplicationDetails, wrappedProps = {application: selectedApplication, isHR, reload: () => setReload(!reload), isDev}, forDev=false) => (
         <StandardViewAndFilterLayout
             filter={null}
@@ -75,6 +94,26 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
             : (applications?.length !== 0 && applications !== undefined ?
                 getView()
                  : <EmptyApplicationsView isHR={isHR} isDev={isDev} />
+=======
+    return fetchError ? <Redirect to="/hr/offers" />
+        : (fetching ? <CenteredCircularProgress size={80} />
+            : (applications?.length !== 0 && applications !== undefined ?
+                <StandardViewAndFilterLayout
+                    filter={null}
+                    sorter={null}
+                    view={
+                        <ColumnAndDetailsLayout
+                            details={selectedApplication ?
+                                <ApplicationDetails application={selectedApplication} isHR={isHR} reload={() => setReload(!reload)} /> :
+                                <div>Select application</div>}
+                            list={<ApplicationsList
+                                applications={applications}
+                                onSelectedApplication={selected => setSelectedApplication(selected)}
+                            />}
+                        />
+                    }
+                /> : <EmptyApplicationsView isHR={isHR} />
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
             )
         )
 }

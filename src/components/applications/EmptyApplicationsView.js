@@ -2,7 +2,11 @@ import Image from '../../assets/empty_view.png'
 import {Box, Button, Grid, Typography} from "@material-ui/core";
 import {useHistory} from "react-router-dom";
 
+<<<<<<< HEAD
 export const EmptyApplicationsView = ({isHR, isDev}) => {
+=======
+export const EmptyApplicationsView = ({isHR}) => {
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
 
     const history = useHistory()
 
@@ -31,7 +35,10 @@ export const EmptyApplicationsView = ({isHR, isDev}) => {
                         </Grid>
                         <Grid item>
                             {
+<<<<<<< HEAD
                                 !isDev &&
+=======
+>>>>>>> c40b8f71775e5d0779e41986e4331bcbb51ac488
                                 isHR ? <Button variant="contained" color="primary" onClick={handleBackToOffers}>
                                         <Typography variant="h6"> Back to my offers </Typography>
                                     </Button>
