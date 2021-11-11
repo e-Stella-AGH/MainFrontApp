@@ -140,7 +140,6 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
                 confirmButtonText: 'Submit'
             }).then(result => {
                 if (result.isConfirmed) {
-                    console.log(result.value)
                     set(`${companyId}:${result.value}`)
                     setOpenTasksModal(true)
                 }
@@ -220,10 +219,12 @@ const AssignTasksWrapper = ({openTasksModal, setOpenTasksModal, interviewId, org
     const [alreadyAssignedTasks, setAlreadyAssignedTasks] = useState([])
 
     useEffect(() => {
+        if(devPassword) {
         tasksApi.getTasksFromOrganization(organizationId, devPassword)
             .then(data => setOrganizationTasks(data))
         tasksApi.getTasksByInterviewId(interviewId)
             .then(data => setAlreadyAssignedTasks(data))
+        }
     }, [reload, organizationId, interviewId])
 
     return (
