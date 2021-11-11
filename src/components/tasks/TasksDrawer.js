@@ -43,14 +43,14 @@ export const TasksDrawer = ({ tasks, key_uuid, uuid, reload, setReload }) => {
 
     const classes = useStyles()
     const theme = useTheme()
-    const [open, setOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleTaskClick = () => {
-        setOpen(true)
+        setIsOpen(true)
     }
 
     const closeTask = () => {
-        setOpen(false)
+        setIsOpen(false)
     }
 
     const closedView = (<List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
@@ -71,17 +71,17 @@ export const TasksDrawer = ({ tasks, key_uuid, uuid, reload, setReload }) => {
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: isOpen,
+                    [classes.drawerClose]: !isOpen,
                   })}
                   classes={{
                     paper: clsx({
-                      [classes.drawerOpen]: open,
-                      [classes.drawerClose]: !open,
+                      [classes.drawerOpen]: isOpen,
+                      [classes.drawerClose]: !isOpen,
                     }),
                   }}
             >
-                {!open ? closedView : <TasksMenu reload={reload} setReload={setReload} />}
+                {!isOpen ? closedView : <TasksMenu reload={reload} setReload={setReload} />}
             </Drawer>
         </div>
     )

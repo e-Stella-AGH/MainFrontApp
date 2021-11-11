@@ -8,7 +8,6 @@ export const ManualTestsCases = ({ handleSubmit }) => {
     const [testCases, setTestCases] = useState([])
 
     useEffect(() => {
-        console.log(testCases)
         handleSubmit(testCases)
     }, [testCases])
 

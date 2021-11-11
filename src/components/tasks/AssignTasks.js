@@ -48,7 +48,6 @@ export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTa
 
     const onDeassign = (task) => {
         const newTasksIds = alreadyAssignedTasks.filter(assignedTask => assignedTask.id !== task.id).map(task => task.id)
-        console.log(newTasksIds, alreadyAssignedTasks, task)
         tasksApi.assignTasks(newTasksIds, getEncoded(), setReload, assignKey, assignUUIDValue)
     }
 

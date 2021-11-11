@@ -22,7 +22,7 @@ export const DevApplicationDetails = ({devApplication}) => {
     const getSeekerFiles = () => {
         return application.seekerFiles
             .map((file, idx) => (
-                <Grid item key={`${idx}`} xs={12} md={6}>
+                <Grid item key={idx} xs={12} md={6}>
                     <FileViewerWrapper undecodedFile={file}/>
                 </Grid>))
     }
@@ -59,7 +59,7 @@ export const DevApplicationDetails = ({devApplication}) => {
                                 <Typography>{application.jobSeeker.user.mail}</Typography>
                             </div>
                             <div>
-                                <Typography color="textSecondary">{processAPI._prepareDate(new Date(application.applicationDate))}</Typography>
+                                <Typography color="textSecondary">{processAPI.prepareDate(new Date(application.applicationDate))}</Typography>
                             </div>
                         </Grid>
                         <Grid item xs={12}><Divider/></Grid>

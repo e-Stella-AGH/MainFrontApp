@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import CenteredCircularProgress from "../commons/CenteredCircularProgress";
 import { useDevPassword } from "../../utils/hooks/useDevPassword";
 
-export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBase64}) => {
+export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) => {
 
     const {id} = useParams()
     const {getEncoded} = useDevPassword()
@@ -23,6 +23,8 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
     const [fetchError, setFetchError] = useState(false)
     const [reload, setReload] = useState(false)
 
+    const text = isDev ? `We weren't able to get this offer's applications! You will be redirected to main page.` : isHR ? `We weren't able to get this offer's applications! You will be redirected to your offers.` : `We weren't able to get your applications!`
+
     useEffect(() => {
         setFetching(true)
         getApplications(id, mailInBase64, devPassword)
@@ -33,7 +35,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev = false, mailInBa
             }).catch(() => {
                 Swal.fire({
                     title: "Error",
-                    text: `We weren't able to get this offer's applications! You will be redirected to ${isDev ? 'main page' : 'your offers'}.`,
+                    text: text,
                     icon: "error"
                 }).then(() => {
                     setFetchError(true)

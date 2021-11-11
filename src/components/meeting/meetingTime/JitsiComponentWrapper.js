@@ -112,8 +112,6 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
     const { get, set } = useDevPassword()
 
     const classes = useStyles()
-
-    const open = openNotesModal
     
     const getNotesView = () => (
         <WithDevPassword
@@ -165,7 +163,7 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
 
     return (
         <div>
-            {open && (
+            {openNotesModal && (
                 <Button onClick={() => setOpenNotesModal(false)} style={{position:'absolute', top: '5em', left: '20px', zIndex: '10001'}}>
                     <CloseIcon size="large" color="action" />
                 </Button>
@@ -173,13 +171,13 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: openNotesModal,
+                    [classes.drawerClose]: !openNotesModal,
                     })}
                     classes={{
                     paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
+                        [classes.drawerOpen]: openNotesModal,
+                        [classes.drawerClose]: !openNotesModal,
                     }),
                     }}
             >
