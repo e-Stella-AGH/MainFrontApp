@@ -2,8 +2,9 @@ import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuIt
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
 import { getFirstLineFromTaskDescription } from "../tasksUtils";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-export const Task = ({task, tasksOperations}) => {
+export const Task = ({task, tasksOperations, forAssign}) => {
 
     const [open, setOpen] = useState(false)
     const [menuAnchor, setMenuAnchor] = useState(null)
@@ -14,13 +15,13 @@ export const Task = ({task, tasksOperations}) => {
 
     return (
         <Card style={{padding: '1em'}}>
-        {/*            UNCOMMENT IF MENU WILL BE NECCESSARY
+        {   forAssign &&
             <div style={{float: 'right'}}>
                 <IconButton onClick={(event) => setMenuAnchor(event.currentTarget)}>
                     <MoreHorizIcon/>
                 </IconButton>
             </div>
-             */}
+        }
             <CardContent>
                 <Typography variant="h5">{ getFirstLineFromTaskDescription(task.descriptionBase64) }</Typography>
                 <Typography variant="subtitle" color="textSecondary">Time limit: {task.timeLimit}</Typography>
@@ -36,7 +37,7 @@ export const Task = ({task, tasksOperations}) => {
                 open={!!menuAnchor}
                 onClose={menuClose}
             >
-                <div>xd</div>
+                {tasksOperations.map(taskOperation => <Button onClick={taskOperation.action}>{taskOperation.title}</Button>)}
             </Menu>
         </Card>
     )

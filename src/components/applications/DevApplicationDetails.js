@@ -9,7 +9,6 @@ import { useDevPassword } from "../../utils/hooks/useDevPassword";
 
 export const DevApplicationDetails = ({devApplication}) => {
 
-    console.log(devApplication)
     const application = devApplication?.application
 
     const { getEncoded } = useDevPassword()
@@ -18,6 +17,7 @@ export const DevApplicationDetails = ({devApplication}) => {
     const [openAssignTasks, setOpenAssignTasks] = useState(false)
     const [alreadyAssignedTasks, setAlreadyAssignedTasks] = useState([])
     const [organizationTasks, setOrganizationTasks] = useState([])
+    const [reload, setReload] = useState(false)
 
     const getSeekerFiles = () => {
         return application.seekerFiles
@@ -32,7 +32,7 @@ export const DevApplicationDetails = ({devApplication}) => {
             .then(data => setOrganizationTasks(data))
         tasksApi.getTasksFromTaskStage(devApplication.taskStageUUID, devPassword)
             .then(data => setAlreadyAssignedTasks(data))
-    }, [devApplication])
+    }, [devApplication, reload])
 
     const assignTask = () => {
         setOpenAssignTasks(true)
@@ -97,6 +97,8 @@ export const DevApplicationDetails = ({devApplication}) => {
                 modalOptions={{open: openAssignTasks, handleClose: () => setOpenAssignTasks(false)}}
                 alreadyAssignedTasks={alreadyAssignedTasks}
                 organizationTasks={organizationTasks}
+                setReload={setReload}
+                taskStageUUID={devApplication.taskStageUUID}
             />
         </div>
     )

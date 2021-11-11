@@ -111,6 +111,23 @@ export const tasksApi = {
             promise,
             successFunction: () => setReload(reload => !reload)
         })
+    },
+
+    assignTasks: (tasksIds, password, setReload, key, keyValue) => {
+        const promise = () => checkedFetch(`${recruitmentServiceBasicAPILink}/api/taskStages?${key}=${keyValue}`, {
+            method: "PUT",
+            body: JSON.stringify({tasks: tasksIds}),
+            headers: {
+                'content-type': 'application/json',
+                'x-dev-password': password
+            }
+        })
+        withSwal({
+            loadingTitle: 'Assigning task',
+            successSwalTitle: 'Task successfully assigned!',
+            promise,
+            successFunction: () => setReload(reload => !reload)
+        })
     }
 
 }
