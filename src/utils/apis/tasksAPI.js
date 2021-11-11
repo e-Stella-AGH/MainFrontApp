@@ -124,7 +124,7 @@ export const tasksApi = {
             }
         })
         withSwal({
-            loadingTitle: 'Assigning task',
+            loadingTitle: 'Updating assigned tasks',
             successSwalTitle: 'Task successfully assigned!',
             promise,
             successFunction: () => setReload(reload => !reload)

@@ -46,6 +46,12 @@ export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTa
         tasksApi.assignTasks([...tasksIds, task.id], getEncoded(), setReload, assignKey, assignUUIDValue)
     }
 
+    const onDeassign = (task) => {
+        const newTasksIds = alreadyAssignedTasks.filter(assignedTask => assignedTask.id !== task.id).map(task => task.id)
+        console.log(newTasksIds, alreadyAssignedTasks, task)
+        tasksApi.assignTasks(newTasksIds, getEncoded(), setReload, assignKey, assignUUIDValue)
+    }
+
     return (
         <Modal
             open={modalOptions.open}
@@ -61,9 +67,9 @@ export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTa
             <Fade in={modalOptions.open}>
                 <div className={classes.paper} style={getModalStyle()}>
                     
-                    <Section title="Tasks you've already assigned:" tasks={alreadyAssignedTasks} empty="No one have assign any tasks for this application" />
+                    <Section title="Tasks you've already assigned:" tasks={alreadyAssignedTasks} empty="No one have assign any tasks for this application" actionTitle="Deassign" action={onDeassign} />
                     <Divider style={{margin: '1em 0'}} />
-                    <Section title="Tasks you can assign:" tasks={organizationTasks} empty="Your organization doesn't have any task." forAssign onAssign={onAssign} />
+                    <Section title="Tasks you can assign:" tasks={organizationTasks} empty="Your organization doesn't have any task." actionTitle="Assign" action={onAssign} />
 
                     <ModalButtons handleClose={modalOptions.handleClose} />
                 </div>
@@ -93,14 +99,14 @@ const ModalButtons = ({ handleClose }) => {
             </Grid>)
 }
 
-const Section = ({ title, tasks, empty, onAssign, forAssign }) => {
+const Section = ({ title, tasks, empty, action, actionTitle }) => {
 
     return (<div style={{margin: '1em 0', overflow: 'hidden', width: '100%'}}>
         <Typography variant="h6" color="textSecondary" style={{marginBottom: '5px'}}>{title}</Typography>
             {
                 tasks?.length > 0 ?
                     <GridList style={{flexWrap: 'nowrap'}} cols={2.5}>
-                        {tasks.map((task, idx) => <GridListTile key={task}><Task task={task} forAssign={forAssign} tasksOperations={[{ title: "Assign", action: () => onAssign(task) }]} /></GridListTile>)}
+                        {tasks.map((task, idx) => <GridListTile key={task}><Task task={task} tasksOperations={[{ title: actionTitle, action: () => action(task) }]} shouldDisplayMenu /></GridListTile>)}
                     </GridList> :
                     <Typography>{empty}</Typography>
             }

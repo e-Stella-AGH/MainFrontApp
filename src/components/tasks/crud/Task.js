@@ -4,7 +4,7 @@ import {GenericFileViewer} from "../../commons/GenericFileViewer";
 import { getFirstLineFromTaskDescription } from "../tasksUtils";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-export const Task = ({task, tasksOperations, forAssign}) => {
+export const Task = ({task, tasksOperations, shouldDisplayMenu}) => {
 
     const [open, setOpen] = useState(false)
     const [menuAnchor, setMenuAnchor] = useState(null)
@@ -15,7 +15,7 @@ export const Task = ({task, tasksOperations, forAssign}) => {
 
     return (
         <Card style={{padding: '1em'}}>
-        {   forAssign &&
+        {   shouldDisplayMenu &&
             <div style={{float: 'right'}}>
                 <IconButton onClick={(event) => setMenuAnchor(event.currentTarget)}>
                     <MoreHorizIcon/>
