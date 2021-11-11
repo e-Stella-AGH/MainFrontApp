@@ -8,7 +8,6 @@ export const WithDevPassword = ({ WrappedComponent, wrappedProps, createPassword
     const params = useParams()
     
     const [password, setPassword] = useState("")
-    console.log(password)
     const { set, get } = useDevPassword()
 
     const handleSubmit = (password) => {

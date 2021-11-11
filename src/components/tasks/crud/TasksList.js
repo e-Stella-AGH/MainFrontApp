@@ -8,9 +8,8 @@ import {tasksApi} from "../../../utils/apis/tasksAPI";
 import { useParams } from 'react-router-dom';
 import { useDevPassword } from "../../../utils/hooks/useDevPassword";
 
-export const TasksList = ({ fetchTasks }) => {
+export const TasksList = ({ fetchTasks, organizationId }) => {
 
-    const { id: organizationId } = useParams()
     const [reload, setReload] = useState(false)
 
     const {getEncoded} = useDevPassword()
@@ -35,12 +34,13 @@ export const TasksList = ({ fetchTasks }) => {
 
     return (
         <div>
-            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginLeft: '20%'}}>
-                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={{ 'delete': () => deleteTask(task?.id) }}/>)}
+            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginRight: '5%'}}>
+                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={[]}/>)}
             </div>
             <Drawer
                 variant="permanent"
                 style={{display: "flex", alignItems: "center"}}
+                anchor="right"
             >
                 <List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
                     <ListItem>
