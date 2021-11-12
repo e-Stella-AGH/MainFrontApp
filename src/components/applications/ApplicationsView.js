@@ -1,11 +1,12 @@
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {StandardViewAndFilterLayout} from "../commons/layouts/StandardViewAndFilterLayout";
 import {ColumnAndDetailsLayout} from "../commons/layouts/ColumnAndDetailsLayout";
 import {ApplicationsList} from "./ApplicationsList";
 import React, {useEffect, useState} from "react";
 import {ApplicationDetails} from "./ApplicationDetails";
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
-import {CircularProgress} from "@material-ui/core";
+import Swal from "sweetalert2";
+import CenteredCircularProgress from "../commons/CenteredCircularProgress";
 
 export const ApplicationsView = ({getApplications, isHR}) => {
 
@@ -14,6 +15,7 @@ export const ApplicationsView = ({getApplications, isHR}) => {
     const [selectedApplication, setSelectedApplication] = useState(null)
     const [applications, setApplications] = useState([])
     const [fetching, setFetching] = useState(false)
+    const [fetchError, setFetchError] = useState(false)
     const [reload, setReload] = useState(false)
 
     useEffect(() => {
@@ -23,15 +25,21 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                 setApplications(data)
                 selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
                 setFetching(false)
-            }).catch(() => setFetching(false))
+            }).catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We weren't able to get this offer's applications! You will be redirected to your offers",
+                    icon: "error"
+                }).then(() => {
+                    setFetchError(true)
+                    setFetching(false)
+                })
+            })
     }, [setApplications, getApplications, id, reload])
 
-    return (
-        <>
-            {
-                fetching ? <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CircularProgress size={100} /></div>
-                    :
-                applications?.length !== 0 && applications !== undefined ?
+    return fetchError ? <Redirect to="/hr/offers" />
+        : (fetching ? <CenteredCircularProgress size={80} />
+            : (applications?.length !== 0 && applications !== undefined ?
                 <StandardViewAndFilterLayout
                     filter={null}
                     sorter={null}
@@ -47,7 +55,6 @@ export const ApplicationsView = ({getApplications, isHR}) => {
                         />
                     }
                 /> : <EmptyApplicationsView isHR={isHR} />
-            }
-        </>
-    )
+            )
+        )
 }

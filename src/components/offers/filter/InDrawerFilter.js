@@ -5,7 +5,7 @@ import {EStellaSlider} from "./EStellaSlider";
 import {useEffect, useState} from "react";
 import {filterTypes} from "../../../utils/Enums";
 import {getFilterValueByType} from "../../../utils/functions";
-import {AutocompleteFilter} from "./AutocompleteFilter";
+import { EStellaAutocomplete } from '../../EStellaAutocomplete'
 
 export const InDrawerFilter = (props) => {
 
@@ -66,7 +66,7 @@ export const InDrawerFilter = (props) => {
 
                 <Grid item>
                     <Box m={1} p={1}>
-                        <AutocompleteFilter options={companyOptions}  label="Company Name" value={companyValue}
+                        <EStellaAutocomplete options={companyOptions}  label="Company Name" value={companyValue}
                             onChange={(value) => setCompanyValue(value)}
                         />
                     </Box>
@@ -74,7 +74,7 @@ export const InDrawerFilter = (props) => {
 
                 <Grid item>
                     <Box m={1} p={1}>
-                        <AutocompleteFilter options={positionOptions}  label="Position" value={positionValue}
+                        <EStellaAutocomplete options={positionOptions}  label="Position" value={positionValue}
                                             onChange={(value) => setPositionValue(value)}
                         />
                     </Box>

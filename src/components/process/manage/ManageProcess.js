@@ -1,15 +1,17 @@
 import {ManageStages} from "./ManageStages";
-import { Divider, Grid, Typography} from "@material-ui/core";
-import {useParams} from "react-router-dom";
+import {Divider, Grid, Typography} from "@material-ui/core";
+import {Redirect, useParams} from "react-router-dom";
 import HelpIcon from '@material-ui/icons/Help';
 import Swal from "sweetalert2";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
-import { Dates } from "./Dates";
+import {Dates} from "./Dates";
+import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
 export const ManageProcess = () => {
 
     const {id} = useParams()
+    const [fetchError, setFetchError] = useState(false)
     const [process, setProcess] = useState(null)
 
     const [reload, setReload] = useState(false)
@@ -18,6 +20,13 @@ export const ManageProcess = () => {
         processAPI.getProcessById(id)
             .then(data => {
                 setProcess(data)
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: "Error",
+                    text: "We were unable to get this process! You will be redirected to home page",
+                    icon: "error"
+                }).then(() => setFetchError(true))
             })
     }, [id, reload])
 
@@ -33,8 +42,8 @@ export const ManageProcess = () => {
         })
     }
 
-    return (
-        <div style={{marginLeft: "1em", marginRight: "1em"}}>
+    const ManageProcessInside = () =>
+        process == null ? <CenteredCircularProgress size={80} /> : <div style={{marginLeft: "1em", marginRight: "1em"}}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Grid container spacing={2} direction="column">
@@ -64,5 +73,6 @@ export const ManageProcess = () => {
                 </Grid>
             </Grid>
         </div>
-    )
+
+    return fetchError ? <Redirect to="/" /> : <ManageProcessInside />
 }

@@ -1,11 +1,12 @@
 import {Controller, useForm} from "react-hook-form"
 import {Button, Grid, makeStyles} from "@material-ui/core"
 import {FormField} from "../../commons/formsCommons/FormField"
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles(() => ({
     button: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
 
 export const OfferForm = (props) => {
     const { id } = useParams()
-
+    const [fetchError, setFetchError] = useState(false)
 
     const defaultFormState = {
         name:"",
@@ -46,6 +47,13 @@ export const OfferForm = (props) => {
         if(id !== undefined){
             offersAPI.getOfferById(id)
                 .then(data => updateOffer(data))
+                .catch(() => {
+                    Swal.fire({
+                        title: "Error",
+                        text: "We weren't able to get this offer! You will be redirected to home page",
+                        icon: "error"
+                    }).then(() => setFetchError(true))
+                })
         }
     }, [id])
 
@@ -71,7 +79,7 @@ export const OfferForm = (props) => {
         })
     }
 
-    return <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
+    return fetchError ? <Redirect to="/" /> : <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
         <form id="offer-form" name="offer-form" onSubmit={handleSubmit(onSubmit)} />
         <Grid container spacing={2}>
             <FormField
