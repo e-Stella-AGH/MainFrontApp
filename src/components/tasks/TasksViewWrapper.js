@@ -15,8 +15,9 @@ export const TasksViewWrapper = ({ fetchTasks }) => {
     const [devPassword, setDevPassword] = useState(get() || "")
 
     const handleSubmit = (password) => {
-        set(`${organizationId}:${password}`)
-        setDevPassword(`${organizationId}:${password}`)
+        const devPassword = `${organizationId}:${password}`
+        set(devPassword)
+        setDevPassword(devPassword)
     }
 
     const handleAddTask = (task) => tasksApi.addTask(task, organizationId, devPassword)
