@@ -29,20 +29,18 @@ export const tasksApi = {
         }
     },
 
-    getOrganizationTasks: (organizationId, devPassword) =>
+    getOrganizationTasks: (organizationId, encodedDevPassword) =>
         devFetch(
             `${recruitmentServiceBasicAPILink}/api/tasks?owner=${organizationId}`,
             {
                 method: "GET"
             },
-            devPassword,
+            encodedDevPassword,
             "Problem occurred while getting tasks"
         ).then(response => response.json()),
 
-    codeCheckerLink: "https://e-stella-code-executor.herokuapp.com",
 
-
-    addTask: (task, organizationUUID, devPassword) =>
+    addTask: (task, organizationUUID, encodedDevPassword) =>
         devFetch(
             `${recruitmentServiceBasicAPILink}/api/tasks?owner=${organizationUUID}`,
             {
@@ -52,17 +50,17 @@ export const tasksApi = {
                     "Content-Type": "application/json"
                 }
             },
-            devPassword,
+            encodedDevPassword,
             "Problem occurred while creating task"
         ),
 
-    deleteTask: (taskId, organizationUUID, devPassword) =>
+    deleteTask: (taskId, organizationUUID, encodedDevPassword) =>
         devFetch(
             `${recruitmentServiceBasicAPILink}/api/tasks/${taskId}?owner=${organizationUUID}`,
             {
                 method: "DELETE"
             },
-            devPassword,
+            encodedDevPassword,
             "Problem occurred while deleting task"
         ),
 
@@ -74,15 +72,25 @@ export const tasksApi = {
      *      timeLimit - max solution time in full minutes
      * }
      **/
-    updateTasks: (tasks, organizationUUID, devPassword) =>
+    updateTasks: (tasks, organizationUUID, encodedDevPassword) =>
         devFetch(
             `${recruitmentServiceBasicAPILink}/api/tasks?owner=${organizationUUID}`,
             {
                 method: "PUT",
                 body: JSON.stringify(tasks)
             },
-            devPassword,
+            encodedDevPassword,
             "Problem occurred while updating task"
-        )
+        ),
+
+    getNotesWithTasksByTaskUUID: (taskStageUUID, devPassword) => {
+        return checkedFetch(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?task_note=${taskStageUUID}&with_tasks=true`, {
+            method: "GET",
+            headers: {
+                "X-Dev-Password": devPassword
+            }
+        })
+            .then(response => response.json())
+    }
 }
 

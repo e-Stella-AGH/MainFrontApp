@@ -1,27 +1,18 @@
-import {useParams} from "react-router-dom";
 import {useState} from "react";
-import {TasksPassword} from "./TasksPassword";
 import {TasksList} from "./crud/TasksList";
 import {useDevPassword} from "../../utils/hooks/useDevPassword";
 import {tasksApi} from "../../utils/apis/TasksApi";
 import Swal from "sweetalert2";
 
-export const TasksViewWrapper = ({ fetchTasks }) => {
-    const {organizationId} = useParams()
+export const TasksViewWrapper = ({resetDevPassword, id}) => {
+    const organizationId = id
 
     const [reload, setReload] = useState(false)
 
-    const { set, get } = useDevPassword()
-    const [devPassword, setDevPassword] = useState(get() || "")
+    const { getEncoded } = useDevPassword()
 
-    const handleSubmit = (password) => {
-        const devPassword = `${organizationId}:${password}`
-        set(devPassword)
-        setDevPassword(devPassword)
-    }
-
-    const handleAddTask = (task) => tasksApi.addTask(task, organizationId, devPassword)
-    const handleDeleteTask = (taskId) => tasksApi.deleteTask(taskId, organizationId, devPassword)
+    const handleAddTask = (task) => tasksApi.addTask(task, organizationId, getEncoded())
+    const handleDeleteTask = (taskId) => tasksApi.deleteTask(taskId, organizationId, getEncoded())
 
     const onUnauthFetch = () =>
         Swal.fire({
@@ -29,8 +20,7 @@ export const TasksViewWrapper = ({ fetchTasks }) => {
             text: "You cannot access this panel! Check your credentials!",
             icon: "error"
         }).then(() => {
-            set("")
-            setDevPassword("")
+            resetDevPassword()
         })
     const onFetchFailedByServer = () =>
         Swal.fire({
@@ -44,19 +34,17 @@ export const TasksViewWrapper = ({ fetchTasks }) => {
             if (result.isConfirmed) {
                 setReload(r => !r)
             } else {
-                set("")
-                setDevPassword("")
+                resetDevPassword()
             }
         })
 
-    return !!devPassword ?
-        <TasksList fetchTasks={(id) => fetchTasks(id, devPassword)}
-                   id={organizationId}
-                   reload={reload}
-                   setReload={setReload}
-                   onCreateTask={handleAddTask}
-                   onDeleteTask={handleDeleteTask}
-                   onFetchFailedByServer={onFetchFailedByServer}
-                   onUnauthFetch={onUnauthFetch}
-        /> : <TasksPassword handleSubmit={handleSubmit}/>
+    return <TasksList fetchTasks={(id) => tasksApi.getOrganizationTasks(id, getEncoded())}
+       id={organizationId}
+       reload={reload}
+       setReload={setReload}
+       onCreateTask={handleAddTask}
+       onDeleteTask={handleDeleteTask}
+       onFetchFailedByServer={onFetchFailedByServer}
+       onUnauthFetch={onUnauthFetch}
+    />
 }
