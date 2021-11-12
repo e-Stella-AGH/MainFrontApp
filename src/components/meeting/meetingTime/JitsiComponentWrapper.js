@@ -2,7 +2,7 @@ import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
 import {useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
-import {TaskWrapper} from "../../tasks/TaskWrapper";
+import {MultipleTasksWrapper} from "../../tasks/MultipleTasksWrapper";
 
 export const JitsiWrapper = (props) => {
 
@@ -33,7 +33,7 @@ export const JitsiWrapper = (props) => {
         setJitsiWidth('20%')
         setActionComponent(
             <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
-                <TaskWrapper id={16} submitLeftOffset={'25%'}/>
+                <MultipleTasksWrapper id={16} submitLeftOffset={'25%'}/>
             </div>
         )
     }

@@ -14,7 +14,7 @@ import {LoginForm} from "../components/auth/login/LoginForm";
 import {RegistrationRouting} from "../components/auth/registration/RegistrationRouting";
 import {TasksList} from "../components/tasks/crud/TasksList";
 import {getTasks} from "../test/DummyValues";
-import {TaskWrapper} from "../components/tasks/TaskWrapper";
+import {MultipleTasksWrapper} from "../components/tasks/MultipleTasksWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
 import {MeetingOrganizerWrapper} from "../components/meeting/preparing/MeetingOrganizerWrapper";
@@ -52,7 +52,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/login", <LoginForm reload={{reload, setReload}} />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("/tasks/:organizationId", <WithDevPassword WrappedComponent={TasksList} wrappedProps={{fetchTasks: (id) => getTasks(id)}} createPassword={(id, password) => `${id}:${password}`} />),
-    createRoute('/task/:id', <TaskWrapper />, {}),
+    createRoute('/task/:id', <MultipleTasksWrapper />, {}),
     createRoute('/meeting/organizer/:uuid', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"}), {marginTop: "2em"}),
     createRoute('/meeting/:type/:uuid', <MeetingOrganizerWrapper />, {marginTop: "2em"}),
     createRoute("/settings", <SettingsOverlay />),
