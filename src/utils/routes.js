@@ -56,7 +56,7 @@ const routes = ([reload, setReload]) => [
     createRoute("*", <div>Page</div>)
 ]
 
-export const getRoutes = ({reload, setReload}) => {
+export const getRoutes = ([reload, setReload]) => {
     return routes([reload, setReload]).map((route, idx) => {
         return (
             <Route exact path={route.path} key={`${idx}`}>
