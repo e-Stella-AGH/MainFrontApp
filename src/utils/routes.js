@@ -13,7 +13,6 @@ import {ManageProcess} from "../components/process/manage/ManageProcess";
 import {LoginForm} from "../components/auth/login/LoginForm";
 import {RegistrationRouting} from "../components/auth/registration/RegistrationRouting";
 import {TasksList} from "../components/tasks/crud/TasksList";
-import {getTasks} from "../test/DummyValues";
 import {TaskWrapper} from "../components/tasks/TaskWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
@@ -24,6 +23,8 @@ import {OrganizationPartnersManagement} from "../components/organization/Organiz
 import { WithDevPassword } from "../components/tasks/WithDevPassword";
 import { ReviewTask } from "../components/tasks/review/ReviewTask";
 import { Note } from '../components/notes/Note';
+import {tasksApi} from '../utils/apis/tasksAPI'
+import { DevView } from '../components/DevView'
 
 const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) => {
     return {
@@ -51,8 +52,8 @@ const routes = ([reload, setReload]) => [
     createRoute("/organization/offers", withUserAuth(OffersView, ["organization"], {getOffers: () => offersAPI.getOffersFromOrganization(), buttons: hrOfferButtons(theme)})),
     createRoute("/login", <LoginForm reload={{reload, setReload}} />),
     createRoute("/register", <RegistrationRouting />),
-    createRoute("/tasks/:organizationId", <WithDevPassword WrappedComponent={TasksList} wrappedProps={{fetchTasks: (id) => getTasks(id)}} createPassword={(id, password) => `${id}:${password}`} />),
-    createRoute('/task/:id', <TaskWrapper />, {}),
+    createRoute("/tasks/assign/:id/:mailInBase64", <WithDevPassword WrappedComponent={DevView} wrappedProps={{ fetchTasks: (id, password) => tasksApi.getTasksByOrganization(id, password), getApplications: (organizationId, devMail, devPassword) => applicationsAPI.getApplicationsForDev(organizationId, devMail, devPassword) }} createPassword={(id, password) => `${id}:${password}`} />),
+    createRoute('/task/:taskStageUUID', <TaskWrapper />, {}),
     createRoute('/meeting/organizer/:uuid', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"}), {marginTop: "2em"}),
     createRoute('/meeting/:type/:uuid', <MeetingOrganizerWrapper />, {marginTop: "2em"}),
     createRoute("/settings", <SettingsOverlay />),

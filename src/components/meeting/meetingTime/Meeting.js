@@ -26,16 +26,16 @@ export const Meeting = () => {
         <div>
             {
                 isFetching ? <CircularProgress /> :
-                <Fetched name={name} interviewId={interviewId} />
+                <Fetched name={name} interviewId={interviewId} companyId={companyId} />
             }
         </div>
     )
 }
 
-const Fetched = ({ name, interviewId }) => {
+const Fetched = ({ name, interviewId, companyId }) => {
     return (
         name === null ?
-            <MeetingDisplayName roomName={`${interviewId}`}/>
+            <MeetingDisplayName roomName={`${interviewId}`} interviewId={interviewId} companyId={companyId}/>
             : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"}/>
     )
 }

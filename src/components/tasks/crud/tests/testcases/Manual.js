@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Form} from "./Form";
 import {IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -6,6 +6,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 export const ManualTestsCases = ({ handleSubmit }) => {
 
     const [testCases, setTestCases] = useState([])
+
+    useEffect(() => {
+        handleSubmit(testCases)
+    }, [testCases])
 
     const handleAddTestCase = (testCase) => {
         const preparedTestCase = {

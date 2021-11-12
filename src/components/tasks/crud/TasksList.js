@@ -5,20 +5,27 @@ import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
 import {tasksApi} from "../../../utils/apis/tasksAPI";
+import { useParams } from 'react-router-dom';
+import { useDevPassword } from "../../../utils/hooks/useDevPassword";
 
-export const TasksList = ({ fetchTasks, id }) => {
+export const TasksList = ({ fetchTasks, organizationId }) => {
 
-    const [tasks, setTasks] = useState([])
     const [reload, setReload] = useState(false)
 
-    const addTask = () => {
-        createTask(tasks, reload, setReload)
-    }
+    const {getEncoded} = useDevPassword()
+
+    const [tasks, setTasks] = useState([])
 
     useEffect(() => {
-        fetchTasks(id)
-            .then(data => setTasks(data))
-    }, [fetchTasks, id, reload])
+        fetchTasks(organizationId, getEncoded())
+            .then(data => {
+                setTasks(data)
+            })
+    }, [fetchTasks, organizationId, reload])
+
+    const addTask = () => {
+        createTask(reload, setReload, { password: getEncoded(), organizationId })
+    }
 
     const deleteTask = (id) => {
         tasksApi.updateTasks(tasks.filter(task => task.id !== id))
@@ -27,12 +34,13 @@ export const TasksList = ({ fetchTasks, id }) => {
 
     return (
         <div>
-            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginLeft: '20%'}}>
-                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={{ 'delete': () => deleteTask(task?.id) }}/>)}
+            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginRight: '5%'}}>
+                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={[]}/>)}
             </div>
             <Drawer
                 variant="permanent"
                 style={{display: "flex", alignItems: "center"}}
+                anchor="right"
             >
                 <List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
                     <ListItem>

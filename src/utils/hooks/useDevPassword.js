@@ -8,7 +8,10 @@ export const useDevPassword = () => {
 
     const get = () => sessionStorage.getItem(devPasswordKey)
 
-    const getEncoded = () => encodeBase64(sessionStorage.getItem(devPasswordKey))
+    const getEncoded = () => {
+        const password = get()
+        return password ? encodeBase64(password) : ''
+    }
 
     return {get, set, getEncoded}
 
