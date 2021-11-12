@@ -13,6 +13,7 @@ export const ManageStages = ({processId}) => {
     const [stages, setStages] = useState([])
     const [possibleStages, setPossibleStages] = useState([])
     const [fetchError, setFetchError] = useState(false)
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
         let swal = new Swal({
@@ -42,7 +43,7 @@ export const ManageStages = ({processId}) => {
                 }).then(() => setFetchError(true))
             })
             .finally(() => swal.close())
-    }, [])
+    }, [reload, processId])
 
     const getPossibleStages = () => possibleStages.map(stage => {
         return {'type': stage}
@@ -51,11 +52,14 @@ export const ManageStages = ({processId}) => {
     const getStages = () => stages
 
     const handleSubmit = (items) => {
-        withSwal({
-            loadingTitle: "Updating stages",
-            promise: () => processAPI.updateProcessStages(processId, items.map(item => item.type)),
-            successSwalTitle: "Stages Updated"
-        })
+        if(items !== getStages()) {
+            withSwal({
+                loadingTitle: "Updating stages",
+                promise: () => processAPI.updateProcessStages(processId, items.map(item => item.type)),
+                successSwalTitle: "Stages Updated",
+                successFunction: () => setReload(reload => !reload)
+            })
+        }
     }
 
     const fireSwal = (title, text, icon) => {
@@ -70,7 +74,7 @@ export const ManageStages = ({processId}) => {
         firstListItems={getStages()}
         secondListItems={getPossibleStages()}
         //temporary solution - would be the best to actually change TwoColumnDnD to fire callback about setting items length
-        forbiddenIndexes={[0, 20]}
+        forbiddenIndexes={[0, getStages().length]}
         warningFunction={() => fireSwal(
             "You can't do this!",
             "We're sorry, but you cannot set this stage here! See help for more information.",
@@ -85,7 +89,7 @@ export const ManageStages = ({processId}) => {
                 </Card>
             </Box>
         )}
-        onSubmit={(first, _) => handleSubmit(first)}
+        onFirstListChange={(items) => handleSubmit(items)}
         leftSubmitGridProps={{xs: 10}}
         centerSubmitGridProps={{xs: 1}}
         rightSubmitGridProps={{xs: 1}}
