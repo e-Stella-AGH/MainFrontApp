@@ -1,19 +1,19 @@
 import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
 import {TaskWrapper} from "../../tasks/TaskWrapper";
-import { AssignTasks } from "../../tasks/AssignTasks";
-import { WithDevPassword } from "../../tasks/WithDevPassword"
-import { tasksApi } from "../../../utils/apis/tasksAPI";
-import { interviewAPI } from "../../../utils/apis/InterviewAPI";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { NotesMenu } from '../../notes/NotesMenu';
-import { Drawer, List, ListItem, Button, Divider, Box } from '@material-ui/core'
+import {AssignTasks} from "../../tasks/AssignTasks";
+import {WithDevPassword} from "../../tasks/WithDevPassword"
+import {tasksApi} from "../../../utils/apis/tasksAPI";
+import {interviewAPI} from "../../../utils/apis/InterviewAPI";
+import {makeStyles} from '@material-ui/core/styles';
+import {NotesMenu} from '../../notes/NotesMenu';
+import {Button, Divider, Drawer, List, ListItem} from '@material-ui/core'
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { useDevPassword } from "../../../utils/hooks/useDevPassword";
-import { constants } from '../../../utils/constants'
+import {useDevPassword} from "../../../utils/hooks/useDevPassword";
+import {constants} from '../../../utils/constants'
 import clsx from 'clsx';
 import CloseIcon from '@material-ui/icons/Close';
 import Swal from "sweetalert2";
@@ -109,7 +109,7 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
     const [reload, setReload] = useState(false)
     const [openTasksModal, setOpenTasksModal] = useState(false)
 
-    const { get, set } = useDevPassword()
+    const { getDevPassword, setDevPassword } = useDevPassword()
 
     const classes = useStyles()
     
@@ -125,7 +125,7 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
     )
 
     const doOpenTasksModal = () => {
-        if (get()) {
+        if (getDevPassword()) {
             setOpenTasksModal(true)
         } else {
             Swal.fire({
@@ -138,7 +138,7 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
                 confirmButtonText: 'Submit'
             }).then(result => {
                 if (result.isConfirmed) {
-                    set(`${companyId}:${result.value}`)
+                    setDevPassword(`${companyId}:${result.value}`)
                     setOpenTasksModal(true)
                 }
             })
@@ -190,11 +190,11 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
 
 const NotesMenuWrapper = ({reload, setReload, interviewId}) => {
 
-    const {getEncoded} = useDevPassword()
+    const {getEncodedDevPassword} = useDevPassword()
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-        interviewAPI.getNotesByInterviewId(interviewId, getEncoded())
+        interviewAPI.getNotesByInterviewId(interviewId, getEncodedDevPassword())
             .then(data => setNotes(data.notes))
     }, [interviewId, reload])
 
@@ -211,8 +211,8 @@ const NotesMenuWrapper = ({reload, setReload, interviewId}) => {
 
 const AssignTasksWrapper = ({openTasksModal, setOpenTasksModal, interviewId, organizationId, reload, setReload}) => {
 
-    const {getEncoded} = useDevPassword()
-    const devPassword = getEncoded()
+    const {getEncodedDevPassword} = useDevPassword()
+    const devPassword = getEncodedDevPassword()
     const [organizationTasks, setOrganizationTasks] = useState([])
     const [alreadyAssignedTasks, setAlreadyAssignedTasks] = useState([])
 

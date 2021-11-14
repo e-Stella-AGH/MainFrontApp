@@ -1,6 +1,6 @@
 import {authFetch} from "../authFetch";
-import { checkedFetch } from "../chekedFetch"
-import {meetingOrganizerLink, recruitmentServiceBasicAPILink} from "./APILinks";
+import {checkedFetch} from "../chekedFetch"
+import {recruitmentServiceBasicAPILink} from "./APILinks";
 
 export const interviewAPI = {
 

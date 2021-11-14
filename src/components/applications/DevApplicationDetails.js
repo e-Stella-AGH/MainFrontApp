@@ -1,18 +1,18 @@
 import {ListElementDetails} from "../commons/layouts/ListElementDetails";
-import {CardContent, Divider, Grid, Typography, Button} from "@material-ui/core";
+import {Button, CardContent, Divider, Grid, Typography} from "@material-ui/core";
 import {FileViewerWrapper} from "./FileViewerWrapper";
 import {processAPI} from "../../utils/apis/ProcessAPI";
-import { useState, useEffect } from 'react'
-import { AssignTasks } from "../tasks/AssignTasks";
-import { tasksApi } from "../../utils/apis/tasksAPI";
-import { useDevPassword } from "../../utils/hooks/useDevPassword";
+import {useEffect, useState} from 'react'
+import {AssignTasks} from "../tasks/AssignTasks";
+import {tasksApi} from "../../utils/apis/tasksAPI";
+import {useDevPassword} from "../../utils/hooks/useDevPassword";
 
 export const DevApplicationDetails = ({devApplication}) => {
 
     const application = devApplication?.application
 
-    const { getEncoded } = useDevPassword()
-    const devPassword = getEncoded()
+    const { getEncodedDevPassword } = useDevPassword()
+    const devPassword = getEncodedDevPassword()
 
     const [openAssignTasks, setOpenAssignTasks] = useState(false)
     const [alreadyAssignedTasks, setAlreadyAssignedTasks] = useState([])

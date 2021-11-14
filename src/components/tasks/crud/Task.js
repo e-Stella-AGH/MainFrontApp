@@ -1,7 +1,7 @@
-import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuItem} from "@material-ui/core";
+import {Button, Card, CardContent, Divider, IconButton, Menu, Typography} from "@material-ui/core";
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
-import { getFirstLineFromTaskDescription } from "../tasksUtils";
+import {getFirstLineFromTaskDescription} from "../tasksUtils";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 export const Task = ({task, tasksOperations, shouldDisplayMenu}) => {

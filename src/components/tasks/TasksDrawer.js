@@ -1,12 +1,12 @@
 //This file should be merged with NotesDrawer from ES-231
 import {useState} from 'react'
-import { Drawer, List, ListItem, Button } from '@material-ui/core'
+import {Button, Drawer, List, ListItem} from '@material-ui/core'
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import {constants} from "../../utils/constants";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { TasksMenu } from './TasksMenu'
+import {TasksMenu} from './TasksMenu'
 
 const drawerWidth = 600;
 

@@ -1,5 +1,5 @@
-import { checkedFetch } from '../chekedFetch'
-import { recruitmentServiceBasicAPILink } from './APILinks'
+import {checkedFetch} from '../chekedFetch'
+import {recruitmentServiceBasicAPILink} from './APILinks'
 
 export const NoteApi = {
 

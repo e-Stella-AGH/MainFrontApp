@@ -4,7 +4,7 @@ import {AddDescription} from "./description/AddDescription";
 import {convertFileToBase64} from "../../../utils/apis/files";
 import {AddTests} from "./tests/AddTests";
 import {tasksApi} from "../../../utils/apis/tasksAPI";
-import { encodeBase64 } from '../../../utils/hooks/Base64';
+import {encodeBase64} from '../../../utils/hooks/Base64';
 
 let task = {id: null}
 
@@ -57,14 +57,14 @@ const basicSwal = {
 
 const MySwal = withReactContent(Swal)
 
-export const createTask = (reload, setReload, credentials) => {
+export const createTask = (setReload, credentials) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddDescription
             handleChange={{'md': handleMarkdownChange, 'text': handleTextChange, 'file': handleFileChangeDescription}}/>
     }).then(result => {
         if (result.isConfirmed) {
-            createTests(reload, setReload, credentials)
+            createTests(setReload, credentials)
         }
     })
 }
@@ -75,18 +75,18 @@ const handleManualTestsChange = (testCases) => {
     task['testsBase64'] = encodeBase64(JSON.stringify(testCases))
 }
 
-const createTests = (reload, setReload, credentials) => {
+const createTests = (setReload, credentials) => {
     MySwal.fire({
         ...basicSwal,
         html: <AddTests handleChange={{'file': handleFileChangeTests, 'manual': handleManualTestsChange}}/>
     }).then(result => {
         if(result.isConfirmed) {
-            createTimeLimit(reload, setReload, credentials)
+            createTimeLimit(setReload, credentials)
         }
     })
 }
 
-const createTimeLimit = (reload, setReload, credentials) => {
+const createTimeLimit = (setReload, credentials) => {
     MySwal.fire({
         ...basicSwal,
         input: 'number',
@@ -94,11 +94,11 @@ const createTimeLimit = (reload, setReload, credentials) => {
     }).then(result => {
         if(result.isConfirmed) {
             task['timeLimit'] = Number(result.value)
-            create(reload, setReload, credentials)
+            create(setReload, credentials)
         }
     })
 }
 
-const create = (reload, setReload, credentials) => {
+const create = (setReload, credentials) => {
     tasksApi.updateTasks(task, credentials, setReload)
 }

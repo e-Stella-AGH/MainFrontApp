@@ -5,7 +5,6 @@ import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 import {constants} from "../../../utils/constants";
 import React, {useEffect, useState} from "react";
 import {interviewAPI} from "../../../utils/apis/InterviewAPI";
-import { CircularProgress } from '@material-ui/core';
 import Swal from "sweetalert2";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 

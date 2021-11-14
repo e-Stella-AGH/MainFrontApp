@@ -1,9 +1,9 @@
 import {useState} from 'react'
-import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import {Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import {TasksList} from './tasks/crud/TasksList';
-import { ApplicationsView } from './applications/ApplicationsView'
+import {ApplicationsView} from './applications/ApplicationsView'
 
 export const DevView = ({ fetchTasks, getApplications, id, mailInBase64 }) => {
 

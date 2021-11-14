@@ -1,5 +1,5 @@
 import {Grid} from '@material-ui/core';
-import { Note } from './Note';
+import {Note} from './Note';
 
 export const NotesList = ({notes}) => {
 

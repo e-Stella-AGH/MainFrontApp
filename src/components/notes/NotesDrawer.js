@@ -1,11 +1,11 @@
 import {useState} from 'react'
-import { Drawer, List, ListItem, Button } from '@material-ui/core'
+import {Button, Drawer, List, ListItem} from '@material-ui/core'
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import CloseIcon from '@material-ui/icons/Close';
 import {constants} from "../../utils/constants";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { NotesMenu } from './NotesMenu'
+import {NotesMenu} from './NotesMenu'
 
 const drawerWidth = 600;
 

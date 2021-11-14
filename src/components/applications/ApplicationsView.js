@@ -8,14 +8,14 @@ import {DevApplicationDetails} from './DevApplicationDetails';
 import {EmptyApplicationsView} from "./EmptyApplicationsView";
 import Swal from "sweetalert2";
 import CenteredCircularProgress from "../commons/CenteredCircularProgress";
-import { useDevPassword } from "../../utils/hooks/useDevPassword";
+import {useDevPassword} from "../../utils/hooks/useDevPassword";
 
 export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) => {
 
     const {id} = useParams()
-    const {getEncoded} = useDevPassword()
+    const {getEncodedDevPassword} = useDevPassword()
 
-    const devPassword = getEncoded()
+    const devPassword = getEncodedDevPassword()
 
     const [selectedApplication, setSelectedApplication] = useState(null)
     const [applications, setApplications] = useState([])

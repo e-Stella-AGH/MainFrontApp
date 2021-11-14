@@ -1,6 +1,6 @@
-import { Card, Chip, Divider, CardContent, Typography } from '@material-ui/core';
-import { decodeBase64 } from '../../utils/hooks/Base64'
-import { TagsList } from './TagsList'
+import {Card, CardContent, Divider, Typography} from '@material-ui/core';
+import {decodeBase64} from '../../utils/hooks/Base64'
+import {TagsList} from './TagsList'
 
 export const Note = ({ note }) => {
 

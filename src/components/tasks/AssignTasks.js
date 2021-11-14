@@ -1,12 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Divider, Grid, Button, Typography, GridList, GridListTile } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {Button, Divider, Grid, GridList, GridListTile, Typography} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { Task } from './crud/Task'
-import { tasksApi } from '../../utils/apis/tasksAPI'
-import { useDevPassword } from '../../utils/hooks/useDevPassword'
+import {Task} from './crud/Task'
+import {tasksApi} from '../../utils/apis/tasksAPI'
+import {useDevPassword} from '../../utils/hooks/useDevPassword'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -39,16 +39,16 @@ const useStyles = makeStyles((theme) => ({
 export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTasks, setReload, assignKey, assignUUIDValue }) => {
 
     const classes = useStyles()
-    const {getEncoded} = useDevPassword()
+    const {getEncodedDevPassword} = useDevPassword()
 
     const onAssign = (task) => {
         const tasksIds = alreadyAssignedTasks.map(assignedTask => assignedTask.id)
-        tasksApi.assignTasks([...tasksIds, task.id], getEncoded(), setReload, assignKey, assignUUIDValue)
+        tasksApi.assignTasks([...tasksIds, task.id], getEncodedDevPassword(), setReload, assignKey, assignUUIDValue)
     }
 
     const onDeassign = (task) => {
         const newTasksIds = alreadyAssignedTasks.filter(assignedTask => assignedTask.id !== task.id).map(task => task.id)
-        tasksApi.assignTasks(newTasksIds, getEncoded(), setReload, assignKey, assignUUIDValue)
+        tasksApi.assignTasks(newTasksIds, getEncodedDevPassword(), setReload, assignKey, assignUUIDValue)
     }
 
     return (
@@ -66,7 +66,7 @@ export const AssignTasks = ({ modalOptions, alreadyAssignedTasks, organizationTa
             <Fade in={modalOptions.open}>
                 <div className={classes.paper} style={getModalStyle()}>
                     
-                    <Section title="Tasks you've already assigned:" tasks={alreadyAssignedTasks} empty="No one have assign any tasks for this application" actionTitle="Deassign" action={onDeassign} />
+                    <Section title="Tasks you've already assigned:" tasks={alreadyAssignedTasks} empty="No one has assigned any tasks for this application" actionTitle="Deassign" action={onDeassign} />
                     <Divider style={{margin: '1em 0'}} />
                     <Section title="Tasks you can assign:" tasks={organizationTasks} empty="Your organization doesn't have any task." actionTitle="Assign" action={onAssign} />
 

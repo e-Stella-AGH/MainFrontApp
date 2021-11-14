@@ -12,7 +12,6 @@ import {OfferForm} from "../components/offers/createForm/OfferForm";
 import {ManageProcess} from "../components/process/manage/ManageProcess";
 import {LoginForm} from "../components/auth/login/LoginForm";
 import {RegistrationRouting} from "../components/auth/registration/RegistrationRouting";
-import {TasksList} from "../components/tasks/crud/TasksList";
 import {TaskWrapper} from "../components/tasks/TaskWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
@@ -20,11 +19,11 @@ import {MeetingOrganizerWrapper} from "../components/meeting/preparing/MeetingOr
 import HrOffersView from "../components/offers/list/HrOffersView";
 import SettingsOverlay from "../components/userMenu/SettingsOverlay";
 import {OrganizationPartnersManagement} from "../components/organization/OrganizationPartnersManagement";
-import { WithDevPassword } from "../components/tasks/WithDevPassword";
-import { ReviewTask } from "../components/tasks/review/ReviewTask";
-import { Note } from '../components/notes/Note';
-import {tasksApi} from '../utils/apis/tasksAPI'
-import { DevView } from '../components/DevView'
+import {WithDevPassword} from "../components/tasks/WithDevPassword";
+import {ReviewTask} from "../components/tasks/review/ReviewTask";
+import {Note} from '../components/notes/Note';
+import {tasksApi} from './apis/tasksAPI'
+import {DevView} from '../components/DevView'
 
 const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) => {
     return {

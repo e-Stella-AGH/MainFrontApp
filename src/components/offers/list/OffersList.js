@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {scrollToTop} from '../../../utils/functions';
 import {ListWithSelection} from "../../commons/layouts/ListWithSelection";
 import React from "react";
-import { Typography, Grid } from '@material-ui/core'
+import {Grid, Typography} from '@material-ui/core'
 
 export const OffersList = (props) => {
 
