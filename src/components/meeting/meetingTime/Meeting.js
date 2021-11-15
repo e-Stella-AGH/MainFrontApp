@@ -36,6 +36,6 @@ const Fetched = ({ name, interviewId, companyId }) => {
     return (
         name === null ?
             <MeetingDisplayName roomName={`${interviewId}`} interviewId={interviewId} companyId={companyId}/>
-            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"}/>
+            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"} interviewId={interviewId}/>
     )
 }
