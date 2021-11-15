@@ -56,7 +56,7 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         )
     }
 
-    const getTasksByInterviewUUID = () => tasksApi.getTasksByInterviewUUID(interviewId)
+    const getTasksByInterviewUUID = () => tasksApi.getTasksByInterviewId(interviewId)
 
     return (
         <div>

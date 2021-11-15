@@ -29,7 +29,8 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
         setFetching(true)
         getApplications(id, mailInBase64, devPassword)
             .then(data => {
-                setApplications(data)
+                const applications = isDev ? data.filter(application => application.application.status !== "REJECTED") : data
+                setApplications(applications)
                 selectedApplication && setSelectedApplication(data.filter(application => application.id === selectedApplication.id)[0])
                 setFetching(false)
             }).catch(() => {

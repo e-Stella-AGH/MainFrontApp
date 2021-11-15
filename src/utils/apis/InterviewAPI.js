@@ -27,6 +27,9 @@ export const interviewAPI = {
                 'x-dev-password': password
             }
         }).then(response => response.json())
-    }
+    },
+
+    getInterviewObjectById: interviewId => checkedFetch(`${recruitmentServiceBasicAPILink}/api/interview/${interviewId}`)
+        .then(response => response.json())
 
 }
