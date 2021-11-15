@@ -51,7 +51,7 @@ export const MultipleTasksWrapper = ({ id: propId, toSolveTask = true, submitLef
         fullWidth>Next Task</Button>
 
     return isFetching ? <CenteredCircularProgress size={100} /> : <div>
-        <Grid style={{padding: '1em 1em 1em 1em', backgroundColor: "#1e1e1e"}} container spacing={2}>
+        <Grid style={{padding: '1em', backgroundColor: "#1e1e1e"}} container spacing={2}>
             <Grid item xs={12} md={6}><PrevButton /></Grid>
             <Grid item xs={12} md={6}><NextButton /></Grid>
         </Grid>
