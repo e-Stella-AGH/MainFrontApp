@@ -2,6 +2,7 @@ import {validateSchema} from "../schemas/validateSchema";
 import {tokenPayloadSchema} from "../schemas/tokenPayloadSchema";
 import {loginAPI} from "../apis/LoginAPI";
 import {jwtAPI} from "../apis/JwtAPI";
+import Swal from "sweetalert2";
 
 export const jwtUtils = {
     jwtHeaderKey: "x-jwt",
@@ -36,6 +37,23 @@ export const jwtUtils = {
         const refreshToken = jwtUtils.getRefreshToken()
         if(userId && refreshToken)
             return jwtAPI.refreshToken(userId, refreshToken)
+                .then(response => {
+                    localStorage.setItem(loginAPI.authTokenStorageKey, response.headers.get(loginAPI.authTokenKey));
+                    localStorage.setItem(loginAPI.refreshTokenStorageKey, response.headers.get(loginAPI.refreshTokenKey));
+                    return response;
+                })
+                .catch(() => {
+                    localStorage.removeItem(loginAPI.authTokenStorageKey)
+                    localStorage.removeItem(loginAPI.refreshTokenStorageKey)
+                    Swal.fire({
+                        text: "Your session expired. We will take you to our login page!",
+                        icon: "warning"
+                    })
+                    .then(() => {
+                        window.history.pushState({urlPath: "/#/login"}, "", "/#/login")
+                        window.location.reload()
+                    })
+                })
     },
 
     tokenSplitter: (token) => {
