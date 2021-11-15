@@ -14,7 +14,7 @@ export const Meeting = () => {
         if(companyId === undefined) {
             interviewAPI.getJobSeekerNameByInterviewId(interviewId)
                 .then(data => {
-                    setName(data?.name)
+                    setName(`${data?.firstName || ""} ${data?.lastName || ""}`)
                     setIsFetching(false)
                 })
         } else {

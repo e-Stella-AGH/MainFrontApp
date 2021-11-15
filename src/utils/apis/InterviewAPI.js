@@ -4,11 +4,7 @@ import {recruitmentServiceBasicAPILink} from "./APILinks";
 
 export const interviewAPI = {
 
-    getJobSeekerNameByInterviewId : function(interviewId) {
-        return new Promise((resolve, reject) => {
-            resolve({text: "ok", ok: true, name: 'Waiting for endpoint'})
-        })
-    },
+    getJobSeekerNameByInterviewId : (interviewId) => checkedFetch(`${recruitmentServiceBasicAPILink}/api/interview/jobseeker/${interviewId}`).then(response => response.json()),
 
     getNewestInterviewId: applicationId => {
         return authFetch(recruitmentServiceBasicAPILink + `/api/interview/newest/${applicationId}`, {}, "Couldn't find interview for this application")
