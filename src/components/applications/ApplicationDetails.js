@@ -14,8 +14,6 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
     const theme = useTheme()
     const history = useHistory()
 
-    console.log(application)
-
     const getSeekerFiles = () => {
         return application.seekerFiles
             .map((file, idx) => (

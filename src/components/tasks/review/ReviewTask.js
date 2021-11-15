@@ -20,7 +20,6 @@ export const ReviewTask = ({ id: taskStageUUID }) => {
     useEffect(() => {
        tasksApi.getNotesWithTasksByTaskUUID(taskStageUUID, getEncodedDevPassword())
             .then(data => {
-                console.log(data)
                 setNotes(data?.notes || [])
                 setTasks(data?.tasks || [])
             })
