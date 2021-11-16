@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {tasksApi} from '../../../utils/apis/TasksApi';
+import {tasksApi} from '../../../utils/apis/tasksAPI';
 import {useDevPassword} from '../../../utils/hooks/useDevPassword'
 import {NotesDrawer} from '../../notes/NotesDrawer';
 import {TasksCarousel} from './TasksCarousel'

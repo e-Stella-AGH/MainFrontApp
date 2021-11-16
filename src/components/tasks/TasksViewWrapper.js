@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {TasksList} from "./crud/TasksList";
 import {useDevPassword} from "../../utils/hooks/useDevPassword";
-import {tasksApi} from "../../utils/apis/TasksApi";
+import {tasksApi} from "../../utils/apis/tasksAPI";
 import Swal from "sweetalert2";
 
 export const TasksViewWrapper = ({resetDevPassword, id}) => {

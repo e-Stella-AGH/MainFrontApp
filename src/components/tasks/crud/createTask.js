@@ -6,6 +6,7 @@ import {AddTests} from "./tests/AddTests";
 import {AddDeadline} from "./AddDeadline";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 import React from "react";
+import {encodeBase64} from "../../../utils/hooks/Base64";
 
 let task = {}
 
@@ -14,13 +15,13 @@ const clearTask = () => task = {}
 const handleMarkdownChange = ({text}) => {
     clearTask()
     task['descriptionFileName'] = 'description.md'
-    task['descriptionBase64'] = window.btoa(text)
+    task['descriptionBase64'] = encodeBase64(text)
 }
 
 const handleTextChange = (text) => {
     clearTask()
     task['descriptionFileName'] = "description.txt"
-    task['descriptionBase64'] = window.btoa(text)
+    task['descriptionBase64'] = encodeBase64(text)
 }
 
 const handleFileChangeDescription = async (value) => {
@@ -73,7 +74,7 @@ export const createTask = (onCreateTask, setReload) => {
 
 const handleManualTestsChange = (testCases) => {
     delete task['testsBase64']
-    task['testsBase64'] = btoa(JSON.stringify(testCases))
+    task['testsBase64'] = encodeBase64(JSON.stringify(testCases))
 }
 
 const createTests = (onCreateTask, setReload) => {
@@ -119,8 +120,6 @@ const create = (onCreateTask, setReload) => {
             return resp
         }),
         successSwalTitle: "Success",
-        successSwalText: "Successfully added new task",
         errorSwalTitle: "Error",
-        errorSwalText: "Error occurred while adding task"
     })
 }
