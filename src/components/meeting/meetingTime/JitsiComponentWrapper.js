@@ -23,6 +23,12 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
     const [jitsiHeight, setJitsiHeight] = useState('calc(100vh - 60px)')
     const [jitsiWidth, setJitsiWidth] = useState('100%')
     const [actionComponent, setActionComponent] = useState(null)
+    const [taskStageUUID, setTaskStageUUID] = useState(null)
+
+    useEffect(() => {
+        interviewAPI.getTaskStageUUIDByInterviewId(interviewId)
+            .then(data => setTaskStageUUID(data.taskStageUUID))
+    }, [interviewId, companyId])
 
     const getWhiteboardCode = () => {
         if (roomName.length < 15) return 'abcdefghijklmnopqrst'
@@ -51,7 +57,7 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         setJitsiWidth('20%')
         setActionComponent(
             <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
-                <TaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'}/>
+                <TaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={taskStageUUID}/>
             </div>
         )
     }
