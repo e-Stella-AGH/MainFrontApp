@@ -51,7 +51,7 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         setJitsiWidth('20%')
         setActionComponent(
             <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
-                <TaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'}/>
+                <TaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={interviewId}/>
             </div>
         )
     }
