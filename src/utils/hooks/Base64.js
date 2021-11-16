@@ -1,3 +1,3 @@
-export const decodeBase64 = (base64) => new Buffer(base64, "base64").toString('ascii')
+export const decodeBase64 = (base64) => Buffer.from(base64, "base64").toString('ascii')
 
-export const encodeBase64 = (string) => new Buffer(string).toString('base64')
+export const encodeBase64 = (string) => Buffer.from(string).toString('base64')

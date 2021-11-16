@@ -32,8 +32,7 @@ export const authFetch = (url, data, errorMessage) => {
                             }
                         })
                 })
-            else {
+            else
                 throw httpError
-            }
         })
 }

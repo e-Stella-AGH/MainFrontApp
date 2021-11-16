@@ -22,7 +22,7 @@ export const OfferDetails = (props) => {
     const getButtons = () => {
         const user = jwtUtils.getUser()
 
-        if (user?.userType == "hr" || user?.userType == "organization") {
+        if (user?.userType === "hr" || user?.userType === "organization") {
             return (<div style={{float: "right", marginRight: "20px", display: "flex", flexWrap: "wrap"}}>
                         {
                         Object.entries(groups(props.buttons)).map(([menu, buttons]) => {

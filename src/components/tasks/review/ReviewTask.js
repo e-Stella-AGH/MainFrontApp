@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {tasksApi} from '../../../utils/apis/tasksAPI';
-import { useDevPassword } from '../../../utils/hooks/useDevPassword'
-import { NotesDrawer } from '../../notes/NotesDrawer';
-import { TasksCarousel } from './TasksCarousel'
+import {useDevPassword} from '../../../utils/hooks/useDevPassword'
+import {NotesDrawer} from '../../notes/NotesDrawer';
+import {TasksCarousel} from './TasksCarousel'
 import Swal from 'sweetalert2'
 import {useHistory} from 'react-router-dom'
-import { Typography } from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 
 export const ReviewTask = ({ id: taskStageUUID }) => {
 

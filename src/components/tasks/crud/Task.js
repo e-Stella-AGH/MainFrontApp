@@ -1,8 +1,9 @@
-import {Button, Card, CardContent, Divider, Typography, IconButton, Menu, MenuItem} from "@material-ui/core";
+import {Button, Card, CardContent, Divider, IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
 import {useState} from "react";
 import {GenericFileViewer} from "../../commons/GenericFileViewer";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {theme} from "../../../utils/theme";
+import Swal from "sweetalert2";
 
 export const Task = ({task, tasksOperations}) => {
 
@@ -11,6 +12,25 @@ export const Task = ({task, tasksOperations}) => {
 
     const menuClose = () => {
         setMenuAnchor(null)
+    }
+
+    const onDelete = () => {
+        let swal = new Swal({
+            title: "Deleting selected task"
+        })
+        Swal.showLoading()
+        tasksOperations['delete']()
+            .finally(() =>
+                swal.close()
+            )
+            .catch(() =>
+                Swal.fire({
+                    title: "Error",
+                    text: "Error while deleting task",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                })
+            )
     }
 
     return (
@@ -37,7 +57,7 @@ export const Task = ({task, tasksOperations}) => {
                 open={!!menuAnchor}
                 onClose={menuClose}
             >
-                <MenuItem onClick={tasksOperations['delete']} style={{color: theme.status.danger.main}}>Delete</MenuItem>
+                <MenuItem onClick={onDelete} style={{color: theme.status.danger.main}}>Delete</MenuItem>
             </Menu>
         </Card>
     )

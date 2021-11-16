@@ -9,11 +9,15 @@ export const WithDevPassword = ({ WrappedComponent, wrappedProps, createPassword
     const [password, setPassword] = useState("")
     const { set } = useDevPassword()
 
+    const resetDevPassword = () => {
+        set("")
+        setPassword("")
+    }
+
     const handleSubmit = (password) => {
         set(createPassword(id, password))
-        console.log(createPassword(id, password))
         setPassword(password)
     }
 
-    return !!password ? <WrappedComponent {...wrappedProps} id={id} /> : <TasksPassword handleSubmit={handleSubmit}/>
+    return !!password ? <WrappedComponent {...wrappedProps} id={id} resetDevPassword={resetDevPassword} /> : <TasksPassword handleSubmit={handleSubmit}/>
 }
