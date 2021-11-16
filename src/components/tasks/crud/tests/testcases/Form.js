@@ -6,6 +6,11 @@ export const Form = ({ addTestCase }) => {
 
     const [testCase, setTestCase] = useState({})
 
+    const addTestCaseAndClearFields = () => {
+        addTestCase(testCase)
+        setTestCase({})
+    }
+
     return (
         <div style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'center', gap: '2em'}}>
             <TextField
@@ -21,7 +26,7 @@ export const Form = ({ addTestCase }) => {
                 onChange={({ target }) => setTestCase({...testCase, output: target.value})}
             />
             <IconButton onClick={() => {
-                addTestCase(testCase)
+                addTestCaseAndClearFields(testCase)
                 setTestCase({})
             }}>
                 <AddCircleOutlined fontSize="large" color="primary" />

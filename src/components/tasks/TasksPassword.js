@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Button, Card, CardActions, CardContent, TextField, Typography} from "@material-ui/core";
 import {keys, useKeyPress} from "../../utils/hooks/useKeyPress";
 
-export const TasksPassword = ({ handleSubmit }) => {
+export const TasksPassword = ({ handleSubmit, text }) => {
 
     const [password, setPassword] = useState("")
 
@@ -16,7 +16,7 @@ export const TasksPassword = ({ handleSubmit }) => {
             <CardContent style={{marginBottom: '1em'}}>
                 <div style={{width: '60%', marginLeft: 'auto', marginRight: 'auto', marginBottom: '1em'}}>
                     <Typography variant="h6">
-                        We need to validate, who you are, so please, provide password from your mail:
+                        {text ?? 'We need to validate, who you are, so please, provide password from your mail:'}
                     </Typography>
                 </div>
                 <TextField

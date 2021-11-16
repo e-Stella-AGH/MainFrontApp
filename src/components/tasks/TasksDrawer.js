@@ -1,3 +1,4 @@
+//This file should be merged with NotesDrawer from ES-231
 import {useState} from 'react'
 import {Button, Drawer, List, ListItem} from '@material-ui/core'
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
@@ -5,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {constants} from "../../utils/constants";
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
-import {NotesMenu} from './NotesMenu'
+import {TasksMenu} from './TasksMenu'
 
 const drawerWidth = 600;
 
@@ -38,23 +39,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
+export const TasksDrawer = ({ tasks, key_uuid, uuid, reload, setReload }) => {
 
     const classes = useStyles()
     const theme = useTheme()
-    const [open, setOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
-    const handleNoteClick = () => {
-        setOpen(true)
+    const handleTaskClick = () => {
+        setIsOpen(true)
     }
 
-    const closeNote = () => {
-        setOpen(false)
+    const closeTask = () => {
+        setIsOpen(false)
     }
 
     const closedView = (<List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
                             <ListItem>
-                                <Button onClick={handleNoteClick}>
+                                <Button onClick={handleTaskClick}>
                                     <NoteAddIcon fontSize="large" color="action"/>
                                 </Button>
                             </ListItem>
@@ -63,25 +64,25 @@ export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
     return (
         <div>
             {open && (
-                <Button onClick={closeNote} style={{position:'absolute', top: '5em', left: '20px', zIndex: '10001'}}>
+                <Button onClick={closeTask} style={{position:'absolute', top: '5em', left: '20px', zIndex: '10001'}}>
                     <CloseIcon size="large" color="action" />
                 </Button>
             )}
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: isOpen,
+                    [classes.drawerClose]: !isOpen,
                   })}
                   classes={{
                     paper: clsx({
-                      [classes.drawerOpen]: open,
-                      [classes.drawerClose]: !open,
+                      [classes.drawerOpen]: isOpen,
+                      [classes.drawerClose]: !isOpen,
                     }),
                   }}
             >
-                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} /> : closedView}
+                {!isOpen ? closedView : <TasksMenu reload={reload} setReload={setReload} />}
             </Drawer>
         </div>
     )
-}
+} 

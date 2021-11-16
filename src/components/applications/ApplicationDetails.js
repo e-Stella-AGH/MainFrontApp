@@ -7,11 +7,9 @@ import {applicationsAPI} from "../../utils/apis/applicationsAPI";
 import Swal from "sweetalert2";
 import {processAPI} from "../../utils/apis/ProcessAPI";
 import {useHistory} from "react-router-dom";
-import { useEffect, useState } from 'react';
-import { interviewAPI } from '../../utils/apis/InterviewAPI';
 import {validateEmail} from "../../utils/functions";
 
-export const ApplicationDetails = ({application, isHR, reload}) => {
+export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
 
     const theme = useTheme()
     const history = useHistory()
@@ -19,7 +17,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
     const getSeekerFiles = () => {
         return application.seekerFiles
             .map((file, idx) => (
-                <Grid item key={`${idx}`} xs={12} md={6}>
+                <Grid item key={idx} xs={12} md={6}>
                     <FileViewerWrapper undecodedFile={file}/>
                 </Grid>))
     }
@@ -133,22 +131,22 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                                 <Typography>{application.jobSeeker.user.mail}</Typography>
                             </div>
                             <div>
-                                <Typography color="textSecondary">{processAPI._prepareDate(new Date(application.applicationDate))}</Typography>
+                                <Typography color="textSecondary">{processAPI.prepareDate(new Date(application.applicationDate))}</Typography>
                             </div>
                         </Grid>
                         <Grid item xs={12}><Divider/></Grid>
                         <Grid item xs={8}>
                             {
                                 application.seekerFiles.length === 0 ?
-                                    <Typography>Candidate didn't supply any files.</Typography> :
+                                    <Typography>{ isHR || isDev ? 'Candidate' : 'You' } didn't supply any files.</Typography> :
                                     <Grid container direction="row" spacing={4}>
                                         {getSeekerFiles()}
                                     </Grid>
                             }
                         </Grid>
                         {
-                            stageRequiresMeeting() && !getDisabled() &&
-                                <Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>
+                            stageRequiresMeeting() && !getDisabled() && !isDev &&
+                                (<Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>)
                         }
                         <Grid item xs={12}>
                             {/*  Notes about candidate in future  */}
@@ -158,7 +156,7 @@ export const ApplicationDetails = ({application, isHR, reload}) => {
                 <Grid item xs={12}>
                     <Grid container>
                         {
-                            isHR &&
+                            isHR && !isDev &&
                             <Grid item xs={12} style={{display: "flex", justifyContent: "flex-end"}}>
                                 <Button style={getRejectButtonStyle()} variant="outlined" onClick={rejectApplication} disabled={getDisabled()}>
                                     Reject Application

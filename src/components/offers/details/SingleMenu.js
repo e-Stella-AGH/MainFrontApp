@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Typography } from '@material-ui/core'
-import { useState } from 'react'
+import {Typography} from '@material-ui/core'
 
 
 export const SingleMenu = ({ buttons, menuName, offer, history }) => {

@@ -24,8 +24,18 @@ export const applicationsAPI = {
     nextStage: function(applicationId, devMails) {
         return authFetch(recruitmentServiceBasicAPILink + `/api/applications/${applicationId}/next`, {
             method: "PUT",
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({"devs": devMails})
+            body: JSON.stringify({"devs": devMails}),
+            headers: {
+                'content-type': 'application/json'
+            }
         })
-    }
+    },
+
+    getApplicationsForDev: function(organizationId, devMail, devPassword) {
+        return checkedFetch(recruitmentServiceBasicAPILink + `/api/applications/forDev/${devMail}`, {
+            headers: {
+                'content-type': 'application/json',
+                'x-dev-password': devPassword
+            }}).then(response => response.json())
+        }
 }
