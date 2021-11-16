@@ -28,6 +28,6 @@ export const interviewAPI = {
     getInterviewObjectById: interviewId => checkedFetch(`${recruitmentServiceBasicAPILink}/api/interview/${interviewId}`)
         .then(response => response.json()),
 
-    getTaskStageUUIDByInterviewId: interviewId => checkedFetch(`${recruitmentServiceBasicAPILink}/api/taskStage/byInterview/${interviewId}`)
+    getTaskStageUUIDByInterviewId: interviewId => checkedFetch(`${recruitmentServiceBasicAPILink}/api/taskStages/byInterview/${interviewId}`)
         .then(response => response.json())
 }
