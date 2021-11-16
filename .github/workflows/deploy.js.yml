@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -23,8 +23,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: npm install --legacy-peer-deps
     - run: npm ci
-    - run: npm run build --if-present
+    - run: CI=false npm run build --if-present
     - run: npm test
-    - run: npm run deploy
+      env:
+        REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}          
+    - run: CI=false npm run deploy
+      env:
+        REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}
+
+      
