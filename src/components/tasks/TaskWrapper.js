@@ -3,8 +3,15 @@ import {CodeEditor} from "e-stella-code-editor";
 import React from "react";
 import {useAbly} from "../../utils/hooks/useAbly";
 
-const TaskWrapper = ({task, taskStageUUID, toSolveTask = true, submitLeftOffset = 0}) => {
-    const { pub, sub, clientId } = useAbly(`codeChanged/${taskStageUUID}/${task.id}`)
+const TaskWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0, fetchTasks: propFetchTasks }) => {
+
+    let { taskStageUUID } = useParams()
+
+    if(!taskStageUUID) taskStageUUID = propId
+
+    const { pub, sub, clientId } = useAbly(`codeChanged/${taskStageUUID}`)
+
+    const fetchTasks = !!propFetchTasks ? propFetchTasks : toSolveTask ? () => tasksApi.getTasks(taskStageUUID || NaN) : () => new Promise(_ => {})
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
 
     return <CodeEditor

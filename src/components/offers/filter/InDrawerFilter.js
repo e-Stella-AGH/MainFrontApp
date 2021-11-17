@@ -5,7 +5,7 @@ import {EStellaSlider} from "./EStellaSlider";
 import {useEffect, useState} from "react";
 import {filterTypes} from "../../../utils/Enums";
 import {getFilterValueByType} from "../../../utils/functions";
-import { EStellaAutocomplete } from '../../EStellaAutocomplete'
+import {EStellaAutocomplete} from '../../EStellaAutocomplete'
 
 export const InDrawerFilter = (props) => {
 

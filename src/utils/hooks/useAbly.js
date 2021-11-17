@@ -1,5 +1,5 @@
-import { Realtime } from "ably/browser/static/ably-commonjs.js"
-import { v4 as uuid } from 'uuid'
+import {Realtime} from "ably/browser/static/ably-commonjs.js"
+import {v4 as uuid} from 'uuid'
 
 const ably = new Realtime({ key: process.env.REACT_APP_ABLY_KEY })
 const id = uuid()

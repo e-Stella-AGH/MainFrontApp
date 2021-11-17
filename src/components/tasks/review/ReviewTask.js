@@ -1,15 +1,15 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {tasksApi} from '../../../utils/apis/tasksAPI';
-import { useDevPassword } from '../../../utils/hooks/useDevPassword'
-import { NotesDrawer } from '../../notes/NotesDrawer';
-import { TasksCarousel } from './TasksCarousel'
+import {useDevPassword} from '../../../utils/hooks/useDevPassword'
+import {NotesDrawer} from '../../notes/NotesDrawer';
+import {TasksCarousel} from './TasksCarousel'
 import Swal from 'sweetalert2'
 import {useHistory} from 'react-router-dom'
-import { Typography } from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 
 export const ReviewTask = ({ id: taskStageUUID }) => {
 
-    const { getEncoded } = useDevPassword()
+    const { getEncodedDevPassword } = useDevPassword()
     
     const history = useHistory()
 
@@ -18,9 +18,8 @@ export const ReviewTask = ({ id: taskStageUUID }) => {
     const [reload, setReload] = useState(false)
 
     useEffect(() => {
-       tasksApi.getNotesWithTasksByTaskUUID(taskStageUUID, getEncoded())
+       tasksApi.getNotesWithTasksByTaskUUID(taskStageUUID, getEncodedDevPassword())
             .then(data => {
-                console.log(data)
                 setNotes(data?.notes || [])
                 setTasks(data?.tasks || [])
             })
