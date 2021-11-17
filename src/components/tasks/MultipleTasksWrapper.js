@@ -1,4 +1,4 @@
-import {tasksApi} from "../../utils/apis/TasksApi";
+import {tasksApi} from "../../utils/apis/tasksAPI";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Carousel} from 'react-responsive-carousel';
