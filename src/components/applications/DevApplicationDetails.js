@@ -9,6 +9,8 @@ import {useDevPassword} from "../../utils/hooks/useDevPassword";
 
 export const DevApplicationDetails = ({devApplication}) => {
 
+    console.log(devApplication)
+
     const application = devApplication?.application
 
     const { getEncodedDevPassword } = useDevPassword()
