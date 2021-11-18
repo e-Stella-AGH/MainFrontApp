@@ -6,6 +6,7 @@ import {TasksCarousel} from './TasksCarousel'
 import Swal from 'sweetalert2'
 import {useHistory} from 'react-router-dom'
 import {Typography} from '@material-ui/core'
+import CenteredCircularProgress from '../../commons/CenteredCircularProgress'
 
 export const ReviewTask = ({ id: taskStageUUID }) => {
 
@@ -16,21 +17,25 @@ export const ReviewTask = ({ id: taskStageUUID }) => {
     const [notes, setNotes] = useState([])
     const [tasks, setTasks] = useState([])
     const [reload, setReload] = useState(false)
+    const [isFetching, setIsFetching] = useState(true)
 
     useEffect(() => {
        tasksApi.getNotesWithTasksByTaskUUID(taskStageUUID, getEncodedDevPassword())
             .then(data => {
                 setNotes(data?.notes || [])
                 setTasks(data?.tasks || [])
+                setIsFetching(false)
             })
-            .catch( err =>
-                Swal.fire({
-                    title: "You're not supposed to be here!",
-                    text: "We're sorry, but password you have provided was incorrect.",
-                    icon: "error"
-                }).then(() => {
-                    history.push('/')
-                })
+            .catch( err => {
+                    setIsFetching(false)
+                    Swal.fire({
+                        title: "You're not supposed to be here!",
+                        text: "We're sorry, but password you have provided was incorrect.",
+                        icon: "error"
+                    }).then(() => {
+                        history.push('/')
+                    })
+                }   
             )
     }, [taskStageUUID, reload])
 
@@ -38,8 +43,14 @@ export const ReviewTask = ({ id: taskStageUUID }) => {
 
     return(
         <div>
-            <NotesDrawer notes={notes} uuid={taskStageUUID} uuid_key="task_note" reload={reload} setReload={setReload} />
-            { tasks?.length > 0 ? <TasksCarousel tasks={tasks} /> : <Typography variant="h5" style={{textAlign: 'center'}}> There are no tasks results to show! </Typography>}
+            {
+                isFetching ? <CenteredCircularProgress size={100} /> : (
+                    <div>
+                        <NotesDrawer notes={notes} uuid={taskStageUUID} uuid_key="task_note" reload={reload} setReload={setReload} />
+                        { tasks?.length > 0 && !isFetching ? <TasksCarousel tasks={tasks} /> : <Typography variant="h5" style={{textAlign: 'center'}}> There are no tasks results to show! </Typography>}
+                    </div>
+                )
+            }
         </div>
     )
 }
