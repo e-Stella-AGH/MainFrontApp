@@ -91,6 +91,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64, or
                     reload={reload}
                     setReload={setReload}
                     anchor={getNotesDrawerAnchor()}
+                    shouldUseAuthFetchToPost={isHR}
                 /> 
             }
         </>

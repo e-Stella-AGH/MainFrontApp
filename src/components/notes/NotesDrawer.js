@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload, anchor = "left" }) => {
+export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload, anchor = "left", shouldUseAuthFetchToPost = false }) => {
 
     const classes = useStyles()
     const theme = useTheme()
@@ -83,7 +83,7 @@ export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload, anchor =
                   }}
                 anchor={anchor}
             >
-                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} /> : closedView}
+                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} shouldUseAuthFetchToPost={shouldUseAuthFetchToPost} /> : closedView}
             </Drawer>
         </div>
     )
