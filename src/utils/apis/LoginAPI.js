@@ -38,10 +38,14 @@ export const loginAPI = {
     },
 
     registerCompany: function(login, password, name) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve({text: "ok", ok: true})
-            }, 2000)
+        return fetch(recruitmentServiceBasicAPILink + "/api/organizations", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                name: name,
+                mail: login,
+                password: password
+            })
         })
     }
 }
