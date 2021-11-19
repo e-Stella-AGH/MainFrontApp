@@ -34,17 +34,24 @@ const createFilterFunction = (filter) => {
             } else {
                 return () => true
             }
+        //add more for applications
+        case filterTypes.TAG:
+            return filter.value ? (arg) => arg.tags.map(it.toLowerCase()).contains(filter.value.toLowerCase()) :  () => true
+        case filterTypes.APPLICATION_STAGE:
+            return filter.value ? (arg) => filter.value.includes(arg?.status) : () => true
+        case filterTypes.PROCESS_STAGE:
+            return filter.value ? (arg) => filter.value.includes(arg?.stage?.type) : () => true
         default:
             return () => true
     }
 }
 
-export const filterOffers = (offers, filters) => {
-    let tmpOffers = offers
+export const filterItems = (items, filters) => {
+    let tmpItems = items
     filters.forEach(filter => {
-        tmpOffers = tmpOffers.filter(offer => (createFilterFunction(filter))(offer))
+        tmpItems = tmpItems.filter(item => (createFilterFunction(filter))(item))
     })
-    return tmpOffers
+    return tmpItems
 }
 
 export const getIconFromFilterType = (filter) => {

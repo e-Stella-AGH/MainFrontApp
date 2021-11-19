@@ -1,18 +1,17 @@
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {Button, Drawer, Grid} from "@material-ui/core";
 import React, {useState} from "react";
-import {InDrawerFilter} from "./InDrawerFilter";
 import PropTypes from "prop-types";
 import {ActiveFilter} from "./ActiveFilter";
 
-export const Filter = (props) => {
+export const Filter = ({ onFilterSubmitted, reloadItems, InDrawerFilter, InDrawerFilterProps }) => {
 
     const [open, setOpen] = useState(false)
     const [filters, setFilters] = useState([])
 
     const handleFilterSubmitted = (filters) => {
         setFilters(filters)
-        props.onFilterSubmitted(filters)
+        onFilterSubmitted(filters)
     }
 
     const toggleDrawer = () => {
@@ -29,7 +28,7 @@ export const Filter = (props) => {
     const handleFilterDelete = (filterType) => {
         const newFilters = filters.filter(filter => filter.type !== filterType)
         setFilters(newFilters)
-        props.reloadOffers(newFilters)
+        reloadItems(newFilters)
     }
 
     return (
@@ -43,9 +42,7 @@ export const Filter = (props) => {
 
             <Drawer anchor="left" open={open} ModalProps={{onBackdropClick: () => toggleDrawer()}}
                     transitionDuration={700}>
-                <InDrawerFilter toggleDrawer={toggleDrawer} offers={props.offers}
-                                onFilterSubmitted={handleFilterSubmitted} filters={filters}
-                                fixedOffers={props.fixedOffers}/>
+                <InDrawerFilter {...InDrawerFilterProps} onFilterSubmitted={handleFilterSubmitted} filters={filters} toggleDrawer={toggleDrawer}/>
             </Drawer>
 
         </div>
@@ -58,3 +55,4 @@ Filter.propTypes = {
     fixedOffers: PropTypes.array.isRequired,
     reloadOffers: PropTypes.func.isRequired
 }
+

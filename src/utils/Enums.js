@@ -3,6 +3,10 @@ export const filterTypes = {
     MAX_SALARY: "Maximum Salary",
     COMPANY_NAME: "Company Name",
     POSITION_NAME: "Position Name",
+    //add more for applications
+    TAG: "Tag",
+    APPLICATION_STAGE: "Application Stage",
+    PROCESS_STAGE: "Recruitment Process Stage"
 }
 
 const compare = (a, b, name) => {
