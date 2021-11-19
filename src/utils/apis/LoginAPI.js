@@ -42,9 +42,9 @@ export const loginAPI = {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
-                name: name,
-                mail: login,
-                password: password
+                name,
+                login,
+                password
             })
         })
     }
