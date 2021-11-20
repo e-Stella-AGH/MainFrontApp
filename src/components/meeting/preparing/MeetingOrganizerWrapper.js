@@ -19,8 +19,6 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
 
     const type = paramType || propType
 
-    const onPickSlotByJobSeeker = userData?.userType === "job_seeker" ? (slot) => console.log(slot) : () => {}
-
     useEffect(() => {
         if(type === "organizer") {
             interviewAPI.getNewestInterview(uuid)
@@ -41,11 +39,12 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         }
     }, [type, uuid])
 
+    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData 
+
     return fetchError ? <Redirect to={redirectPath} /> : (
-        !!outsideValues || !!userData ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
+        getStillFetching() ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                                 userData={userData}
                                 outsideJwt={jwtUtils.getAuthToken()}
-                                outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
                                 drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}
                                 outsideMeetingValues={outsideValues} />: <CenteredCircularProgress size={80} />
     )

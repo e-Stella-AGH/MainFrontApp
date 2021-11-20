@@ -6,10 +6,12 @@ export const theme = createTheme({
     },
     status: {
         danger: {
-            main: '#d32f2f'
+            main: '#d32f2f',
+            light: '#ff6659'
         },
         success: {
-            main: '#388e3c'
+            main: '#388e3c',
+            light: '#6abf69'
         }
     },
     palette: {

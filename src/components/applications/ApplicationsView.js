@@ -13,8 +13,10 @@ import { Filter } from '../commons/filter/Filter'
 import { filterItems } from "../../utils/functions";
 import { ApplicationsInDrawerFilter } from "./filters/InDrawerFilter";
 import { Typography } from '@material-ui/core'
+import {NotesDrawer} from '../notes/NotesDrawer'
+import { applicationsAPI } from "../../utils/apis/applicationsAPI";
 
-export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) => {
+export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64, organizationUUID}) => {
 
     const {id} = useParams()
     const {getEncodedDevPassword} = useDevPassword()
@@ -26,6 +28,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
     const [fetching, setFetching] = useState(false)
     const [fetchError, setFetchError] = useState(false)
     const [reload, setReload] = useState(false)
+    const [selectedApplicationNotes, setSelectedApplicationNotes] = useState([])
 
     // state for filter and sort
     const [fixedApplications, setFixedApplications] = useState([])
@@ -66,6 +69,20 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
             })
     }, [setApplications, getApplications, id, reload])
 
+    useEffect(() => {
+        if (selectedApplication && isHR) {
+            applicationsAPI.getNotesByApplicationIdFromHr(selectedApplication.id)
+                .then(data => setSelectedApplicationNotes(data?.notes || []))
+        } else if (selectedApplication && isDev) {
+            applicationsAPI.getNotesByApplicationIdFromDev(selectedApplication.application.id, devPassword)
+                .then(data => setSelectedApplicationNotes(data?.notes || []))
+        }
+    }, [selectedApplication, reload])
+
+    const getNotesDrawerAnchor = () => isHR ? "left" : isDev ? "right" : "none"
+    const getNotesDrawerStyle = () => isDev ? {marginRight: '3em'} : {marginLeft: '3em'}
+    const getSelectedApplicationId = () => isDev ? selectedApplication?.application?.id : selectedApplication?.id
+
     const getFilterView = (applications, fixedApplications) => (
         <Filter
             onFilterSubmitted={handleFilterSubmitted}
@@ -79,32 +96,48 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
     )
 
     const getStandardView = (innerApplications, fixedInnerApplications, WrappedComponent = ApplicationDetails, wrappedProps = {application: selectedApplication, isHR, reload: () => setReload(!reload), isDev}, forDev=false) => (
-        <StandardViewAndFilterLayout
-            filter={getFilterView(innerApplications, fixedInnerApplications)}
-            sorter={null}
-            view={
-                <ColumnAndDetailsLayout
-                    details={selectedApplication ?
-                        <WrappedComponent {...wrappedProps}  /> :
-                        <EmptySelectedApplicationView />}
-                    list={<ApplicationsList
-                        forDev={forDev}
-                        applications={innerApplications}
-                        onSelectedApplication={selected => setSelectedApplication(selected)}
-                    />}
+        <>
+            <div style={{...getNotesDrawerStyle()}}>
+                <StandardViewAndFilterLayout
+                    filter={getFilterView(innerApplications, fixedInnerApplications)}
+                    sorter={null}
+                    view={
+                        <ColumnAndDetailsLayout
+                            details={selectedApplication ?
+                                <WrappedComponent {...wrappedProps}  /> :
+                                <div>Select application</div>}
+                            list={<ApplicationsList
+                                forDev={forDev}
+                                applications={innerApplications}
+                                onSelectedApplication={selected => setSelectedApplication(selected)}
+                            />}
+                        />
+                    }
                 />
+            </div>
+            { 
+                (isHR || isDev) && getSelectedApplicationId() &&
+                <NotesDrawer
+                    notes={selectedApplicationNotes}
+                    uuid={getSelectedApplicationId()}
+                    uuid_key="cv_note"
+                    reload={reload}
+                    setReload={setReload}
+                    anchor={getNotesDrawerAnchor()}
+                    shouldUseAuthFetchToPost={isHR}
+                /> 
             }
-        />
+        </>
     )
 
     const mapApplicationForDev = application => {
         return {
             ...application,
-            organizationUUID: id
+            organizationUUID
         }
     }
     const getDevView = () => getStandardView(applications.map(mapApplicationForDev), fixedApplications.map(mapApplicationForDev),
-    DevApplicationDetails, {devApplication: selectedApplication, isDev, reload: () => setReload(!reload)}, true)
+    DevApplicationDetails, {devApplication: {...selectedApplication, organizationUUID}, isDev, reload: () => setReload(!reload)}, true)
 
     const getView = () => isDev ? getDevView() : getStandardView(applications, fixedApplications)
 

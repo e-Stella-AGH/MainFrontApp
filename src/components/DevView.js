@@ -24,6 +24,7 @@ export const DevView = ({ fetchTasks, getApplications, id, mailInBase64 }) => {
                     isDev={true}
                     getApplications={getApplications}
                     mailInBase64={mailInBase64}
+                    organizationUUID={id}
                 />
             )
         } else return null

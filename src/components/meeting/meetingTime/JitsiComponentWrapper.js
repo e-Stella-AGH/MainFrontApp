@@ -2,7 +2,6 @@ import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
 import {useEffect, useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
-import {TaskWrapper} from "../../tasks/TaskWrapper";
 import {AssignTasks} from "../../tasks/AssignTasks";
 import {WithDevPassword} from "../../tasks/WithDevPassword"
 import {tasksApi} from "../../../utils/apis/tasksAPI";
@@ -17,6 +16,7 @@ import {constants} from '../../../utils/constants'
 import clsx from 'clsx';
 import CloseIcon from '@material-ui/icons/Close';
 import Swal from "sweetalert2";
+import {MultipleTasksWrapper} from "../../tasks/MultipleTasksWrapper";
 
 export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, companyId }) => {
 
@@ -57,7 +57,7 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         setJitsiWidth('20%')
         setActionComponent(
             <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
-                <TaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={taskStageUUID}/>
+                <MultipleTasksWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={taskStageUUID}/>
             </div>
         )
     }
@@ -118,7 +118,7 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
     const { getDevPassword, setDevPassword } = useDevPassword()
 
     const classes = useStyles()
-    
+
     const getNotesView = () => (
         <WithDevPassword
             WrappedComponent={NotesMenuWrapper}

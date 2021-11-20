@@ -10,8 +10,9 @@ import {useDevPassword} from '../../utils/hooks/useDevPassword';
 import {NoteApi} from '../../utils/apis/NoteApi';
 import Swal from 'sweetalert2'
 import {withSwal} from '../commons/formsCommons/WithSwal'
+import { jwtUtils } from '../../utils/jwt/jwtUtils'
 
-export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
+export const AddNote = ({ onCancel, uuid, uuid_key, setReload, shouldUseAuthFetchToPost }) => {
 
     const theme = useTheme()
     const {getEncodedDevPassword} = useDevPassword()
@@ -35,20 +36,33 @@ export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
         setTags(tags.filter(item => item != tag))
     }
 
-    const doAddNote = (devMail) => {
+    const addNoteApiCall = (mail) => {
+        if (shouldUseAuthFetchToPost) {
+            return () => NoteApi.addNoteFromHr({
+                key: uuid_key,
+                paramId: uuid,
+                note_body: {
+                    author: mail,
+                    tags: tags,
+                    fileBase64: encodeBase64(noteText)
+                }
+            })
+        } else return () => NoteApi.addNote({
+            key: uuid_key,
+            paramId: uuid,
+            note_body: {
+                author: mail,
+                tags: tags,
+                fileBase64: encodeBase64(noteText)
+            },
+            dev_password: getEncodedDevPassword()
+        })
+    }
+
+    const doAddNote = (mail) => {
         withSwal({
             loadingTitle: 'Adding Note',
-            promise: () =>
-                NoteApi.addNote({
-                    key: uuid_key,
-                    paramId: uuid,
-                    note_body: {
-                        author: devMail,
-                        tags: tags,
-                        fileBase64: encodeBase64(noteText)
-                    },
-                    dev_password: getEncodedDevPassword()
-                }),
+            promise: addNoteApiCall(mail),
             successSwalTitle: 'Note successfully added',
             successFunction: () => {
                 setReload?.(reload => !reload)
@@ -60,6 +74,15 @@ export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
     }
 
     const addNote = () => {
+        if (shouldUseAuthFetchToPost) {
+            const mail = jwtUtils.getUser().mail
+            doAddNote(mail)
+        } else {
+            addDevNote()
+        }
+    }
+
+    const addDevNote = () => {
         const devMail = getDevMail()
         if (!devMail) {
             Swal.fire({
