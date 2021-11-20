@@ -2,7 +2,6 @@ import {JitsiComponent} from "e-stella-jitsi";
 import {MeetingFab} from "./MeetingFab";
 import {useEffect, useState} from "react";
 import {Whiteboard} from "e-stella-whiteboard";
-import {TaskWrapper} from "../../tasks/TaskWrapper";
 import {AssignTasks} from "../../tasks/AssignTasks";
 import {WithDevPassword} from "../../tasks/WithDevPassword"
 import {tasksApi} from "../../../utils/apis/tasksAPI";
@@ -58,7 +57,7 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         setJitsiWidth('20%')
         setActionComponent(
             <div style={{float: "left", width: '80%', height: '80vh', overflow: 'scroll'}}>
-                <MultipleTaskWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={taskStageUUID}/>
+                <MultipleTasksWrapper fetchTasks={getTasksByInterviewUUID} submitLeftOffset={'25%'} id={taskStageUUID}/>
             </div>
         )
     }

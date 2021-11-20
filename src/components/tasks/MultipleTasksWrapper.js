@@ -1,4 +1,3 @@
-import {tasksApi} from "../../utils/apis/tasksAPI";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Carousel} from 'react-responsive-carousel';
@@ -6,7 +5,7 @@ import CenteredCircularProgress from "../commons/CenteredCircularProgress";
 import TaskWrapper from "./TaskWrapper";
 import {Button, Grid} from "@material-ui/core";
 
-export const MultipleTasksWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0 }) => {
+export const MultipleTasksWrapper = ({ id: propId, toSolveTask = true, submitLeftOffset = 0, fetchTasks }) => {
 
     let { taskStageUUID } = useParams()
 
@@ -22,7 +21,7 @@ export const MultipleTasksWrapper = ({ id: propId, toSolveTask = true, submitLef
     const updateCurrentSlide = (index) => setCurrentSlide(index)
 
     useEffect(() =>
-        tasksApi.getTask(taskStageUUID).then(tasks => {
+        fetchTasks(taskStageUUID).then(tasks => {
             setTasks(tasks)
             setIsFetching(false)
         }),
