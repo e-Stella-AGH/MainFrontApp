@@ -31,10 +31,16 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
     const [sort, setSort] = useState({apply: (applications) => applications})
 
     const handleFilterSubmitted = (filters) => {
-        setApplications(sort.apply(filterItems(fixedApplications, filters)))
+        if(areFiltersValid(filters)){
+            setApplications(sort.apply(filterItems(fixedApplications, filters)))
+        }
+        else {
+            setApplications(sort.apply(fixedApplications))
+        }
     }
 
-    console.log(applications)
+    const areFiltersValid = (filters) => filters.map(filter => filter.value)
+        .some(value => value?.length !== undefined ? value?.length > 0 : !!value)
 
     const text = isDev ? `We weren't able to get this offer's applications! You will be redirected to main page.` : isHR ? `We weren't able to get this offer's applications! You will be redirected to your offers.` : `We weren't able to get your applications!`
 
