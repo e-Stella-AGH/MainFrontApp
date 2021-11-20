@@ -2,6 +2,7 @@ import {recruitmentServiceBasicAPILink} from "./APILinks";
 import Swal from 'sweetalert2'
 import {checkedFetch} from '../chekedFetch'
 import {withSwal} from '../../components/commons/formsCommons/WithSwal'
+import {headers} from "./headers";
 
 
 
@@ -50,7 +51,7 @@ export const tasksApi = {
 
     getTasks: (tasksStageId) => {
         if (tasksStageId) {
-            return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?taskStage=${tasksStageId}`)
+            return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks/inProgress/?taskStage=${tasksStageId}`)
                 .then(response => {
                     Swal.close()
                     return response.json()
@@ -136,6 +137,19 @@ export const tasksApi = {
         return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?interview=${interviewId}`, {
             method: 'GET'
         }).then(response => response.json())
-    }
+    },
 
+    taskStarted: (taskStageUUID, task) => {
+            const promise = () => checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskStarted?taskStage=${taskStageUUID}&task=${task.id}`, {
+                    method: "PUT",
+                    headers: headers
+                }
+            )
+            withSwal({
+                loadingTitle: 'Starting task',
+                successSwalTitle: 'You may begin!',
+                promise
+            })
+
+    }
 }
