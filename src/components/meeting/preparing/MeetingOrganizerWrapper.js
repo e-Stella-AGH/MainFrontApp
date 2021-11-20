@@ -41,8 +41,10 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         }
     }, [type, uuid])
 
+    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData 
+
     return fetchError ? <Redirect to={redirectPath} /> : (
-        !!outsideValues || !!userData ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
+        getStillFetching() ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                                 userData={userData}
                                 outsideJwt={jwtUtils.getAuthToken()}
                                 outerFunctions={{ 'onPickSlot': onPickSlotByJobSeeker }}
