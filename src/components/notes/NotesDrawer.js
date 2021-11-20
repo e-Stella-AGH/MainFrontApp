@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
+export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload, anchor = "left", shouldUseAuthFetchToPost = false }) => {
 
     const classes = useStyles()
     const theme = useTheme()
@@ -60,10 +60,12 @@ export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
                             </ListItem>
                         </List>)
 
+    const getCloseIconStyling = () => anchor === "left" ? {left: '20px'} : {right: '20px'}
+
     return (
         <div>
             {open && (
-                <Button onClick={closeNote} style={{position:'absolute', top: '5em', left: '20px', zIndex: '10001'}}>
+                <Button onClick={closeNote} style={{position:'absolute', top: '5em', zIndex: '10001', ...getCloseIconStyling()}}>
                     <CloseIcon size="large" color="action" />
                 </Button>
             )}
@@ -79,8 +81,9 @@ export const NotesDrawer = ({ notes, uuid, uuid_key, reload, setReload }) => {
                       [classes.drawerClose]: !open,
                     }),
                   }}
+                anchor={anchor}
             >
-                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} /> : closedView}
+                {open ? <NotesMenu notes={notes} uuid={uuid} uuid_key={uuid_key} reload={reload} setReload={setReload} shouldUseAuthFetchToPost={shouldUseAuthFetchToPost} /> : closedView}
             </Drawer>
         </div>
     )

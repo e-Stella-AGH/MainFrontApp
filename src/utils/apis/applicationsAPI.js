@@ -37,5 +37,18 @@ export const applicationsAPI = {
                 'content-type': 'application/json',
                 'x-dev-password': devPassword
             }}).then(response => response.json())
-        }
+        },
+
+    getNotesByApplicationIdFromHr: (applicationId) => {
+        return authFetch(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?cv_note=${applicationId}`)
+            .then(response => response.json())
+    },
+
+    getNotesByApplicationIdFromDev: (applicationId, devPassword) => {
+        return checkedFetch(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?cv_note=${applicationId}`, {
+            headers: {
+                'content-type': 'application/json',
+                'x-dev-password': devPassword
+            }}).then(response => response.json())
+    }
 }

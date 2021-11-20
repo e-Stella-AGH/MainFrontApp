@@ -7,7 +7,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {AddNote} from './AddNote'
 
 
-export const NotesMenu = ({ notes, uuid, uuid_key, reload, setReload }) => {
+export const NotesMenu = ({ notes, uuid, uuid_key, reload, setReload, shouldUseAuthFetchToPost = false }) => {
 
     const [tag, setTag] = useState('')
     const [showAdd, setShowAdd] = useState(false)
@@ -34,7 +34,7 @@ export const NotesMenu = ({ notes, uuid, uuid_key, reload, setReload }) => {
                 </Grid>
             </Grid>
 
-            { showAdd && <AddNote onCancel={() => setShowAdd(false)} uuid={uuid} uuid_key={uuid_key} setReload={setReload} /> }
+            { showAdd && <AddNote onCancel={() => setShowAdd(false)} uuid={uuid} uuid_key={uuid_key} setReload={setReload} shouldUseAuthFetchToPost={shouldUseAuthFetchToPost} /> }
 
             <Divider style={{marginTop: '1em'}} />
 
