@@ -10,8 +10,9 @@ export const ApplicationsInDrawerFilter = ({ items, fixedItems, filters, onFilte
     const tags = fixedItems.reduce((acc, item) => [...acc, ...item.tags], [])
 
     const [toggledStages, setToggledStages] = useState([])
+    const [toggledApplicationStatuses, setToggledApplicationStatuses] = useState([])
 
-    const handleStageChange = (stage, isToggled) => {
+    const onStageChange = (stage, isToggled) => {
         if (isToggled) {
             setToggledStages([...toggledStages, stage])
         } else {
@@ -19,13 +20,18 @@ export const ApplicationsInDrawerFilter = ({ items, fixedItems, filters, onFilte
         }
     }
 
+    const onApplicationStatusChange = (status, isToggled) => {
+        setToggledApplicationStatuses(isToggled ? [...toggledApplicationStatuses, status] : toggledApplicationStatuses.filter(toggle => toggle !== status))
+    }
+
     const createFilters = () => [
-        {type: filterTypes.PROCESS_STAGE, value: toggledStages}
+        {type: filterTypes.PROCESS_STAGE, value: toggledStages},
+        {type: filterTypes.APPLICATION_STAGE, value: toggledApplicationStatuses}
     ]
 
     const handleFilterSubmit = () => {
         toggleDrawer()
-        onFilterSubmitted(createFilters())
+        onFilterSubmitted(createFilters().filter(filter => filter.value?.length !== undefined ? filter.value?.length > 0 : !!filter.value))
     }
 
     const calculateWidth = () => {
@@ -38,14 +44,23 @@ export const ApplicationsInDrawerFilter = ({ items, fixedItems, filters, onFilte
     }
 
     return (
-        <div style={{width: `${calculateWidth()}px`, padding: "2em"}}>
+        <div style={{width: `${calculateWidth()}px`, padding: "2em", marginTop: '3em'}}>
 
-            <Card variant="outlined" style={{width: '90%', marginLeft: 'auto', marginRight: 'auto', padding: '1em'}}>
-                <Typography variant="h6">Current Process Stage:</Typography>
-                {possibleStages.map((stage, idx) => <CustomSwitch key={idx} name={stage} onChange={(isToggled) => handleStageChange(stage, isToggled)} />)}
-            </Card>
- 
+            <FilterCard possibleFilters={statuses} title="Current Application Status:" handleStateChange={onApplicationStatusChange} />
+
+            <FilterCard possibleFilters={possibleStages} title="Current Process Stage:" handleStateChange={onStageChange} />
+
             <Button style={{position: 'absolute', bottom: '5%', right: '20%'}} type="outlined" onClick={handleFilterSubmit}>Filter</Button>
         </div>
+    )
+}
+
+const FilterCard = ({ possibleFilters, title, handleStateChange }) => {
+
+    return (
+        <Card variant="outlined" style={{width: '90%', marginLeft: 'auto', marginRight: 'auto', padding: '1em'}}>
+            <Typography variant="h6">{title}</Typography>
+            {possibleFilters.map((filter, idx) => <CustomSwitch key={idx} name={filter} onChange={(isToggled) => handleStateChange(filter, isToggled)} />)}
+        </Card>
     )
 }

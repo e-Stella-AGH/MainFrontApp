@@ -49,10 +49,3 @@ export const Filter = ({ onFilterSubmitted, reloadItems, InDrawerFilter, InDrawe
     )
 }
 
-Filter.propTypes = {
-    offers: PropTypes.array.isRequired,
-    onFilterSubmitted: PropTypes.func.isRequired,
-    fixedOffers: PropTypes.array.isRequired,
-    reloadOffers: PropTypes.func.isRequired
-}
-

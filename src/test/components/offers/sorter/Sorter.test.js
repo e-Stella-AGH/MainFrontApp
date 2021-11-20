@@ -1,4 +1,4 @@
-import {SorterWrapper} from "../../../../components/offers/sorter/SorterWrapper";
+import {SorterWrapper} from "../../../../components/commons/sorter/SorterWrapper";
 import {render, screen} from '@testing-library/react'
 import userEvent from "@testing-library/user-event";
 import {offerSort} from "../../../../utils/Enums";
