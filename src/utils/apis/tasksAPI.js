@@ -148,7 +148,9 @@ export const tasksApi = {
             withSwal({
                 loadingTitle: 'Starting task',
                 successSwalTitle: 'You may begin!',
-                promise
+                promise,
+                errorSwalTile: 'Something went wrong',
+                errorSwalText: "We couldn't start your task. Please try again."
             })
 
     }
