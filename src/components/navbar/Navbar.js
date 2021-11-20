@@ -16,18 +16,17 @@ export const Navbar = () => {
         zIndex: theme.zIndex.drawer + 1
     }}>
         <Toolbar>
-            <div style={{marginLeft: "2%", marginRight: "1%"}}>
+            <div style={{marginTop: '-5px'}}>
                 <Link to="/" style={{color: "white", textDecoration: "none"}}>
-                    <Typography variant="h6">
-                        e-Stella
-                    </Typography>
+                    <img src="https://imgur.com/5LUwfu8.png" alt="logo" width="30%" />
                 </Link>
             </div>
-            <div style={{marginLeft: "1%", marginRight: "auto"}}>
+            <div style={{marginLeft: '-30%'}}>
                 <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
                     <Button color="inherit">All Offers</Button>
                 </Link>
             </div>
+            <div style={{marginRight: '1%', marginLeft: 'auto'}}>
             {loggedIn ? <UserMenu /> : <div style={{marginLeft: "auto"}}>
                 <Link to="/login" style={{color: "white", textDecoration: "none"}}>
                     <Button color="inherit" id="loginButton">Login</Button>
@@ -36,6 +35,7 @@ export const Navbar = () => {
                     <Button color="inherit" id="registerButton">Register</Button>
                 </Link>
             </div>}
+            </div>
         </Toolbar>
     </AppBar>)
 }

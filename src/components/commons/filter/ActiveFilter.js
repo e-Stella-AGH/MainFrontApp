@@ -5,7 +5,9 @@ import {ProcessStage} from '../../../utils/procesStages'
 
 export const ActiveFilter = ({ label, handleDelete, filter, color }) => {
 
-    const getLabel = () => label.split(' ').at(-1) in ProcessStage ? `${filter.type}: ${ProcessStage[label.split(' ').at(-1)].name}` : label
+    const lastLabelWord = label.split(' ')[label.split(' ').length - 1]
+
+    const getLabel = () => lastLabelWord in ProcessStage ? `${filter.type}: ${ProcessStage[lastLabelWord].name}` : label
 
     return (
         <Grid item>

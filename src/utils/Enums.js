@@ -4,9 +4,14 @@ export const filterTypes = {
     COMPANY_NAME: "Company Name",
     POSITION_NAME: "Position Name",
     //add more for applications
-    TAG: "Tag",
+    TAGS: "Tags",
     APPLICATION_STAGE: "Application Stage",
     PROCESS_STAGE: "Recruitment Process Stage"
+}
+
+export const operators = {
+    AND: "And",
+    OR: "Or"
 }
 
 const compare = (a, b, name) => {

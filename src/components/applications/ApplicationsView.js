@@ -12,6 +12,7 @@ import {useDevPassword} from "../../utils/hooks/useDevPassword";
 import { Filter } from '../commons/filter/Filter'
 import { filterItems } from "../../utils/functions";
 import { ApplicationsInDrawerFilter } from "./filters/InDrawerFilter";
+import { Typography } from '@material-ui/core'
 
 export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) => {
 
@@ -72,7 +73,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
             InDrawerFilter={ApplicationsInDrawerFilter}
             InDrawerFilterProps={{
                 items: applications,
-                fixedItems: fixedApplications
+                fixedItems: fixedApplications,
             }}
         />
     )
@@ -85,7 +86,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
                 <ColumnAndDetailsLayout
                     details={selectedApplication ?
                         <WrappedComponent {...wrappedProps}  /> :
-                        <div>Select application</div>}
+                        <EmptySelectedApplicationView />}
                     list={<ApplicationsList
                         forDev={forDev}
                         applications={innerApplications}
@@ -109,9 +110,19 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64}) =
 
     return fetchError ? <Redirect to={isHR ? '/hr/offers' : '/'} />
         : (fetching ? <CenteredCircularProgress size={80} />
-            : (applications?.length !== 0 && applications !== undefined ?
+            : (fixedApplications?.length !== 0 && fixedApplications !== undefined ?
                 getView()
                  : <EmptyApplicationsView isHR={isHR} isDev={isDev} />
             )
         )
+}
+
+const EmptySelectedApplicationView = () => {
+
+    return (
+        <div style={{textAlign: 'center'}}>
+            <img src="https://img.myloview.pl/fototapety/job-application-or-employment-resume-research-for-vacancy-outline-concept-work-candidate-documentation-with-cv-motivation-letter-after-job-interview-vector-illustration-business-labor-and-hr-scene-700-255625478.jpg" alt="Application" style={{width: '80%'}} />
+            <Typography variant="h6" color="textSecondary">Pick application from the list on the right</Typography>
+        </div>
+    )
 }
