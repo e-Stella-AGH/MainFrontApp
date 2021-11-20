@@ -12,7 +12,7 @@ import {OfferForm} from "../components/offers/createForm/OfferForm";
 import {ManageProcess} from "../components/process/manage/ManageProcess";
 import {LoginForm} from "../components/auth/login/LoginForm";
 import {RegistrationRouting} from "../components/auth/registration/RegistrationRouting";
-import {TaskWrapper} from "../components/tasks/TaskWrapper";
+import {MultipleTasksWrapper} from "../components/tasks/MultipleTasksWrapper";
 import React from "react";
 import {Route} from "react-router-dom";
 import {MeetingOrganizerWrapper} from "../components/meeting/preparing/MeetingOrganizerWrapper";
@@ -52,7 +52,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/login", <LoginForm reload={{reload, setReload}} />),
     createRoute("/register", <RegistrationRouting />),
     createRoute("/tasks/assign/:id/:mailInBase64", <WithDevPassword WrappedComponent={DevView} wrappedProps={{ fetchTasks: (id, password) => tasksApi.getTasksByOrganization(id, password), getApplications: (organizationId, devMail, devPassword) => applicationsAPI.getApplicationsForDev(organizationId, devMail, devPassword) }} createPassword={(id, password) => `${id}:${password}`} />),
-    createRoute('/task/:taskStageUUID', <TaskWrapper />, {}),
+    createRoute('/task/:taskStageUUID', <MultipleTasksWrapper fetchTasks={(id) => tasksApi.getTasks(id)} />, {}),
     createRoute('/meeting/organizer/:uuid', withUserAuth(MeetingOrganizerWrapper, ["hr"], {type: "organizer"}), {marginTop: "2em"}),
     createRoute('/meeting/:type/:uuid', <MeetingOrganizerWrapper />, {marginTop: "2em"}),
     createRoute("/settings", <SettingsOverlay />),
