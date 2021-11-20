@@ -43,7 +43,7 @@ export const loginAPI = {
             headers: headers,
             body: JSON.stringify({
                 name,
-                login,
+                mail: login,
                 password
             })
         })

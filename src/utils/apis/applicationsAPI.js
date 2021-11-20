@@ -1,6 +1,7 @@
 import {checkedFetch} from "../chekedFetch";
 import {recruitmentServiceBasicAPILink} from "./APILinks";
 import {authFetch} from "../authFetch";
+import {headers} from "./headers";
 
 export const applicationsAPI = {
     getApplicationsByOfferId: function(offerId) {
@@ -25,9 +26,7 @@ export const applicationsAPI = {
         return authFetch(recruitmentServiceBasicAPILink + `/api/applications/${applicationId}/next`, {
             method: "PUT",
             body: JSON.stringify({"devs": devMails}),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: headers
         })
     },
 
