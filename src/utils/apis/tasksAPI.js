@@ -139,7 +139,7 @@ export const tasksApi = {
         }).then(response => response.json())
     },
 
-    taskStarted: (taskStageUUID, task) => {
+    startTask: (taskStageUUID, task) => {
             const promise = () => checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks/taskStarted?taskStage=${taskStageUUID}&task=${task.id}`, {
                     method: "PUT",
                     headers: headers

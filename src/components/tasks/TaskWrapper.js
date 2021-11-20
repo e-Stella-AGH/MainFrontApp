@@ -14,7 +14,7 @@ const TaskWrapper = ({ toSolveTask = true, submitLeftOffset = 0, taskStageUUID, 
         codeCheckerBaseLink={codeCheckerLink}
         fetchTasks={fetchTasks}
         solverId={taskStageUUID}
-        taskStartedCallback={() => tasksApi.taskStarted(taskStageUUID, task)}
+        taskStartedCallback={() => tasksApi.startTask(taskStageUUID, task)}
         absoluteOffset={{settings: { top: 0, right: 0 }, submit: {top: 0, left: submitLeftOffset}}}
         outerMonacoWrapperStyle={outerMonacoWrapperStyle}
         sharingCodeFunctions={{ pub, sub, id: clientId }}
