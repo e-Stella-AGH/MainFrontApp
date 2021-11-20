@@ -4,35 +4,36 @@ import {Button, Drawer, List, ListItem} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
 import {constants} from "../../../utils/constants";
 import {createTask} from "./createTask";
-import {tasksApi} from "../../../utils/apis/tasksAPI";
+import {useDevPassword} from "../../../utils/hooks/useDevPassword";
 
-export const TasksList = ({ fetchTasks, id }) => {
+export const TasksList = ({ fetchTasks, organizationId }) => {
 
-    const [tasks, setTasks] = useState([])
     const [reload, setReload] = useState(false)
 
-    const addTask = () => {
-        createTask(tasks, reload, setReload)
-    }
+    const {getEncodedDevPassword} = useDevPassword()
+
+    const [tasks, setTasks] = useState([])
 
     useEffect(() => {
-        fetchTasks(id)
-            .then(data => setTasks(data))
-    }, [fetchTasks, id, reload])
+        fetchTasks(organizationId, getEncodedDevPassword())
+            .then(data => {
+                setTasks(data)
+            })
+    }, [fetchTasks, organizationId, reload])
 
-    const deleteTask = (id) => {
-        tasksApi.updateTasks(tasks.filter(task => task.id !== id))
-            .then(_ => setReload(!reload))
+    const addTask = () => {
+        createTask(setReload, { password: getEncodedDevPassword(), organizationId })
     }
 
     return (
         <div>
-            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginLeft: '20%'}}>
-                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={{ 'delete': () => deleteTask(task?.id) }}/>)}
+            <div style={{display: 'flex', flexFlow: 'row wrap', gap: '2em', marginRight: '5%'}}>
+                {tasks.map(task => <Task key={task?.id} task={task} tasksOperations={[]}/>)}
             </div>
             <Drawer
                 variant="permanent"
                 style={{display: "flex", alignItems: "center"}}
+                anchor="right"
             >
                 <List style={{marginTop: `calc(${constants.navbar_height} + 1em)`}}>
                     <ListItem>

@@ -5,7 +5,6 @@ import {jwtUtils} from "../../../utils/jwt/jwtUtils";
 import {constants} from "../../../utils/constants";
 import React, {useEffect, useState} from "react";
 import {interviewAPI} from "../../../utils/apis/InterviewAPI";
-import { CircularProgress } from '@material-ui/core';
 import Swal from "sweetalert2";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 
@@ -37,19 +36,8 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
                         setFetchError(true)
                     })
                 )
-        } else if(type === "job_seeker") {
-            interviewAPI.getNewestInterviewId(uuid)
-                .then(data => setUserData({uuid: data?.uuid, userType: type}))
-                .catch(() =>
-                    Swal.fire({
-                        title: "Error",
-                        text: "Looks like HR hasn't set this interview yet! Wait a few days, then try again. Now, we'll take you back to your applications!",
-                        icon: "error"
-                    }).then(() => {
-                        setFetchError(true)
-                        redirectPath = "/user/applications"
-                    })
-                )
+        } else {
+            setUserData({uuid, userType: type})
         }
     }, [type, uuid])
 

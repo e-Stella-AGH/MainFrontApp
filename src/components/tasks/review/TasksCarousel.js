@@ -1,6 +1,6 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import { SingleTaskReview } from './SingleTaskReview'
+import {Carousel} from 'react-responsive-carousel';
+import {SingleTaskReview} from './SingleTaskReview'
 
 export const TasksCarousel = ({ tasks }) => {
 

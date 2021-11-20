@@ -1,14 +1,17 @@
 import {ListWithSelection} from "../commons/layouts/ListWithSelection";
 import {scrollToTop} from "../../utils/functions";
 
-export const ApplicationsList = ({applications, onSelectedApplication}) => {
+export const ApplicationsList = ({applications, onSelectedApplication, forDev=false}) => {
 
-    const extractData = (application) => {
+    const extractData = (applicationData) => {
+
+        const application = forDev ? applicationData.application : applicationData
+
         return {
             first: `${application.jobSeeker.user.firstName} ${application.jobSeeker.user.lastName}`,
             second: application.stage.type,
             third: application.status,
-            application: application
+            application: applicationData
         }
     }
 

@@ -1,10 +1,10 @@
 import {constants} from "../../utils/constants";
-import { Grid, Typography, Box, Button, Divider } from '@material-ui/core'
-import { EStellaAutocomplete } from "../EStellaAutocomplete";
-import { useState } from 'react';
-import { NotesList } from './NotesList'
+import {Box, Button, Divider, Grid, Typography} from '@material-ui/core'
+import {EStellaAutocomplete} from "../EStellaAutocomplete";
+import {useState} from 'react';
+import {NotesList} from './NotesList'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { AddNote } from './AddNote'
+import {AddNote} from './AddNote'
 
 
 export const NotesMenu = ({ notes, uuid, uuid_key, reload, setReload }) => {

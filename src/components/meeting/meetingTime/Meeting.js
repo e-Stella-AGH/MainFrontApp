@@ -14,7 +14,7 @@ export const Meeting = () => {
         if(companyId === undefined) {
             interviewAPI.getJobSeekerNameByInterviewId(interviewId)
                 .then(data => {
-                    setName(data?.name)
+                    setName(`${data?.firstName || ""} ${data?.lastName || ""}`)
                     setIsFetching(false)
                 })
         } else {
@@ -26,16 +26,16 @@ export const Meeting = () => {
         <div>
             {
                 isFetching ? <CircularProgress /> :
-                <Fetched name={name} interviewId={interviewId} />
+                <Fetched name={name} interviewId={interviewId} companyId={companyId} />
             }
         </div>
     )
 }
 
-const Fetched = ({ name, interviewId }) => {
+const Fetched = ({ name, interviewId, companyId }) => {
     return (
         name === null ?
-            <MeetingDisplayName roomName={`${interviewId}`}/>
-            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"}/>
+            <MeetingDisplayName roomName={`${interviewId}`} interviewId={interviewId} companyId={companyId}/>
+            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"} interviewId={interviewId}/>
     )
 }

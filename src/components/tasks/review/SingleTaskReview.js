@@ -1,7 +1,7 @@
 import MonacoEditor from 'react-monaco-editor';
-import { decodeBase64 } from '../../../utils/hooks/Base64';
-import { MarkdownViewer } from '../../commons/MarkdownViewer';
-import { Card } from '@material-ui/core'
+import {decodeBase64} from '../../../utils/hooks/Base64';
+import {MarkdownViewer} from '../../commons/MarkdownViewer';
+import {Card} from '@material-ui/core'
 
 export const SingleTaskReview = ({ task }) => {
     const { code, results, tests, description } = task

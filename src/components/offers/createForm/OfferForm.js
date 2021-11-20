@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react"
 import {OfferFormSkillList} from "./OfferFormSkillList"
 import {offersAPI} from "../../../utils/apis/OfferApi"
 import {withSwal} from "../../commons/formsCommons/WithSwal";
-import {Redirect, useParams} from "react-router-dom";
+import {Redirect, useHistory, useParams} from "react-router-dom";
 import Swal from "sweetalert2";
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +17,8 @@ const useStyles = makeStyles(() => ({
 export const OfferForm = (props) => {
     const { id } = useParams()
     const [fetchError, setFetchError] = useState(false)
+
+    const history = useHistory()
 
     const defaultFormState = {
         name:"",
@@ -74,7 +76,7 @@ export const OfferForm = (props) => {
             promise: () => props.onSubmit(formResult),
             successSwalTitle: "Success",
             successSwalText: "You've successfully saved offer!",
-            successFunction: () => reset(),
+            successFunction: () => history.push('/hr/offers'),
             errorSwalTitle: "We couldn't save this offer for you"
         })
     }

@@ -1,26 +1,26 @@
-import { TextField, Card, CardActions, Button, useTheme, Divider, Typography } from '@material-ui/core'
+import {Button, Card, CardActions, Divider, TextField, Typography, useTheme} from '@material-ui/core'
 import {MarkdownEditor} from '../commons/MarkdownEditor'
 import {useState} from 'react'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { TagsList } from './TagsList'
+import {TagsList} from './TagsList'
 import '../../App.css';
-import { useDevMail } from '../../utils/hooks/useDevMail';
-import { encodeBase64 } from '../../utils/hooks/Base64';
-import { useDevPassword } from '../../utils/hooks/useDevPassword';
-import { NoteApi } from '../../utils/apis/NoteApi';
+import {useDevMail} from '../../utils/hooks/useDevMail';
+import {encodeBase64} from '../../utils/hooks/Base64';
+import {useDevPassword} from '../../utils/hooks/useDevPassword';
+import {NoteApi} from '../../utils/apis/NoteApi';
 import Swal from 'sweetalert2'
 import {withSwal} from '../commons/formsCommons/WithSwal'
 
 export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
 
     const theme = useTheme()
-    const {getEncoded} = useDevPassword()
+    const {getEncodedDevPassword} = useDevPassword()
 
     const [noteText, setNoteText] = useState('')
     const [tags, setTags] = useState([])
     const [currentTag, setCurrentTag] = useState('')
 
-    const {get, set} = useDevMail()
+    const {getDevMail, setDevMail} = useDevMail()
 
     const handleNoteTextChange = ({html, text}) => {
         setNoteText(text)
@@ -47,7 +47,7 @@ export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
                         tags: tags,
                         fileBase64: encodeBase64(noteText)
                     },
-                    dev_password: getEncoded()
+                    dev_password: getEncodedDevPassword()
                 }),
             successSwalTitle: 'Note successfully added',
             successFunction: () => {
@@ -60,7 +60,7 @@ export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
     }
 
     const addNote = () => {
-        const devMail = get()
+        const devMail = getDevMail()
         if (!devMail) {
             Swal.fire({
                 title: "Missing informations!",
@@ -71,7 +71,7 @@ export const AddNote = ({ onCancel, uuid, uuid_key, setReload }) => {
                     if (!mail) {
                         Swal.showValidationMessage(`Please enter your mail`)
                     } else {
-                        set(mail)
+                        setDevMail(mail)
                     }
                     return { mail }
                 }
