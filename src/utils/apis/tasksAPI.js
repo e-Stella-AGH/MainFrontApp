@@ -134,7 +134,7 @@ export const tasksApi = {
     },
 
     getTasksByInterviewId: (interviewId) => {
-        return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks?interview=${interviewId}`, {
+        return checkedFetch(`${recruitmentServiceBasicAPILink}/api/tasks/inProgress?interview=${interviewId}`, {
             method: 'GET'
         }).then(response => response.json())
     },
