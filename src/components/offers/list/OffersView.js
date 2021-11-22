@@ -3,15 +3,16 @@ import {OfferDetails} from "../details/OffersDetails";
 import React, {useEffect, useState} from "react";
 import {PickUpOffer} from "./PickUpOffer";
 import {Redirect, useParams} from "react-router-dom";
-import {Filter} from "../filter/Filter";
+import {Filter} from "../../commons/filter/Filter";
 import {offersAPI} from "../../../utils/apis/OfferApi";
-import {filterOffers} from "../../../utils/functions";
+import {filterItems} from "../../../utils/functions";
 import PropTypes from "prop-types";
-import {SorterWrapper} from "../sorter/SorterWrapper";
+import {SorterWrapper} from "../../commons/sorter/SorterWrapper";
 import {ColumnAndDetailsLayout} from "../../commons/layouts/ColumnAndDetailsLayout";
 import {StandardViewAndFilterLayout} from "../../commons/layouts/StandardViewAndFilterLayout";
 import CenteredCircularProgress from "../../commons/CenteredCircularProgress";
 import Swal from "sweetalert2";
+import { InDrawerFilter } from "../InDrawerFilter";
 
 export const OffersView = (props) => {
 
@@ -24,7 +25,7 @@ export const OffersView = (props) => {
     const [sort, setSort] = useState({apply: (offers) => offers})
 
     const handleFilterSubmitted = (filters) => {
-        setOffers(sort.apply(filterOffers(fixedOffers, filters)))
+        setOffers(sort.apply(filterItems(fixedOffers, filters)))
     }
 
     useEffect(() => {
@@ -75,10 +76,15 @@ export const OffersView = (props) => {
         <OffersList limit={NaN} onSelectedOffer={(selectedOffer => setSelectedOffer(selectedOffer))} offers={offers} />
 
     return fetchError ? <Redirect to="/" /> : (fetching ? <CenteredCircularProgress size={80} /> : <StandardViewAndFilterLayout
-            filter={<Filter offers={offers}
+            filter={<Filter
                             onFilterSubmitted={handleFilterSubmitted}
-                            fixedOffers={fixedOffers}
-                            reloadOffers={handleFilterSubmitted} />}
+                            reloadItems={handleFilterSubmitted}
+                            InDrawerFilter={InDrawerFilter}
+                            InDrawerFilterProps={{
+                                items: offers,
+                                fixedItems: offers
+                            }}
+                            />}
             sorter={<SorterWrapper onSort={handleSort} />}
             view={<ColumnAndDetailsLayout details={layoutInternalView()} list={offersList()} />}
         />)

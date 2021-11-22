@@ -1,4 +1,4 @@
-import {filterTypes} from "./Enums";
+import {filterTypes, operators} from "./Enums";
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
 import BusinessIcon from '@material-ui/icons/Business';
 import PersonIcon from '@material-ui/icons/Person';
@@ -34,17 +34,36 @@ const createFilterFunction = (filter) => {
             } else {
                 return () => true
             }
+        //add more for applications
+        case filterTypes.TAGS:
+            if (filter.value && filter.operator) {
+                const filterTags = filter.value.map(tag => tag.toLowerCase())
+                switch (filter.operator) {
+                    case operators.AND:
+                        return (arg) => arg.tags.length > 0 && filterTags.every(tag => arg.tags.map(innerTag => innerTag.toLowerCase()).includes(tag))
+                    case operators.OR:
+                        return (arg) => arg.tags.length > 0 && filterTags.some(tag => arg.tags.map(innerTag => innerTag.toLowerCase()).includes(tag))
+                    default:
+                        return () => true
+                }
+            } else {
+                return () => true
+            }
+        case filterTypes.APPLICATION_STAGE:
+            return filter.value ? (arg) => filter.value.includes(arg?.status) : () => true
+        case filterTypes.PROCESS_STAGE:
+            return filter.value ? (arg) => filter.value.includes(arg?.stage?.type) : () => true
         default:
             return () => true
     }
 }
 
-export const filterOffers = (offers, filters) => {
-    let tmpOffers = offers
+export const filterItems = (items, filters) => {
+    let tmpItems = items
     filters.forEach(filter => {
-        tmpOffers = tmpOffers.filter(offer => (createFilterFunction(filter))(offer))
+        tmpItems = tmpItems.filter(item => (createFilterFunction(filter))(item))
     })
-    return tmpOffers
+    return tmpItems
 }
 
 export const getIconFromFilterType = (filter) => {
