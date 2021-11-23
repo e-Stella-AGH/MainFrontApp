@@ -116,9 +116,12 @@ const LandingList = () => {
 
 export const LandingPage = () => <Grid container spacing={2} style={{width: "90%", margin: "auto"}}>
     <Grid item xs={12} md={8}>
-        <Typography variant="h4">
-            e-Stella - Everything you'll ever need
-        </Typography>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <img src="https://imgur.com/5LUwfu8.png" alt="logo" width="30%" style={{marginTop: '-7px'}} />
+            <Typography variant="h4">
+                Everything you'll ever need
+            </Typography>
+        </div>
         <Grid container style={{marginTop: "2em"}} spacing={2}>
             <Grid item xs={12} sm={6}>
                 <img src={Image1} alt="Man working in office" style={{width: "100%"}}/>

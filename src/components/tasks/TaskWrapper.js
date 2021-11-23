@@ -7,7 +7,7 @@ import {tasksApi} from "../../utils/apis/tasksAPI";
 const TaskWrapper = ({ toSolveTask = true, submitLeftOffset = 0, taskStageUUID,  task }) => {
     const { pub, sub, clientId } = useAbly(`codeChanged/${taskStageUUID}/${task.id}`)
 
-    const fetchTasks = new Promise(resolve => resolve([task]))
+    const fetchTasks = () => new Promise(resolve => resolve([task]))
     const outerMonacoWrapperStyle = toSolveTask ? null : { height: '60vh' }
 
     return <CodeEditor

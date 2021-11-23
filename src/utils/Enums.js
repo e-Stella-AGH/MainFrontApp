@@ -3,6 +3,15 @@ export const filterTypes = {
     MAX_SALARY: "Maximum Salary",
     COMPANY_NAME: "Company Name",
     POSITION_NAME: "Position Name",
+    //add more for applications
+    TAGS: "Tags",
+    APPLICATION_STAGE: "Application Stage",
+    PROCESS_STAGE: "Recruitment Process Stage"
+}
+
+export const operators = {
+    AND: "And",
+    OR: "Or"
 }
 
 const compare = (a, b, name) => {

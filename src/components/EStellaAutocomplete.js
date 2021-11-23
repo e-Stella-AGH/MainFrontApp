@@ -2,17 +2,17 @@ import PropTypes from 'prop-types';
 import {Autocomplete} from "@material-ui/lab";
 import {TextField} from "@material-ui/core";
 
-export const EStellaAutocomplete = (props) => {
+export const EStellaAutocomplete = ({ options, label, onChange }) => {
 
     const handleChange = ({ target }) => {
-        props.onChange(target.value)
+        onChange(target.value)
     }
 
     return (
         <Autocomplete
-            options={props.options}
+            options={options}
             onSelect={handleChange}
-            renderInput={(params) => <TextField {...params} variant="outlined" label={props.label} />}
+            renderInput={(params) => <TextField {...params} variant="outlined" label={label} />}
         />
     )
 }

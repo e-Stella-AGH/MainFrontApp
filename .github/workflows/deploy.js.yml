@@ -27,11 +27,20 @@ jobs:
     - run: npm install --legacy-peer-deps
     - run: npm ci
     - run: CI=false npm run build --if-present
-    - run: npm test
-      env:
-        REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}          
-    - run: CI=false npm run deploy
       env:
         REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}
+        REACT_APP_ABLY_KEY: ${{ secrets.REACT_APP_ABLY_KEY}}   
+    - run: npm test
+      env:
+        REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}
+        REACT_APP_ABLY_KEY: ${{ secrets.REACT_APP_ABLY_KEY}}   
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.6
+      with:
+        branch: gh-pages
+        folder: build
+      env:
+        REACT_APP_WHITEBOARD_KEY: ${{ secrets.REACT_APP_WHITEBOARD_KEY }}
+        REACT_APP_ABLY_KEY: ${{ secrets.REACT_APP_ABLY_KEY}}
 
       

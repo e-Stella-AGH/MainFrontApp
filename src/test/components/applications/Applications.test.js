@@ -33,8 +33,6 @@ describe("Should render Applications View correctly", () => {
 
         expect(screen.getByText(second.status)).toBeVisible()
         expect(screen.getByText(second.stage.type)).toBeVisible()
-
-        expect(screen.getByText("Select Application", {exact: false})).toBeVisible()
     })
 
     it("should display all application view after clicking on one", async () => {

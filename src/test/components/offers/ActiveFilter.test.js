@@ -1,5 +1,5 @@
 import TestRenderer from 'react-test-renderer';
-import {ActiveFilter} from "../../../components/offers/filter/ActiveFilter";
+import {ActiveFilter} from "../../../components/commons/filter/ActiveFilter";
 import {filterTypes} from "../../../utils/Enums";
 import {Avatar} from "@material-ui/core";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";

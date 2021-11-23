@@ -135,7 +135,7 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
                             </div>
                         </Grid>
                         <Grid item xs={12}><Divider/></Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={9}>
                             {
                                 application.seekerFiles.length === 0 ?
                                     <Typography>{ isHR || isDev ? 'Candidate' : 'You' } didn't supply any files.</Typography> :
@@ -146,11 +146,8 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
                         </Grid>
                         {
                             stageRequiresMeeting() && !getDisabled() && !isDev &&
-                                (<Grid item xs={4}><Button color="secondary" variant="outlined" onClick={teleportToMO}>Plan meeting</Button></Grid>)
+                                (<Grid item xs={3} ><Button color="secondary" variant="contained" onClick={teleportToMO} fullWidth><Typography variant="body2">Plan meeting</Typography></Button></Grid>)
                         }
-                        <Grid item xs={12}>
-                            {/*  Notes about candidate in future  */}
-                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>

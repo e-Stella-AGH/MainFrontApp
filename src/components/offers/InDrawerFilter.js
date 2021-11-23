@@ -1,13 +1,13 @@
 import {Box, Button, Grid} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
-import {EStellaSlider} from "./EStellaSlider";
+import {EStellaSlider} from "../commons/filter/EStellaSlider";
 import {useEffect, useState} from "react";
-import {filterTypes} from "../../../utils/Enums";
-import {getFilterValueByType} from "../../../utils/functions";
-import {EStellaAutocomplete} from '../../EStellaAutocomplete'
+import {filterTypes} from "../../utils/Enums";
+import {getFilterValueByType} from "../../utils/functions";
+import {EStellaAutocomplete} from '../EStellaAutocomplete'
 
-export const InDrawerFilter = (props) => {
+export const InDrawerFilter = ({items, fixedItems, filters, onFilterSubmitted, toggleDrawer}) => {
 
     const [sliderValue, setSliderValue] = useState([0, 100])
     const [companyValue, setCompanyValue] = useState("")
@@ -15,8 +15,8 @@ export const InDrawerFilter = (props) => {
 
     useEffect(() => {
         setSliderValue([
-            getFilterValueByType(props.filters, filterTypes.MIN_SALARY) || getMinOffersSalary(),
-            getFilterValueByType(props.filters, filterTypes.MAX_SALARY) || getMaxOffersSalary()
+            getFilterValueByType(filters, filterTypes.MIN_SALARY) || getMinOffersSalary(),
+            getFilterValueByType(filters, filterTypes.MAX_SALARY) || getMaxOffersSalary()
         ])
     }, [])
 
@@ -38,16 +38,16 @@ export const InDrawerFilter = (props) => {
         }
     }
 
-    const getMinOffersSalary = () => Math.min(...props.fixedOffers.map(offer => offer.minSalary))
-    const getMaxOffersSalary = () => Math.max(...props.fixedOffers.map(offer => offer.maxSalary))
+    const getMinOffersSalary = () => Math.min(...fixedItems.map(offer => offer.minSalary))
+    const getMaxOffersSalary = () => Math.max(...fixedItems.map(offer => offer.maxSalary))
 
     const handleFilterSubmit = () => {
-        props.toggleDrawer()
-        props.onFilterSubmitted(createFilters())
+        toggleDrawer()
+        onFilterSubmitted(createFilters())
     }
 
-    const companyOptions = [...new Set(props.fixedOffers.map(offer => offer.organization.name))]
-    const positionOptions = [...new Set(props.fixedOffers.map(offer => offer.position))]
+    const companyOptions = [...new Set(fixedItems.map(offer => offer.organization.name))]
+    const positionOptions = [...new Set(fixedItems.map(offer => offer.position))]
 
     return (
         <div style={{width: `${calculateWidth()}px`, padding: "2em"}}>
@@ -55,7 +55,7 @@ export const InDrawerFilter = (props) => {
                 <Grid item>
                     <Grid container direction="row">
                         <Grid item xs={10}/>
-                        <Grid item xs={2}><Button onClick={props.toggleDrawer}><CloseIcon
+                        <Grid item xs={2}><Button onClick={toggleDrawer}><CloseIcon
                             fontSize="large"/></Button></Grid>
                     </Grid>
                 </Grid>
