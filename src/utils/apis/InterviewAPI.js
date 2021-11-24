@@ -17,11 +17,13 @@ export const interviewAPI = {
     },
 
     getNotesByInterviewId: (interviewId, password) => {
-        return checkedFetch(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?interview_note=${interviewId}`, {
+        const fetchToUse = password ? checkedFetch : authFetch
+        const headers = password ? {
+            'x-dev-password': password
+        } : {}
+        return fetchToUse(`${recruitmentServiceBasicAPILink}/api/applications/get_notes?interview_note=${interviewId}`, {
             method: 'GET',
-            headers: {
-                'x-dev-password': password
-            }
+            headers
         }).then(response => response.json())
     },
 

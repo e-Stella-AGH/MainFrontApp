@@ -4,8 +4,6 @@ export const SingleResult = ({ result }) => {
 
     const theme = useTheme()
 
-    console.log(result)
-
     const getBackgroundColor = () => result?.err || !result?.passed ? theme.status.danger.light : theme.status.success.light
 
     const getText = () => result?.err ? `Error: ${result.err}` : `Result: ${result.result}`

@@ -7,7 +7,7 @@ import React from "react";
 import {useLoggedIn} from "../../../utils/hooks/useLoggedIn";
 import {Redirect} from "react-router-dom";
 
-export const LoginForm = (props) => {
+export const LoginForm = ({reload, onSubmit, shouldRedirectIfLoggedIn = true}) => {
 
     const {loggedIn, login} = useLoggedIn()
 
@@ -18,7 +18,7 @@ export const LoginForm = (props) => {
 
     const {handleSubmit, control, reset} = useForm({mode: 'onChange', defaultValues: defaultFormState})
 
-    const onSubmit = (data) => {
+    const doOnSubmit = (data) => {
         withSwal({
             loadingTitle: "Logging in...",
             promise: () => loginAPI.login(data.login, data.password),
@@ -26,19 +26,19 @@ export const LoginForm = (props) => {
             successFunction: (token) => {
                 reset()
                 login()
-                props.reload.setReload(!props.reload.reload)
+                reload.setReload(!reload.reload)
             },
             errorSwalTitle: "We couldn't log you in!"
         })
-        if(props.onSubmit) {
-            props.onSubmit(data)
+        if(onSubmit) {
+            onSubmit(data)
         }
     }
 
-    return loggedIn ? <Redirect to="/" /> : <Card variant="outlined" style={{width: "60%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
+    return loggedIn && shouldRedirectIfLoggedIn ? <Redirect to="/" /> : <Card variant="outlined" style={{width: "60%", marginLeft: "auto", marginRight: "auto", padding: "30px 10px"}}>
             <Typography variant="h5" style={{marginBottom: "20px", marginLeft: "auto", marginRight: "auto", width: "80%"}}>Login!</Typography>
             <div style={{width: "80%", marginRight: "auto", marginLeft: "auto", padding: "10px", paddingBottom: "30px"}}>
-                <form id="login-form" name="login-form" onSubmit={handleSubmit(onSubmit)}>
+                <form id="login-form" name="login-form" onSubmit={handleSubmit(doOnSubmit)}>
                     <Grid container spacing={2}>
                         <FormField
                             control={control}
