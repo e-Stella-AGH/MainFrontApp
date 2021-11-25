@@ -35,8 +35,8 @@ const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) =
 
 const routes = ([reload, setReload]) => [
     createRoute("/", <div><LandingPage /><a href='https://www.freepik.com/vectors/people' style={{display:"none"}}>People vector created by pikisuperstar - www.freepik.com</a></div>),
-    createRoute("/interview/:interviewId/:companyId", <Meeting />, {}),
-    createRoute("/interview/:interviewId/", <Meeting />, {}),
+    createRoute("/interview/:interviewKind/:interviewId/:companyId", <Meeting />, {}),
+    createRoute("/interview/:interviewKind/:interviewId/", <Meeting />, {}),
     createRoute("/offers/apply/:id", <ApplyForm />),
     createRoute("/offers", <OffersView getOffers={() => offersAPI.getAllOffers(true)}/>),
     createRoute("/offers/:id", <OffersView getOffers={() => offersAPI.getAllOffers(true)}/>),

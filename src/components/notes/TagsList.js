@@ -1,4 +1,5 @@
 import {Chip} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 
 export const TagsList = ({ tags, deletable = false, onDelete = () => {} }) => {
 
@@ -9,7 +10,7 @@ export const TagsList = ({ tags, deletable = false, onDelete = () => {} }) => {
 
     return (
         <div style={{display: 'flex', overflow: 'scroll'}}>
-            {tags.map((tag, idx) => makeTag(tag, idx))}
+            { tags.length > 0 ? tags.map((tag, idx) => makeTag(tag, idx)) : <Typography variant="body1">You haven't added any tags yet</Typography>}
         </div>
     )
 }
