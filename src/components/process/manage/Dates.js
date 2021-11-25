@@ -13,7 +13,7 @@ Date.prototype.addDays = function(days) {
 
 export const Dates = ({ process, reload, setReload }) => {
 
-    const getDateOrDefault = (stringDate, shouldAddDayToDefault = false) => !!stringDate ? new Date(stringDate) : new Date().addDays(1)
+    const getDateOrDefault = (stringDate, shouldAddDayToDefault = false) => !!stringDate ? new Date(stringDate) : shouldAddDayToDefault ? new Date().addDays(1) : new Date()
 
     const [selectedEndDate, setSelectedEndDate] = useState(getDateOrDefault(process?.endDate))
     const [selectedStartDate, setSelectedStartDate] = useState(getDateOrDefault(process?.startDate, true))
