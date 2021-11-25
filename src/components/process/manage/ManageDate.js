@@ -7,7 +7,13 @@ export const ManageDate = ({selectedDate, onChange, processStartDate, disabled, 
     const handleDateChange = (date) => {
         if (!processStartDate || date > new Date(processStartDate)) {
             onChange(date)
-        } else {
+        } else if(!date) {
+            Swal.fire({
+                title: "Oops, you cannot do this!",
+                text: "Looks like you didn't provide any date for us!",
+                icon: "error"
+            })
+        }  else {
             Swal.fire({
                 title: "Oops, you cannot do this!",
                 text: "Looks like you've tried to set a date that's earlier than today!",

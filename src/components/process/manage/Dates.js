@@ -5,10 +5,18 @@ import {useState} from "react";
 import {processAPI} from "../../../utils/apis/ProcessAPI";
 import {withSwal} from "../../commons/formsCommons/WithSwal";
 
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
 export const Dates = ({ process, reload, setReload }) => {
 
-    const [selectedEndDate, setSelectedEndDate] = useState(process?.endDate || new Date().toLocaleDateString())
-    const [selectedStartDate, setSelectedStartDate] = useState(process?.startDate || new Date().toLocaleDateString())
+    const getDateOrDefault = (stringDate, shouldAddDayToDefault = false) => !!stringDate ? new Date(stringDate) : new Date().addDays(1)
+
+    const [selectedEndDate, setSelectedEndDate] = useState(getDateOrDefault(process?.endDate))
+    const [selectedStartDate, setSelectedStartDate] = useState(getDateOrDefault(process?.startDate, true))
     
     const isProcessStarted = () => process?.startDate != null && new Date(process?.startDate) <= new Date()
 
@@ -31,15 +39,20 @@ export const Dates = ({ process, reload, setReload }) => {
     }
 
     const handleEndSubmit = () => {
-        withSwal({
-            loadingTitle: "Updating end date",
-            promise: () => processAPI.changeEndDate(process.id, selectedEndDate),
-            successSwalTitle: "Date updated",
-            successFunction: () => setReload(!reload)
-        })
+        if (selectedEndDate) {
+            withSwal({
+                loadingTitle: "Updating end date",
+                promise: () => processAPI.changeEndDate(process.id, selectedEndDate),
+                successSwalTitle: "Date updated",
+                successFunction: () => setReload(!reload)
+            })
+        } else {
+            fireInvalidDateSwal()
+        }
     }
 
-    const handleStartSubmit = () => {
+    const handleStartSchedule = () => {
+        !!selectedStartDate ? 
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to modify stages after the date your process will start",
@@ -54,6 +67,14 @@ export const Dates = ({ process, reload, setReload }) => {
                     successFunction: () => setReload(!reload)
                 })      
             }
+        }) : fireInvalidDateSwal()
+    }
+
+    const fireInvalidDateSwal = () => {
+        Swal.fire({
+            title: "You cannot do this!",
+            text: "You forgot to set a date before scheduling!",
+            icon: 'error'
         })
     }
 
@@ -69,7 +90,7 @@ export const Dates = ({ process, reload, setReload }) => {
                                         onChange={(date) => setSelectedStartDate(date)}
                                         label="Start of recruitment process"
                                 />
-                                <Button variant="outlined" color="primary" onClick={handleStartSubmit} disabled={isProcessStarted()}>Schedule</Button>
+                                <Button variant="outlined" color="primary" onClick={handleStartSchedule} disabled={isProcessStarted()}>Schedule</Button>
                             </div>
                             <Divider style={{marginTop: '1em', marginBottom: '1em'}} />
                             <Typography variant="h6" style={{marginBottom: '5px'}}>Or</Typography>

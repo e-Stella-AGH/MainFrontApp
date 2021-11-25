@@ -30,6 +30,7 @@ export const processAPI = {
 
     changeEndDate: function(id, date) {
         const preparedDate = this.prepareDate(date)
+        console.log(preparedDate)
         return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}/end_date`, {
             method: "PUT",
             headers: {
@@ -43,6 +44,7 @@ export const processAPI = {
 
     changeStartDate: function(id, date) {
         const preparedDate = this.prepareDate(date)
+        console.log(preparedDate)
         return authFetch(recruitmentServiceBasicAPILink + `/api/process/${id}/start_date`, {
             method: "PUT",
             headers: {
