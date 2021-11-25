@@ -21,7 +21,7 @@ export const Navbar = () => {
                     <img src="https://imgur.com/5LUwfu8.png" alt="logo" width="30%" />
                 </Link>
             </div>
-            <div style={{marginLeft: '-30%'}}>
+            <div style={{marginLeft: '-30em'}}>
                 <Link to="/offers" style={{color: "white", textDecoration: "none"}}>
                     <Button color="inherit">All Offers</Button>
                 </Link>
