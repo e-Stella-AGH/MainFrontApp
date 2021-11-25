@@ -50,11 +50,13 @@ const LandingHrOffers = () => {
         return offersAPI
             .getOffersFromHr()
             .then(data => setOffers(data || []))
-            .catch(() => Swal.fire({
+            .catch(err => {
+                console.log(err)
+                Swal.fire({
                 title: "Error",
                 text: "We weren't able to get offers!",
                 icon: "error"
-            }))
+            })})
     }, [])
 
     return offers == null ? <CenteredCircularProgress size={60} /> : <>
