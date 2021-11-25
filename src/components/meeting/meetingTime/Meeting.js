@@ -6,7 +6,7 @@ import {JitsiWrapper} from "./JitsiComponentWrapper";
 import {CircularProgress} from "@material-ui/core";
 
 export const Meeting = () => {
-    let { interviewId, companyId } = useParams()
+    let { interviewKind, interviewId, companyId } = useParams()
     const [name, setName] = useState(null)
     const [isFetching, setIsFetching] = useState(true)
 
@@ -26,16 +26,16 @@ export const Meeting = () => {
         <div>
             {
                 isFetching ? <CircularProgress /> :
-                <Fetched name={name} interviewId={interviewId} companyId={companyId} />
+                <Fetched name={name} interviewId={interviewId} companyId={companyId} interviewKind={interviewKind} />
             }
         </div>
     )
 }
 
-const Fetched = ({ name, interviewId, companyId }) => {
+const Fetched = ({ name, interviewId, companyId, interviewKind }) => {
     return (
         name === null ?
-            <MeetingDisplayName roomName={`${interviewId}`} interviewId={interviewId} companyId={companyId}/>
-            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"} interviewId={interviewId}/>
+            <MeetingDisplayName roomName={`${interviewId}`} interviewId={interviewId} companyId={companyId} interviewKind={interviewKind}/>
+            : <JitsiWrapper admin={false} roomName={`${interviewId}`} displayName={name ? name : "John Doe"} interviewId={interviewId} interviewKind={interviewKind}/>
     )
 }

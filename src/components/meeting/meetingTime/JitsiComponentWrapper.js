@@ -18,17 +18,24 @@ import CloseIcon from '@material-ui/icons/Close';
 import Swal from "sweetalert2";
 import {MultipleTasksWrapper} from "../../tasks/MultipleTasksWrapper";
 
-export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, companyId }) => {
+export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, companyId, interviewKind }) => {
 
     const [jitsiHeight, setJitsiHeight] = useState('calc(100vh - 60px)')
     const [jitsiWidth, setJitsiWidth] = useState('100%')
     const [actionComponent, setActionComponent] = useState(null)
     const [taskStageUUID, setTaskStageUUID] = useState(null)
+    const [shouldShow, setShouldShow] = useState([])
 
     useEffect(() => {
-        interviewAPI.getTaskStageUUIDByInterviewId(interviewId)
-            .then(data => setTaskStageUUID(data.taskStageUUID))
+        if (interviewKind === 'technical') {
+            interviewAPI.getTaskStageUUIDByInterviewId(interviewId)
+                .then(data => setTaskStageUUID(data.taskStageUUID))
+        }
     }, [interviewId, companyId])
+
+    useEffect(() => {
+        setShouldShow(interviewKind === "hr" ? ['whiteboard', 'default'] : interviewKind === 'technical' ? ['whiteboard', 'default', 'task'] : [])
+    }, [interviewKind, interviewId, companyId])
 
     const getWhiteboardCode = () => {
         if (roomName.length < 15) return 'abcdefghijklmnopqrst'
@@ -68,9 +75,9 @@ export const JitsiWrapper = ({ admin, roomName, displayName, interviewId, compan
         <div>
             {
                 admin &&
-                    <AdminMeetingDrawer interviewId={interviewId} companyId={companyId} />
+                    <AdminMeetingDrawer interviewId={interviewId} companyId={companyId} isHRInterview={interviewKind === 'hr'} />
             }
-            <MeetingFab onWhiteboard={addWhiteboard} onDefaultView={defaultView} onTask={showTask}/>
+            <MeetingFab onWhiteboard={addWhiteboard} onDefaultView={defaultView} onTask={showTask} shouldShow={shouldShow}/>
             <div style={{height: jitsiHeight, width: jitsiWidth, float: "left"}}>
                 <JitsiComponent admin={admin} roomName={roomName} displayName={displayName}/>
             </div>
@@ -109,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AdminMeetingDrawer = ({ interviewId, companyId }) => {
+const AdminMeetingDrawer = ({ interviewId, companyId, isHRInterview }) => {
 
     const [openNotesModal, setOpenNotesModal] = useState(false)
     const [reload, setReload] = useState(false)
@@ -119,7 +126,14 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
 
     const classes = useStyles()
 
-    const getNotesView = () => (
+    const getNotesView = () => isHRInterview ? (
+        <NotesMenuWrapper
+            reload={reload}
+            setReload={setReload}
+            interviewId={interviewId}
+            shouldUseAuthFetchToPost={true}
+        />
+    ) : (
         <WithDevPassword
             WrappedComponent={NotesMenuWrapper}
             wrappedProps={{
@@ -158,12 +172,12 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
                         <NoteAddIcon fontSize="large" color="action"/>
                     </Button>
                 </ListItem>
-                    <Divider style={{margin: '1em 0'}} />
+                { !isHRInterview && <><Divider style={{margin: '1em 0'}} />
                 <ListItem>
                     <Button onClick={() => doOpenTasksModal()}>
                         <AssignmentIcon fontSize="large" color="action" />
                     </Button>
-                </ListItem>
+                </ListItem> </>}
             </List>
     )
 
@@ -188,13 +202,13 @@ const AdminMeetingDrawer = ({ interviewId, companyId }) => {
                     }}
             >
                 {openNotesModal ? getNotesView() : closedView}
-                <AssignTasksWrapper openTasksModal={openTasksModal} setOpenTasksModal={setOpenTasksModal} interviewId={interviewId} organizationId={companyId} reload={reload} setReload={setReload} />
+                { !isHRInterview && <AssignTasksWrapper openTasksModal={openTasksModal} setOpenTasksModal={setOpenTasksModal} interviewId={interviewId} organizationId={companyId} reload={reload} setReload={setReload} /> }
             </Drawer>
         </div>
     )
 }
 
-const NotesMenuWrapper = ({reload, setReload, interviewId}) => {
+const NotesMenuWrapper = ({reload, setReload, interviewId, shouldUseAuthFetchToPost}) => {
 
     const {getEncodedDevPassword} = useDevPassword()
     const [notes, setNotes] = useState([])
@@ -211,6 +225,7 @@ const NotesMenuWrapper = ({reload, setReload, interviewId}) => {
             uuid_key="interview_note"
             reload={reload}
             setReload={setReload}
+            shouldUseAuthFetchToPost={shouldUseAuthFetchToPost}
         />
     )
 }

@@ -5,9 +5,38 @@ import VoiceChatIcon from '@material-ui/icons/VoiceChat';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import {useTheme} from "@material-ui/core";
 
-export const MeetingFab = (props) => {
+export const MeetingFab = ({ onDefaultView, onWhiteboard, onTask, shouldShow }) => {
 
     const theme = useTheme()
+
+    const defaultViewAction = (<Action
+                                    text="Default View"
+                                    onClick={onDefaultView}
+                                >
+                                    <VoiceChatIcon />
+                                </Action>)
+
+    const whiteboardAction = (<Action
+                                    text="Whiteboard"
+                                    onClick={onWhiteboard}
+                                >
+                                    <DashboardIcon />
+                                </Action>)
+
+    const taskAction = (<Action
+                            text="Task"
+                            onClick={onTask}
+                        >
+                            <AssignmentIndIcon />
+                        </Action>)
+    
+    const map = {
+        'task': taskAction,
+        'whiteboard': whiteboardAction,
+        'default': defaultViewAction
+    }
+
+    const getActionsToDisplay = () => shouldShow.filter(key => key in map).map(key => map[key])
 
     return(
         <Fab
@@ -15,24 +44,7 @@ export const MeetingFab = (props) => {
             icon={<AddIcon />}
             event={'click'}
         >
-            <Action
-                text="Default View"
-                onClick={props.onDefaultView}
-            >
-                <VoiceChatIcon />
-            </Action>
-            <Action
-                text="Whiteboard"
-                onClick={props.onWhiteboard}
-            >
-                <DashboardIcon />
-            </Action>
-            <Action
-                text="Task"
-                onClick={props.onTask}
-            >
-                <AssignmentIndIcon />
-            </Action>
+            {getActionsToDisplay()}
         </Fab>
     )
 }

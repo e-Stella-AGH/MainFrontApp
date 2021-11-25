@@ -13,6 +13,8 @@ export const useDevPassword = () => {
         return password ? encodeBase64(password) : ''
     }
 
-    return {getDevPassword, setDevPassword, getEncodedDevPassword}
+    const deleteDevPassword = () => sessionStorage.removeItem(devPasswordKey)
+
+    return {getDevPassword, setDevPassword, getEncodedDevPassword, deleteDevPassword}
 
 }
