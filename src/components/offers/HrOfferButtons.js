@@ -27,7 +27,7 @@ export const hrOfferButtons = (theme) => [
                 successSwalTitle: "Successfully deleted",
                 successSwalText: "Offer has been deleted",
                 confirmButtonText: "Ok",
-                successFunction: () => history.go(0),
+                successFunction: () => history.push("/hr/offers"),
                 errorSwalTitle: "Offer not deleted",
                 errorSwalText: "We couldn't delete your offer",
                 errorConfirmButtonText: "Ok"
