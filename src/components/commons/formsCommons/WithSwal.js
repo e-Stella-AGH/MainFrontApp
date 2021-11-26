@@ -20,7 +20,6 @@ export const withSwal = ({
     promise()
         .then(response => response.json().then(data => ({status: response.status, result: data})))
         .then(({status, result}) => {
-            console.log(result)
             if (!isStatus2xx(status)) {
                 throw Error(result.message)
             }

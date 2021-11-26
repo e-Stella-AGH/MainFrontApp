@@ -7,7 +7,6 @@ class HttpError extends Error {
 
 const checkResponseStatusOrThrowError = (result, errorMessage) => {
     const {status, data} = result
-    console.log(status, data)
     if(status < 200 || status > 299) {
         throw new HttpError(status, data.message || errorMessage || "Something went wrong")
     }
