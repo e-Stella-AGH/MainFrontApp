@@ -15,8 +15,8 @@ const checkResponseStatusOrThrowError = (result, errorMessage) => {
 export const checkedFetch = (url, data, errorMessage) => {
     return fetch(url, data)
         .then(response => {
-            const responsev2 = response.clone()
-            return responsev2.json().then(data => ({status: response.status, data: data, response: response}))
+            const clonedResponse = response.clone()
+            return clonedResponse.json().then(data => ({status: response.status, data: data, response: response}))
         })
         .then(result => {
             checkResponseStatusOrThrowError(result, errorMessage)

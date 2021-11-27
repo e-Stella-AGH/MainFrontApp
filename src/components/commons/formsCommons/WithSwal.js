@@ -38,8 +38,8 @@ export const withSwal = ({
         .catch(err => {
             swal.close()
             Swal.fire({
-                title: err || errorSwalTitle || "Something went wrong!",
-                text: errorSwalText,
+                title: errorSwalTitle || "Something went wrong!",
+                text: err || errorSwalText,
                 icon: "error",
                 confirmButtonText: errorConfirmButtonText || "OK"
             })

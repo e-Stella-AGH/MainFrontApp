@@ -179,7 +179,7 @@ export const ApplyForm = () => {
             loadingTitle: "Applying",
             promise: () => loggedIn ? offersAPI.applyWithUser(id, files) : offersAPI.applyWithNoUser(id, name, surname, email, files),
             successSwalTitle: "Success",
-            successSwalText: `You've successfully applied for this offer! You'll be redirected now to ${loggedIn ? "your account" : "all offers"}.`,
+            successSwalText: `You've successfully applied for this offer! You'll be redirected now to ${loggedIn ? "your applications" : "all offers"}.`,
             errorSwalTitle: "Something went wrong",
             errorSwalText: "We couldn't process your application for this offer",
             successFunction: () => history.push(loggedIn ? "/user/applications" : "/offers" )
