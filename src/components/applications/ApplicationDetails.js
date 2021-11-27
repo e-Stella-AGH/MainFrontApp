@@ -110,6 +110,8 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
     const teleportToMO = () =>
         isHR ? history.push(`/meeting/organizer/${application.id}`) : history.push(`/meeting/job_seeker/${application.id}`)
 
+    const getNextStageText = () => nextStageIsOneOf(["ENDED"], true) ? "Accept Candidate" : "Next Stage"
+
     const getCardContent = () => {
         return (<CardContent>
             <Grid container direction="row" spacing={4}>
@@ -160,7 +162,7 @@ export const ApplicationDetails = ({application, isHR, reload, isDev}) => {
                                 </Button>
                                 <Box m={1}/>
                                 <Button color="primary" variant="contained" onClick={nextStage} disabled={getDisabled()}>
-                                    Next Stage
+                                    {getNextStageText()}
                                 </Button>
                             </Grid>
                         }

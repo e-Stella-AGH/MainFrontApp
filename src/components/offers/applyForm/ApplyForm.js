@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import {Button, TextField} from "@material-ui/core";
 import React, {useCallback, useEffect, useState} from "react";
 import {offersAPI} from "../../../utils/apis/OfferApi";
@@ -119,6 +119,7 @@ const FileCard = ({file, index, handleDelete}) => {
 export const ApplyForm = () => {
 
     const {id} = useParams()
+    const history = useHistory()
 
     const {loggedIn} = useLoggedIn()
     const user = jwtUtils.getUser()
@@ -178,9 +179,10 @@ export const ApplyForm = () => {
             loadingTitle: "Applying",
             promise: () => loggedIn ? offersAPI.applyWithUser(id, files) : offersAPI.applyWithNoUser(id, name, surname, email, files),
             successSwalTitle: "Success",
-            successSwalText: "You've successfully applied for this offer!",
+            successSwalText: `You've successfully applied for this offer! You'll be redirected now to ${loggedIn ? "your applications" : "all offers"}.`,
             errorSwalTitle: "Something went wrong",
             errorSwalText: "We couldn't process your application for this offer",
+            successFunction: () => history.push(loggedIn ? "/user/applications" : "/offers" )
         })
     }
 

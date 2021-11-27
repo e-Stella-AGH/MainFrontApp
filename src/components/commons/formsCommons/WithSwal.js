@@ -21,7 +21,7 @@ export const withSwal = ({
         .then(response => response.json().then(data => ({status: response.status, result: data})))
         .then(({status, result}) => {
             if (!isStatus2xx(status)) {
-                throw Error(result.message || "Something went wrong!")
+                throw Error(result.message)
             }
             swal.close()
             Swal.fire({
@@ -38,8 +38,8 @@ export const withSwal = ({
         .catch(err => {
             swal.close()
             Swal.fire({
-                title: errorSwalTitle,
-                text: errorSwalText || err,
+                title: errorSwalTitle || "Something went wrong!",
+                text: err || errorSwalText,
                 icon: "error",
                 confirmButtonText: errorConfirmButtonText || "OK"
             })
