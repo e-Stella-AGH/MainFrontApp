@@ -105,7 +105,7 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64, or
                         <ColumnAndDetailsLayout
                             details={selectedApplication ?
                                 <WrappedComponent {...wrappedProps}  /> :
-                                <div>Select application</div>}
+                                <EmptySelectedApplicationView />}
                             list={<ApplicationsList
                                 forDev={forDev}
                                 applications={innerApplications}

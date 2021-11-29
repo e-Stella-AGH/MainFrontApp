@@ -24,6 +24,7 @@ import {ReviewTask} from "../components/tasks/review/ReviewTask";
 import {Note} from '../components/notes/Note';
 import {tasksApi} from './apis/tasksAPI'
 import {DevView} from '../components/DevView'
+import {Page404} from '../components/Page404'
 
 const createRoute = (path, component, style={margin: "1em", marginTop: "2em"}) => {
     return {
@@ -58,7 +59,7 @@ const routes = ([reload, setReload]) => [
     createRoute("/settings", <SettingsOverlay />),
     createRoute("/tasks/review/:id", <WithDevPassword WrappedComponent={ReviewTask} wrappedProps={{}} createPassword={(id, password) => `${password}:${id}`} />),
     createRoute("/note", <Note text="Note text as we can see" tags={["Applied", "Some tag", "Some other tag"]} />),
-    createRoute("*", <div>Page</div>)
+    createRoute("*", <Page404 />)
 ]
 
 export const getRoutes = ([reload, setReload]) => {
