@@ -5,13 +5,13 @@
     "static/js/1.37b72506.chunk.js": "/MainFrontApp/static/js/1.37b72506.chunk.js",
     "static/js/1.37b72506.chunk.js.map": "/MainFrontApp/static/js/1.37b72506.chunk.js.map",
     "main.css": "/MainFrontApp/static/css/main.9b5a788f.chunk.css",
-    "main.js": "/MainFrontApp/static/js/main.e77a5ec0.chunk.js",
-    "main.js.map": "/MainFrontApp/static/js/main.e77a5ec0.chunk.js.map",
+    "main.js": "/MainFrontApp/static/js/main.9f8f3104.chunk.js",
+    "main.js.map": "/MainFrontApp/static/js/main.9f8f3104.chunk.js.map",
     "runtime-main.js": "/MainFrontApp/static/js/runtime-main.2ad298a8.js",
     "runtime-main.js.map": "/MainFrontApp/static/js/runtime-main.2ad298a8.js.map",
     "static/css/4.be72c717.chunk.css": "/MainFrontApp/static/css/4.be72c717.chunk.css",
-    "static/js/4.aee902fd.chunk.js": "/MainFrontApp/static/js/4.aee902fd.chunk.js",
-    "static/js/4.aee902fd.chunk.js.map": "/MainFrontApp/static/js/4.aee902fd.chunk.js.map",
+    "static/js/4.012e4b07.chunk.js": "/MainFrontApp/static/js/4.012e4b07.chunk.js",
+    "static/js/4.012e4b07.chunk.js.map": "/MainFrontApp/static/js/4.012e4b07.chunk.js.map",
     "static/js/5.697b81f3.chunk.js": "/MainFrontApp/static/js/5.697b81f3.chunk.js",
     "static/js/5.697b81f3.chunk.js.map": "/MainFrontApp/static/js/5.697b81f3.chunk.js.map",
     "static/js/6.5341130e.chunk.js": "/MainFrontApp/static/js/6.5341130e.chunk.js",
@@ -173,7 +173,7 @@
     "index.html": "/MainFrontApp/index.html",
     "static/css/4.be72c717.chunk.css.map": "/MainFrontApp/static/css/4.be72c717.chunk.css.map",
     "static/css/main.9b5a788f.chunk.css.map": "/MainFrontApp/static/css/main.9b5a788f.chunk.css.map",
-    "static/js/4.aee902fd.chunk.js.LICENSE.txt": "/MainFrontApp/static/js/4.aee902fd.chunk.js.LICENSE.txt",
+    "static/js/4.012e4b07.chunk.js.LICENSE.txt": "/MainFrontApp/static/js/4.012e4b07.chunk.js.LICENSE.txt",
     "static/js/75.92ebd368.chunk.js.LICENSE.txt": "/MainFrontApp/static/js/75.92ebd368.chunk.js.LICENSE.txt",
     "static/media/codicon.css": "/MainFrontApp/static/media/codicon.aeb98e0b.ttf",
     "static/media/empty_view.b5f042b2.png": "/MainFrontApp/static/media/empty_view.b5f042b2.png",
@@ -184,8 +184,8 @@
   "entrypoints": [
     "static/js/runtime-main.2ad298a8.js",
     "static/css/4.be72c717.chunk.css",
-    "static/js/4.aee902fd.chunk.js",
+    "static/js/4.012e4b07.chunk.js",
     "static/css/main.9b5a788f.chunk.css",
-    "static/js/main.e77a5ec0.chunk.js"
+    "static/js/main.9f8f3104.chunk.js"
   ]
 }
