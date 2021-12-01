@@ -24,11 +24,10 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         if(type === "organizer") {
             interviewAPI.getNewestInterview(uuid)
                 .then(data => {
-                    console.log(data)
-                    setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
                     if (data?.application?.stage?.type === "HR_INTERVIEW") {
                         setPossibleHosts(data?.possibleHosts)
                     }
+                    setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
                 })
                 .catch(() =>
                     Swal.fire({
@@ -44,7 +43,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         }
     }, [type, uuid])
 
-    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData 
+    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData
 
     return fetchError ? <Redirect to={redirectPath} /> : (
         getStillFetching() ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
