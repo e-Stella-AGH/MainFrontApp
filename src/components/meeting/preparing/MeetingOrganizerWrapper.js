@@ -14,6 +14,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
     const [outsideValues, setOutsideValues] = useState(null)
     const [fetchError, setFetchError] = useState(false)
     const [userData, setUserData] = useState(null)
+    const [possibleHosts, setPossibleHosts] = useState(null)
 
     let redirectPath = "/"
 
@@ -23,7 +24,11 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         if(type === "organizer") {
             interviewAPI.getNewestInterview(uuid)
                 .then(data => {
+                    console.log(data)
                     setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
+                    if (data?.application?.stage?.type === "HR_INTERVIEW") {
+                        setPossibleHosts(data?.possibleHosts)
+                    }
                 })
                 .catch(() =>
                     Swal.fire({
@@ -46,6 +51,8 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
                                 userData={userData}
                                 outsideJwt={jwtUtils.getAuthToken()}
                                 drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}
-                                outsideMeetingValues={outsideValues} />: <CenteredCircularProgress size={80} />
+                                outsideMeetingValues={outsideValues}
+                                allowedHostsMails={possibleHosts}
+                                />: <CenteredCircularProgress size={80} />
     )
 }
