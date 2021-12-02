@@ -14,6 +14,7 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
     const [outsideValues, setOutsideValues] = useState(null)
     const [fetchError, setFetchError] = useState(false)
     const [userData, setUserData] = useState(null)
+    const [possibleHosts, setPossibleHosts] = useState(null)
 
     let redirectPath = "/"
 
@@ -23,6 +24,9 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         if(type === "organizer") {
             interviewAPI.getNewestInterview(uuid)
                 .then(data => {
+                    if (data?.application?.stage?.type === "HR_INTERVIEW") {
+                        setPossibleHosts(data?.possibleHosts)
+                    }
                     setOutsideValues({hosts: data?.hosts || [], guest: data?.application?.jobSeeker?.user?.mail || '', uuid: data?.id})
                 })
                 .catch(() =>
@@ -39,13 +43,15 @@ export const MeetingOrganizerWrapper = ({ type : propType }) => {
         }
     }, [type, uuid])
 
-    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData 
+    const getStillFetching = () => type === "organizer" ? !!outsideValues : !!userData
 
     return fetchError ? <Redirect to={redirectPath} /> : (
         getStillFetching() ? <MeetingOrganizer meetingOrganizerBaseLink={meetingOrganizerLink}
                                 userData={userData}
                                 outsideJwt={jwtUtils.getAuthToken()}
                                 drawerStyle={{marginTop: `calc(${constants.navbar_height} + 1em)`}}
-                                outsideMeetingValues={outsideValues} />: <CenteredCircularProgress size={80} />
+                                outsideMeetingValues={outsideValues}
+                                allowedHostsMails={possibleHosts}
+                                />: <CenteredCircularProgress size={80} />
     )
 }
