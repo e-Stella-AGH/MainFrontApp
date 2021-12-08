@@ -34,12 +34,25 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64, or
     const [fixedApplications, setFixedApplications] = useState([])
     const [sort, setSort] = useState({apply: (applications) => applications})
 
+    const mapFilterApplicationsForDev = (devApplications) => {
+        if (devApplications.every(application => !!application.tags)) {
+            return devApplications
+        }
+        const tags = [...devApplications].map(application => application.notes)
+            .flat()
+            .map(note => note.tags)
+            .flat()
+        const mapped = [...devApplications].map(devApplication => ({...devApplication.application, tags, application: devApplication.application}))
+        return mapped
+    }
+
     const handleFilterSubmitted = (filters) => {
+        const innerFixedApplications = isDev ? mapFilterApplicationsForDev([...fixedApplications]) : fixedApplications
         if(areFiltersValid(filters)){
-            setApplications(sort.apply(filterItems(fixedApplications, filters)))
+            setApplications(sort.apply(filterItems(innerFixedApplications, filters)))
         }
         else {
-            setApplications(sort.apply(fixedApplications))
+            setApplications(sort.apply(innerFixedApplications))
         }
     }
 
@@ -83,23 +96,25 @@ export const ApplicationsView = ({getApplications, isHR, isDev, mailInBase64, or
     const getNotesDrawerStyle = () => isDev ? {marginRight: '3em'} : {marginLeft: '3em'}
     const getSelectedApplicationId = () => isDev ? selectedApplication?.application?.id : selectedApplication?.id
 
-    const getFilterView = (applications, fixedApplications) => (
+    const getFilterView = (applications, fixedApplications, forDev) => {
+        return (
         <Filter
             onFilterSubmitted={handleFilterSubmitted}
             reloadItems={handleFilterSubmitted}
             InDrawerFilter={ApplicationsInDrawerFilter}
             InDrawerFilterProps={{
-                items: applications,
-                fixedItems: fixedApplications,
+                items: forDev ? mapFilterApplicationsForDev([...applications]) : applications,
+                fixedItems: forDev ? mapFilterApplicationsForDev([...fixedApplications]) : fixedApplications,
             }}
         />
     )
+        }
 
     const getStandardView = (innerApplications, fixedInnerApplications, WrappedComponent = ApplicationDetails, wrappedProps = {application: selectedApplication, isHR, reload: () => setReload(!reload), isDev}, forDev=false) => (
         <>
             <div style={{...getNotesDrawerStyle()}}>
                 <StandardViewAndFilterLayout
-                    filter={getFilterView(innerApplications, fixedInnerApplications)}
+                    filter={getFilterView(innerApplications, fixedInnerApplications, forDev)}
                     sorter={null}
                     view={
                         <ColumnAndDetailsLayout
